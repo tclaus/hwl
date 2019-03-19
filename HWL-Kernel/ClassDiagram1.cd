@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Segoe UI" Size="9" />
+  <Class Name="ClausSoftware.BaseClass" Collapsed="true">
+    <Position X="22" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>BaseClass.vb</FileName>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.mainApplication" Collapsed="true">
+    <Position X="50" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\mainApplication.vb</FileName>
+      <HashCode>AAWgCEAIiKBGgwABCEERAEAQAgEAAREEgAUQCCAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.cConfig" Collapsed="true">
+    <Position X="48.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\cConfig.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Kernel.Briefe" Collapsed="true">
+    <Position X="29.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Classes\Briefe.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.2" />
+  </Class>
+  <Class Name="ClausSoftware.Kernel.DBVersion" Collapsed="true">
+    <Position X="25.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Classes\DBVersion.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClausSoftware.Kernel.ImageData" Collapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Classes\Image.vb</FileName>
+      <HashCode>gAIAAAAAAAAAQAAAAAAAAAAEBAACABAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClausSoftware.Kernel.Materialliste" Collapsed="true">
+    <Position X="31.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Classes\Materialliste.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClausSoftware.Kernel.Rohstoffpreise" Collapsed="true">
+    <Position X="27" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Classes\Rohstoffpreise.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClausSoftware.Kernel.Setting" Collapsed="true">
+    <Position X="23" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Classes\Setting.vb</FileName>
+      <HashCode>EAAgCAAAAAAAAAAAAAAABAQAAAAAAAgAAAIAAAAAAAQ=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClausSoftware.Data.BaseCollection(Of itemType)" Collapsed="true">
+    <Position X="29.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Data\BaseCollection.vb</FileName>
+      <HashCode>AAAAAIAAAAAAAEAAAAAAIAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Data.cSQLQBuilder" Collapsed="true">
+    <Position X="53.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Data\cSQLQBuilder.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAAAgBAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Data.StaticItem" Collapsed="true">
+    <Position X="22" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Data\StaticItem.vb</FileName>
+      <HashCode>AAAAAAAACAAAgAQAAACAEAAAAAEwAAAAAAAEAAAgCAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClausSoftware.My.MySettings" Collapsed="true">
+    <Position X="51.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.Connection" Collapsed="true">
+    <Position X="50" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Connection.vb</FileName>
+      <HashCode>CCBAAAAAAEIAAAIEAYAABQAgAAAAEAAiAAQAAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.Connections" Collapsed="true">
+    <Position X="51.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Connections.vb</FileName>
+      <HashCode>AAAAAAAAgAAAAAABAAAAAAFAAAAAEAEAAIAgBoABAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.testresult" Collapsed="true">
+    <Position X="51.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Connections.vb</FileName>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.localisator" Collapsed="true">
+    <Position X="48.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\localisator.vb</FileName>
+      <HashCode>AAAAAAAgAEAAAAAAUIDACAAAAAABAAAAAAAAABAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.Services" Collapsed="true">
+    <Position X="50" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Services.vb</FileName>
+      <HashCode>AAAAAAACAAIAAAAAEAAAAAAAAAAAQAAAAABAAAAAQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.Tools" Collapsed="true">
+    <Position X="53.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Services.vb</FileName>
+      <HashCode>AgAAAgAAAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAABA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.RegistryKeys" Collapsed="true">
+    <Position X="53.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Services.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAgAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.RegistryValues" Collapsed="true">
+    <Position X="48.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Services.vb</FileName>
+      <HashCode>AIAAAJAAAAAQAAAAAACAAAAAAAAgAAAAEAAEAEAQAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClausSoftware.Tools.UserStats" Collapsed="true">
+    <Position X="48.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\UserStats.vb</FileName>
+      <HashCode>AAAIAAAAAIAAACAAAgAAABAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ClausSoftware.IAddIn" Collapsed="true">
+    <Position X="48.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Interfaces\IAddIn.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ClausSoftware.IDataItem" Collapsed="true">
+    <Position X="51.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Interfaces\iDBAccess.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ClausSoftware.Data.IDataCollection" Collapsed="true">
+    <Position X="50" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Data\IDataCollection.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ClausSoftware.Data.IStaticItemData" Collapsed="true">
+    <Position X="53.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Kernel\Data\IStaticItemData.vb</FileName>
+      <HashCode>AAAAAAAAAAAAgAQAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ClausSoftware.enumDocType" Collapsed="true">
+    <Position X="50" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\enumDocType.vb</FileName>
+      <HashCode>AAAAAACAAAIAAAAAAABAQAAAAIAAAAAAAAAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ClausSoftware.CollectionType" Collapsed="true">
+    <Position X="48.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\enumDocType.vb</FileName>
+      <HashCode>AAAAAAAIAAAAAAAABAAAAAAAAACAAAAAAAAAACAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ClausSoftware.Tools.enumServerType" Collapsed="true">
+    <Position X="51.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\Services.vb</FileName>
+      <HashCode>AAIAAAAAAAAAAEAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Module Name="ClausSoftware.My.Resources.Resources" Collapsed="true">
+    <Position X="51.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="ClausSoftware.My.MySettingsProperty" Collapsed="true">
+    <Position X="50" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="ClausSoftware.Tools.modLog" Collapsed="true">
+    <Position X="48.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Tools\modLog.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+</ClassDiagram>

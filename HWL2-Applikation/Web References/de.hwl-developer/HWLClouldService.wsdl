@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://microsoft.com/webservices/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://microsoft.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/webservices/">
+      <s:element name="RequestToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mailAdress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="servicePassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestTokenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestNewDatabase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestNewDatabaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestNewDatabaseResult" type="tns:ConnectionData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConnectionData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ServerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatabaseName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RequestTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestToken" />
+  </wsdl:message>
+  <wsdl:message name="RequestTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestNewDatabaseSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestNewDatabase" />
+  </wsdl:message>
+  <wsdl:message name="RequestNewDatabaseSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestNewDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:portType name="HWLClouldServiceSoap">
+    <wsdl:operation name="RequestToken">
+      <wsdl:input message="tns:RequestTokenSoapIn" />
+      <wsdl:output message="tns:RequestTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestNewDatabase">
+      <wsdl:input message="tns:RequestNewDatabaseSoapIn" />
+      <wsdl:output message="tns:RequestNewDatabaseSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HWLClouldServiceSoap" type="tns:HWLClouldServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RequestToken">
+      <soap:operation soapAction="http://microsoft.com/webservices/RequestToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestNewDatabase">
+      <soap:operation soapAction="http://microsoft.com/webservices/RequestNewDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HWLClouldServiceSoap12" type="tns:HWLClouldServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RequestToken">
+      <soap12:operation soapAction="http://microsoft.com/webservices/RequestToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestNewDatabase">
+      <soap12:operation soapAction="http://microsoft.com/webservices/RequestNewDatabase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HWLClouldService">
+    <wsdl:port name="HWLClouldServiceSoap" binding="tns:HWLClouldServiceSoap">
+      <soap:address location="http://83.169.8.193/data/HWLClouldService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HWLClouldServiceSoap12" binding="tns:HWLClouldServiceSoap12">
+      <soap12:address location="http://83.169.8.193/data/HWLClouldService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

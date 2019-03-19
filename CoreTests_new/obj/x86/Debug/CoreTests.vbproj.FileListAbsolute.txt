@@ -1,0 +1,46 @@
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\de-de.txt
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\en-gb.txt
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\FR-FR.txt
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\it.txt
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\ru-ru.txt
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\tr.txt
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\PL-pl.txt
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\Helpfiles\Help-de.chm
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\Helpfiles\Help-de.pdf
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\CoreTests.nunit
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\MySql.Data.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\bogenhigh_transparent.png
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\ApplicationInfo.ini
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWL\ApplicationInfo.ini
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\PB\ApplicationInfo.ini
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\TemplateDataBase\template.mdb
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\CoreTests.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\CoreTests.pdb
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\CoreTests.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWL2.exe
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWLInterops.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWLKernel.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\nunit.framework.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\nunit.mocks.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\SendErrorMessage.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\Mommosoft.Capi.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\Vista Api.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWLKernel.pdb
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWLKernel.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWL2.pdb
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWL2.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWLInterops.pdb
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWLInterops.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\nunit.framework.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\SendErrorMessage.pdb
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\SendErrorMessage.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\Mommosoft.Capi.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\Vista Api.pdb
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\Vista Api.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\bin\Debug\HWL2.XmlSerializers.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\obj\x86\Debug\CoreTests.vbprojResolveAssemblyReference.cache
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\obj\x86\Debug\CoreTests.Resources.resources
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\obj\x86\Debug\CoreTests.vbproj.GenerateResource.Cache
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\obj\x86\Debug\CoreTests.dll
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\obj\x86\Debug\CoreTests.xml
+C:\Entwicklung\HWL-NEXT\Main\CoreTests_new\obj\x86\Debug\CoreTests.pdb

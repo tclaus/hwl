@@ -1,0 +1,17 @@
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\converter\DATANDAT.DAT
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\converter\DATANK05.exe
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\MySql.Data.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\Datanorm.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\Datanorm.pdb
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\Datanorm.xml
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\HWLKernel.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\HWLKernel.pdb
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\bin\Debug\HWLKernel.xml
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\ClausSoftware.frmDatanormImport.resources
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\ClausSoftware.Resources.resources
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\Datanorm.vbproj.GenerateResource.Cache
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\Datanorm.dll.licenses
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\Datanorm.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\Datanorm.xml
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\Datanorm.pdb
+C:\Entwicklung\HWL-NEXT\Main\Projekte\Datanorm\obj\x86\Debug\Datanorm.vbprojResolveAssemblyReference.cache

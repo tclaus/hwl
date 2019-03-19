@@ -1,0 +1,11 @@
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\bin\Debug\Vista Api.XML
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\bin\Debug\Vista Api.dll
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\bin\Debug\Vista Api.pdb
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista Api.csprojResolveAssemblyReference.cache
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista_Api.CommandDialog.resources
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista_Api.CommandLink.resources
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista_Api.ListView.resources
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista_Api.Properties.Resources.resources
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista Api.csproj.GenerateResource.Cache
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista Api.dll
+C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista Api.pdb

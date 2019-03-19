@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D3FE2F32-80F6-4229-8025-F25DE3103662}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ClausSoftware</RootNamespace>
+    <AssemblyName>HWLKernel</AssemblyName>
+    <MyType>Windows</MyType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>HWL-Developer-Key.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <OptionStrict>On</OptionStrict>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>HWLKernel.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>HWLKernel.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Demo|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Demo\</OutputPath>
+    <DocumentationFile>HWLKernel.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>HWLKernel.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>HWLKernel.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Demo|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Demo\</OutputPath>
+    <DocumentationFile>HWLKernel.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Reports.v11.2.Designer, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v11.2.Extensions, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=1.0.7.30072, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="DevExpress.Xpo" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.vb">
+      <Link>CommonAssemblyInfo.vb</Link>
+    </Compile>
+    <Compile Include="Database\dbEngine.vb">
+    </Compile>
+    <Compile Include="Import\AddIns.vb" />
+    <Compile Include="Import\IImportInterface.vb" />
+    <Compile Include="Kernel\Classes\AboItems\AboItem.vb" />
+    <Compile Include="Kernel\Classes\AboItems\AboItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\AboItems\WorkedAboItem.vb" />
+    <Compile Include="Kernel\Classes\AboItems\WorkedAboItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Appointment.vb" />
+    <Compile Include="Kernel\Classes\AppointmentResource.vb" />
+    <Compile Include="Kernel\Classes\AppointmentResources.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Appointments.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Attributes\MultiSelectProfile.vb" />
+    <Compile Include="Kernel\Classes\Attributes\MultiSelectProfiles.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Attributes\MultiSelectValue.vb" />
+    <Compile Include="Kernel\Classes\Attributes\MultiSelectValues.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Attributes\ArticleReplacement.vb" />
+    <Compile Include="Kernel\Classes\Attributes\ArticleReplacements.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\BillOfMaterial\ArticleLink.vb" />
+    <Compile Include="Kernel\Classes\BillOfMaterial\ArticleLinks.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Attachment.vb" />
+    <Compile Include="Kernel\Classes\Attachments.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\AttachmentRelation.vb" />
+    <Compile Include="Kernel\Classes\AttachmentRelations.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Attributes\AttributeValue.vb" />
+    <Compile Include="Kernel\Classes\Attributes\AttributeValues.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Attributes\AttributeValueDefinition.vb" />
+    <Compile Include="Kernel\Classes\Attributes\AttributeValueDefinitions.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Attributes\ClassDefinition.vb" />
+    <Compile Include="Kernel\Classes\Attributes\ClassDefinitions.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\CanceledDocuments.vb" />
+    <Compile Include="Kernel\Classes\CashAccount.vb" />
+    <Compile Include="Kernel\Classes\CashAccounts.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\CashJournalTimeFrame.vb" />
+    <Compile Include="Kernel\Classes\JournalDocumentType.vb" />
+    <Compile Include="Kernel\Classes\JournalDocumentTypes.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\CountryTaxes.vb" />
+    <Compile Include="Kernel\Classes\Discount.vb" />
+    <Compile Include="Kernel\Classes\Discounts.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\DownPayment.vb" />
+    <Compile Include="Kernel\Classes\DownPayments.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\ActiveInstance.vb" />
+    <Compile Include="Kernel\Classes\ActiveInstances.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Journal\JournalDocumentMetaInfo.vb" />
+    <Compile Include="Kernel\Classes\Journal\JournalDocumentMetaInfos.vb" />
+    <Compile Include="Kernel\Classes\NamedSettings\TransactionSettings.vb" />
+    <Compile Include="Kernel\Classes\PhoneCalls.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\PhoneCall.vb" />
+    <Compile Include="Kernel\Classes\Printing\ReportProxy.vb" />
+    <Compile Include="Kernel\Classes\RecentlyUsedItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\RecentlyUsedItem.vb" />
+    <Compile Include="Kernel\Classes\Printing\Report.vb" />
+    <Compile Include="Kernel\Classes\Printing\Reports.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Reminder.vb" />
+    <Compile Include="Kernel\Classes\Reminders.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\NamedSettings\ArticleListSettings.vb" />
+    <Compile Include="Kernel\Classes\TaxValuePair.vb" />
+    <Compile Include="Kernel\Classes\TaxValuePairs.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\FixedCostGroup.vb" />
+    <Compile Include="Kernel\Classes\FixedCostGroups.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\AddressHistoryItem.vb" />
+    <Compile Include="Kernel\Classes\AddresHistoryItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\HistoryCategory.vb" />
+    <Compile Include="Kernel\Classes\HistoryCategories.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\languages\Interfaces.vb" />
+    <Compile Include="Kernel\Classes\languages\NLSTextItem.vb" />
+    <Compile Include="Kernel\Classes\LoanAccount.vb" />
+    <Compile Include="Kernel\Classes\LoanAccounts.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\NamedSettings\ItemsSettings.vb" />
+    <Compile Include="Kernel\Classes\TemplateData.vb" />
+    <Compile Include="Kernel\Classes\TemplateDatas.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Template.vb" />
+    <Compile Include="Kernel\Classes\Templates.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\TrackedItem.vb" />
+    <Compile Include="Kernel\Classes\Transaction.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Transactions.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Data\BaseClass.vb" />
+    <Compile Include="Kernel\Classes\Image.vb" />
+    <Compile Include="Kernel\Classes\Images.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\BaseWorkItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Group.vb" />
+    <Compile Include="Kernel\Classes\Groups.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\WorkItem.vb" />
+    <Compile Include="Kernel\Classes\WorkItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Data\Licenses.vb" />
+    <Compile Include="Kernel\Data\SchemaUpdater.vb" />
+    <Compile Include="Kernel\enums.vb" />
+    <Compile Include="Kernel\events.vb" />
+    <Compile Include="Kernel\Interfaces\enums.vb" />
+    <Compile Include="Kernel\Interfaces\GridFormatter.vb" />
+    <Compile Include="Kernel\Interfaces\ISortableItem.vb" />
+    <Compile Include="Kernel\Interfaces\IStaticDatabase.vb" />
+    <Compile Include="Kernel\security\UserGroup.vb" />
+    <Compile Include="Kernel\security\UserGroups.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\security\SecurityLock.vb" />
+    <Compile Include="Kernel\security\SecurityLocks.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\security\UserRight.vb" />
+    <Compile Include="Kernel\security\UserRights.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\security\User.vb" />
+    <Compile Include="Kernel\security\Users.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="modservices.vb" />
+    <Compile Include="Tools\CommandLineAttribute.vb" />
+    <Compile Include="Tools\Connections.vb" />
+    <Compile Include="Kernel\Classes\Letter.vb" />
+    <Compile Include="Kernel\Classes\Letters.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\DBVersion.vb" />
+    <Compile Include="Kernel\Classes\DBVersions.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Units.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Unit.vb" />
+    <Compile Include="Kernel\Classes\Setting.vb" />
+    <Compile Include="Kernel\Classes\Settings.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\JournalArticleItem.vb" />
+    <Compile Include="Kernel\Classes\JournalArticleItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\JournalDocument.vb" />
+    <Compile Include="Kernel\Classes\JournalDocuments.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\CashJournalItem.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\CashJournalItems.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\FixedCost.vb" />
+    <Compile Include="Kernel\Classes\FixedCosts.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Tasks.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Task.vb" />
+    <Compile Include="Kernel\Classes\Article.vb" />
+    <Compile Include="Kernel\Classes\Articles.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\TextTemplate.vb" />
+    <Compile Include="Kernel\Classes\TextTemplates.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\TaxRate.vb" />
+    <Compile Include="Kernel\Classes\TaxRates.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\JournalArticleGroup.vb" />
+    <Compile Include="Kernel\Classes\JournalArticleGroups.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Classes\Rohstoffpreis.vb" />
+    <Compile Include="Kernel\Classes\Rohstoffpreise.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\Data\IDataCollection.vb" />
+    <Compile Include="Kernel\Data\IStaticItemData.vb" />
+    <Compile Include="Kernel\Classes\Adresse.vb" />
+    <Compile Include="Kernel\Classes\Adressen.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Kernel\mainApplication.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Kernel\Data\StaticItem.vb" />
+    <Compile Include="Kernel\Data\BaseCollection.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\Connection.vb" />
+    <Compile Include="Tools\enumDocType.vb" />
+    <Compile Include="Tools\ErrorHandler.vb" />
+    <Compile Include="Tools\ftpClass.vb" />
+    <Compile Include="Tools\StatisticInfo.vb" />
+    <Compile Include="Tools\Localisator.vb" />
+    <Compile Include="Tools\LogHandling.vb" />
+    <Compile Include="Tools\ThumbnailCreator.vb" />
+    <Compile Include="Tools\UserStats.vb" />
+    <Compile Include="Tools\Services.vb" />
+    <Compile Include="Web References\OnlineReporting\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Klassenübersicht.cd" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\OnlineReporting\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\OnlineReporting\StatisticsReporting.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="HWL-Developer-Key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.VisualBasic.PowerPacks.10.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Visual Basic PowerPacks 10.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\no_picture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Import\readme.txt" />
+    <Content Include="MySql.Data.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Web References\OnlineReporting\StatisticsReporting.disco" />
+    <None Include="Resources\Final_Demand.vlg" />
+    <None Include="Resources\Second_Remind.vlg" />
+    <None Include="Resources\First_Remind.vlg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://83.169.8.193/data/StatisticsReporting.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\OnlineReporting\</RelPath>
+      <UpdateFromURL>http://83.169.8.193/data/StatisticsReporting.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>HWLKernel_OnlineReporting_StatisticsReporting</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

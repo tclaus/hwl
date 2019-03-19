@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>  
+ <Project ToolsVersion="3.5" DefaultTargets="Build"  
+          xmlns="http://schemas.microsoft.com/developer/msbuild/2003"    InitialTargets="CopyTrunc">     
+   <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+ 
+
+     <Target Name="Build"  >       
+       <Message  Importance="high" Text="Building Soulution..."/>
+      <MSBuild Projects="HWL2.5.sln" Properties="Configuration=Release;Platform=x86;TrackFileAccess=False"  />
+       
+    </Target>
+
+
+   <Target Name="Test" DependsOnTargets="Build" >
+     <Message Importance="high" Text="Running Tests..."/>
+
+     <NUnit Assemblies=".\CoreTests_new\bin\release\CoreTests.dll" 
+            ToolPath="$(ProgramFiles)\NUnit 2.5.1\bin\net-2.0" />  
+            <!-- Force32Bit="True"   Parameter für lokale ausführung-->
+   </Target>
+
+
+   <Target Name="CreateSetup-HWL" DependsOnTargets="Test">
+     <PropertyGroup>      
+       <ToolPath>&quot;$(ProgramFiles)\Inno Setup 5\iscc.exe&quot;</ToolPath>
+       <Param1>HWL2-Setup.iss</Param1>
+     </PropertyGroup>
+      <Message Importance="high" Text="CreatingHWL 2.5 Setup..."/>
+     <Exec Command="$(ToolPath) $(Param1)"/>
+   </Target>
+
+   <Target Name="CreateUpdate-HWL" DependsOnTargets="CreateSetup-HWL">
+     <PropertyGroup>
+       <ToolPath>&quot;$(ProgramFiles)\Inno Setup 5\iscc.exe&quot;</ToolPath>
+       <Param1>HWL2-Update.iss</Param1>
+     </PropertyGroup>
+     <Message Importance="high" Text="CreatingHWL 2.5 Update..."/>
+     <Exec Command="$(ToolPath) $(Param1)"/>
+   </Target>
+   
+   <!--
+   <Target Name="CreateSetup-PB" DependsOnTargets="Test">
+     <PropertyGroup>
+       <ToolPath>&quot;$(ProgramFiles)\Inno Setup 5\iscc.exe&quot;</ToolPath>
+       <Param1>PB2-Setup.iss</Param1>
+     </PropertyGroup>
+     <Message Importance="high" Text="Creating Power-Büro Setup..."/>
+     <Exec Command="$(ToolPath) $(Param1)"/>
+   </Target>
+   -->
+   
+   
+<!-- Nach Test die Ausgabe kopieren  Power-Büro ist nun raus-->
+   <Target Name="CopyTrunc" DependsOnTargets="CreateSetup-HWL;CreateUpdate-HWL"> 
+
+     <ItemGroup> <!-- ItemGroups definieren Dateien -->
+       <MyHWLSourceFiles Include=".\Output\HWL2.5*.exe" />
+       
+     </ItemGroup>
+
+     <PropertyGroup> <!-- Properties definieren freie eigenschaften -->
+      
+       <DestHWLFolder>C:\Development\Files\HWL-2.5</DestHWLFolder>
+       
+      </PropertyGroup>
+     
+     <!-- Versionsnummer der Datei erstellen, Revision wird stets erhöht -->
+     <Version VersionFile="C:\Development\Files\HWL-2.5\number.txt"  RevisionType="BuildIncrement" Major="2" Minor="5" BuildType="Automatic" Startdate="2012-04-06" Build="0">
+       <Output TaskParameter="Major" PropertyName="Major" />
+       <Output TaskParameter="Minor" PropertyName="Minor" />
+       <Output TaskParameter="Build" PropertyName="Build" />
+       <Output TaskParameter="Revision" PropertyName="Revision" />
+     </Version>
+     
+     <Message Importance="high"  Text="Neue Dateiversion: $(Major).$(Minor).$(Build).$(Revision)"/>
+    
+     <Message Importance="high" Text="Copying setup to $(DestFolder)..."/>
+    
+     <!-- Kopiert das HWL-Setup aus dem Ausgabeordner in ein öffentliches Verzechnis -->
+     <Copy SourceFiles="@(MyHWLSourceFiles)" DestinationFolder="$(DestHWLFolder)\$(Major).$(Minor).$(Build)" />
+     <Copy SourceFiles="@(MyHWLSourceFiles)" DestinationFolder="$(DestHWLFolder)\Latest" />
+     <Copy SourceFiles="changelog.txt" DestinationFolder="$(DestHWLFolder)\Latest" />
+     
+     <!--Das setup nun mit Versionsnummer umbenennen -->    
+     <Move SourceFiles="$(DestHWLFolder)\$(Major).$(Minor).$(Build)\HWL2.5-Setup.exe"
+                     DestinationFiles="$(DestHWLFolder)\$(Major).$(Minor).$(Build)\HWL2-Setup-$(Major).$(Minor).$(Build).$(Revision).exe" />
+
+     
+     <!-- Power Büro kopieren
+     <Message Importance="high" Text="Copying setup to $(DestPBFolder)..."/>
+
+     // Kopiert das HWL-Setup aus dem Ausgabeordner in ein öffentliches Verzechnis 
+     <Copy SourceFiles="@(MyPBSourceFiles)" DestinationFolder="$(DestPBFolder)\$(Major).$(Minor).$(Build)" />
+     <Copy SourceFiles="@(MyPBSourceFiles)" DestinationFolder="$(DestPBFolder)\Latest" />
+     <Copy SourceFiles="changelog.txt" DestinationFolder="$(DestPBFolder)\Latest" />
+
+     // Das setup nun mit Versionsnummer umbenennen 
+     <Move SourceFiles="$(DestPBFolder)\$(Major).$(Minor).$(Build)\PB2-Setup.exe"
+                     DestinationFiles="$(DestPBFolder)\$(Major).$(Minor).$(Build)\PB2-Setup-$(Major).$(Minor).$(Build).$(Revision).exe" />
+                     
+    -->  
+     
+   </Target>
+
+ </Project>

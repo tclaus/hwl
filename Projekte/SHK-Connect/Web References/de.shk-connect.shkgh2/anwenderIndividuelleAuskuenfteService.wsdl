@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://service.shk-connect.de" name="anwenderIndividuelleAuskuenfteService" targetNamespace="http://service.shk-connect.de" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema targetNamespace="http://service.shk-connect.de" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GetIndividuelleAuskunft" type="tns:GetIndividuelleAuskunft" />
+      <xs:element name="GetIndividuelleAuskunftAntwort" type="tns:GetIndividuelleAuskunftResponse" />
+      <xs:complexType name="GetIndividuelleAuskunft">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Schnittstellenversion" type="xs:string" />
+          <xs:element minOccurs="0" name="Softwarename" type="xs:string" />
+          <xs:element minOccurs="0" name="Softwarepasswort" type="xs:string" />
+          <xs:element name="UnternehmensID" type="xs:int" />
+          <xs:element minOccurs="0" name="Kundennummer" type="xs:string" />
+          <xs:element minOccurs="0" name="Benutzername" type="xs:string" />
+          <xs:element minOccurs="0" name="Passwort" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetIndividuelleAuskunftResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Schnittstellenversion" type="xs:string" />
+          <xs:element minOccurs="0" name="Serverkennung" type="xs:string" />
+          <xs:element minOccurs="0" name="Status" type="tns:Status" />
+          <xs:element minOccurs="0" name="Prozessliste" type="tns:Prozessliste" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Status">
+        <xs:sequence>
+          <xs:element name="Code" type="xs:string" />
+          <xs:element minOccurs="0" name="Meldung" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Prozessliste">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Prozess" type="tns:Prozess" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Prozess">
+        <xs:sequence>
+          <xs:element name="Prozesscode" type="xs:string" />
+          <xs:element minOccurs="0" name="Teilprozesse">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Teilprozess" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="URL" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Link" type="tns:Link" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Link">
+        <xs:sequence>
+          <xs:element name="Beschreibung" type="xs:string" />
+          <xs:element name="URL" type="xs:string" />
+          <xs:element minOccurs="0" name="Datum" type="xs:string" />
+          <xs:element name="Groesse" nillable="true" type="xs:long" />
+          <xs:element name="Authentifizierungsmethode" type="tns:Authentifizierungsmethode" />
+          <xs:element name="DatenDatum" type="xs:string" />
+          <xs:element minOccurs="0" name="AenderungsInfo" type="xs:string" />
+          <xs:element minOccurs="0" name="CookieList">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Cookie" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="Authentifizierungsmethode">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="URL" />
+          <xs:enumeration value="HTTPAUTH" />
+          <xs:enumeration value="KEINE" />
+          <xs:enumeration value="COOKIE" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </types>
+  <message name="AnwenderIndividuelleAuskuenfteBean_GetIndividuelleAuskunft">
+    <part name="GetIndividuelleAuskunft" element="tns:GetIndividuelleAuskunft" />
+  </message>
+  <message name="AnwenderIndividuelleAuskuenfteBean_GetIndividuelleAuskunftResponse">
+    <part name="GetIndividuelleAuskunftAntwort" element="tns:GetIndividuelleAuskunftAntwort" />
+  </message>
+  <portType name="AnwenderIndividuelleAuskuenfteBean">
+    <operation name="GetIndividuelleAuskunft" parameterOrder="GetIndividuelleAuskunft">
+      <input message="tns:AnwenderIndividuelleAuskuenfteBean_GetIndividuelleAuskunft" />
+      <output message="tns:AnwenderIndividuelleAuskuenfteBean_GetIndividuelleAuskunftResponse" />
+    </operation>
+  </portType>
+  <binding name="AnwenderIndividuelleAuskuenfteBeanBinding" type="tns:AnwenderIndividuelleAuskuenfteBean">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetIndividuelleAuskunft">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="anwenderIndividuelleAuskuenfteService">
+    <port name="anwenderIndividuelleAuskuenftePort" binding="tns:AnwenderIndividuelleAuskuenfteBeanBinding">
+      <soap:address location="http://shkgh.shk-connect.de/services/AnwenderIndividuelleAuskuenfte" />
+    </port>
+  </service>
+</definitions>

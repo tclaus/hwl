@@ -1,0 +1,641 @@
+﻿MarqueeProgressBarControl1; 0
+ProgressBarControl1; 0
+lblStatusMessage; başlayın ...
+btnClose; Kapat
+Splash Screen;
+depolama hedeflerin ReadingConnectionsList; okuma listesi ...
+mshNoUpdateFoundInWebsite; No güncelleme bulundu
+msgSearchNullText; arama ...
+cmdExit; sonu
+cmdKasse; Nakit kitap
+btnScheduler; Tarihi
+cmdLetters; harfler
+cmdBusiness; / faturaların teklifi
+cmdCashFlow; varlıklar / yükümlülükler
+cmdArticles; malzeme ana
+cmdAdressbook; Adres
+; TabMain Başlat
+TabControl;
+; FrmMain HWL
+Uzaktan Database Server, Server
+msgStartupNewWorkingPane; Başlangıç yeni modül:
+lblTodaysTasks; görevleri
+clbTasks;
+lblTodayAppointments; Tarihleri
+lstAppointments;
+picCloseModule; System.Drawing.Bitmap
+Bugün; Bugün
+prop_TaskClosed; Tamamlandı
+prop_Tasksubject; Konu
+prop_TaskCreatedAt; düzenlendi
+prop_TaskExpiration; Bitiş Tarihi
+prop_HasChanged; değiştirildi
+prop_InternalUniqueKeyValue; anahtar Kimliği (GUID)
+module_Start; Başlangıç
+lblMainScreenwelcomeText;) (appname
+msgReady hazır
+msgApplicationLaunchReady; hazır.
+btnMenuFile; dosya
+btnMenuDataImportExport; İthalat / İhracat
+btnMenuPageSetup, baskı düzenleri yönetmek ...
+btnMenuShowPageFrameSetup kadar; sayfa
+btnMenuShowTasks; görevleri
+btnMenuLockApplication; Kilitler
+btnMenuEndApplication; Çıkış
+btnMenuView; görünümü
+btnMenuShowTodayToolBar;) (UygAdı Bugün
+btnMenuReports; değerlendirmeler
+btnReports; belgeler
+btnMenuFixedCosts; sabit maliyetler
+btnMenuTopLists; Top 10 listeleri
+btnMenuExtras; Araçlar
+btnMenuOptions; seçenekleri
+BarButtonItem1; Şablonlar
+BarButtonItem4; Dergisi iddiaları için çeviren:
+btnMenuHelp; Yardım
+btnMenuInvokeHelp; Yardım
+btnMenuOpenUserFeedbackSite; Teknik Destek
+btnMenuCheckForUpdates; güncellemeleri
+btnMenuLicenses; lisansları ...
+btnAboutBox; UygAdı Hakkında () ...
+TestPeriodExceedPleaseInstallAValidLicense onlar geçerli bir lisans yükleyin. Deneme süresi beendet olarak. / NThe program şimdi kapatılacak.
+TestPeriodexceed; test Zeitz boşluk doldu
+SchedulerControl1; SchedulerControl1
+DateNavigator1; DateNavigator1
+bntClose; Kapat
+btnPrint; Baskı
+msgLookingForUpdates; güncelleştirmeleri için ...
+msgNonewUpdates; No güncellemeleri mevcut.
+btnResetAdress; Reset
+btnSearchAdress; arama ...
+lblPaymentAccount; ödeme
+lblPaimantDate; ödeme
+lblDays; gün
+radPaimentDate; radPaimentDate
+lblDescription; Açıklama
+lblFooterText, ayak metin
+lblHeadText; başlık
+tabTemplates; Şablonlar
+tabhead; tabhead
+grdItemsList; grdItemsList
+cmdDetails detaylar ...
+cmdAddArticleGroup; Yeni Ürünler Grubu ...
+lblTextNettoSumme, toplam net
+radDiscountType; 0
+lblSummValueAfterTax; toplam
+lblTaxValueText2; oranı
+lblTaxValueText1; oranı
+lblTaxValue1; 0
+lblTaxValue2; 0
+lblTaxValueText3; oranı
+lblTaxValue3; 0
+cmdAddArticle; Yeni Ürünler ...
+chkShowPreviewLines; göster uzun metin listesinde
+chkShowWithTax; mürekkep fiyatları. Vergi
+lblDocumentNumber; Belge numarası
+lbldocumentDisplayID; 0
+LabelControl8; Adres
+lblAdressLine; Fa Maier
+lbldocumentsDate; Tarih:
+lblCreatedAt; Oluşturulma:
+lblChangedAt; üzerinde Değişik:
+btnMaximizeworkspace; btnMaximizeworkspace
+btnJournal; Dergisi
+PanelControl1; PanelControl1
+btnSave; Kaydet
+btnNew; Yeni
+prop_ItemCount, sayı
+prop_HeaderText; isim
+prop_Groupprice, grup oranı (net)
+prop_ArticleList; Ürün Listesi
+prop_PositionNumber, madde numarası
+prop_DisplaySinglePrice; Fiyatı
+prop_DisplayTotalPrice; Toplam
+vergi, vergi
+ItemGroupDefaultName; Madde kategori
+prop_Position; pozisyon
+prop_ItemName; Ürün Adı
+prop_ItemMemoText; açıklaması
+prop_minutes; dakika
+prop_ItemUnit; Ünitesi
+prop_BasePrice; taban fiyat
+prop_SinglePriceAfterTax; Fiyatı (brüt)
+prop_SinglePriceBeforeTax; Fiyatı (net)
+prop_TotalPriceBeforeTax; Toplam (net)
+prop_TotalPriceAfterTax; Toplam (brüt)
+prop_TaxRateValue; KDV.
+prop_ExternalItemNumber; makale d. yapımcı
+prop_InternalItemNumber; kendi makale
+prop_ItemPicture; Ürün Resmi
+btnHideIfMinimized; gizle küçültüldüğünde
+msgApplicationNowMinimized; (UygAdı) şimdi araç bulunuyor.
+chkPrintDefault; Standart
+chkBillOfMaterial; BOM
+chkPrintBillOfDelivery; teslim
+grpWhatToPrint; Ne yazdırmak istiyorsunuz?
+chkNoPriceSumField; No Fiyat belirtmek
+chkshowWithTax, 'vergiler dahil
+CheckEdit1; antetli ile
+btnPrintPreview; önizleme ...
+dlgPrintdocuments; Baskı ...
+Belge Görüntüleyici, Belge Görüntüleyici
+ReportExplorerDockPanel1; Raporu Explorer
+FieldListDockPanel1; Alan Listesi
+panelContainer2; panelContainer2
+propertyGridControl; propertyGridControl
+splitter, splitter
+mülkiyet Açıklama Kontrol; mülkiyet Açıklama Kontrol
+PropertyGridDockPanel1; Emlak Grid
+panelContainer1; panelContainer1
+ToolBoxDockPanel1; Araç Kutusu
+RibbonStatusBar1; RibbonStatusBar1
+RibbonControl1; RibbonControl1
+frmPrintLetter; Sayfa Düzeni
+msgWaitForPrintDesignerLoad; Download Düzen Designer ...
+Journal Belge; Journal Belge
+prop_Tagged; Marks
+prop_UseDeliverAdress; kullanın sevkıyat adresi
+prop_DeliveryAdress, teslimat adresi
+prop_HeadText; başlık
+prop_AddressNumberID; adres sayısı
+prop_Address; Adres
+prop_CreatedAt; Oluşturulma
+prop_CreatedBy; tarafından düzenlendi
+prop_ChangedAt; Son
+prop_DocumentTyp; Belge Türü
+prop_DocumentKeyID; numarası
+prop_AttachmentList; ekleri
+prop_DocumentDate; Tarihi
+prop_MemoText; Açıklama
+prop_PaymentTarget; ödeme
+prop_DiscountValue; indirim değeri
+prop_DiscountValueAbs; indirim miktarı
+prop_DiscountText; indirim metin
+prop_DiscountActive; indirim aktif
+prop_TitelText; Metin
+prop_Subject; Konu
+prop_CashAccount; rezervasyon hesabı
+prop_FooterText; ayak metin
+prop_AddressWindow; adres penceresi
+prop_AddressWindowChangedByUser; adres penceresi son
+prop_ArticleGroups; makale gruplar
+prop_SalesPrice; miktarı
+prop_CalculatedTaxesContainer; belgenin vergi bölümleri
+prop_DisplayBasePrice; toplamı
+prop_DisplayDiscountedValue; Subtotal
+prop_EndPriceBeforeTax; net
+prop_DocumentTypeText; Belge
+prop_FinishedTagged; Tamamlandı
+prop_TaxValue; Vergi
+prop_HasAttachment, Ek
+prop_DocumentDisplayID; Belge numarası
+prop_DisplayHeaderText; başlık
+prop_DisplayFooterrText; ayak metin
+prop_LastChangedBy gibi, tadil
+prop_LastChangedAt; Son
+Fatura adresi prop_DeliveryAdressLinked; teslimat adresi
+prop_ContactDisplayID; irtibat numarası
+prop_Company; Şirket
+prop_ContactsName; İsim
+prop_Street; Street
+prop_ZipCode; ZIP
+; Prop_Town yer
+prop_KindOfBusiness; Ticari
+prop_Telephone1; Telephone1
+prop_Telephone2, Telephone2
+prop_Fax; Faks
+prop_EmailAddress, e-posta
+prop_Discount; indirim
+prop_Notes; yorum
+prop_BankName; Banka Adı
+prop_BankIDNumber; Bankası
+prop_BankAccountNumber, hiçbir hesap.
+prop_IsActive; Aktif
+prop_Country; Ülke
+prop_ProductRange; teslim
+prop_CanReceiveMailings; posta alıcısı
+prop_AddressCustomID; ID
+prop_EntryPrintable; ifade mevcut
+prop_UnitName; Adı
+prop_UnitDataNormShortName; Datanom kısayolları
+prop_UnitShortName; Tayin
+prop_UnitDecimals; ondalık
+prop_UnitMask; girdi maskesi
+enum_Journaldocument; / faturaların teklifi
+prop_IsHiddenArticlePrices; madde fiyatları gizli
+prop_TaxValuePair; oranları
+prop_IsHidddenArticles; makale gizli
+prop_ItemUnitText; Birim Adı
+prop_ManufactorsAddress; Satıcı Adresi
+msgCommonelementSaved; under: '(0)'
+PictureEdit1; System.Drawing.Bitmap
+prop_Date; Tarihi
+prop_ItemDisplayNummer; hesap numarası
+prop_text; Metin
+prop_PaidAmmount; Ödenen
+prop_UnpaidAmmount; Ücretsiz
+, Miktar prop_TotalAmmount
+prop_IsPaid; ödenir
+prop_TargetPayDate; hedef tarih
+prop_PaidDate; Bezahltdatum
+msgSelectedItemCount; işaretli (0) ve (1).
+cmdPayments; ödemeler ...
+lblTransactionID; numarası
+lblItemID; 0
+lblTransactionDate; kitap tarih
+lblTransactionAddress; Adres
+lblAccount; maliyet merkezi
+lblTaxrate; Vergisi
+lbInvoiceID; hesap numarası
+lblAmmount; miktarı
+radMoneyFlow; radMoneyFlow
+grdTaxValues; grdTaxValues
+lblReceiveables; gelir
+lblPayables; giderleri
+radAllDates; Tüm
+radFullyear; tüm yıl
+radQ4; 4 Çeyrek
+radQ3; 3 Çeyrek
+radQ2; 2 Çeyrek
+radQ1; ilk Çeyrek
+; RadJan Ocak
+radFeburar; Şubat
+RadMärz; Mart
+radApril; Nisan
+radMai; Mayıs
+; RadJun Haziran
+radJul; Temmuz
+radDez; Aralık
+radNov; Kasım
+radOkt; Ekim
+radSep; Eylül
+radAug; Ağustos
+; RadPaidOn radPaidOn
+chkIsPaid; Tam ödenen:
+grdCommonGrid; grdCommonGrid
+Yeni, Yeni
+lblSearchResults; sonuçları
+grdsearchItems; grdsearchItems
+lblSearchHeadline; arama ....
+msgNoFoundItems; hiçbir sonuç saptandı.
+msgSearchEnded; arama sona erdi.
+TypeAdress; İletişim
+TypeTransaction; ticari işlem
+mnuNameBillsOffers; teklif / fatura
+chkIsActiveContact; Etkin İletişim
+lblKey_; adres sayısı
+lblCountry; Ülke
+lblPhone; Telefon
+lblStreet; Street
+lblEmail; e-posta
+lblContactName; Rehber
+lblCity yeri
+lblZipCode, posta kodu
+lblComapany; Şirket
+btnOpenJournal; Gazete'de
+btnOpenInGoogeMaps; haritası
+lblKey; Benzersiz Kimliği
+Label3; notu / notları
+Label1; Benzersiz Kimliği
+Label2; indirim değeri
+lblRabattValue; indirim değeri
+lblMemo; / Not Açıklamalar
+PanelControl2; PanelControl2
+btnResetInvoiceAdress; Reset
+tbpInvoiceAdress; fatura adresi
+chkLinkDeliveryAdress; olarak fatura adresi
+btnResetdeliveryAdress; Reset
+tbpDeliveryAdress; teslimat adresi
+tbpNotes; notlar
+grdHistory; grdHistory
+btnEditHistory; Düzenle
+btnAddHistory; Manuel ekle
+tbpHistory; ders
+tabInformation, bilgi
+xtpCommonContact; Genel
+lblPhone2; telefon (2)
+; LblWorkOn Ticari
+lblFax; Faks
+xtpBankData; Bankası verileri
+XtraTabControl1; XtraTabControl1
+chkohneMWST alır; faturaları KDV olmadan
+chkLetterReceiver; posta alır
+xtpDetails; Genişletilmiş Bilgi
+tabEditPanel; tabEditPanel
+msgNewAdressDisplayID; <NEU, tasarruf gesetzt> olduğunu
+lblJournalHeadline; Dergisi
+lblJournalViewFilter; Görünüm:
+nvbDocuments; NavBarControl1
+, Silmek btnDelete
+lblCurrentFile; <Current File>
+; BtnOpen aç
+grdJournalList; grdJournalList
+frmJournal; Dergisi
+ItemThisMonth; Bu Ay
+msgReminder; uyarı
+vScrollBar; vScrollBar
+hScrollBar; hScrollBar
+hPanel; hPanel
+Tüm, Tüm
+grdReportsList; grdReportsList
+btnOpenReport; Açık
+lblPrintLayoutsInGroup; baskı düzeni bu grupta:
+btnExport; İhracat ...
+btnImport; İthalat ...
+dlgReportManager, baskı düzeni yöneticisi
+msgCheckingDefaultPrintingLayouts; baskı düzenleri kontrol edin
+PrintLayoutFileDialogTitle; Sayfa Düzeni
+optionConections; veritabanı bağlantıları
+btnCancel; İptal
+btnOk Tamam
+nbcOptionBar; seçenekleri
+btnCreateDBBackup; oluşturma Yedekleme
+lblServerCloudHint, İnternet veritabanı, bizden ve kira böylece her yerden bilgisayar herhangi bir sayı, örneğin zugreiffen Farklı ofis veya farklı yerlerden.
+btnEdit; Düzenle ...
+lstConnections; Standart
+btnReload; yeni mağaza
+lblOptionsWhereDoYouWantToStart; seçin hangi ayarları yapmak istediğiniz bir alan.
+grpControls; veritabanı bağlantıları
+frmOptions, ayarlarını yapmak
+taxStandardTax; Normal
+taxReducedTax; İndirimli
+vergiler olmadan taxNoTax,
+taxOthersTax; Diğer vergiler
+taxExtraTax2; interlude
+taxExtraTax; ekstra set
+optionTaxsettings; vergiler
+chkAsdefault; standart olarak
+btnTest; Test
+lblBackupPath; lblBackupPath
+lblNameBackupPath; yol yedekleme için
+btnBackupPath; yolu ...
+LabelControl1; bağlantının adı
+btnGetPath; yolu ...
+lblDatabasePath; dosyanın yolu
+tabDatabaseFile; dosya
+lblConnectionDatabaseName; Veritabanı Adı
+lblConnectionUserPassword; Kullanıcı Şifre
+lblConnectionUserName; Adı
+lblConnectionHostName; Sunucu Adı
+lblConnectionName; bağlantının adı
+tabDatabaseServer; Veritabanı Sunucusu
+TabControlConnections; TabControlConnections
+frmConnectionDetails; bağlantı
+lblHeadline; Başlık
+lblBody; Body
+lblSolution; Çözüm / s
+frmConnectionValid; bağlantı Geçerli / geçersiz
+Adres, Telefon Numarası
+Ortak Belgeler, Belgeler
+Faturalar, faturalar
+mainApplicationRestartNeeded; sadece if (appname) etkili olacaktır yaptık değişiklik yeniden başlatılması olmuştur. / N (appname) şimdi yeniden başlatmak ister misiniz?
+headerApplicationRestartNeeded, yeniden başlatma gerektirir
+seçenek sayı üreteci, numara atama
+grdArticles; grdArticles
+frmSmallItemChooser; MADDE seçin
+msgSearchArticles; Makale Arama
+prop_ShortDescription; kısa
+prop_LongDescription; uzun metin
+btnsetReminder; hatırlatmalar ...
+lblInvoiceAddress, 12 745, Harald Pazar Elektrik Ltd, 73 779 Deizisau
+lblInvoiceText;
+picState; System.Drawing.Bitmap
+grdDownPayments; grdDownPayments
+grpIncomeValue; ödemeler
+btnAdd; Yeni ödeme
+lblSumPaid; Toplam Ziyaret:
+lblSumTotal; Miktarı:
+lblPayDate; ödeme:
+GroupControl1; talepleri Detayları
+lblInvoiceNumber; Fatura yok
+frmPayableDetails; ödemeler
+itemAllDates; tüm
+ItemToday; Bugün
+ItemLast7Days; Son 7 gün
+itemThisYear; başından beri
+msgInvoiceSumWithTax; toplamı
+msgInvoiceTaxIncluded; Vergi Kapsar:
+msgInvoiceSumWithoutTax; Toplam (net)
+XtraTabPage1; XtraTabPage1
+msgsearchByContactName; Arama İletişim
+msgSearchByContactNameLong; Arama temas için
+lblDocumentsHeadline; Başlık:
+; Belge ve kaydedilmedi msgDocumentNotSaved hala geçerli bir belge numarasını içeren
+msgDocumentNotSavedHeadline; Yeni Belge
+frmModuleContainer; görevleri
+modül görevler, görevleri
+chkTaskFinished; görev tamamlandı
+lblTasksEndsAt; Bitiş Tarihi:
+lblSubject; konusu:
+frmeditTask; Düzen Görev
+yarın sabah
+TypeArticle; Makale
+Modül Adı Madde, Madde
+prop_ManufactorsItemNumber; makale d. tedarikçileri
+prop_SingleBasePrice; tek EK
+prop_CalulatedEndPrice; Hesaplanan fiyat
+prop_; prop_
+prop_GroupName; grup adı
+prop_CustomerArticleNumber Serbest Makale
+prop_EANCode; EAN kodu
+prop_DefaultImage; görüntü
+prop_isWorkItem; etkinlik var
+lblManufactorsArticleNumber; tedarikçi makale
+btnAdressSearch; Adres
+lblDistributorName; tedarikçi
+lblDistributor; tedarikçi nAdresse / + telefon ve mail / n
+lblInternalArticleNumber; İç öğe
+Olduğunu, aktif chkIsActive
+lblArticleTag; Ürün Adı / Model Numarası
+chkDiscountEnable; indirimi hesaplama kullanabilirsiniz
+chkRessources; emtia fiyatlarındaki kullanmak
+lblTaxRate; oranı
+lblSingleBasePrice bireysel satın
+lblFactor; x 250:
+lblFactorDiscount; x 250:
+lblDiscount; listeden indirimli fiyat
+lblCommondityPrice; emtia fiyatlarındaki
+lblFactorResources; x 250:
+lblFactorGewinn; x 250:
+lblGewinnzuschlag; prim
+chkFixedendPrice; chkFixedendPrice
+lblTotalsalesPrice; satış
+lblFactorVerkauf; x 250:
+lblCount; numarası
+lblBaseUnit, tek ünite
+lblVPUnit; Paketleme
+tabCalculation; fiyatlar
+lblMoreNotesAboutArticle; notlar madde üzerinde / yorum
+trvHirachy; trvHirachy
+lblSelectOldAndRedeemedArticles; Bu makale makale listesinde belirtilen yerini alır.
+btnSetPredecessor; Old Articles ekle ...
+lblPredecessorItems eskimiş; Can:
+tabmiscellaneous; Diğer
+grdImages; grdImages
+tabPictures; Görüntüler
+lblEANCode; EAN kodu
+lblLastSoldDate; 2009/01/01
+lblSoldAt; Son Satış:
+lblSummSellings, 32
+lblTextSumsellings; Geamtanzahl satış:
+lblMainUnit; parça (adet)
+lblSumOfSoldItems; birimlerinin toplamı kadar bu makalenin sattı
+tabStorage; hazır
+btnTransferSubPrices, fiyatlar transfer
+lblBomCalculatedTime; 0
+lblBomSumEndPrice; 0
+lbltxtCalculatedTime; Hesaplanan Süresi:
+lbltxtCalculatedEndPrice; Hesaplanan fiyat:
+lblBomSumBasePrice; 0
+lbltxtBasePrice; Bilgisayarlı satın alma:
+trvsubArticles; trvsubArticles
+tabComponents; BOM
+lblWorkItemCosts, bu fayda maliyet
+lblPayGroup; ücret grubu:
+lblDuration süre:
+lblShortTimeFormat, ss yeri: mm
+chkIsWorkItem; madde bir faaliyettir
+tabWorkItems; Özellikler
+btnEditArticleAttributes; sınıflandırma işlemi ...
+btnRefresh; Update
+grdAttributes; grdAttributes
+tabAttributes; özellikleri
+Ana tabloda, ana tablo
+lblArticleShortDescription; kısa
+lblWithoutTax, Net
+lblWithTax; Brüt
+lblSingleBasePriceHeadline bireysel satın
+lblWithoutTax1, Net
+lblSingleEndPrice; tek fiyat
+lblWithTax1; Brüt
+lblSingleUnit; birim
+trvGroups; trvGroups
+msgNoSoldItemsyet,-bugüne kadar hiçbir satış-
+msgNewArticleDisplayName; <Yeni Artikel>
+prop_ItemCountInBOM, sayı
+prop_PositionInBOM; Öğe sayısı
+lblAttributeDefinitionHeadline; grup için öznitelikler tanımlar: "(0)"
+grdValueDefinition; grdValueDefinition
+frmArticleAttributes; sınıflandırma tanımlamak
+prop_AttributeName; Emlak Adı
+prop_Value; değeri
+cmdPrint; Yazdır
+cmdClose; Kapat
+radPrinting; 0
+dlgSimplePrinting; Baskı ...
+optPrintSelectedElementsList, listede sadece seçilen elemanlar baskı / ihracat
+optPrintSelectedElementsInLayoutDesigner, bütün kendi düzeninde yazdırmak için seçilen
+Makaleler, Makaleler
+prop_ArticlesHirachy Madde Tree
+prop_DiscountPrice; İndirimli fiyat
+prop_ArticlesGroup; Madde kategori
+prop_InternalItemID; İç öğe
+prop_MinSellCount; doğum sayısı birimleri
+prop_MindeliveryCount; VP sayısı
+prop_ArticleSingleEndPriceWithoutTax; satış fiyatı (net)
+prop_LoanAccount; Bordro Hesap
+enum_Articles; Ürün Listesi
+prop_Note; notu
+chkSpecialLayout; Kullanım çizimler:
+lblProductActivation; Ürün Etkinleştirme
+btnLicenses; lisansları ...
+btnLater; Daha sonra
+frmTestperiodExpired;) (UygAdı Lisanslar
+lblActivationText; Şu anda (appname bir test döneminde) vardır. / NBu program tam döneminde kullanılabilir. / NIN (0) gün ürün için etkin olmalıdır. / N / size bize: / n nSetzten
+btnEnterCode; kodunu girin
+Satın almadan önce lblLicenseTextheadline; ilk kurulumdan sonra tüm programda (0) gün denedinmi modülleri. / NEnter ruhsat anahtar isteği bu kodu bir. / N / n at
+lblApplicationKey; program tuşu:
+grdLicenses; grdLicenses
+frmLicenses; lisansları ...
+lblLicenseValid; Geçersiz
+txtcode; TXTCODE
+msgInvalidLicense; geçersiz.
+lblLicenseCodeHeadline; lisans anahtarını girin temel HWL bir kilidini.
+frmLicenseCodeDialog; Lisans unlock
+msgValidLicense; lisans Tamam
+msgClickHereForSeacrhPatterns; tıklayınız arama kalıplarını bir seçim almak için
+msgClearSearch; Clear Arama
+msgSearchFor; arama
+Zamanlayıcısı; Tarihleri
+PictureEdit4; System.Drawing.Bitmap
+PictureEdit3; System.Drawing.Bitmap
+PictureEdit2; System.Drawing.Bitmap
+lblSplashReports; değerlendirmeler
+lblSplashTransactions; iş
+lblSplashBills; / faturaların teklifi
+lblSplashAdresses; adresleri
+msgNewConnectionName; <Yeni Verbindung>
+localDatabaseFile; Yerel
+prop_Description; isim
+prop_Ammount; miktarı
+Dan; dan
+, Ödemeli
+txtDescription; txtDescription
+btnDelete; Sil
+lblRemindersLeveltext; Dunning seviyesi
+lstRemindersList; lstRemindersList
+lblInvoiceDate; 2010/02/24
+lblInvoiceNumberText; Fatura yok
+lblInvoiceaddress, 68, Hop Lun, Bayan Elke Wenschewski, 41564 Kaarst
+chkIsInactiveReminder Artık; Dunning
+btnNextReminderstep; sonraki Dunning düzeyde ...
+lblRemindersSubjectLine; Konu
+LabelControl2; Mahndatum:
+lblRemindersLevel; Dunning seviyesi
+frmReminder; Dunning
+msgTransaction; ticari işlem
+prop_TransactionDate; Tarihi
+prop_TransactionText ahır
+prop_TransactionNumber; rezervasyon metin / sayı
+prop_taxValue; oranı
+prop_Receipts; gelir
+prop_Outgoings; giderleri
+lbltxtStartSum; yılında ilk hazır (0)
+lbltxtendSum; az stok (0)
+lbltxtIncome; gelir
+lbltxtOutCome; giderleri
+lblID; numarası
+lblAddressText; / için rezervasyon
+RadioGroup1; RadioGroup1
+yeni, yeni
+btnMonthyCashsheet; nakit levha
+btnPrintCashYear; Takvim Etkinlikleri
+lblYear; Yıl:
+grpPrintCashReportsSheets; nakit bildirimi
+btnPrintLists; listesi Yazdır
+frmPrintCashTransactions; Nakit Kitap Yazdır ...
+btnPrintCashMonthly; Ocak nakit levha ()
+CashJournalOverview; CashJournalOverview
+enum_CashJournalOverview; Nakit Kitap (yıllık özet)
+Nakit Dergisi, Para Dergisi
+enum_CashJournal; nakit kitap (aylık sayfa)
+msgWaitFetchingData; Hole veri ...
+lblHeadlineAddArticleText; seç ürün grubunda, hangi metnin bir makale olarak girilmelidir.
+trvArticleGroups; trvArticleGroups
+frmAddTextAsItem; Metin bir Makale Oluşturma
+chkAutoCheckForUpdates arama; otomatik güncellemeleri kontrol
+btnInstall; Install
+frmGetUpdate; güncellemeleri
+lblDownloadProgress; 0Kb
+frmDownloadProgress yük; Update ...
+Makaleler seçenek; varsayılan yazı yönetimi
+lblGroupName; Grup ismi:
+picGroupPicture; picGroupPicture
+adı ve grubun açıklamasına lblGroupDetailHeadline
+frmSetGroupDetails; Grubu Ayrıntıları Seti
+prop_Balance; denge
+NewPrintLayoutName; Yeni Sayfa Düzeni
+enum_21; CashJournalOverview
+msgAskDeleteDataCaption silmek; veriler:
+msgAskDeleteDataText; Seçili kaydı silmek istiyor musunuz?
+PrintLayoutOpendialogFilterFilename; baskı düzenleri
+Sayfa Düzeni Aç Başlığı iletişim; Dosya Raporu
+enum_BillOfMaterial; BOM
+msgUnknownAdrssFromCallerID, adresi bilinmeyen
+lblCallerTime; arama süresi:
+lblNewIncommingCall; çağrı:
+btnOpenAdress; adres arama
+; PicPhoneIcon System.Drawing.Bitmap
+frmCallNotification; Yeni Çağrı
+Adres; Addressbook
+enum_Addressbook; Adres

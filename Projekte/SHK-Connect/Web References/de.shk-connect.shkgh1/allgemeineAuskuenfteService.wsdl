@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://service.shk-connect.de" name="allgemeineAuskuenfteService" targetNamespace="http://service.shk-connect.de" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema targetNamespace="http://service.shk-connect.de" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GetAllgemeineAuskunft" type="tns:GetAllgemeineAuskunft" />
+      <xs:element name="GetAllgemeineAuskunftAntwort" type="tns:GetAllgemeineAuskunftResponse" />
+      <xs:complexType name="GetAllgemeineAuskunft">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Schnittstellenversion" type="xs:string" />
+          <xs:element minOccurs="0" name="Softwarename" type="xs:string" />
+          <xs:element minOccurs="0" name="Softwarepasswort" type="xs:string" />
+          <xs:element minOccurs="0" name="Prozess" type="xs:string" />
+          <xs:element minOccurs="0" name="BrancheID" type="xs:string" />
+          <xs:element minOccurs="0" name="Umkreis" type="tns:Umkreis" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Umkreis">
+        <xs:sequence>
+          <xs:element name="Postleitzahl" type="xs:string" />
+          <xs:element name="Entfernung" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAllgemeineAuskunftResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Schnittstellenversion" type="xs:string" />
+          <xs:element minOccurs="0" name="Serverkennung" type="xs:string" />
+          <xs:element minOccurs="0" name="Status" type="tns:Status" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Unternehmen" type="tns:Unternehmen" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Status">
+        <xs:sequence>
+          <xs:element name="Code" type="xs:string" />
+          <xs:element minOccurs="0" name="Meldung" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Unternehmen">
+        <xs:sequence>
+          <xs:element name="ID" type="xs:int" />
+          <xs:element name="Name" type="xs:string" />
+          <xs:element minOccurs="0" name="Strasse" type="xs:string" />
+          <xs:element minOccurs="0" name="PLZ" type="xs:string" />
+          <xs:element minOccurs="0" name="Ort" type="xs:string" />
+          <xs:element minOccurs="0" name="Land" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </types>
+  <message name="AllgemeineAuskuenfteBean_GetAllgemeineAuskunft">
+    <part name="GetAllgemeineAuskunft" element="tns:GetAllgemeineAuskunft" />
+  </message>
+  <message name="AllgemeineAuskuenfteBean_GetAllgemeineAuskunftResponse">
+    <part name="GetAllgemeineAuskunftAntwort" element="tns:GetAllgemeineAuskunftAntwort" />
+  </message>
+  <portType name="AllgemeineAuskuenfteBean">
+    <operation name="GetAllgemeineAuskunft" parameterOrder="GetAllgemeineAuskunft">
+      <input message="tns:AllgemeineAuskuenfteBean_GetAllgemeineAuskunft" />
+      <output message="tns:AllgemeineAuskuenfteBean_GetAllgemeineAuskunftResponse" />
+    </operation>
+  </portType>
+  <binding name="AllgemeineAuskuenfteBeanBinding" type="tns:AllgemeineAuskuenfteBean">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetAllgemeineAuskunft">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="allgemeineAuskuenfteService">
+    <port name="allgemeineAuskuenftePort" binding="tns:AllgemeineAuskuenfteBeanBinding">
+      <soap:address location="http://shkgh.shk-connect.de/services/AllgemeineAuskuenfte" />
+    </port>
+  </service>
+</definitions>

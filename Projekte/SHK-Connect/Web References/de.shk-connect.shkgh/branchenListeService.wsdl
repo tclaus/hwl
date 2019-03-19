@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://service.shk-connect.de" name="branchenListeService" targetNamespace="http://service.shk-connect.de" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema targetNamespace="http://service.shk-connect.de" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GetBranchenListe" type="tns:GetBranchenListe" />
+      <xs:element name="GetBranchenListeAntwort" type="tns:GetBranchenListeResponse" />
+      <xs:complexType name="GetBranchenListe">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Schnittstellenversion" type="xs:string" />
+          <xs:element minOccurs="0" name="Softwarename" type="xs:string" />
+          <xs:element minOccurs="0" name="Softwarepasswort" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetBranchenListeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Schnittstellenversion" type="xs:string" />
+          <xs:element minOccurs="0" name="Serverkennung" type="xs:string" />
+          <xs:element minOccurs="0" name="Status" type="tns:Status" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Branche" type="tns:Branche" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Status">
+        <xs:sequence>
+          <xs:element name="Code" type="xs:string" />
+          <xs:element minOccurs="0" name="Meldung" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Branche">
+        <xs:sequence>
+          <xs:element name="ID" type="xs:int" />
+          <xs:element name="Name" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </types>
+  <message name="BranchenlisteBean_GetBranchenListeResponse">
+    <part name="GetBranchenListeAntwort" element="tns:GetBranchenListeAntwort" />
+  </message>
+  <message name="BranchenlisteBean_GetBranchenListe">
+    <part name="GetBranchenListe" element="tns:GetBranchenListe" />
+  </message>
+  <portType name="BranchenlisteBean">
+    <operation name="GetBranchenListe" parameterOrder="GetBranchenListe">
+      <input message="tns:BranchenlisteBean_GetBranchenListe" />
+      <output message="tns:BranchenlisteBean_GetBranchenListeResponse" />
+    </operation>
+  </portType>
+  <binding name="BranchenlisteBeanBinding" type="tns:BranchenlisteBean">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetBranchenListe">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="branchenListeService">
+    <port name="branchenListeServicePort" binding="tns:BranchenlisteBeanBinding">
+      <soap:address location="http://shkgh.shk-connect.de/services/Branchenliste" />
+    </port>
+  </service>
+</definitions>

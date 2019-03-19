@@ -1,0 +1,641 @@
+MarqueeProgressBarControl1, 0
+ProgressBarControl1, 0
+lblStatusMessage; start ...
+btnClose; Zamknij
+Ekran powitalny;
+ReadingConnectionsList; lektura skladowania cele ...
+mshNoUpdateFoundInWebsite; Brak aktualizacji znalezionych
+msgSearchNullText, szukaj ...
+cmdExit; koniec
+cmdKasse; ksiazki Cash
+btnScheduler; Data
+cmdLetters, listy
+cmdBusiness; ofert / faktur
+cmdCashFlow; aktywa / pasywa
+cmdArticles; kapitan materialu
+cmdAdressbook; Adres
+; Start TabMain
+TabControl;
+; HWL FrmMain
+Serwer zdalnej bazy danych, serwera
+msgStartupNewWorkingPane; Start nowego modulu:
+lblTodaysTasks; zadan
+clbTasks;
+lblTodayAppointments; Daty
+lstAppointments;
+picCloseModule; System.Drawing.Bitmap
+dzisiaj, dzis
+prop_TaskClosed; ukonczenia
+prop_Tasksubject; zastrzezeniem
+prop_TaskCreatedAt, Wykonawca
+prop_TaskExpiration; Termin wykonania
+prop_HasChanged; zostal zmieniony
+prop_InternalUniqueKeyValue; klucz ID (GUID)
+module_Start; Start
+lblMainScreenwelcomeText;) (appname
+msgReady, gotowe
+msgApplicationLaunchReady; Ready.
+btnMenuFile; pliku
+btnMenuDataImportExport; Import / Export
+btnMenuPageSetup zarzadzania, ukladów wydruku ...
+btnMenuShowPageFrameSetup sie; strony
+btnMenuShowTasks; zadan
+btnMenuLockApplication; Blokady
+btnMenuEndApplication; Exit
+btnMenuView, przegladac
+btnMenuShowTodayToolBar;) (Appname Dzisiaj
+btnMenuReports; ocen
+btnReports, dokumenty
+btnMenuFixedCosts; koszty stale
+btnMenuTopLists; Top 10 listy
+btnMenuExtras; Narzedzia
+btnMenuOptions; opcji
+BarButtonItem1; szablony
+BarButtonItem4; Tlumaczenie z Urzedowym roszczen
+btnMenuHelp; Pomoc
+btnMenuInvokeHelp; Pomoc
+btnMenuOpenUserFeedbackSite; Pomoc techniczna
+btnMenuCheckForUpdates; aktualizacje
+btnMenuLicenses; licencji ...
+btnAboutBox; O Appname () ...
+TestPeriodExceedPleaseInstallAValidLicense one zainstalowac wazna licencje. Okres próbny jest beendet. / NZespól program zakonczy sie.
+TestPeriodexceed; test Zeitz przestrzeni wygasla
+SchedulerControl1; SchedulerControl1
+DateNavigator1; DateNavigator1
+bntClose; Zamknij
+btnPrint; Drukuj
+msgLookingForUpdates; aktualizacji ...
+msgNonewUpdates; nr aktualizacje.
+btnResetAdress; Reset
+btnSearchAdress, szukaj ...
+lblPaymentAccount; platnosci
+lblPaimantDate; platnosci
+lblDays, dni
+radPaimentDate; radPaimentDate
+lblDescription; Opis
+lblFooterText; tekst stóp
+lblHeadText; header
+tabTemplates; szablony
+tabhead; tabhead
+grdItemsList; grdItemsList
+cmdDetails, szczególy ...
+cmdAddArticleGroup; New Products Group ...
+lblTextNettoSumme; sumie netto
+radDiscountType, 0
+lblSummValueAfterTax, wszystkich
+lblTaxValueText2; cla
+lblTaxValueText1; stopy
+lblTaxValue1, 0
+lblTaxValue2, 0
+lblTaxValueText3; stopy
+lblTaxValue3, 0
+cmdAddArticle; Nowe Produkty ...
+chkShowPreviewLines; Pokaz dlugi tekst na liscie
+chkShowWithTax, ceny atramentu. Podatek
+lblDocumentNumber, numer dokumentu
+lbldocumentDisplayID, 0
+LabelControl8; Adres
+lblAdressLine; Fa Maier
+lbldocumentsDate; Data:
+lblCreatedAt, Utworzono:
+lblChangedAt wprowadzone; na:
+btnMaximizeworkspace; btnMaximizeworkspace
+btnJournal; Urzedowym
+PanelControl1; PanelControl1
+btnSave; Zapisz
+btnNew; New
+prop_ItemCount, numer
+prop_HeaderText; nazwa
+prop_Groupprice, Grupa Cena (netto)
+prop_ArticleList; listy produktów
+prop_PositionNumber, numer pozycji
+prop_DisplaySinglePrice; Cena
+prop_DisplayTotalPrice; Cena
+podatek, podatki
+ItemGroupDefaultName; art kategorii
+prop_Position; stanowisko
+prop_ItemName; Nazwa produktu
+prop_ItemMemoText, opis
+prop_minutes; minut
+prop_ItemUnit; jednostki
+prop_BasePrice; Cena podstawowa
+prop_SinglePriceAfterTax, cena (brutto)
+prop_SinglePriceBeforeTax; Cena (netto)
+prop_TotalPriceBeforeTax; Total (netto)
+prop_TotalPriceAfterTax; Razem (brutto)
+prop_TaxRateValue; VAT.
+prop_ExternalItemNumber; artykul d. producenta
+prop_InternalItemNumber; wlasny artykul
+prop_ItemPicture; Obrazek
+btnHideIfMinimized; Ukryj po zminimalizowaniu
+msgApplicationNowMinimized; (AppName) jest teraz na pasku narzedzi.
+chkPrintDefault; Standard
+chkBillOfMaterial; BOM
+chkPrintBillOfDelivery; stanie
+grpWhatToPrint, co chca drukowac?
+chkNoPriceSumField; nr Cena okreslic
+chkshowWithTax, "w tym" podatków
+CheckEdit1; z firmowego
+btnPrintPreview, podglad ...
+dlgPrintdocuments; Drukuj ...
+Przegladarka dokumentów, Document Viewer
+ReportExplorerDockPanel1; Report Explorer
+FieldListDockPanel1; Lista pól
+panelContainer2; panelContainer2
+propertyGridControl; propertyGridControl
+Rozdzielacz, splitter
+Opis nieruchomosci Kontroli Opis nieruchomosci Control
+PropertyGridDockPanel1; Property Grid
+panelContainer1; panelContainer1
+ToolBoxDockPanel1; Tool Box
+RibbonStatusBar1; RibbonStatusBar1
+RibbonControl1; RibbonControl1
+frmPrintLetter, ukladu wydruku
+msgWaitForPrintDesignerLoad; Pobierz Layout Designer ...
+Dokument Urzedowym; Urzedowym dokumentem
+prop_Tagged, Marks
+prop_UseDeliverAdress; Uzyj adres wysylki
+prop_DeliveryAdress; adres dostawy
+prop_HeadText; header
+prop_AddressNumberID, liczba adres
+prop_Address; Adres
+prop_CreatedAt, utworzono na
+prop_CreatedBy; Dodane przez
+prop_ChangedAt, Ostatnie
+prop_DocumentTyp; Typ dokumentu
+prop_DocumentKeyID, liczba
+prop_AttachmentList, narzedzia
+prop_DocumentDate; Data
+prop_MemoText; Opis
+prop_PaymentTarget; platnosci
+prop_DiscountValue; wartosc rabatu
+prop_DiscountValueAbs; kwota rabatu
+prop_DiscountText; tekst ze znizkami
+prop_DiscountActive; znizki aktywnych
+prop_TitelText; Tekst
+prop_Subject; zastrzezeniem
+prop_CashAccount; uwage rezerwacji
+prop_FooterText; tekst stóp
+prop_AddressWindow; adres okno
+prop_AddressWindowChangedByUser; window adres ostatnio
+prop_ArticleGroups, grupy artykulu
+prop_SalesPrice; kwota
+prop_CalculatedTaxesContainer; czesci podatku dokumentu
+prop_DisplayBasePrice; suma
+prop_DisplayDiscountedValue; Razem
+prop_EndPriceBeforeTax; netto
+prop_DocumentTypeText; Dokument
+prop_FinishedTagged; ukonczenia
+prop_TaxValue; podatkowe
+prop_HasAttachment, zalacznik
+prop_DocumentDisplayID, numer dokumentu
+prop_DisplayHeaderText; header
+prop_DisplayFooterrText; tekst stóp
+prop_LastChangedBy, ostatnio zmienione
+prop_LastChangedAt, Ostatnie
+prop_DeliveryAdressLinked; adres dostawy na mój adres rozliczeniowy
+prop_ContactDisplayID, telefon
+prop_Company; firmy
+prop_ContactsName; Imie i Nazwisko
+prop_Street; Street
+prop_ZipCode; ZIP
+; Miejsce Prop_Town
+prop_KindOfBusiness; Commercial
+prop_Telephone1; Telephone1
+prop_Telephone2; Telephone2
+prop_Fax, Fax
+prop_EmailAddress, e-mail
+prop_Discount; znizki
+prop_Notes; komentarzy
+prop_BankName; Nazwa Banku
+prop_BankIDNumber; Bank
+prop_BankAccountNumber, nr konta.
+prop_IsActive; Active
+prop_Country; Kraj
+prop_ProductRange; stanie
+prop_CanReceiveMailings; mail odbiorcy
+prop_AddressCustomID; ID
+prop_EntryPrintable; obecne w wypowiedzi
+prop_UnitName; Nazwa
+prop_UnitDataNormShortName; skróty Datanom
+prop_UnitShortName; Oznaczenie
+prop_UnitDecimals; miejsc po przecinku
+prop_UnitMask; maski wprowadzania
+enum_Journaldocument; ofert / faktur
+prop_IsHiddenArticlePrices, ceny artykulów ukryte
+prop_TaxValuePair; cenach
+prop_IsHidddenArticles; ukryte artykul
+prop_ItemUnitText; Nazwa Jednostka
+prop_ManufactorsAddress; Adres sprzedawcy
+msgCommonelementSaved; Zapisano: "(0)"
+PictureEdit1; System.Drawing.Bitmap
+prop_Date; Data
+prop_ItemDisplayNummer; numer konta
+prop_text; Tekst
+prop_PaidAmmount; Platny
+prop_UnpaidAmmount; Niezaplacone
+prop_TotalAmmount; kwota
+prop_IsPaid, wyplaca sie
+prop_TargetPayDate; terminem
+prop_PaidDate; Bezahltdatum
+msgSelectedItemCount; oznaczonych (0) na (1).
+cmdPayments; platnosci ...
+lblTransactionID, liczba
+lblItemID, 0
+lblTransactionDate, dzien ksiazki
+lblTransactionAddress; Adres
+lblAccount; centrum kosztów
+lblTaxrate; podatkowe
+lbInvoiceID; numer konta
+lblAmmount; kwota
+radMoneyFlow; radMoneyFlow
+grdTaxValues; grdTaxValues
+lblReceiveables, przychody
+lblPayables; wydatki
+radAllDates; Wszystkie
+radFullyear; caly rok
+radQ4, 4 Kwartal
+radQ3, 3 Kwartal
+radQ2, 2 Kwartal
+radQ1; pierwszy Kwartal
+; Styczen RadJan
+radFeburar; lutego
+RadMärz; marca
+radApril, kwiecien
+radMai; maja
+, Czerwiec RadJun
+radJul, lipiec
+radDez; grudnia
+radNov, listopad
+radOkt; pazdziernika
+radSep, od wrzesnia
+radAug; sierpnia
+; RadPaidOn RadPaidOn
+chkIsPaid; pelni zwrócic na:
+grdCommonGrid; grdCommonGrid
+, Nowy
+lblSearchResults, wyniki
+grdsearchItems; grdsearchItems
+lblSearchHeadline; .... szukaj
+msgNoFoundItems; Nie bylo wyników.
+msgSearchEnded, aby zakonczyc wyszukiwanie.
+TypeAdress; Kontakt
+TypeTransaction; transakcji gospodarczych
+mnuNameBillsOffers; oferty / faktury
+chkIsActiveContact; Active Kontakt
+lblKey_, liczba adres
+lblCountry; Kraj
+lblPhone; Telefon
+lblStreet; Street
+lblEmail, e-mail
+lblContactName; Kontakt
+lblCity; Lokalizacja
+lblZipCode, kod pocztowy
+lblComapany; firmy
+btnOpenJournal; w Dzienniku
+btnOpenInGoogeMaps; mapie
+lblKey; Unique ID
+Label3; uwaga / informacje
+Label1; Unique ID
+Label2; wartosc rabatu
+lblRabattValue; wartosc rabatu
+lblMemo; uwaga / informacje
+PanelControl2; PanelControl2
+btnResetInvoiceAdress; Reset
+tbpInvoiceAdress; adres rozliczeniowy
+chkLinkDeliveryAdress, jak adres fakturowania
+btnResetdeliveryAdress; Reset
+tbpDeliveryAdress; adres dostawy
+tbpNotes; zauwaza
+grdHistory; grdHistory
+btnEditHistory; Edytuj
+btnAddHistory; Manual Dodaj
+tbpHistory; kurs
+tabInformation, informacje
+xtpCommonContact; ogólne
+lblPhone2; telefonu (2)
+; Commercial LblWorkOn
+lblFax, Fax
+xtpBankData; danych Banku
+XtraTabControl1; XtraTabControl1
+chkohneMWST otrzymuje; faktury bez VAT
+chkLetterReceiver; odbiera korespondencji
+xtpDetails; Dodatkowe informacje
+tabEditPanel; tabEditPanel
+msgNewAdressDisplayID; <NEU, jest gesetzt> oszczednosci
+lblJournalHeadline; Urzedowym
+lblJournalViewFilter; Zobacz:
+nvbDocuments; NavBarControl1
+btnDelete; Usun
+lblCurrentFile; <Biezaca iso>
+; BtnOpen Open
+grdJournalList; grdJournalList
+frmJournal; Urzedowym
+ItemThisMonth; W tym miesiacu
+msgReminder; ostrzezenie
+vScrollBar; vScrollBar
+hScrollBar; hScrollBar
+hPanel; hPanel
+Wszystkie, wszystkie
+grdReportsList; grdReportsList
+btnOpenReport; Open
+lblPrintLayoutsInGroup; ukladów wydruku w tej grupie:
+btnExport; Eksport ...
+btnImport, Import ...
+dlgReportManager, kierownik ukladu wydruku
+msgCheckingDefaultPrintingLayouts; Sprawdz ukladów wydruku
+PrintLayoutFileDialogTitle, uklad druku
+optionConections; polaczen z baza danych
+btnCancel; Anuluj
+btnOk, OK
+nbcOptionBar; opcji
+btnCreateDBBackup; Tworzenie kopii zapasowych
+lblServerCloudHint, internetowej bazy danych, mozna wynajac od nas i tak zugreiffen z dowolnej liczbie komputerów ze wszystkich miejsc, np. z róznych urzedów i róznych miejscach.
+btnEdit, edytowac ...
+lstConnections; Standard
+btnReload; nowy sklep
+lblOptionsWhereDoYouWantToStart; Wybierz obszar, w którym chcesz dokonac ustawien.
+grpControls; polaczen z baza danych
+frmOptions, aby ustawienia
+taxStandardTax; Normal
+taxReducedTax; ograniczonej
+taxNoTax, bez podatków
+taxOthersTax; Inne podatki
+taxExtraTax2; interlude
+taxExtraTax, dodatkowy zestaw
+optionTaxsettings, podatki
+chkAsdefault; Jak standard
+btnTest; Test
+lblBackupPath; lblBackupPath
+lblNameBackupPath; sciezke do kopii zapasowej
+btnBackupPath, sciezka ...
+LabelControl1; nazwe polaczenia
+btnGetPath, sciezka ...
+lblDatabasePath; sciezke do pliku
+tabDatabaseFile; pliku
+lblConnectionDatabaseName; Nazwa bazy danych
+lblConnectionUserPassword; Uzytkownik Haslo
+lblConnectionUserName; Nazwa uzytkownika
+lblConnectionHostName; Nazwa serwera
+lblConnectionName; nazwe polaczenia
+tabDatabaseServer; serwer bazy danych
+TabControlConnections; TabControlConnections
+frmConnectionDetails; polaczenie
+lblHeadline; Headline
+lblBody; Body
+lblSolution; Solution / s
+frmConnectionValid; polaczenie Valid / Bledny
+Adresy, numery telefonów
+Wspólne dokumenty, Dokumenty
+Faktur, rachunków
+mainApplicationRestartNeeded; dokonaniu zmiany beda skuteczne tylko wtedy, gdy (appname) zostal uruchomiony ponownie. S (appname) Czy chcesz teraz ponownie uruchomic komputer?
+headerApplicationRestartNeeded, wymaga ponownego uruchomienia
+generator liczb opcji, przeniesienie numeru
+grdArticles; grdArticles
+frmSmallItemChooser; ARTYKUL wybierz
+msgSearchArticles; art Szukaj
+prop_ShortDescription, krótki tekst
+prop_LongDescription; dlugi tekst
+btnsetReminder, przypomnienia ...
+lblInvoiceAddress, 12 745, Harald Electrical Ltd. niedziela, 73 779 Deizisau
+lblInvoiceText;
+picState; System.Drawing.Bitmap
+grdDownPayments; grdDownPayments
+grpIncomeValue; platnosci
+btnAdd; New platnosci
+lblSumPaid; Razem odwiedzin:
+lblSumTotal; Ilosc:
+lblPayDate; platnosci:
+GroupControl1; wymagania Szczególy
+lblInvoiceNumber, nr faktury
+frmPayableDetails; platnosci
+itemAllDates; Wszystkie
+ItemToday; dzis
+ItemLast7Days; Ostatnie 7 dni
+itemThisYear; od poczatku
+msgInvoiceSumWithTax; suma
+msgInvoiceTaxIncluded; obejmuje podatki:
+msgInvoiceSumWithoutTax; Total (netto)
+XtraTabPage1; XtraTabPage1
+msgsearchByContactName; Kontakt Szukaj
+msgSearchByContactNameLong; kontakt Szukaj
+lblDocumentsHeadline; Naglówek:
+msgDocumentNotSaved, dokument nie zostal zapisany i nadal zawieraja wazny numer dokumentu
+msgDocumentNotSavedHeadline; Nowy dokument
+frmModuleContainer; zadan
+Modul zadania, zadania
+chkTaskFinished; zadaniem jest pelne
+lblTasksEndsAt; Termin wykonania:
+lblSubject; temat:
+frmeditTask; Edit Task
+jutro rano
+TypeArticle; art
+Nazwa modulu artykulu, art
+prop_ManufactorsItemNumber; artykul d. dostawców
+prop_SingleBasePrice; jednego EK
+prop_CalulatedEndPrice; cena wyliczona
+prop_; prop_
+prop_GroupName, nazwa grupy
+prop_CustomerArticleNumber; art bezplatny
+prop_EANCode; kod EAN
+prop_DefaultImage; obrazu
+prop_isWorkItem; jest dzialalnosc
+lblManufactorsArticleNumber; artykul dostawca
+btnAdressSearch; Adres
+lblDistributorName, dostawca
+lblDistributor; nAdresse dostawca / + telefon i mail / n
+lblInternalArticleNumber; element wewnetrzny
+Jest chkIsActive, aktywnych
+lblArticleTag; Nazwa produktu / numer modelu
+chkDiscountEnable; uzywac obliczenia znizki
+chkRessources; stosowania cen towarów
+lblTaxRate; stopy
+lblSingleBasePrice; w sprzedazy
+lblFactor; x 250:
+lblFactorDiscount x 250:
+lblDiscount; znizki od cennika
+lblCommondityPrice; cen surowców
+lblFactorResources; x 250:
+lblFactorGewinn; x 250:
+lblGewinnzuschlag, doplaty
+chkFixedendPrice; chkFixedendPrice
+lblTotalsalesPrice; sprzedaz
+lblFactorVerkauf; x 250:
+lblCount, liczba
+lblBaseUnit, jedno urzadzenie
+lblVPUnit; Pakowanie
+tabCalculation, ceny
+lblMoreNotesAboutArticle, notatki i komentarze na temat tego artykulu
+trvHirachy; trvHirachy
+lblSelectOldAndRedeemedArticles; Ten artykul zastepuje artykul wymienione w wykazie.
+btnSetPredecessor; Old art Dodaj ...
+starzenie lblPredecessorItems, moze:
+tabmiscellaneous; Inne
+grdImages; grdImages
+tabPictures; Images
+lblEANCode; kod EAN
+lblLastSoldDate, 01.01.2009
+lblSoldAt; Ostatnie sprzedawane:
+lblSummSellings, 32
+lblTextSumsellings; Geamtanzahl sprzedazy:
+lblMainUnit; kawalek (jednostek)
+lblSumOfSoldItems; suma sprzedanych sztuk do tej pory tego artykulu
+tabStorage; czas
+btnTransferSubPrices ceny przeniesione
+lblBomCalculatedTime, 0
+lblBomSumEndPrice, 0
+lbltxtCalculatedTime; Obliczony Czas trwania:
+lbltxtCalculatedEndPrice; Obliczona cena:
+lblBomSumBasePrice, 0
+lbltxtBasePrice; komputerowa zakupu:
+trvsubArticles; trvsubArticles
+tabComponents; BOM
+lblWorkItemCosts; koszt tego swiadczenia
+lblPayGroup; zakladac:
+czas trwania lblDuration:
+lblShortTimeFormat w hh: mm
+chkIsWorkItem; artykul jest dzialalnoscia
+tabWorkItems; Dane techniczne
+btnEditArticleAttributes; proces kwalifikacji ...
+btnRefresh; Update
+grdAttributes; grdAttributes
+tabAttributes; wlasciwosci
+glównej tabeli, tabeli glównej
+lblArticleShortDescription, krótki tekst
+lblWithoutTax, Net
+lblWithTax; brutto
+lblSingleBasePriceHeadline; w sprzedazy
+lblWithoutTax1, Net
+lblSingleEndPrice; jednej cenie
+lblWithTax1; brutto
+lblSingleUnit; jednostki
+trvGroups; trvGroups
+msgNoSoldItemsyet, dotychczas nie-sprzedazy,
+msgNewArticleDisplayName; <Nowe Artikel>
+prop_ItemCountInBOM, numer
+prop_PositionInBOM; Liczba pozycji
+lblAttributeDefinitionHeadline; definicje atrybutów grupy: "(0)"
+grdValueDefinition; grdValueDefinition
+frmArticleAttributes; klasyfikacji define
+prop_AttributeName; Nazwa wlasnosci
+wl_wart; wartosci
+cmdPrint; Drukuj
+cmdClose; Zamknij
+radPrinting, 0
+dlgSimplePrinting; Drukuj ...
+optPrintSelectedElementsList tylko wybranych elementów w liscie print / wywóz
+optPrintSelectedElementsInLayoutDesigner, wszystkie wybrane do drukowania w swoim ukladzie
+Artykulów, artykuly
+prop_ArticlesHirachy art Drzewo
+prop_DiscountPrice; cena z rabatem
+prop_ArticlesGroup; grupa artykul
+prop_InternalItemID; element wewnetrzny
+prop_MinSellCount, liczba jednostek stanie
+prop_MindeliveryCount; VP Liczba
+prop_ArticleSingleEndPriceWithoutTax; cena sprzedazy (netto)
+prop_LoanAccount; Place konto
+enum_Articles; listy produktów
+prop_Note; pamietac
+chkSpecialLayout, dziela sztuki Zastosowanie:
+lblProductActivation; Aktywacja produktu
+btnLicenses; licencji ...
+btnLater, pózniej
+frmTestperiodExpired;) (AppName Licencje
+lblActivationText; Jestes obecnie w okresie testu (appname). / Nz program moze byc w pelni wykorzystane w danym okresie. / Nin (0) dni musi byc wlaczona produktu. / N / nSetzten do kontaktu z nami pod adresem: / n
+btnEnterCode; Wpisz kod
+lblLicenseTextheadline; Po pierwszej instalacji nie spróbujesz (0) dni we wszystkich modulów programu przed zakupem. / NEnter na wniosek, ze klucz licencyjny kod. / N / n
+lblApplicationKey; klucz program:
+grdLicenses; grdLicenses
+frmLicenses; licencji ...
+lblLicenseValid; Invalid
+txtcode; TXTCODE
+msgInvalidLicense; niewazne.
+lblLicenseCodeHeadline; Wprowadz klucz licencyjny do odblokowania podstawowych HWL jeden.
+frmLicenseCodeDialog; License odblokowac
+msgValidLicense; licencji OK
+msgClickHereForSeacrhPatterns; Kliknij, aby wybór wzorców wyszukiwania
+msgClearSearch; Clear Szukaj
+msgSearchFor; wyszukiwania
+Harmonogram; Daty
+PictureEdit4; System.Drawing.Bitmap
+PictureEdit3; System.Drawing.Bitmap
+PictureEdit2; System.Drawing.Bitmap
+lblSplashReports; ocen
+lblSplashTransactions; biznesu
+lblSplashBills; ofert / faktur
+lblSplashAdresses, adresy
+msgNewConnectionName; <Nowe Verbindung>
+localDatabaseFile, lokalne
+prop_Description; nazwa
+prop_Ammount; kwota
+Z, z
+wyplacona, wyplacane
+txtDescription; txtDescription
+btnDelete; Usun
+lblRemindersLeveltext; poziom monitowania
+lstRemindersList; lstRemindersList
+lblInvoiceDate; 24.02.2010
+lblInvoiceNumberText, nr faktury
+lblInvoiceaddress, 68, Hop Lun, pani Elke Wenschewski, 41564 Kaarst
+chkIsInactiveReminder juz nie; Dunning
+btnNextReminderstep; nastepny poziom monitowania ...
+lblRemindersSubjectLine; zastrzezeniem
+LabelControl2; Mahndatum:
+lblRemindersLevel; poziom monitowania
+frmReminder; Dunning
+msgTransaction; transakcji gospodarczych
+prop_TransactionDate; Data
+prop_TransactionText stoisko
+prop_TransactionNumber; tekst rezerwacji / numer
+prop_taxValue; stopy
+prop_Receipts, przychody
+prop_Outgoings; wydatki
+lbltxtStartSum; poczatkowy czas dostawy (0)
+lbltxtendSum; na czas (0)
+lbltxtIncome, przychody
+lbltxtOutCome; wydatki
+lblID, liczba
+lblAddressText; rezerwacji z / do
+RadioGroup1; RadioGroup1
+nowe, nowe
+btnMonthyCashsheet; arkusz pienieznych
+btnPrintCashYear; Wydarzenia
+lblYear; Rok:
+grpPrintCashReportsSheets; oswiadczenie pienieznych
+btnPrintLists; Drukuj liste
+frmPrintCashTransactions; Cash modul druku ...
+btnPrintCashMonthly; arkusz srodków pienieznych (w styczniu)
+CashJournalOverview; CashJournalOverview
+enum_CashJournalOverview; Cash Book (roczne podsumowanie)
+Urzedowy Cash, Cash Journal
+enum_CashJournal; ksiazki pienieznych (miesiecznie arkuszy)
+msgWaitFetchingData; dane Hole ...
+lblHeadlineAddArticleText; Wybierz grupy, w którym nalezy dodac tekst jako artykul.
+trvArticleGroups; trvArticleGroups
+frmAddTextAsItem; Tekst Tworzenie artykulu
+szukaj chkAutoCheckForUpdates; automatycznego sprawdzania dostepnosci aktualizacji
+btnInstall; Zainstaluj
+frmGetUpdate; aktualizacje
+lblDownloadProgress; 0kb
+obciazenia frmDownloadProgress; Update ...
+Opcja art, zarzadzanie artykul domyslnie
+lblGroupName; Nazwa grupy:
+picGroupPicture; picGroupPicture
+lblGroupDetailHeadline nazwe i opis grupy
+frmSetGroupDetails; Szczególy grupy Set
+prop_Balance; równowagi
+NewPrintLayoutName, nowe Uklad wydruku
+enum_21; CashJournalOverview
+usunac msgAskDeleteDataCaption; dane:
+msgAskDeleteDataText; Czy chcesz usunac wybrany rekord?
+PrintLayoutOpendialogFilterFilename; ukladów wydruku
+Uklad wydruku dialogowe Otwórz tytulu; pliku raportu
+enum_BillOfMaterial; BOM
+msgUnknownAdrssFromCallerID; adres nieznany-
+lblCallerTime, czas rozmowy:
+lblNewIncommingCall; polaczen z:
+btnOpenAdress, zaproszenia adres
+; System.Drawing.Bitmap PicPhoneIcon
+frmCallNotification; Nowe polaczenie
+Adresowej; adresowa
+enum_Addressbook; Adres

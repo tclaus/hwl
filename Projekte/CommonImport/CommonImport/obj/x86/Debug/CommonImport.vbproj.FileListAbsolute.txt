@@ -1,0 +1,16 @@
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\bin\Debug\MySql.Data.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\bin\Debug\CommonImport.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\bin\Debug\CommonImport.pdb
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\bin\Debug\CommonImport.xml
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\bin\Debug\HWLKernel.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\bin\Debug\HWLKernel.pdb
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\bin\Debug\HWLKernel.xml
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.frmImportOptions.resources
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.frmMainImport.resources
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.Resources.resources
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.vbproj.GenerateResource.Cache
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.dll.licenses
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.dll
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.xml
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.pdb
+C:\Entwicklung\HWL-NEXT\Main\Projekte\CommonImport\CommonImport\obj\x86\Debug\CommonImport.vbprojResolveAssemblyReference.cache

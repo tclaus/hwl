@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://LoggingProvider" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://LoggingProvider" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://LoggingProvider">
+      <s:element name="SendErrorMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="errorText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendersMail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendErrorMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendErrorMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendErrorMessageExUserMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="errorText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendersMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserMessage" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="exceptionHashValue" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendErrorMessageExUserMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendErrorMessageExUserMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendErrorMessageex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="errorText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendersMail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="exceptionHashValue" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendErrorMessageexResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendErrorMessageexResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendErrorMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SendErrorMessage" />
+  </wsdl:message>
+  <wsdl:message name="SendErrorMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SendErrorMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendErrorMessageExUserMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SendErrorMessageExUserMessage" />
+  </wsdl:message>
+  <wsdl:message name="SendErrorMessageExUserMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SendErrorMessageExUserMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendErrorMessageexSoapIn">
+    <wsdl:part name="parameters" element="tns:SendErrorMessageex" />
+  </wsdl:message>
+  <wsdl:message name="SendErrorMessageexSoapOut">
+    <wsdl:part name="parameters" element="tns:SendErrorMessageexResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFile" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ErrorReportingSoap">
+    <wsdl:operation name="SendErrorMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sendet eine einfache Fehlernachricht an den Fehlerspeicher.</wsdl:documentation>
+      <wsdl:input message="tns:SendErrorMessageSoapIn" />
+      <wsdl:output message="tns:SendErrorMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendErrorMessageExUserMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sendet eine einfache Fehlernachricht und eine Benutzermitteilung an den Fehlerspeicher.</wsdl:documentation>
+      <wsdl:input message="tns:SendErrorMessageExUserMessageSoapIn" />
+      <wsdl:output message="tns:SendErrorMessageExUserMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendErrorMessageex">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sendet eine einfache Fehlernachricht an den Fehlerspeicher.</wsdl:documentation>
+      <wsdl:input message="tns:SendErrorMessageexSoapIn" />
+      <wsdl:output message="tns:SendErrorMessageexSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows to Upload any binary Data. In this Case a protocol Data</wsdl:documentation>
+      <wsdl:input message="tns:UploadFileSoapIn" />
+      <wsdl:output message="tns:UploadFileSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ErrorReportingSoap" type="tns:ErrorReportingSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendErrorMessage">
+      <soap:operation soapAction="http://LoggingProvider/SendErrorMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendErrorMessageExUserMessage">
+      <soap:operation soapAction="http://LoggingProvider/SendErrorMessageExUserMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendErrorMessageex">
+      <soap:operation soapAction="http://LoggingProvider/SendErrorMessageex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <soap:operation soapAction="http://LoggingProvider/UploadFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ErrorReportingSoap12" type="tns:ErrorReportingSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendErrorMessage">
+      <soap12:operation soapAction="http://LoggingProvider/SendErrorMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendErrorMessageExUserMessage">
+      <soap12:operation soapAction="http://LoggingProvider/SendErrorMessageExUserMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendErrorMessageex">
+      <soap12:operation soapAction="http://LoggingProvider/SendErrorMessageex" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <soap12:operation soapAction="http://LoggingProvider/UploadFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ErrorReporting">
+    <wsdl:port name="ErrorReportingSoap" binding="tns:ErrorReportingSoap">
+      <soap:address location="http://83.169.8.193/data/ErrorReporting.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ErrorReportingSoap12" binding="tns:ErrorReportingSoap12">
+      <soap12:address location="http://83.169.8.193/data/ErrorReporting.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
