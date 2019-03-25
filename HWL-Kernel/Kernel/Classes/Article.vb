@@ -551,7 +551,7 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        ReadOnly Property getResourcesPrice() As Decimal
+        ReadOnly Property GetResourcesPrice() As Decimal
             Get
                 Return DiscountPrice
             End Get
@@ -563,8 +563,8 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-<DevExpress.Xpo.DisplayName("Auf Lager")> _
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <DevExpress.Xpo.DisplayName("Auf Lager")>
         ReadOnly Property SumOnStock() As Double
             Get
                 Return Me.SumInBound - Me.SumOutBound
@@ -591,9 +591,9 @@ Namespace Kernel
 
 
 
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-        <DevExpress.Xpo.DisplayName("Anzahl Verpackungseinheit")> _
-        <Persistent("AnzahlVerpackungsEinheit")> _
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <DevExpress.Xpo.DisplayName("Anzahl Verpackungseinheit")>
+        <Persistent("AnzahlVerpackungsEinheit")>
         Property CountShippingUnits() As Double
             Get
                 Return m_countShippingUnits
@@ -610,9 +610,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-        <DevExpress.Xpo.DisplayName("Katalogdruck")> _
-        <Persistent("ShowInPrintings")> _
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <DevExpress.Xpo.DisplayName("Katalogdruck")>
+        <Persistent("ShowInPrintings")>
         Property ShowInPrintings() As Boolean
             Get
                 Return m_showInPrintings
@@ -629,9 +629,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-        <DevExpress.Xpo.DisplayName("Datanorm Matchcode ")> _
-        <Persistent("DTNmatchcode")> _
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <DevExpress.Xpo.DisplayName("Datanorm Matchcode ")>
+        <Persistent("DTNmatchcode")>
         Property DatanormMatchCode() As String
             Get
                 Return m_datanormMatchCode
@@ -657,8 +657,8 @@ Namespace Kernel
         ''' <summary>
         ''' Kennzeichnet diesen Artikel als Datanorm-Import
         ''' </summary>
-        <ComponentModel.Browsable(False)> _
-        <Persistent("QuelleDatanorm")> _
+        <ComponentModel.Browsable(False)>
+        <Persistent("QuelleDatanorm")>
         Public Property SourceDatanorm() As Boolean
             Get
                 Return m_sourceDatanorm
@@ -675,10 +675,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-        <DevExpress.Xpo.DisplayName("Importierter Artikel")> _
-        <ComponentModel.Browsable(False)> _
-        <Persistent("quelleextern")> _
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <DevExpress.Xpo.DisplayName("Importierter Artikel")>
+        <ComponentModel.Browsable(False)>
+        <Persistent("quelleextern")>
         Public Property IsImported() As Boolean
             Get
                 Return m_isImported
@@ -694,8 +694,8 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.DisplayName("ArticlesGroup", "Artikelgruppe")> _
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
+        <Tools.DisplayName("ArticlesGroup", "Artikelgruppe")>
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
         Public Property Group() As Group
             Get
                 Return MainApplication.Groups.GetItem(GroupID)
@@ -712,10 +712,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Size(32)> _
-        <Indexed()> _
-        <ComponentModel.Browsable(False)> _
-        <Persistent("GruppenID")> _
+        <Size(32)>
+        <Indexed()>
+        <ComponentModel.Browsable(False)>
+        <Persistent("GruppenID")>
         Public Property GroupID() As String
             Get
                 Return m_groupID
@@ -746,11 +746,11 @@ Namespace Kernel
             End If
         End Sub
 
-        <Obsolete("Bilder liegen nun in externer Tabelle")> _
-        <ComponentModel.Browsable(False)> _
-        <Persistent("BildID")> _
+        <Obsolete("Bilder liegen nun in externer Tabelle")>
+        <ComponentModel.Browsable(False)>
+        <Persistent("BildID")>
         Public Property BildID() As String
-            <DebuggerStepThrough()> _
+            <DebuggerStepThrough()>
             Get
                 Return m_imageID
             End Get
@@ -772,8 +772,8 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.DefaultGridVisible(EditorBrowsableState.Advanced)> _
-        <Tools.DisplayName("ArticleThumbnail", "Artikelbild (klein)")> _
+        <Tools.DefaultGridVisible(EditorBrowsableState.Advanced)>
+        <Tools.DisplayName("ArticleThumbnail", "Artikelbild (klein)")>
         Public ReadOnly Property ArticleThumbnail As System.Drawing.Image
             Get
                 If m_articleThumbnail Is Nothing Then
@@ -799,8 +799,8 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.Importable()> _
-        <Tools.DisplayName("DefaultImage", "Bild")> _
+        <Tools.Importable()>
+        <Tools.DisplayName("DefaultImage", "Bild")>
         Public Property DefaultImage() As System.Drawing.Image
 
             Get
@@ -962,9 +962,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <ComponentModel.Browsable(True)> _
-        <DevExpress.Xpo.DisplayName("Extern bereitstellen")> _
-        <Persistent("CopyToWeb")> _
+        <ComponentModel.Browsable(True)>
+        <DevExpress.Xpo.DisplayName("Extern bereitstellen")>
+        <Persistent("CopyToWeb")>
         Public Property Copyextern() As Boolean
             Get
                 Return m_ExportWeb
@@ -982,9 +982,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Obsolete("Im Moment nicht benutzen!")> _
-        <ComponentModel.Browsable(False)> _
-        <Persistent("ExportData")> _
+        <Obsolete("Im Moment nicht benutzen!")>
+        <ComponentModel.Browsable(False)>
+        <Persistent("ExportData")>
         Public Property Exportable() As Boolean
             Get
                 Return m_exportable
@@ -1002,10 +1002,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks>Zusammen mit dem Datanormersteller kann ein Artikel eindeutig wiedergefunden werden</remarks>
-        <Indexed()> _
-        <Tools.DefaultGridVisible(EditorBrowsableState.Advanced)> _
-        <DevExpress.Xpo.DisplayName("Datanorm Artikelnummer")> _
-        <Persistent("DTNArtikelnummer")> _
+        <Indexed()>
+        <Tools.DefaultGridVisible(EditorBrowsableState.Advanced)>
+        <DevExpress.Xpo.DisplayName("Datanorm Artikelnummer")>
+        <Persistent("DTNArtikelnummer")>
         Public Property DatanormArtikelnummer() As String
             Get
                 Return m_datanormArtikelnummer & ""
@@ -1028,10 +1028,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.ImportableAttribute()> _
-        <Indexed()> _
-        <ClausSoftware.Tools.DisplayName("ManufactorsItemNumber", "Artikelnummer d. Lieferanten")> _
-        <Persistent("extartnummer")> _
+        <Tools.ImportableAttribute()>
+        <Indexed()>
+        <ClausSoftware.Tools.DisplayName("ManufactorsItemNumber", "Artikelnummer d. Lieferanten")>
+        <Persistent("extartnummer")>
         Public Property ManufactorsArticleNumber() As String
             Get
                 Return m_manufactorsArticleNumber
@@ -1057,10 +1057,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Indexed()> _
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-        <ClausSoftware.Tools.DisplayName("InternalItemID", "Interne Artikelnummer")> _
-<Persistent("intartnummer")> _
+        <Indexed()>
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <ClausSoftware.Tools.DisplayName("InternalItemID", "Interne Artikelnummer")>
+        <Persistent("intartnummer")>
         Public Property InternalArticleNumber() As String
             Get
                 Return m_intArticleNumber
@@ -1076,10 +1076,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.ImportableAttribute()> _
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-<Tools.DisplayName("CustomerArticleNumber", "Freie Artikelnummer")> _
-    <Persistent("UserArtikelNummer")> _
+        <Tools.ImportableAttribute()>
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <Tools.DisplayName("CustomerArticleNumber", "Freie Artikelnummer")>
+        <Persistent("UserArtikelNummer")>
         Public Property CustomerArticleNumber() As String
             Get
                 Return m_userArticleID
@@ -1105,9 +1105,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.Importable()> _
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-        <Tools.DisplayName("GroupName", "Gruppenname")> _
+        <Tools.Importable()>
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <Tools.DisplayName("GroupName", "Gruppenname")>
         Public Property GroupName() As String
             'todo: Ein MAterial(Artikel) hat immer genau eine Gruppe; Zuweisung definieren
             Get
@@ -1204,8 +1204,8 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <DevExpress.Xpo.DisplayName("Rabatt")> _
-        <Persistent("Rabatt")> _
+        <DevExpress.Xpo.DisplayName("Rabatt")>
+        <Persistent("Rabatt")>
         Private Property DiscountID() As Integer
             Get
                 Return m_Rabatt
@@ -1239,8 +1239,8 @@ Namespace Kernel
             End Set
         End Property
 
-        <ComponentModel.Browsable(False)> _
-        <Persistent("FixedGrpPreis")> _
+        <ComponentModel.Browsable(False)>
+        <Persistent("FixedGrpPreis")>
         Public Property FixedGroupPrice() As Boolean
             Get
                 Return m_fixedGroupPrice
@@ -1251,9 +1251,9 @@ Namespace Kernel
             End Set
         End Property
 
-        <Obsolete("Nicht benutzen, wird nicht ausgewertet")> _
-        <Browsable(False)> _
-        <Persistent("GewinnTypeProz")> _
+        <Obsolete("Nicht benutzen, wird nicht ausgewertet")>
+        <Browsable(False)>
+        <Persistent("GewinnTypeProz")>
         Private Property GewinnTypeProzent() As Boolean
             Get
                 'Return m_GewinnTypeProzent
@@ -1270,10 +1270,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.ImportableAttribute()> _
-        <Tools.DefaultGridVisible(EditorBrowsableState.Advanced)> _
-        <Tools.DisplayName("Weight", "Gewicht (Kg)")> _
-        <Persistent("Gewicht")> _
+        <Tools.ImportableAttribute()>
+        <Tools.DefaultGridVisible(EditorBrowsableState.Advanced)>
+        <Tools.DisplayName("Weight", "Gewicht (Kg)")>
+        <Persistent("Gewicht")>
         Public Property Weight() As Decimal
             Get
                 Return m_gewicht
@@ -1301,9 +1301,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Obsolete("Verwendung nicht klar definiert. Statttdessen neue Datensatzsperen verwenden!")> _
-        <Browsable(False)> _
-        <Persistent("Änderbar")> _
+        <Obsolete("Verwendung nicht klar definiert. Statttdessen neue Datensatzsperen verwenden!")>
+        <Browsable(False)>
+        <Persistent("Änderbar")>
         Public Property IsUserLocked() As Boolean
             Get
                 'TODO: Von wem änderbar / von wem nicht ? 
@@ -1323,9 +1323,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>      
-        <Indexed()> _
-        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)> _
-        <Persistent("dtnersteller")> _
+        <Indexed()>
+        <Tools.DefaultGridVisible(ComponentModel.EditorBrowsableState.Advanced)>
+        <Persistent("dtnersteller")>
         Public Property DatanormErsteller() As String
             Get
                 Return m_dtnersteller
@@ -1348,9 +1348,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.ImportableAttribute()> _
-        <Tools.DisplayName("MinSellCount", "Anzahl Liefereinheiten")> _
-        <Persistent("AnzLiefereinheiten")> _
+        <Tools.ImportableAttribute()>
+        <Tools.DisplayName("MinSellCount", "Anzahl Liefereinheiten")>
+        <Persistent("AnzLiefereinheiten")>
         Public Property MinSellCount() As Decimal
             Get
                 If m_AnzahlLiefereinheiten = 0 Then
@@ -1371,9 +1371,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.ImportableAttribute()> _
-        <Tools.DisplayName("MindeliveryCount", "VP-Anzahl")> _
-        <Persistent("VPAnzahl")> _
+        <Tools.ImportableAttribute()>
+        <Tools.DisplayName("MindeliveryCount", "VP-Anzahl")>
+        <Persistent("VPAnzahl")>
         Public Property MinDeliveryCount() As Decimal
             Get
                 If m_VPAnzahl = 0 Then
@@ -1389,7 +1389,7 @@ Namespace Kernel
         End Property
 
 
-        <DevExpress.Xpo.DisplayName("Anhänge")> _
+        <DevExpress.Xpo.DisplayName("Anhänge")>
         Public ReadOnly Property Attachments() As Generic.List(Of Attachment) Implements IAttachments.Attachments
 
             Get
@@ -1416,7 +1416,7 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Persistent("KategorieID")> _
+        <Persistent("KategorieID")>
         Private Property KategorieID() As String
             Get
                 Return m_KategorieID
@@ -1433,7 +1433,7 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Persistent("DTNWarengruppe")> _
+        <Persistent("DTNWarengruppe")>
         Public Property DatanormWarengruppe() As String
             Get
                 Return m_DTNWarengruppe
@@ -1449,7 +1449,7 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Persistent("DTNRabattGruppe")> _
+        <Persistent("DTNRabattGruppe")>
         Public Property DatanormRabattGruppe() As String
             Get
                 Return m_DTNRabattGruppe
@@ -1466,7 +1466,7 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Persistent("DTNHauptwarengruppe")> _
+        <Persistent("DTNHauptwarengruppe")>
         Public Property DatanormHauptwarengruppe() As String
             Get
                 Return m_DTNHauptwarengruppe
@@ -1595,7 +1595,7 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <ComponentModel.Browsable(False)> _
+        <ComponentModel.Browsable(False)>
         Public ReadOnly Property AttachmentLinks() As AttachmentsRelations Implements IAttachments.AttachmentLinks
             Get
                 If m_attachmentRelations Is Nothing Then
@@ -1615,10 +1615,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Size(50)> _
-        <Obsolete("Altes Feld, nicht mehr verwenden")> _
-        <DevExpress.Xpo.DisplayName("Geändert am")> _
-        <Persistent("Geändertam")> _
+        <Size(50)>
+        <Obsolete("Altes Feld, nicht mehr verwenden")>
+        <DevExpress.Xpo.DisplayName("Geändert am")>
+        <Persistent("Geändertam")>
         Public Property ChangedAtOld() As String
             Get
                 If m_changedAt.HasValue Then
@@ -1653,10 +1653,10 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Size(50)> _
-        <Obsolete("Altes Feld, nicht mehr verwenden")> _
-        <DevExpress.Xpo.DisplayName("Angelegt am")> _
-        <Persistent("Angelegtam")> _
+        <Size(50)>
+        <Obsolete("Altes Feld, nicht mehr verwenden")>
+        <DevExpress.Xpo.DisplayName("Angelegt am")>
+        <Persistent("Angelegtam")>
         Public Property CreatedAtOld() As String
             Get
                 If m_createdAt.HasValue Then
@@ -1688,9 +1688,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <Tools.ImportableAttribute()> _
-        <Tools.DisplayName("ArticleSingleEndPriceWithoutTax", "Verkaufspreis (netto)")> _
-        <Persistent("VKProeinheit")> _
+        <Tools.ImportableAttribute()>
+        <Tools.DisplayName("ArticleSingleEndPriceWithoutTax", "Verkaufspreis (netto)")>
+        <Persistent("VKProeinheit")>
         Public Property EinzelVK() As Decimal
             Get
                 Return m_VerkaufspreisProEinheit
@@ -1700,7 +1700,7 @@ Namespace Kernel
                 SetPropertyValue(Of Decimal)("EinzelVK", m_VerkaufspreisProEinheit, value)
                 If Not IsLoading Then
                     ' VK steuert Gewinn, 
-                    GewinnAbsolut = value - getResourcesPrice
+                    GewinnAbsolut = value - GetResourcesPrice
                 End If
 
             End Set

@@ -1040,7 +1040,6 @@ Public Class frmJournal
     ''' <summary>
     ''' Setzt vor dem öffnen des Dialoges eine AdressId, löscht alle bisherigen Filter
     ''' </summary>
-    ''' <param name="adressID"></param>
     ''' <remarks></remarks>
     Private Sub SetFilterAdressID(ByVal addressID As Integer)
         m_application.Log.WriteLog("Setze Adressen-Filter auf die Adresse mit der ID:" & addressID)

@@ -62,7 +62,7 @@ Namespace Printing
 
         Public ReadOnly Property HasChanged() As Boolean Implements IModule.HasChanged
             Get
-
+                Return False
             End Get
         End Property
 

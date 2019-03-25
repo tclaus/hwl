@@ -9,3 +9,15 @@ C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista_Api.Properties.Resour
 C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista Api.csproj.GenerateResource.Cache
 C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista Api.dll
 C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Debug\Vista Api.pdb
+Y:\hwl\Vista Api\bin\Debug\Vista Api.XML
+Y:\hwl\Vista Api\bin\Debug\Vista Api.dll
+Y:\hwl\Vista Api\bin\Debug\Vista Api.pdb
+Y:\hwl\Vista Api\obj\x86\Debug\Vista Api.csprojAssemblyReference.cache
+Y:\hwl\Vista Api\obj\x86\Debug\Vista_Api.CommandDialog.resources
+Y:\hwl\Vista Api\obj\x86\Debug\Vista_Api.CommandLink.resources
+Y:\hwl\Vista Api\obj\x86\Debug\Vista_Api.ListView.resources
+Y:\hwl\Vista Api\obj\x86\Debug\Vista_Api.Properties.Resources.resources
+Y:\hwl\Vista Api\obj\x86\Debug\Vista Api.csproj.GenerateResource.cache
+Y:\hwl\Vista Api\obj\x86\Debug\Vista Api.csproj.CoreCompileInputs.cache
+Y:\hwl\Vista Api\obj\x86\Debug\Vista Api.dll
+Y:\hwl\Vista Api\obj\x86\Debug\Vista Api.pdb

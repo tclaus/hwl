@@ -326,9 +326,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Kernel\Classes\TrackedItem.vb" />
-    <Compile Include="Kernel\Classes\Transaction.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Kernel\Classes\Transaction.vb" />
     <Compile Include="Kernel\Classes\Transactions.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -399,9 +397,7 @@
     <Compile Include="Kernel\Classes\JournalDocuments.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\Classes\CashJournalItem.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Kernel\Classes\CashJournalItem.vb" />
     <Compile Include="Kernel\Classes\CashJournalItems.vb">
       <SubType>Component</SubType>
     </Compile>

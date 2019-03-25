@@ -13,38 +13,14 @@
             dialog on versions of Windows older than Vista.
             </remarks>
         </member>
-        <member name="M:Vista_Api.FileDialog.#ctor">
-            <summary>
-            Creates a new insatnce of <see cref="T:Vista_Api.FileDialog"/> class.
-            </summary>
-        </member>
-        <member name="M:Vista_Api.FileDialog.Reset">
-            <summary>
-            Resets all properties to their default values.
-            </summary>
-        </member>
-        <member name="M:Vista_Api.FileDialog.RunDialog(System.IntPtr)">
-            <summary>
-            Specifies a common dialog box.
-            </summary>
-            <param name="hwndOwner">A value that represents the window handle of the owner window for the common dialog box.</param>
-            <returns>true if the file could be opened; otherwise, false.</returns>
-        </member>
-        <member name="M:Vista_Api.FileDialog.OnFileOk(System.ComponentModel.CancelEventArgs)">
-            <summary>
-            Raises the <see cref="E:Vista_Api.FileDialog.FileOk"/> event.
-            </summary>
-            <param name="e">A <see cref="T:System.ComponentModel.CancelEventArgs"/> that contains the event data.</param>
-        </member>
-        <member name="M:Vista_Api.FileDialog.Dispose(System.Boolean)">
-            <summary>
-            Releases the unmanaged resources used by the <see cref="T:Vista_Api.FileDialog"/> and optionally releases the managed resources.
-            </summary>
-            <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
-        </member>
         <member name="E:Vista_Api.FileDialog.FileOk">
             <summary>
             Occurs when the user clicks on the Open or Save button on a file dialog box.
+            </summary>
+        </member>
+        <member name="M:Vista_Api.FileDialog.#ctor">
+            <summary>
+            Creates a new insatnce of <see cref="T:Vista_Api.FileDialog" /> class.
             </summary>
         </member>
         <member name="P:Vista_Api.FileDialog.AddExtension">
@@ -181,6 +157,30 @@
             dialog is not supported.
             </summary>
         </member>
+        <member name="M:Vista_Api.FileDialog.Reset">
+            <summary>
+            Resets all properties to their default values.
+            </summary>
+        </member>
+        <member name="M:Vista_Api.FileDialog.RunDialog(System.IntPtr)">
+            <summary>
+            Specifies a common dialog box.
+            </summary>
+            <param name="hwndOwner">A value that represents the window handle of the owner window for the common dialog box.</param>
+            <returns>true if the file could be opened; otherwise, false.</returns>
+        </member>
+        <member name="M:Vista_Api.FileDialog.OnFileOk(System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:Vista_Api.FileDialog.FileOk" /> event.
+            </summary>
+            <param name="e">A <see cref="T:System.ComponentModel.CancelEventArgs" /> that contains the event data.</param>
+        </member>
+        <member name="M:Vista_Api.FileDialog.Dispose(System.Boolean)">
+            <summary>
+            Releases the unmanaged resources used by the <see cref="T:Vista_Api.FileDialog" /> and optionally releases the managed resources.
+            </summary>
+            <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+        </member>
         <member name="T:Vista_Api.FolderBrowserDialog">
             <summary>
             Prompts the user to select a folder.
@@ -191,40 +191,22 @@
             in both Vista and older Windows versions is not recommended.
             </remarks>
         </member>
-        <member name="M:Vista_Api.FolderBrowserDialog.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:Vista_Api.FolderBrowserDialog"/> class.
-            </summary>
-        </member>
-        <member name="M:Vista_Api.FolderBrowserDialog.#ctor(System.Boolean)">
-            <summary>
-            Creates a new instance of the <see cref="T:Vista_Api.FolderBrowserDialog"/> class.
-            </summary>
-            <param name="forceDownlevel">true to force the use of the old style folder browser dialog, even when the Vista
-            style dialog is supported; otherwise, false.</param>
-        </member>
-        <member name="M:Vista_Api.FolderBrowserDialog.Reset">
-            <summary>
-            Resets all properties to their default values.
-            </summary>
-        </member>
-        <member name="M:Vista_Api.FolderBrowserDialog.RunDialog(System.IntPtr)">
-            <summary>
-            Specifies a common dialog box.
-            </summary>
-            <param name="hwndOwner">A value that represents the window handle of the owner window for the common dialog box.</param>
-            <returns>true if the file could be opened; otherwise, false.</returns>
-        </member>
-        <member name="M:Vista_Api.FolderBrowserDialog.Dispose(System.Boolean)">
-            <summary>
-            Releases the unmanaged resources used by the <see cref="T:Vista_Api.FileDialog"/> and optionally releases the managed resources.
-            </summary>
-            <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
-        </member>
         <member name="E:Vista_Api.FolderBrowserDialog.HelpRequest">
             <summary>
             Occurs when the user clicks the Help button on the dialog box.
             </summary>
+        </member>
+        <member name="M:Vista_Api.FolderBrowserDialog.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:Vista_Api.FolderBrowserDialog" /> class.
+            </summary>
+        </member>
+        <member name="M:Vista_Api.FolderBrowserDialog.#ctor(System.Boolean)">
+            <summary>
+            Creates a new instance of the <see cref="T:Vista_Api.FolderBrowserDialog" /> class.
+            </summary>
+            <param name="forceDownlevel">true to force the use of the old style folder browser dialog, even when the Vista
+            style dialog is supported; otherwise, false.</param>
         </member>
         <member name="P:Vista_Api.FolderBrowserDialog.IsVistaFolderDialogSupported">
             <summary>
@@ -249,9 +231,9 @@
             dialog is used.
             </summary>
             <value>
-            One of the <see cref="T:System.Environment.SpecialFolder"/> values. The default is Desktop.
+            One of the <see cref="T:System.Environment.SpecialFolder" /> values. The default is Desktop.
             </value>
-            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The value assigned is not one of the <see cref="T:System.Environment.SpecialFolder"/> values.</exception>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The value assigned is not one of the <see cref="T:System.Environment.SpecialFolder" /> values.</exception>
         </member>
         <member name="P:Vista_Api.FolderBrowserDialog.SelectedPath">
             <summary>
@@ -272,11 +254,29 @@
         </member>
         <member name="P:Vista_Api.FolderBrowserDialog.UseDescriptionForTitle">
             <summary>
-            Gets or sets a value that indicates whether to use the value of the <see cref="P:Vista_Api.FolderBrowserDialog.Description"/> property
+            Gets or sets a value that indicates whether to use the value of the <see cref="P:Vista_Api.FolderBrowserDialog.Description" /> property
             as the dialog title for Vista style dialogs. This property has no effect on old style dialogs.
             </summary>
-            <value>true to indicate that the value of the <see cref="P:Vista_Api.FolderBrowserDialog.Description"/> property is used as dialog title; false
+            <value>true to indicate that the value of the <see cref="P:Vista_Api.FolderBrowserDialog.Description" /> property is used as dialog title; false
             to indicate the value is added as additional text to the dialog. The default is false.</value>
+        </member>
+        <member name="M:Vista_Api.FolderBrowserDialog.Reset">
+            <summary>
+            Resets all properties to their default values.
+            </summary>
+        </member>
+        <member name="M:Vista_Api.FolderBrowserDialog.RunDialog(System.IntPtr)">
+            <summary>
+            Specifies a common dialog box.
+            </summary>
+            <param name="hwndOwner">A value that represents the window handle of the owner window for the common dialog box.</param>
+            <returns>true if the file could be opened; otherwise, false.</returns>
+        </member>
+        <member name="M:Vista_Api.FolderBrowserDialog.Dispose(System.Boolean)">
+            <summary>
+            Releases the unmanaged resources used by the <see cref="T:Vista_Api.FileDialog" /> and optionally releases the managed resources.
+            </summary>
+            <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
         </member>
         <member name="T:Vista_Api.OpenFileDialog">
             <summary>
@@ -289,26 +289,14 @@
         </member>
         <member name="M:Vista_Api.OpenFileDialog.#ctor">
             <summary>
-            Creates a new instance of <see cref="T:Vista_Api.OpenFileDialog"/> class.
+            Creates a new instance of <see cref="T:Vista_Api.OpenFileDialog" /> class.
             </summary>
         </member>
         <member name="M:Vista_Api.OpenFileDialog.#ctor(System.Boolean)">
             <summary>
-            Creates a new instance of <see cref="T:Vista_Api.OpenFileDialog"/> class.
+            Creates a new instance of <see cref="T:Vista_Api.OpenFileDialog" /> class.
             </summary>
             <param name="forceDownlevel">When true, the old style common file dialog will always be used even if the OS supports the Vista style.</param>
-        </member>
-        <member name="M:Vista_Api.OpenFileDialog.Reset">
-            <summary>
-            Resets all properties to their default values.
-            </summary>
-        </member>
-        <member name="M:Vista_Api.OpenFileDialog.OpenFile">
-            <summary>
-            Opens the file selected by the user, with read-only permission. The file is specified by the FileName property. 
-            </summary>
-            <returns>A Stream that specifies the read-only file selected by the user.</returns>
-            <exception cref="T:System.ArgumentNullException">The file name is null.</exception>
         </member>
         <member name="P:Vista_Api.OpenFileDialog.CheckFileExists">
             <summary>
@@ -347,6 +335,18 @@
             true if the read-only check box is selected; otherwise, false. The default value is false.
             </value>
         </member>
+        <member name="M:Vista_Api.OpenFileDialog.Reset">
+            <summary>
+            Resets all properties to their default values.
+            </summary>
+        </member>
+        <member name="M:Vista_Api.OpenFileDialog.OpenFile">
+            <summary>
+            Opens the file selected by the user, with read-only permission. The file is specified by the FileName property. 
+            </summary>
+            <returns>A Stream that specifies the read-only file selected by the user.</returns>
+            <exception cref="T:System.ArgumentNullException">The file name is null.</exception>
+        </member>
         <member name="T:Vista_Api.SaveFileDialog">
             <summary>
             Prompts the user to select a location for saving a file.
@@ -358,31 +358,14 @@
         </member>
         <member name="M:Vista_Api.SaveFileDialog.#ctor">
             <summary>
-            Creates a new instance of <see cref="T:Vista_Api.SaveFileDialog"/> class.
+            Creates a new instance of <see cref="T:Vista_Api.SaveFileDialog" /> class.
             </summary>
         </member>
         <member name="M:Vista_Api.SaveFileDialog.#ctor(System.Boolean)">
             <summary>
-            Creates a new instance of <see cref="T:Vista_Api.SaveFileDialog"/> class.
+            Creates a new instance of <see cref="T:Vista_Api.SaveFileDialog" /> class.
             </summary>
             <param name="forceDownlevel">When true, the old style common file dialog will always be used even if the OS supports the Vista style.</param>
-        </member>
-        <member name="M:Vista_Api.SaveFileDialog.Reset">
-            <summary>
-            Resets all properties to their default values.
-            </summary>
-        </member>
-        <member name="M:Vista_Api.SaveFileDialog.OpenFile">
-            <summary>
-            Opens the file with read/write permission selected by the user.
-            </summary>
-            <returns>The read/write file selected by the user.</returns>
-        </member>
-        <member name="M:Vista_Api.SaveFileDialog.OnFileOk(System.ComponentModel.CancelEventArgs)">
-            <summary>
-            Raises the <see cref="E:Vista_Api.FileDialog.FileOk"/> event.
-            </summary>
-            <param name="e">A <see cref="T:System.ComponentModel.CancelEventArgs"/> that contains the event data.</param>        
         </member>
         <member name="P:Vista_Api.SaveFileDialog.CreatePrompt">
             <summary>
@@ -406,6 +389,23 @@
             prompting the user for permission. The default value is true.
             </value>
         </member>
+        <member name="M:Vista_Api.SaveFileDialog.Reset">
+            <summary>
+            Resets all properties to their default values.
+            </summary>
+        </member>
+        <member name="M:Vista_Api.SaveFileDialog.OpenFile">
+            <summary>
+            Opens the file with read/write permission selected by the user.
+            </summary>
+            <returns>The read/write file selected by the user.</returns>
+        </member>
+        <member name="M:Vista_Api.SaveFileDialog.OnFileOk(System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:Vista_Api.FileDialog.FileOk" /> event.
+            </summary>
+            <param name="e">A <see cref="T:System.ComponentModel.CancelEventArgs" /> that contains the event data.</param>        
+        </member>
         <member name="T:Vista_Api.CommandDialog">
             <summary>
             Provides a Vista-Style command Dialog
@@ -426,30 +426,6 @@
             Gives a List of CommandLinks
             </summary>
             <param name="commandLinks"></param>
-        </member>
-        <member name="M:Vista_Api.CommandDialog.OnActivated(System.EventArgs)">
-            <summary>
-            Dialog is activated
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Vista_Api.CommandDialog.OnDeactivate(System.EventArgs)">
-            <summary>
-            Dialog losts its active state
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Vista_Api.CommandDialog.OnClosed(System.EventArgs)">
-            <summary>
-            Dialog closed
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Vista_Api.CommandDialog.Dispose(System.Boolean)">
-            <summary>
-            Form overrides dispose to clean up the component list.
-            </summary>
-            <param name="disposing"></param>
         </member>
         <member name="P:Vista_Api.CommandDialog.Title">
             <summary>
@@ -491,9 +467,58 @@
             Stellt einen Abbrechen-Button des Dialoges bereit
             </summary>
         </member>
+        <member name="M:Vista_Api.CommandDialog.OnActivated(System.EventArgs)">
+            <summary>
+            Dialog is activated
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Vista_Api.CommandDialog.OnDeactivate(System.EventArgs)">
+            <summary>
+            Dialog losts its active state
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Vista_Api.CommandDialog.OnClosed(System.EventArgs)">
+            <summary>
+            Dialog closed
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Vista_Api.CommandDialog.Dispose(System.Boolean)">
+            <summary>
+            Form overrides dispose to clean up the component list.
+            </summary>
+            <param name="disposing"></param>
+        </member>
         <member name="T:Vista_Api.CommandLink">
             <summary>
             Provides a LinkButton for the Vista-Style CommandDialog
+            </summary>
+        </member>
+        <member name="P:Vista_Api.CommandLink.CreateParams">
+            <summary>
+            Creates Parameters
+            </summary>
+        </member>
+        <member name="E:Vista_Api.CommandLink.Selected">
+            <summary>
+            Fires If a Command Link was clicked
+            </summary>
+        </member>
+        <member name="T:Vista_Api.CommandLink.DisplayStyle">
+            <summary>
+            The Icon-Style for a Command Link
+            </summary>
+        </member>
+        <member name="F:Vista_Api.CommandLink.DisplayStyle.Arrow">
+            <summary>
+            Paints a green arrow
+            </summary>
+        </member>
+        <member name="F:Vista_Api.CommandLink.DisplayStyle.Shield">
+            <summary>
+            Paints a Shield-Symbol for security-relevant commands
             </summary>
         </member>
         <member name="M:Vista_Api.CommandLink.#ctor">
@@ -519,6 +544,21 @@
             <param name="text"></param>
             <param name="description"></param>
         </member>
+        <member name="P:Vista_Api.CommandLink.Text">
+            <summary>
+            Maintext on this link
+            </summary>
+        </member>
+        <member name="P:Vista_Api.CommandLink.Description">
+            <summary>
+            Longer, but smaller Text on this link
+            </summary>
+        </member>
+        <member name="P:Vista_Api.CommandLink.Style">
+            <summary>
+            The icon style for this Link
+            </summary>
+        </member>
         <member name="M:Vista_Api.CommandLink.ActivateChanged(System.Boolean)">
             <summary>
             Activated-State changed
@@ -537,46 +577,6 @@
             </summary>
             <param name="disposing"></param>
         </member>
-        <member name="P:Vista_Api.CommandLink.CreateParams">
-            <summary>
-            Creates Parameters
-            </summary>
-        </member>
-        <member name="E:Vista_Api.CommandLink.Selected">
-            <summary>
-            Fires If a Command Link was clicked
-            </summary>
-        </member>
-        <member name="P:Vista_Api.CommandLink.Text">
-            <summary>
-            Maintext on this link
-            </summary>
-        </member>
-        <member name="P:Vista_Api.CommandLink.Description">
-            <summary>
-            Longer, but smaller Text on this link
-            </summary>
-        </member>
-        <member name="P:Vista_Api.CommandLink.Style">
-            <summary>
-            The icon style for this Link
-            </summary>
-        </member>
-        <member name="T:Vista_Api.CommandLink.DisplayStyle">
-            <summary>
-            The Icon-Style for a Command Link
-            </summary>
-        </member>
-        <member name="F:Vista_Api.CommandLink.DisplayStyle.Arrow">
-            <summary>
-            Paints a green arrow
-            </summary>
-        </member>
-        <member name="F:Vista_Api.CommandLink.DisplayStyle.Shield">
-            <summary>
-            Paints a Shield-Symbol for security-relevant commands
-            </summary>
-        </member>
         <member name="T:Vista_Api.ListView">
             <summary>
             A ListView wise enough to display tooltips when needed.
@@ -594,16 +594,16 @@
             Summary description for ctlTreeview.
             </summary>
         </member>
+        <member name="P:Vista_Api.TreeView.CreateParams">
+            <summary>
+            Creates Parameters
+            </summary>
+        </member>
         <member name="M:Vista_Api.TreeView.OnHandleCreated(System.EventArgs)">
             <summary>
             Handle Created
             </summary>
             <param name="e"></param>
-        </member>
-        <member name="P:Vista_Api.TreeView.CreateParams">
-            <summary>
-            Creates Parameters
-            </summary>
         </member>
         <member name="P:Vista_Api.Dialog.Native.NativeMethods.IsVistaOrLater">
             <value>

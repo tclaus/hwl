@@ -653,16 +653,16 @@ Public Class iucArticles
                 Case calucateSteps.BasePrice
 
                     txtRabattpreis.EditValue = ActiveItem.DiscountPrice
-                    txtRohstoffpreis.EditValue = ActiveItem.getResourcesPrice
+                    txtRohstoffpreis.EditValue = ActiveItem.GetResourcesPrice
                     txtVerkaufspreis.EditValue = ActiveItem.CalulatedEndPrice
                     cboAddValueStyle.SelectedIndex = 1
-                    txtAufschlagAbsolut.EditValue = ActiveItem.CalulatedEndPrice - ActiveItem.getResourcesPrice
+                    txtAufschlagAbsolut.EditValue = ActiveItem.CalulatedEndPrice - ActiveItem.GetResourcesPrice
                     ' endpreis
 
                 Case calucateSteps.Discount
 
                     txtRabattpreis.EditValue = ActiveItem.DiscountPrice
-                    txtRohstoffpreis.EditValue = ActiveItem.getResourcesPrice
+                    txtRohstoffpreis.EditValue = ActiveItem.GetResourcesPrice
 
                     txtVerkaufspreis.EditValue = ActiveItem.CalulatedEndPrice
 

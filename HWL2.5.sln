@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HWLMainApplication", "HWL2-Applikation\HWLMainApplication.vbproj", "{ABD21C0E-CF09-4D46-92F9-DB2610F085DA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CD3B3559-8D1D-4FEA-B5D1-417CC4AC64B8} = {CD3B3559-8D1D-4FEA-B5D1-417CC4AC64B8}
@@ -23,7 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CommonAssemblyInfo.vb = CommonAssemblyInfo.vb
 		HWL2-Setup.iss = HWL2-Setup.iss
 		HWL2-Update.iss = HWL2-Update.iss
-		PB2-Setup.iss = PB2-Setup.iss
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CommonImport", "Projekte\CommonImport\CommonImport\CommonImport.vbproj", "{CD3B3559-8D1D-4FEA-B5D1-417CC4AC64B8}"
@@ -31,36 +32,6 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Datanorm", "Projekte\Datanorm\Datanorm.vbproj", "{705A71EF-A613-4F3F-AFCF-0925E36BF327}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://thorstencla2bc4:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = CoreTests_new\\CoreTests.vbproj
-		SccProjectName1 = CoreTests_new
-		SccLocalPath1 = CoreTests_new
-		SccProjectUniqueName2 = HWL-Kernel\\HWL2Kernel.vbproj
-		SccProjectName2 = HWL-Kernel
-		SccLocalPath2 = HWL-Kernel
-		SccProjectUniqueName3 = HWL2-Applikation\\HWLMainApplication.vbproj
-		SccProjectName3 = HWL2-Applikation
-		SccLocalPath3 = HWL2-Applikation
-		SccProjectUniqueName4 = HWLInterops\\HWLInterops.vbproj
-		SccProjectName4 = HWLInterops
-		SccLocalPath4 = HWLInterops
-		SccProjectUniqueName5 = Projekte\\CommonImport\\CommonImport\\CommonImport.vbproj
-		SccProjectName5 = Projekte/CommonImport/CommonImport
-		SccLocalPath5 = Projekte\\CommonImport\\CommonImport
-		SccProjectUniqueName6 = Projekte\\Datanorm\\Datanorm.vbproj
-		SccProjectName6 = Projekte/Datanorm
-		SccLocalPath6 = Projekte\\Datanorm
-		SccProjectUniqueName7 = SendErrorMessage\\SendErrorMessage.vbproj
-		SccProjectName7 = SendErrorMessage
-		SccLocalPath7 = SendErrorMessage
-		SccProjectUniqueName8 = Vista\u0020Api\\Vista\u0020Api.csproj
-		SccProjectName8 = Vista\u0020Api
-		SccLocalPath8 = Vista\u0020Api
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -242,6 +213,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5207C37-8492-4B91-96F1-BCCE45CE7DC8}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

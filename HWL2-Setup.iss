@@ -1,31 +1,32 @@
 [Setup]
-VersionInfoVersion=2.5.0.3
+VersionInfoVersion=2.6.0
 VersionInfoCompany=Claus-Software
-VersionInfoCopyright=2014
-VersionInfoProductName=HWL 2.5
-VersionInfoProductVersion=2.5
+VersionInfoCopyright=2019
+VersionInfoProductName=HWL 2.6
+VersionInfoProductVersion=2.6
 AppName=HWL Business
 PrivilegesRequired=admin
 DefaultDirName={pf}\HWL2.5
 DefaultGroupName=HWL-2
 OutputBaseFilename=hwl2.5-setup
-MinVersion=0,5.01.2600sp2
-AppVerName=HWL Businss 2.5
+MinVersion=0,6.1.7600
+AppVersion=2.6
+;AppVerName=HWL Businss 2.5
 DisableDirPage=true
 ShowLanguageDialog=auto
 AppMutex=HWL2
 DisableProgramGroupPage=true
-AppPublisherURL=http://claus-software.de
+AppPublisherURL=https://claus-software.de
 UninstallDisplayIcon={app}\HWL2.exe
 SolidCompression=false
 Compression=lzma/normal
 MergeDuplicateFiles=false
-AppCopyright=Claus-Software 2013
+AppCopyright=Claus-Software 2019
 AppID={{2C7F937E-6B45-41C0-992C-1295FFE55750}
-VersionInfoTextVersion=2.5
-AppSupportURL=http://claus-software.de
+VersionInfoTextVersion=2.6
+AppSupportURL=https://www.claus-software.de/hwl-archiv/
 AppPublisher=Claus-Software
-AppVersion=2.5.3
+AppUpdatesURL=https://www.claus-software.de/hwl-archiv/
 
 [Files]
 Source: HWL2-Applikation\bin\release\Vista Api.dll; DestDir: {app}; Flags: ignoreversion

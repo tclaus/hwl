@@ -485,7 +485,6 @@ Public Class uicCommonGrid
 
         ' Nun das Grid für den Server-Mode vorbereiten, dann Formatieren
 
-        grdCommonGrid.ServerMode = True
         grdCommonGrid.DataSource = Nothing
 
         grdCommonGrid.DataSource = m_serverModeDS

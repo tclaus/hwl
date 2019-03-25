@@ -869,9 +869,7 @@
     <Compile Include="Controls\ShadowPanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Printing\SimpleGridPrinting.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Printing\SimpleGridPrinting.vb" />
     <Compile Include="Controls\uicCommonGrid.Designer.vb">
       <DependentUpon>uicCommonGrid.vb</DependentUpon>
     </Compile>

@@ -6,182 +6,211 @@ CommonImport
 </name>
 </assembly>
 <members>
+<member name="T:CommonImport.My.Resources.Resources">
+<summary>
+  Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+</summary>
+</member>
 <member name="P:CommonImport.My.Resources.Resources.ResourceManager">
-	<summary>
+<summary>
   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
 </summary>
-</member><member name="P:CommonImport.My.Resources.Resources.Culture">
-	<summary>
+</member>
+<member name="P:CommonImport.My.Resources.Resources.Culture">
+<summary>
   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
 </summary>
-</member><member name="T:CommonImport.My.Resources.Resources">
-	<summary>
-  Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
-</summary>
-</member><member name="P:CommonImport.frmImportOptions.TargetAttributes">
-	<summary>
- Ruft die Auflistunhg aller möglichen ZielAttribute ab ode rlegt diese fest
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.frmImportOptions.Mappings">
-	<summary>
- Ruft die Auflistung der Zuweisungen ab oder legt diese fest
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:CommonImport.frmImportOptions.startUpdate">
-	<summary>
- Startet den Importvorgang Asynchron
- </summary>
-	<remarks></remarks>
-</member><member name="P:CommonImport.Mappings.MapName">
-	<summary>
- Ruft den Namen des Mappings ab oder legt diesen fest
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.frmMainImport.FileName">
-	<summary>
- ruft den Dateinamen ab, der eingelesen werden soll oder legt diesen fest
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.frmMainImport.ImportType">
-	<summary>
- Ruft den Typ ab, der Importiert werden soll
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:CommonImport.frmMainImport.CurrentImportFileExist">
-	<summary>
- Gigt Wahr zurück, wenn die Datei auch tatsächlich existiert
- </summary>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="F:CommonImport.ImporterController.m_DataTable">
-	<summary>
- Enthält die Datentabelle mit den zu Importierenden Daten
- </summary>
-	<remarks></remarks>
-</member><member name="F:CommonImport.ImporterController.m_mappings">
-	<summary>
- Enthält die Aufstellung der Spaltenzuweisungem
- </summary>
-	<remarks></remarks>
-</member><member name="P:CommonImport.ImporterController.TargetAttributes">
-	<summary>
- Stellt eine Auflistung der möglichen ZielAttribute bereit
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.ImporterController.ImportType">
-	<summary>
- Der Typ der eingelesen werden soll (Ziel Klasse)
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.GetText(System.String,System.String)">
-	<summary>
- Ruft eine Textübersetzung ab
- </summary>
-	<param name="key"></param>
-	<param name="defaultValue"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.ImporterController.ImportFileName">
-	<summary>
- Legt den Namen des einzulesenden Datei fest oder ruft diese ab
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.ImporterController.BaseImportPath">
-	<summary>
- Ruft den Basis-Pfad der Importierenden Datei ab
- </summary>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.GenerateTargetAttributeList">
-	<summary>
- Ermittelt eine Aufstellung aller Zielattribute
- </summary>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.StartImport">
-	<summary>
- Startet einen Asynchronen Vorgang um die gewählten Daten zu impiotrtieren
- </summary>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.StartImportAsnc">
-	<summary>
- Startet den Import anhand des Mappings
- </summary>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.SaveMapping">
-	<summary>
- Speichert das Mapping anhand des Dateinamens  der zu Importierenden Datei
- </summary>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.LoadMapping">
-	<summary>
- Läd das Mapping. Grundlage ist der Dateiname. Existiert noch kein Mapping - dann nichts
- </summary>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.ShowImportOptions">
-	<summary>
- Optionen-Fenster anzeigen lassen 
- </summary>
-	<remarks></remarks>
-</member><member name="M:CommonImport.ImporterController.SetMappings">
-	<summary>
- Ruft das Mapping anhand der Datenquelle ab
- </summary>
-	<remarks></remarks>
-</member><member name="T:CommonImport.ImportPropertyInfo">
-	<summary>
- Stellt Daten zu den verwendeten Eigenschaften bereit
- </summary>
-	<remarks></remarks>
-</member><member name="P:CommonImport.Mapping.SourceID">
-	<summary>
- Ruft die Nummer der Spalte ab oder legt diese festz
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks>Einsatz muss geprüft werden; eventuell reicht der interne Name?</remarks>
-</member><member name="P:CommonImport.Mapping.OrderID">
-	<summary>
- Gibt die Reihenfolge der Zuweisung an
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.Mapping.Target">
-	<summary>
- Ruft Namen und Anzeigetext eines Zielattributes ab oder legt diese fest
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:CommonImport.Mapping.Source">
-	<summary>
- Ruft den eindeutigen Namen der Zielspalte ab oder legt diese fest
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="T:CommonImport.InitializeImport">
-	<summary>
+</member>
+<member name="T:CommonImport.InitializeImport">
+ <summary>
  Stellt die Verknüpfung zum Datenimport bereit
  </summary>
-	<remarks></remarks>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.frmImportOptions.TargetAttributes">
+ <summary>
+ Ruft die Auflistunhg aller möglichen ZielAttribute ab ode rlegt diese fest
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.frmImportOptions.Mappings">
+ <summary>
+ Ruft die Auflistung der Zuweisungen ab oder legt diese fest
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.frmImportOptions.startUpdate">
+ <summary>
+ Startet den Importvorgang Asynchron
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.frmMainImport.FileName">
+ <summary>
+ ruft den Dateinamen ab, der eingelesen werden soll oder legt diesen fest
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.frmMainImport.ImportType">
+ <summary>
+ Ruft den Typ ab, der Importiert werden soll
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.frmMainImport.CurrentImportFileExist">
+ <summary>
+ Gigt Wahr zurück, wenn die Datei auch tatsächlich existiert
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="F:CommonImport.ImporterController.m_DataTable">
+ <summary>
+ Enthält die Datentabelle mit den zu Importierenden Daten
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:CommonImport.ImporterController.m_mappings">
+ <summary>
+ Enthält die Aufstellung der Spaltenzuweisungem
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.ImporterController.TargetAttributes">
+ <summary>
+ Stellt eine Auflistung der möglichen ZielAttribute bereit
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.ImporterController.ImportType">
+ <summary>
+ Der Typ der eingelesen werden soll (Ziel Klasse)
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.GetText(System.String,System.String)">
+ <summary>
+ Ruft eine Textübersetzung ab
+ </summary>
+ <param name="key"></param>
+ <param name="defaultValue"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.ImporterController.ImportFileName">
+ <summary>
+ Legt den Namen des einzulesenden Datei fest oder ruft diese ab
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.ImporterController.BaseImportPath">
+ <summary>
+ Ruft den Basis-Pfad der Importierenden Datei ab
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.GenerateTargetAttributeList">
+ <summary>
+ Ermittelt eine Aufstellung aller Zielattribute
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.StartImport">
+ <summary>
+ Startet einen Asynchronen Vorgang um die gewählten Daten zu impiotrtieren
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.StartImportAsnc">
+ <summary>
+ Startet den Import anhand des Mappings
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.SaveMapping">
+ <summary>
+ Speichert das Mapping anhand des Dateinamens  der zu Importierenden Datei
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.LoadMapping">
+ <summary>
+ Läd das Mapping. Grundlage ist der Dateiname. Existiert noch kein Mapping - dann nichts
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.ShowImportOptions">
+ <summary>
+ Optionen-Fenster anzeigen lassen 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:CommonImport.ImporterController.SetMappings">
+ <summary>
+ Ruft das Mapping anhand der Datenquelle ab
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:CommonImport.ImportPropertyInfo">
+ <summary>
+ Stellt Daten zu den verwendeten Eigenschaften bereit
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.Mapping.SourceID">
+ <summary>
+ Ruft die Nummer der Spalte ab oder legt diese festz
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks>Einsatz muss geprüft werden; eventuell reicht der interne Name?</remarks>
+</member>
+<member name="P:CommonImport.Mapping.OrderID">
+ <summary>
+ Gibt die Reihenfolge der Zuweisung an
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.Mapping.Target">
+ <summary>
+ Ruft Namen und Anzeigetext eines Zielattributes ab oder legt diese fest
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.Mapping.Source">
+ <summary>
+ Ruft den eindeutigen Namen der Zielspalte ab oder legt diese fest
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:CommonImport.Mappings.MapName">
+ <summary>
+ Ruft den Namen des Mappings ab oder legt diesen fest
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
 </member>
 </members>
 </doc>

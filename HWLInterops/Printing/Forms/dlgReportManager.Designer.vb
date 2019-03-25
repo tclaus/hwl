@@ -172,9 +172,11 @@ Namespace Printing
             Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
             Me.GridView1.OptionsView.ShowColumnHeaders = False
             Me.GridView1.OptionsView.ShowGroupPanel = False
-            Me.GridView1.OptionsView.ShowHorzLines = False
+            Me.GridView1.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.True
+
             Me.GridView1.OptionsView.ShowIndicator = False
-            Me.GridView1.OptionsView.ShowVertLines = False
+            Me.GridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False
+
             '
             'colIsDefault
             '
