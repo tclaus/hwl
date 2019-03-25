@@ -26,7 +26,7 @@ Public Class iucScheduler
 
 
         SchedulerStorage1.BeginInit()
-        SchedulerStorage1.Appointments.DataSource = m_application.Appointments
+        SchedulerStorage1.Appointments.DataSource = MainApplication.getInstance.Appointments
 
         SchedulerStorage1.Appointments.Mappings.AllDay = "AllDay"
         SchedulerStorage1.Appointments.Mappings.Description = "Description"
@@ -48,17 +48,17 @@ Public Class iucScheduler
         SchedulerStorage1.Resources.Mappings.Image = "Image"
 
         SchedulerControl1.GoToToday()
-        SchedulerStorage1.Resources.DataSource = m_application.AppointmentResources
+        SchedulerStorage1.Resources.DataSource = MainApplication.getInstance.AppointmentResources
         SchedulerControl1.ActivePrintStyle.AppointmentFont = New System.Drawing.Font(SchedulerControl1.ActivePrintStyle.AppointmentFont.FontFamily.Name, 8)
         SchedulerStorage1.EndInit()
 
 #If DEBUG Then
-        '  m_application.Licenses.RegisterGlobalLicense(m_licenseItem)
+        '  MainApplication.getInstance.Licenses.RegisterGlobalLicense(m_licenseItem)
 #End If
 
 
 
-        Dim settingValue As String = m_application.Settings.GetSetting("Scheduler_Layout", "Layout", "", m_application.CurrentUser.Key)
+        Dim settingValue As String = MainApplication.getInstance.Settings.GetSetting("Scheduler_Layout", "Layout", "", MainApplication.getInstance.CurrentUser.Key)
         settingValue = settingValue.Trim(New Char() {" "c, "?"c})
         If Not String.IsNullOrEmpty(settingValue) Then
             Dim m As New System.IO.MemoryStream(System.Text.UTF8Encoding.UTF8.GetBytes(settingValue))
@@ -68,34 +68,15 @@ Public Class iucScheduler
     End Sub
 
     ''' <summary>
-    ''' Zeigt an, ob eine Lizenz für dieses Modul zur Verfügung steht
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function IsActive() As Boolean
-        Return m_application.Licenses.IsActivScheduler
-    End Function
-
-    ''' <summary>
     ''' Speichert geänderte Daten ab
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub SaveData(ByVal apList As AppointmentBaseCollection)
         System.Diagnostics.Debug.Print("Speichere Termin...")
 
-
-        If IsActive() Then
-
-            m_application.Appointments.Save()
-
-            m_application.AppointmentResources.Save()
-
-            m_application.SendMessage(GetText("msgSchedulerUpdated", "Termin gesichert"))
-        Else
-            ' Lizenz sowas von abgelaufen !
-            m_application.SendMessage(GetText("msgschedulerLicenceexpired", "Termin kann nicht gespeichert werden. Keine Terminkalender-Lizenz vorhanden"))
-        End If
-
+        MainApplication.getInstance.Appointments.Save()
+        MainApplication.getInstance.AppointmentResources.Save()
+        MainApplication.getInstance.SendMessage(GetText("msgSchedulerUpdated", "Termin gesichert"))
     End Sub
 
     ''' <summary>
@@ -157,7 +138,7 @@ Public Class iucScheduler
 
             SchedulerControl1.SaveLayoutToStream(m)
 
-            m_application.Settings.SetSetting("Scheduler_Layout", "Layout", m, m_application.CurrentUser.Key)
+            MainApplication.getInstance.Settings.SetSetting("Scheduler_Layout", "Layout", m, MainApplication.getInstance.CurrentUser.Key)
             m.Close()
         End Using
 
@@ -229,7 +210,7 @@ Public Class iucScheduler
     ''' <remarks></remarks>
     Public Overrides Sub ReloadData()
         If Not SchedulerControl1.IsUpdateLocked Then
-            m_application.Appointments.Reload()
+            MainApplication.getInstance.Appointments.Reload()
             SchedulerControl1.RefreshData()
         End If
 
@@ -253,7 +234,7 @@ Public Class iucScheduler
 
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 
@@ -301,11 +282,11 @@ Public Class iucScheduler
     Protected ReadOnly Property CalendarName() As String
         Get
 
-            Dim setting As String = m_application.Settings.GetSetting("OutlookPath", "Sync")
+            Dim setting As String = MainApplication.getInstance.Settings.GetSetting("OutlookPath", "Sync")
             If String.IsNullOrEmpty(setting) Then
                 setting = OutlookCalendarPaths(0)
 
-                m_application.Settings.SetSetting("OutlookPath", "Sync", setting)
+                MainApplication.getInstance.Settings.SetSetting("OutlookPath", "Sync", setting)
             End If
 
             Return setting
@@ -337,7 +318,7 @@ Public Class iucScheduler
     Private Sub SyncToOL()
         Try
             ' export
-            m_application.Log.WriteLog("Start Calender Exported to Outlook...")
+            MainApplication.getInstance.log.WriteLog("Start Calender Exported to Outlook...")
 
             Dim expSynchronizer As AppointmentExportSynchronizer = SchedulerStorage1.CreateOutlookExportSynchronizer()
 
@@ -351,10 +332,10 @@ Public Class iucScheduler
             Try
                 m_isInsync = True
                 expSynchronizer.Synchronize()
-                m_application.SendMessage("Kalender nach Outlook exportiert") 'TODO:NLS
+                MainApplication.getInstance.SendMessage("Kalender nach Outlook exportiert") 'TODO:NLS
 
             Finally
-                m_application.Log.WriteLog("Calender Exported to Outlook")
+                MainApplication.getInstance.log.WriteLog("Calender Exported to Outlook")
 
                 RemoveHandler expSynchronizer.AppointmentSynchronizing, AddressOf ExportAppointments
                 RemoveHandler expSynchronizer.AppointmentSynchronized, AddressOf synchronizer_AppointmentSynchronized
@@ -362,7 +343,7 @@ Public Class iucScheduler
                 m_isInsync = False
             End Try
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Outlook Importer", "Fehler beim Export nach Outlook")
+            MainApplication.getInstance.log.WriteLog(ex, "Outlook Importer", "Fehler beim Export nach Outlook")
         End Try
 
 
@@ -371,7 +352,7 @@ Public Class iucScheduler
 
     Private Sub SyncFromOL()
         Try
-            m_application.Log.WriteLog("Start Outlook Calender Import...")
+            MainApplication.getInstance.log.WriteLog("Start Outlook Calender Import...")
 
             Dim synchronizer As AppointmentImportSynchronizer = SchedulerStorage1.CreateOutlookImportSynchronizer()
 
@@ -387,17 +368,17 @@ Public Class iucScheduler
             Try
                 m_isInsync = True
                 synchronizer.Synchronize()
-                m_application.SendMessage("Outlook Kalender geladen") 'TODO:NLS
+                MainApplication.getInstance.SendMessage("Outlook Kalender geladen") 'TODO:NLS
             Finally
                 m_isInsync = False
 
                 RemoveHandler synchronizer.AppointmentSynchronizing, AddressOf ImportAppointments
                 RemoveHandler synchronizer.AppointmentSynchronized, AddressOf synchronizer_AppointmentSynchronized
-                m_application.Log.WriteLog("Outlook Calender Imported")
+                MainApplication.getInstance.log.WriteLog("Outlook Calender Imported")
             End Try
         Catch ex As Exception
 
-            m_application.Log.WriteLog(ex, "Outlook Importer", "Fehler beim Import von Outlook")
+            MainApplication.getInstance.log.WriteLog(ex, "Outlook Importer", "Fehler beim Import von Outlook")
         End Try
 
 

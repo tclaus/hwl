@@ -67,7 +67,7 @@ Namespace Printing
             Try
 
                 'TODO: Fragen nach schliessen der Printing-Form ? 
-                m_application.Settings.SaveFormsPos(Me)
+                MainApplication.getInstance.Settings.SaveFormsPos(Me)
             Catch ex As Exception
             End Try
         End Sub
@@ -112,7 +112,7 @@ Namespace Printing
 
         Private Sub frmPrintLetter_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
             If Me.DesignMode Then Exit Sub
-            m_application.SendMessage(GetText("msgWaitForPrintDesignerLoad", "Lade den Layout-Designer..."))
+            MainApplication.getInstance.SendMessage(GetText("msgWaitForPrintDesignerLoad", "Lade den Layout-Designer..."))
 
             iucPrintingManager.ReportDatasourceType = DataSourceType
             iucPrintingManager.Data = m_data
@@ -120,8 +120,8 @@ Namespace Printing
             iucPrintingManager.Initialize()
 
 
-            m_application.Settings.RestoreFormsPos(Me)
-            m_application.Languages.SetTextOnControl(Me)
+            MainApplication.getInstance.Settings.RestoreFormsPos(Me)
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
             If Me.PrintDocument Then
                 iucPrintingManager.PrintDocument()

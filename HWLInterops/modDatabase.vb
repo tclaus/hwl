@@ -6,7 +6,7 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function DbType() As ClausSoftware.Tools.enumServerType
-        Return m_application.Connections.WorkConnection.Servertype
+        Return MainApplication.getInstance.Connections.WorkConnection.Servertype
     End Function
 
 

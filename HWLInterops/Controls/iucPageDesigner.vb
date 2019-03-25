@@ -49,7 +49,7 @@ Public Class iucPageDesigner
 
         Dim p As New PrintingManagerOldSystem()
 
-        Dim CurrentLayoutData As String = m_application.Settings.GetSetting("MainPageLayout", "reports")
+        Dim CurrentLayoutData As String = MainApplication.getInstance.Settings.GetSetting("MainPageLayout", "reports")
         m_report.ReportUnit = DevExpress.XtraReports.UI.ReportUnit.TenthsOfAMillimeter
         m_report.PaperKind = System.Drawing.Printing.PaperKind.A4
 
@@ -103,7 +103,7 @@ Public Class iucPageDesigner
     Public Sub SaveCurrentItem() Implements IModule.SaveCurrentItem
         Dim m As New System.IO.MemoryStream
         m_report.SaveLayout(m)
-        m_application.Settings.SetSetting("MainPageLayout", "reports", m)
+        MainApplication.getInstance.Settings.SetSetting("MainPageLayout", "reports", m)
     End Sub
 
     Public Event StatusChanged(ByVal sender As Object, ByVal e As System.EventArgs) Implements IModule.StatusChanged
@@ -121,7 +121,7 @@ Public Class iucPageDesigner
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 

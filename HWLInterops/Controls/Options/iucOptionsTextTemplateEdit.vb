@@ -34,17 +34,17 @@ Public Class iucOptionsTextTemplateEdit
     Private Sub FillGrid()
 
 
-        grdTextTemplates.DataSource = m_application.TextTemplates
+        grdTextTemplates.DataSource = MainApplication.getInstance.TextTemplates
 
 
     End Sub
 
     Private Sub btnNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNew.Click
-        Dim newText As TextTemplate = m_application.TextTemplates.GetNewItem
+        Dim newText As TextTemplate = MainApplication.getInstance.TextTemplates.GetNewItem
         newText.Text = "<Text>" 'TODO: NLS
 
         newText.Save()
-        m_application.TextTemplates.Add(newText)
+        MainApplication.getInstance.TextTemplates.Add(newText)
 
         Dim tempKey As String = newText.Key
 
@@ -65,7 +65,7 @@ Public Class iucOptionsTextTemplateEdit
 
 
     Private Sub iucTaxes_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
         Initialize()
     End Sub
 
@@ -116,12 +116,12 @@ Public Class iucOptionsTextTemplateEdit
 
 
     Public Sub Reload() Implements IOptionMenue.Reload
-        m_application.TextTemplates.Reload()
+        MainApplication.getInstance.TextTemplates.Reload()
         FillGrid()
     End Sub
 
     Public Sub Save() Implements IOptionMenue.Save
-        m_application.TextTemplates.Save()
+        MainApplication.getInstance.TextTemplates.Save()
     End Sub
 
     Public Overrides Function ToString() As String

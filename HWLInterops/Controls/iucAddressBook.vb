@@ -23,7 +23,7 @@ Public Class iucAddressBook
     End Sub
 
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
         AddMenuItems()
@@ -97,7 +97,7 @@ Public Class iucAddressBook
                 container.ActiveAddress = withcontact
                 container.ClearHasChangedState() ' Bei solcherart angelegten Dokumenten kann der Status zurückgesetzt werden
             Else
-                m_application.Log.WriteLog("Es wurde versucht, von einem neuem Kontakt ein Dokument anzulegen.")
+                MainApplication.getInstance.log.WriteLog("Es wurde versucht, von einem neuem Kontakt ein Dokument anzulegen.")
             End If
 
         Catch ex As Exception
@@ -183,7 +183,7 @@ Public Class iucAddressBook
 
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Print Addressbook", "Error in Printing Dialog")
+            MainApplication.getInstance.log.WriteLog(ex, "Print Addressbook", "Error in Printing Dialog")
         End Try
 
 
@@ -193,9 +193,6 @@ Public Class iucAddressBook
     ''' </summary>
     ''' <remarks></remarks>
     Public Overrides Sub Save() Implements IModule.SaveCurrentItem
-
-        If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
-
 
         If m_activeItem IsNot Nothing Then
 
@@ -212,11 +209,11 @@ Public Class iucAddressBook
                 FillObject()
 
                 If ActiveItem.IsNew Then
-                    m_application.Adressen.Add(ActiveItem)
+                    MainApplication.getInstance.Adressen.Add(ActiveItem)
                 End If
 
                 ActiveItem.Save()
-                m_application.SendMessage(GetText("msgsaved", "Gespeichert."))
+                MainApplication.getInstance.SendMessage(GetText("msgsaved", "Gespeichert."))
                 MainUI.MRUManager.AddMRUElement(ActiveItem)
 
                 If Not ActiveItem.IsActive And isCurrentlyActive Then
@@ -292,7 +289,7 @@ Public Class iucAddressBook
                 txtFirstName.Text = .FirstName
                 txtLastName.Text = .LastName
                 txtCountry.Text = .Country
-                txtEbayID.Text = .ebayID
+                txtEbayID.Text = .EbayID
                 txtEmail.Text = .EMail
                 txtfax.Text = .Fax
                 txtWorkOn.Text = .KindOfBusiness
@@ -368,7 +365,7 @@ Public Class iucAddressBook
                 .TargetPayDays = CInt(txtTargetPaydateDays.EditValue)
                 .EnableTargetPayDate = chkEnableTargetPayDate.Checked
 
-                .ebayID = txtEbayID.Text
+                .EbayID = txtEbayID.Text
                 .EMail = txtEmail.Text
                 .Fax = txtfax.Text
                 .KindOfBusiness = txtWorkOn.Text
@@ -443,7 +440,7 @@ Public Class iucAddressBook
     Private Function GetZipCodes() As AutoCompleteStringCollection
         Dim sc As New AutoCompleteStringCollection
 
-        For Each item As Adress In m_application.Adressen
+        For Each item As Adress In MainApplication.getInstance.Adressen
             If Not sc.Contains(item.ZipCode.Trim) Then
                 sc.Add(item.ZipCode.Trim)
             End If
@@ -459,7 +456,7 @@ Public Class iucAddressBook
     Private Function GetTownNames() As AutoCompleteStringCollection
         Dim sc As New AutoCompleteStringCollection
 
-        For Each item As Adress In m_application.Adressen
+        For Each item As Adress In MainApplication.getInstance.Adressen
             If Not String.IsNullOrEmpty(item.Town) Then
                 If Not sc.Contains(item.Town.Trim) Then
                     sc.Add(item.Town.Trim)
@@ -478,7 +475,7 @@ Public Class iucAddressBook
     Private Function GetCountyCodes() As AutoCompleteStringCollection
         Dim sc As New AutoCompleteStringCollection
 
-        For Each item As Adress In m_application.Adressen
+        For Each item As Adress In MainApplication.getInstance.Adressen
             If Not sc.Contains(item.Country.Trim) Then
                 sc.Add(item.Country.Trim)
             End If
@@ -566,7 +563,7 @@ Public Class iucAddressBook
         End If
 
 
-        ActiveItem = m_application.Adressen.GetNewItem ' Neues Objekt erstellen
+        ActiveItem = MainApplication.getInstance.Adressen.GetNewItem ' Neues Objekt erstellen
 
 
     End Sub
@@ -743,7 +740,7 @@ Public Class iucAddressBook
                 End If
             End If
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Open_Journal", "Error while opening the Journal from a given adress")
+            MainApplication.getInstance.log.WriteLog(ex, "Open_Journal", "Error while opening the Journal from a given adress")
         End Try
 
     End Sub
@@ -780,7 +777,7 @@ Public Class iucAddressBook
                 End If
             Else
                 'TODO: NLS
-                MessageBox.Show("Dieser Kontakt kann nicht gelöscht weren, da bereits Abhängigkeiten existieren." & vbCrLf & _
+                MessageBox.Show("Dieser Kontakt kann nicht gelöscht weren, da bereits Abhängigkeiten existieren." & vbCrLf &
                                 "z.B. Als Lieferant verwendet oder es wurden Rechnungen oder Angebote geschrieben.", "Kontakt ist bereits verwendet", MessageBoxButtons.OK, MessageBoxIcon.Hand)
             End If
 
@@ -1006,7 +1003,7 @@ Public Class iucAddressBook
             If String.IsNullOrEmpty(txtTown.Text) Then
                 ' Stadt war noch nicht gewählt => Versuche anhand der PLZ die Stadt zu ermitteln
 
-                txtTown.Text = m_application.Adressen.GetTownByZipCode(txtZipCode.Text)
+                txtTown.Text = MainApplication.getInstance.Adressen.GetTownByZipCode(txtZipCode.Text)
                 txtTown.SelectAll()
 
             End If

@@ -15,7 +15,7 @@ Public Class iucOptionSimpleEdit
     Public Event Close(ByVal sender As Object, ByVal e As EventArgs)
 
     Public Sub Initialize() Implements IOptionMenue.Initialize
-        If m_application Is Nothing Then
+        If MainApplication.getInstance Is Nothing Then
             modmain.InitializeApplication()
         End If
     End Sub
@@ -72,7 +72,7 @@ Public Class iucOptionSimpleEdit
 
     Public ReadOnly Property DisplayName() As String Implements IOptionMenue.DisplayName
         Get
-            Return m_application.Languages.GetText("Edit")
+            Return MainApplication.getInstance.Languages.GetText("Edit")
         End Get
 
     End Property

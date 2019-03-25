@@ -6,16 +6,16 @@
 Public Class TodayBar
     Private m_tasks As ClausSoftware.Kernel.Tasks
     Private m_appointments As ClausSoftware.Kernel.Appointments
-    Private m_mainUI As mainUI
+    Private m_mainUI As MainUI
 
     Public Event ClosePanel()
 
 
-    Public Property MainUI() As mainUI
+    Public Property MainUI() As MainUI
         Get
             Return m_mainUI
         End Get
-        Set(ByVal value As mainUI)
+        Set(ByVal value As MainUI)
             m_mainUI = value
         End Set
     End Property
@@ -23,9 +23,9 @@ Public Class TodayBar
 
     Private Sub TodayBar_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If DesignMode Then Exit Sub
-        If m_application Is Nothing Then Exit Sub
-        m_application.Languages.SetTextOnControl(Me)
-        lblTodayBarHeadline.Text = mainApplication.ApplicationName & " " & GetText("today", "Heute") & "  (" & Now.ToString("d") & ")"
+        If MainApplication.getInstance Is Nothing Then Exit Sub
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
+        lblTodayBarHeadline.Text = MainApplication.ApplicationName & " " & GetText("today", "Heute") & "  (" & Now.ToString("d") & ")"
         InitialFillTasks()
         InitialFillAppointments()
         picCloseModule.Image = My.Resources.Close_16x16
@@ -36,11 +36,11 @@ Public Class TodayBar
 
     Private Sub InitialFillTasks()
         Try
-            m_tasks = CType(m_application.Tasks.GetNewCollection, Kernel.Tasks)
+            m_tasks = CType(MainApplication.getInstance.Tasks.GetNewCollection, Kernel.Tasks)
             m_tasks.Filter = New DevExpress.Data.Filtering.BinaryOperator("TaskFinished", False)
             m_tasks.Sorting.Add(New DevExpress.Xpo.SortProperty("Expiration", DevExpress.Xpo.DB.SortingDirection.Descending))
 
-            AddHandler m_application.Tasks.ListChanged, AddressOf MainTaskListChanged
+            AddHandler MainApplication.getInstance.Tasks.ListChanged, AddressOf MainTaskListChanged
 
             clbTasks.BeginUpdate()
             clbTasks.DataSource = m_tasks
@@ -51,21 +51,15 @@ Public Class TodayBar
             Next
             clbTasks.EndUpdate()
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "InitialFillTasks", "Initialize of 'Today's Tasks failed!")
+            MainApplication.getInstance.log.WriteLog(ex, "InitialFillTasks", "Initialize of 'Today's Tasks failed!")
         End Try
     End Sub
 
     Private Sub InitialFillAppointments()
         Try
 
-            If Not m_application.Licenses.IsActivScheduler Then
-                lstAppointments.Visible = False
-                lblTodayAppointments.Visible = False
-            End If
-
-
-            m_appointments = CType(m_application.Appointments.GetNewCollection, Kernel.Appointments)
-            AddHandler m_application.Appointments.ListChanged, AddressOf MainAppointmentsListChanged
+            m_appointments = CType(MainApplication.getInstance.Appointments.GetNewCollection, Kernel.Appointments)
+            AddHandler MainApplication.getInstance.Appointments.ListChanged, AddressOf MainAppointmentsListChanged
 
             Dim criteria As New DevExpress.Data.Filtering.BinaryOperator("StartDate", Today, DevExpress.Data.Filtering.BinaryOperatorType.GreaterOrEqual)
             m_appointments.Criteria = criteria
@@ -74,7 +68,7 @@ Public Class TodayBar
             lstAppointments.DataSource = m_appointments
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "InitialFillAppointments", "Initialize of 'Today's Appointments failed!")
+            MainApplication.getInstance.log.WriteLog(ex, "InitialFillAppointments", "Initialize of 'Today's Appointments failed!")
         End Try
 
     End Sub

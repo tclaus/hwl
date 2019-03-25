@@ -19,7 +19,7 @@ Namespace Kernel
         Private Shared m_commonCategory As HistoryCategory
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
             Initialize()

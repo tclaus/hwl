@@ -1,7 +1,5 @@
 Imports ClausSoftware.Kernel
 Imports ClausSoftware.Tools
-
-Imports Microsoft.VisualBasic.FileIO
 Imports DevExpress.Xpo.DB
 Imports Microsoft.Win32
 Imports System.IO
@@ -22,10 +20,9 @@ End Enum
 ''' Hauptklasse, stellt Verweise zu allen anderen Business-Objekten bereit
 ''' </summary>
 ''' <remarks></remarks>
-<DebuggerDisplay("InstanceID={UniqueID}")> _
-Public Class mainApplication
+<DebuggerDisplay("InstanceID={UniqueID}")>
+Public Class MainApplication
 
-    Private Shared m_applicationName As String
     ''' <summary>
     ''' Kennzeichnet eindeutig eine Instanz des Objektes
     ''' </summary>
@@ -73,14 +70,14 @@ Public Class mainApplication
     Public Event NetworkstateChanged(ByVal sender As Object, ByVal e As DatabaseConnectionStateChanged)
 
 
-    Private m_users As Kernel.security.Users
+    Private m_users As Kernel.Security.Users
 
     Private m_cashJournalTimeFrame As CashJournalTimeFrame
     Private m_contacts As Adressen
     Private m_Briefe As Letters
     Private m_connections As Connections
     Private m_cashAccounts As CashAccounts
-    Private m_UserStats As UserStats
+
     ''' <summary>
     ''' Enthält die Auflistung aller Lohnkonten
     ''' </summary>
@@ -100,7 +97,6 @@ Public Class mainApplication
     Private m_images As Images
     Private m_baseWorkItems As BaseWorkItems
     Private m_groups As Groups
-    Private m_licenses As Data.Licenses
     Private m_transactions As Transactions
     Private m_databaseConnection As DataBase.DbEngine
 
@@ -113,9 +109,6 @@ Public Class mainApplication
     Private m_appointments As ClausSoftware.Kernel.Appointments
     Private m_appointmentsresources As ClausSoftware.Kernel.AppointmentsResources
     Private m_logHandler As LogHandling
-
-    Private m_applicationID As String
-
 
     Private m_discounts As Kernel.Discounts
 
@@ -140,7 +133,7 @@ Public Class mainApplication
     ''' Enthält das Lockstate Objekt 
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_lockstate As Kernel.security.SecurityLocks
+    Private m_lockstate As Kernel.Security.SecurityLocks
 
     ''' <summary>
     ''' Ruft den Manager ab, der Addins bereitstellt
@@ -151,7 +144,7 @@ Public Class mainApplication
     Public ReadOnly Property AddIns As AddIns.AddInManager
         Get
             If m_addinManager Is Nothing Then
-                m_addinManager = New AddIns.AddInManager(Me)
+                m_addinManager = New AddIns.AddInManager()
                 m_addinManager.LoadAddins()
             End If
             Return m_addinManager
@@ -164,10 +157,10 @@ Public Class mainApplication
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Friend ReadOnly Property LockStateManager() As security.SecurityLocks
+    Friend ReadOnly Property LockStateManager() As Security.SecurityLocks
         Get
             If m_lockstate Is Nothing Then
-                m_lockstate = New security.SecurityLocks(Me)
+                m_lockstate = New Security.SecurityLocks(Me)
             End If
 
             Return m_lockstate
@@ -244,9 +237,9 @@ Public Class mainApplication
     ''' Enthält den Standard-benutzer des Systems. Ist keine Benutzerverwaltung aktiviert, dann wird ein Benutzer aus den systemdaten ermittelt
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_currentUser As Kernel.security.User
+    Private m_currentUser As Kernel.Security.User
 
-    Private m_userrights As security.UserRights
+    Private m_userrights As Security.UserRights
 
     Private m_language As Tools.Localisator
     ''' <summary>
@@ -274,7 +267,7 @@ Public Class mainApplication
     Public ReadOnly Property Languages() As Tools.Localisator
         Get
             If m_language Is Nothing Then
-                m_language = New Localisator(Me)
+                m_language = New Localisator()
             End If
 
             Return m_language
@@ -288,10 +281,10 @@ Public Class mainApplication
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public ReadOnly Property UserRights() As security.UserRights
+    Public ReadOnly Property UserRights() As Security.UserRights
         Get
             If m_userrights Is Nothing Then
-                m_userrights = New security.UserRights(Me)
+                m_userrights = New Security.UserRights(Me)
             End If
             Return m_userrights
         End Get
@@ -305,7 +298,7 @@ Public Class mainApplication
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks>Gibt es keine Benutzerverwaltung, so sollte immer ein Standardbenutzer existieren, der aus dem Rechenrnamen und Anmeldenamen gebildet wird.</remarks>
-    Public Property CurrentUser() As Kernel.security.User
+    Public Property CurrentUser() As Kernel.Security.User
         Get
             If m_currentUser Is Nothing Then
                 m_currentUser = Me.Users.GetUserByComputer
@@ -313,7 +306,7 @@ Public Class mainApplication
 
             Return m_currentUser
         End Get
-        Set(ByVal value As Kernel.security.User)
+        Set(ByVal value As Kernel.Security.User)
             m_currentUser = value
         End Set
     End Property
@@ -325,11 +318,11 @@ Public Class mainApplication
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public ReadOnly Property Users() As Kernel.security.Users
-        <DebuggerStepThrough()> _
+    Public ReadOnly Property Users() As Kernel.Security.Users
+        <DebuggerStepThrough()>
         Get
             If m_users Is Nothing Then
-                m_users = New Kernel.security.Users(Me)
+                m_users = New Kernel.Security.Users(Me)
             End If
             Return m_users
 
@@ -370,6 +363,8 @@ Public Class mainApplication
     End Property
 
 
+    Private instanceID As String
+
     ''' <summary>
     ''' Ruft die eindeutige ProgrammID (32 stellige ID) ab. Ist nur gültig, wenn die DAtenbank auch geöffnet wurde, sonst wird eine neue ID erzeugt und zurückgegeben.
     ''' </summary>
@@ -379,19 +374,19 @@ Public Class mainApplication
     Public ReadOnly Property ApplicationID() As String
         Get
             ' Nur, wenn DB-Verbindung besteht !
-            If m_applicationID Is Nothing Then
+            If instanceID Is Nothing Then
                 'ProgrammID in die Datenbank schreiben falls noch niucht geschehen 
                 If Settings.SettingProgrammID.Length = 0 Then
                     Settings.SettingProgrammID = Connections.DefaultInitialID
                     Settings.Save()
                 End If
 
-                m_applicationID = Me.Settings.SettingProgrammID
-                SetLastUsedApplicationID(m_applicationID)
+                instanceID = Me.Settings.SettingProgrammID
+                SetLastUsedApplicationID(instanceID)
 
             End If
 
-            Return m_applicationID
+            Return instanceID
         End Get
 
     End Property
@@ -470,6 +465,8 @@ Public Class mainApplication
 
     End Property
 
+    Private Shared instanceName As String
+
     ''' <summary>
     ''' Ruft den OEM-Kurznamen der Applikation ab. Im Moment fest verdrahtet.
     ''' </summary>
@@ -482,7 +479,7 @@ Public Class mainApplication
         Dim appType As String = GetCommandLineParameter("apptype")
         If Not String.IsNullOrEmpty(appType) Then Return appType
 
-        If m_applicationName Is Nothing Then
+        If String.IsNullOrEmpty(instanceName) Then
             ' Aus der Applikations-Datei den Programmtype lesen
             Dim fileContents As String
             Dim filename As String = "ApplicationInfo.ini"
@@ -506,11 +503,9 @@ Public Class mainApplication
                         value = value.Substring(0, value.IndexOf(vbCrLf)).Trim
                     End If
 
-                    m_applicationName = value
-
-
+                    instanceName = value
                 Else
-                    m_applicationName = "HWL"
+                    instanceName = "HWL"
                 End If
             Else ' File not fouund; suche nach vorhandenem Registry - Key
 
@@ -523,28 +518,27 @@ Public Class mainApplication
                     If regKey IsNot Nothing Then
 
                         'Alle möglichen unter-Schlüssel durchsuchen
-                        'TODO: Später HWL2 einen eigenen subkey geben
-                        Dim subKeys As String() = regKey.GetSubKeyNames
 
+                        Dim subKeys As String() = regKey.GetSubKeyNames
 
                         For Each subKey As String In subKeys
                             If subKey.Contains("HWL") Then
                                 If regKey.OpenSubKey(subKey & "\Current Version") IsNot Nothing Then
                                     If subKey.Contains("HWL") Then
-                                        m_applicationName = "HWL2"
+                                        instanceName = "HWL2"
                                     Else
-                                        m_applicationName = "PB2"
+                                        instanceName = "PB2"
 
                                     End If
                                     Exit For
                                 Else
-                                    m_applicationName = "PB2"
+                                    instanceName = "PB2"
                                     Exit For
                                 End If
                             End If
 
                             ' Kein registry-Key gefunden; NLS nicht möglich, da App noch nicht gestartet ist                            
-                            m_applicationName = "<Keine Applikation installiert>"
+                            instanceName = "<Keine Applikation installiert>"
                         Next
 
                     End If
@@ -558,7 +552,7 @@ Public Class mainApplication
             End If
         End If
 
-        Return m_applicationName
+        Return instanceName
     End Function
 
     ''' <summary>
@@ -567,10 +561,10 @@ Public Class mainApplication
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public ReadOnly Property Log() As LogHandling
+    Public ReadOnly Property log() As LogHandling
         Get
             If m_logHandler Is Nothing Then
-                m_logHandler = New LogHandling(Me)
+                m_logHandler = New LogHandling()
             End If
             Return m_logHandler
         End Get
@@ -592,10 +586,10 @@ Public Class mainApplication
     ''' <param name="message">Die Nachricht, die öffentlich gemacht werden soll</param>
     Public Sub SendMessage(ByVal message As String, ByVal dontLog As Boolean)
         If Not dontLog And message.Trim.Length > 0 Then
-            If Not String.IsNullOrEmpty(message) Then Me.Log.WriteLog("User Message: " & message)
+            If Not String.IsNullOrEmpty(message) Then Me.log.WriteLog("User Message: " & message)
         End If
 
-        RaiseEvent Message(message)
+        RaiseEvent message(message)
     End Sub
 
     Public ReadOnly Property DatabaseConnectionstate As DBConnectionState
@@ -683,7 +677,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     ReadOnly Property Session() As Session
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             Return m_mainSession
         End Get
@@ -714,7 +708,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property AttachmentRelations() As AttachmentsRelations
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_attachmentRelations Is Nothing Then
                 m_attachmentRelations = New AttachmentsRelations(Me)
@@ -736,7 +730,7 @@ Public Class mainApplication
     Public ReadOnly Property CashJournalTimeFrame As CashJournalTimeFrame
         Get
             If m_cashJournalTimeFrame Is Nothing Then
-                m_cashJournalTimeFrame = New CashJournalTimeFrame(Me)
+                m_cashJournalTimeFrame = New CashJournalTimeFrame()
             End If
             Return m_cashJournalTimeFrame
         End Get
@@ -749,10 +743,10 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property CashJournal() As CashJournalItems
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_CashJournal Is Nothing Then
-                m_CashJournal = New CashJournalItems(Me)
+                m_CashJournal = New CashJournalItems()
             End If
 
             Return m_CashJournal
@@ -767,10 +761,10 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Transactions() As Transactions
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_transactions Is Nothing Then
-                m_transactions = New Transactions(Me)
+                m_transactions = New Transactions()
                 m_transactions.Initialize()
             End If
             Return m_transactions
@@ -778,23 +772,6 @@ Public Class mainApplication
         End Get
     End Property
 
-
-    ''' <summary>
-    ''' Ruft eine Verwaltungsschicht für die Behandlung von Lizenzen ab
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public ReadOnly Property Licenses() As Data.Licenses
-        <DebuggerStepThrough()> _
-        Get
-            If m_licenses Is Nothing Then
-                m_licenses = New Data.Licenses(Me)
-                m_licenses.InitilizeLicenses()
-            End If
-            Return m_licenses
-        End Get
-    End Property
 
     ''' <summary>
     ''' Stellt die Auflistung der Fixkosten bereit
@@ -820,7 +797,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Groups() As Groups
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_groups Is Nothing Then
                 m_groups = New Groups(Me)
@@ -837,7 +814,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property ArticleList() As Articles
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_articleList Is Nothing Then
                 m_articleList = New Articles(Me)
@@ -889,7 +866,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property TaxRates() As TaxRates
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_taxRates Is Nothing Then
                 m_taxRates = New TaxRates(Me)
@@ -906,7 +883,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Images() As Images
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_images Is Nothing Then
                 m_images = New Images(Me)
@@ -922,7 +899,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Adressen() As Adressen
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_contacts Is Nothing Then
                 m_contacts = New Adressen(Me)
@@ -932,7 +909,7 @@ Public Class mainApplication
     End Property
 
     Public ReadOnly Property BaseWorkItems() As BaseWorkItems
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_baseWorkItems Is Nothing Then
                 m_baseWorkItems = New BaseWorkItems(Me)
@@ -950,7 +927,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property JournalDocuments() As JournalDocuments
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_JournalDocuments Is Nothing Then
                 m_JournalDocuments = New JournalDocuments(Me)
@@ -967,7 +944,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Letters() As Letters
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_Briefe Is Nothing Then
                 m_Briefe = New Letters(Me)
@@ -998,7 +975,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Tasks() As Tasks
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_notes Is Nothing Then
                 m_notes = New Tasks(Me)
@@ -1022,7 +999,7 @@ Public Class mainApplication
                 End If
                 Return m_DBVersions.DBVersion
             Catch ex As Exception
-                Me.Log.WriteLog(ex, "Kernel", "Get DBVersion")
+                Me.log.WriteLog(ex, "Kernel", "Get DBVersion")
 
             End Try
             Return String.Empty
@@ -1056,7 +1033,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Settings() As Settings
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_settings Is Nothing Then
                 m_settings = New Settings(Me)
@@ -1076,10 +1053,10 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property Connections() As Connections
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_connections Is Nothing Then
-                m_connections = New Connections(Me)
+                m_connections = New Connections()
             End If
 
             Return m_connections
@@ -1094,7 +1071,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public ReadOnly Property CashAccounts() As CashAccounts
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Get
             If m_cashAccounts Is Nothing Then
                 m_cashAccounts = New CashAccounts(Me)
@@ -1104,23 +1081,6 @@ Public Class mainApplication
 
         End Get
 
-    End Property
-
-
-    ''' <summary>
-    ''' Stellt Staitsische Informationen zur Verfügung und kann Statistiosche Daten senden 
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public ReadOnly Property UserStats() As UserStats
-        <DebuggerStepThrough()> _
-        Get
-            If m_UserStats Is Nothing Then
-                m_UserStats = New UserStats(Me)
-            End If
-            Return m_UserStats
-        End Get
     End Property
 
     '''' <summary>
@@ -1162,7 +1122,7 @@ Public Class mainApplication
         Try
             If myConnection IsNot Nothing Then
                 If m_mainSession IsNot Nothing AndAlso m_mainSession.IsConnected And Not myConnection.Equals(oldconnnection) Then
-                    Log.WriteLog("Verbindung zum XPO-Objekt war noch geöffnet und eine andere Verbindung wird angefordert.")
+                    log.WriteLog("Verbindung zum XPO-Objekt war noch geöffnet und eine andere Verbindung wird angefordert.")
 
 
                     m_mainSession.Connection.Close()
@@ -1246,15 +1206,15 @@ Public Class mainApplication
     ''' <remarks></remarks>
     Private Sub RemoveOldDataLocks()
         Try
-            Me.Log.WriteLog(LogSeverity.Verbose, "RemoveOldDataLocks: Datensatzsperren aufheben")
+            Me.log.WriteLog(LogSeverity.Verbose, "RemoveOldDataLocks: Datensatzsperren aufheben")
             'Alle Datensatz-Sperren entfernen
-            Using locks As New security.SecurityLocks(Me)
+            Using locks As New Security.SecurityLocks(Me)
                 locks.ClearAllLocks()
             End Using
 
 
         Catch ex As Exception
-            Me.Log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
+            Me.log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
         End Try
 
 
@@ -1267,14 +1227,14 @@ Public Class mainApplication
     Private Sub SetActiveUserInstance()
         Try
             ' Eigene Logininfos setzen
-            Me.Log.WriteLog(LogSeverity.Verbose, "Setzte aktive Benutzerinstanz")
+            Me.log.WriteLog(LogSeverity.Verbose, "Setzte aktive Benutzerinstanz")
             Using InstanceMonitor As New ActiveInstances(Me)
                 InstanceMonitor.WriteLoginTag()
-                Me.Log.WriteLog("Aktuell aktive Benutzerinstanzen:" & InstanceMonitor.Count)
+                Me.log.WriteLog("Aktuell aktive Benutzerinstanzen:" & InstanceMonitor.Count)
             End Using
 
         Catch ex As Exception
-            Me.Log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
+            Me.log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
 
         End Try
 
@@ -1328,7 +1288,7 @@ Public Class mainApplication
     ''' <returns></returns>
     ''' <remarks></remarks>
     Friend Function IsSchemaValid() As Boolean
-        If m_DatabaseSchema Is Nothing Then m_DatabaseSchema = New Data.SchemaUpdater(Me)
+        If m_DatabaseSchema Is Nothing Then m_DatabaseSchema = New Data.SchemaUpdater()
 
 
         m_DatabaseSchema.StartUpdate()
@@ -1346,18 +1306,22 @@ Public Class mainApplication
 
     End Function
 
-    Public Sub New()
+    Private Shared m_instance As MainApplication = New MainApplication
+
+    Public Shared Function getInstance() As MainApplication
+        Return m_instance
+    End Function
+
+    Private Sub New()
         Static Dim intCounter As Integer
         If Data.BaseClass.m_mainApplication Is Nothing Then ' Mehrfachinstantiierung kann vorkommen, wenn für einen Testaufbau der Datenbankverbindung ein weiteres Application-Objekt erzeugt wird
             Data.BaseClass.m_mainApplication = Me
             ' kann man das als atomares Objekt definieren? 
-
-            ClausSoftware.Tools.DisplayNameAttribute.SetMainApplication(Me)
         End If
 
         UniqueID = intCounter
-        Log.WriteLog("Neuer Start von HWL...")
-        Log.WriteLog(LogSeverity.Verbose, "Neue Instanz der Basis-Objekte: " & UniqueID)
+        log.WriteLog("Neuer Start von HWL...")
+        log.WriteLog(LogSeverity.Verbose, "Neue Instanz der Basis-Objekte: " & UniqueID)
 
 
         intCounter += 1
@@ -1375,7 +1339,7 @@ Public Class mainApplication
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    <DebuggerDisplay("{m_lastDatabaseSpeed} ms")> _
+    <DebuggerDisplay("{m_lastDatabaseSpeed} ms")>
     Public ReadOnly Property LastDatabaseSpeed() As Integer
         Get
             Return m_lastDatabaseSpeed
@@ -1394,7 +1358,7 @@ Public Class mainApplication
 
             Catch ex As Exception
                 Debug.Print("Keepalive sent a Problem: " & ex.Message)
-                Me.Log.WriteLog(LogSeverity.ErrorMessage, "Database connection lost!")
+                Me.log.WriteLog(LogSeverity.ErrorMessage, "Database connection lost!")
 
             Finally
                 DatabaseTimer.Start() ' immer wieder prüfen...
@@ -1550,7 +1514,7 @@ Friend NotInheritable Class XpoHelper
         Dim dict As Metadata.XPDictionary = New Metadata.ReflectionDictionary()
         Dim store As IDataStore = XpoDefault.GetConnectionProvider(m_connection, AutoCreateOption.SchemaAlreadyExists)
 
-        dict.GetDataStoreSchema(GetType(mainApplication).Assembly) ' Das Dictionary erstellen lasen 
+        dict.GetDataStoreSchema(GetType(MainApplication).Assembly) ' Das Dictionary erstellen lasen 
 
         Dim dl As IDataLayer = New ThreadSafeDataLayer(dict, store)
         Return dl

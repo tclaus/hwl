@@ -90,29 +90,11 @@ Public Class frmInstallWizzard
                 Exit Sub
             End If
 
-            ' Steuern => Finish
-            If e.PrevPage Is wizCreateInternetDatabase Then
-                ' Das Token prüfen
-                If chkHasToken.Checked Then
-                    If DatabaseHelper.CheckConnectionByToken(txtToken.Text) = False Then
-                        e.Cancel = True
-                    End If
-                Else
-                    ' Dann die Daten eintrage und senden; 
-                    ' Anwender muss dann auf das Token warten und neu starten
-                End If
-
-
-            End If
-
             If e.PrevPage Is wizCompleted Then
                 ' Fertig und Anwender hat auf "Finish" geklickt
                 Debug.Print("Finish")
 
-                ' Steuerdaten werden im Aufrufer erstellt
-
-                m_application.Log.WriteLog(Tools.LogSeverity.Information, "Erstinstallation-Wizzard beendet")
-                m_application.UserStats.SendStatistics("Wizzard", "Finished")
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Information, "Erstinstallation-Wizzard beendet")
 
                 Exit Sub
             End If
@@ -131,8 +113,8 @@ Public Class frmInstallWizzard
                 Exit Sub
             End If
 
-            ' Wenn Rückwärz, dann auch genau die seite aufrufem die der Anwender vorher gewählt hat
-            If e.PrevPage Is wizCreateInternetDatabase Or e.PrevPage Is wizSelectExistingDatabase Then
+            ' Wenn Rückwärts, dann auch genau die Seite aufrufen die der Anwender vorher gewählt hat
+            If e.PrevPage Is wizSelectExistingDatabase Then
                 e.Page = wizSelectDatabaseTarget
             End If
 
@@ -157,137 +139,26 @@ Public Class frmInstallWizzard
                 DataBaseType = DataBaseTypeenum.internalExisting
                 Return wizSelectExistingDatabase
 
-            Case 3 ' Internet-Db auswählen
-                DataBaseType = DataBaseTypeenum.CloudBased
-                Return wizCreateInternetDatabase
             Case Else
                 Return nextPage
 
         End Select
     End Function
 
-
-
-    ''' <summary>
-    ''' Sendet die Zugangsdaten an die Internet-Datenbank
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function SendAccessDataAndgetToken() As Boolean
-        Try
-            Dim headline As String
-            Dim message As String
-
-            If Not txtPassword1.Text.Equals(txtPassword2.Text) Then
-                headline = GetText("headInvalidPasswordsNotEqual", "Ungültiges Service-Passwort")
-                message = GetText("msgInvalidPasswordsNotEqual", "Die Passwörter müssen gleich sein!")
-                MessageBox.Show(message, headline, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                Return False
-            End If
-
-            UseWaitCursor = True
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.Info, "Cloud DB Request", "User requested a Cloud Database")
-
-            Dim iDB As New de.hwl_developer.HWLClouldService()
-            Dim result As Boolean = iDB.RequestToken(txtServiceName.Text, "Company", txtemailAdress.Text, mainApplication.ApplicationName, txtPassword1.Text)
-            UseWaitCursor = False
-
-            If result Then
-                'TODO: NLS
-                MessageBox.Show("Wir haben Ihnen nun eine e-Mail mit einem Zugangsschlüssel zugesendet. Dieses ist ab jetzt 14 Tage gültig und kann verwendet werden, um die Datenbank anzulegen" & vbCrLf & _
-                                "Tragen sie den Zugangsschlüssel in das Textfeld ein oder erstellen sie im Menü ""Extras"" eine neue Datenbankverbindung", "Zugangsschlüssel zugestellt", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return True
-            Else
-                ' Fehler = > doof!
-                Return False
-            End If
-        Catch ex As Exception
-            UseWaitCursor = False
-            m_application.Log.WriteLog(ex, "DatabaseConnect in InstallWizzard", "Error while connecting to a Database")
-            'TODO: NLS
-            MessageBox.Show("Ein Fehler ist beim Verbinden mit dem Datenbankserver aufgetreten: " & vbCrLf & ex.Message, "Fehler beim Verbinden", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return False
-        End Try
-    End Function
-
-    Private Sub TextEdit2_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtToken.EditValueChanged
-        If txtToken.Text.Length = 32 Then
-            wizCreateInternetDatabase.AllowNext = True
-
-        Else
-            wizCreateInternetDatabase.AllowNext = False
-
-        End If
-    End Sub
-
-
-    ''' <summary>
-    ''' Prüft ob der Senden.. Button aktiv geschaltet werden kann oder nicht
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub CheckSendToButton()
-        Dim valid As Boolean
-        valid = txtPassword1.Text.Equals(txtPassword2.Text)
-
-        valid = valid And txtemailAdress.Text.Length > 5
-        't@t.de
-        btnCreateCloudAccount.Enabled = valid
-    End Sub
-
-
     Private Sub frmInstallWizzard_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Me.DesignMode Then Exit Sub
 
         IucOptionConnections1.Reload()
 
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
         picWizzardFinish.Image = My.Resources.signal_flag_checkered_LowContrast_128x128
-        picHelpDatabase.Image = My.Resources.Symbol_Help_16x16
 
         If Not m_TaxesSelected Then
             ' Sofern noch unbekannt, setzte die Steuer-Seite
             FillLocalTaxRates()
         End If
 
-        Me.Text = mainApplication.ApplicationName
-
-    End Sub
-
-    Private Sub chkHasToken_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkHasToken.CheckedChanged, chkEnterData.CheckedChanged
-        ' Check des jeweils anderen umkehren
-        If sender Is chkHasToken Then
-            chkEnterData.Checked = Not chkHasToken.Checked
-        Else
-            chkHasToken.Checked = Not chkEnterData.Checked
-        End If
-
-
-        txtToken.Enabled = chkHasToken.Checked
-
-        txtemailAdress.Enabled = chkEnterData.Checked
-        txtPassword1.Enabled = chkEnterData.Checked
-        txtPassword2.Enabled = chkEnterData.Checked
-        txtServiceName.Enabled = chkEnterData.Checked
-
-    End Sub
-
-    Private Sub btnSendAccessData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCreateCloudAccount.Click
-        SendAccessDataAndgetToken()
-    End Sub
-
-    Delegate Sub sendAccountData()
-
-    Private Sub BeginSendData()
-        Me.BeginInvoke(New sendAccountData(AddressOf SendAccessDataAndgetToken))
-
-    End Sub
-
-    Private Sub lblcloudServicePriceInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblcloudServicePriceInformation.Click
-        Process.Start(HWLInterops.wwwCloudDatabasePriceWebsite)
-    End Sub
-
-    Private Sub cloudService_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtServiceName.EditValueChanged, txtPassword2.EditValueChanged, txtPassword1.EditValueChanged, txtemailAdress.EditValueChanged
-        CheckSendToButton()
+        Me.Text = MainApplication.ApplicationName
 
     End Sub
 
@@ -300,22 +171,17 @@ Public Class frmInstallWizzard
         ' Altes HWL wird verwendet
         ' (Neue Db angelegt, falls kein altes HWL da ist)
         ' Standard Steuerdaten
-        'm_application.Connections.FillConnectionsList()
+        'MainApplication.getInstance.Connections.FillConnectionsList()
         Me.DataBaseType = DataBaseTypeenum.internalNew
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
 
-
-    
-    Private Sub picSendUserData_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles picSendUserData.MouseDown
-        MessageBox.Show(GetText("msgSendStatisticDataInfo", "Sendet anonyme Daten zur nutzungsweise oder Fehlermeldungen an den Hersteller. Damit können wir die Softwarequalität stetig verbessern." & vbCrLf & vbCrLf & _
+    Private Sub picSendUserData_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+        MessageBox.Show(GetText("msgSendStatisticDataInfo", "Sendet anonyme Daten zur nutzungsweise oder Fehlermeldungen an den Hersteller. Damit können wir die Softwarequalität stetig verbessern." & vbCrLf & vbCrLf &
                                 "Sie können diese Einstellung auch später im Menü 'Hilfe' jederzeit ändern."), GetText("msgSendStatisticDataInfoHead", "Sendet anonyme statistische Daten"), MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
-    Private Sub lblHelpChooseDatabase_Click(sender As System.Object, e As System.EventArgs) Handles lblHelpChooseDatabase.Click
-
-    End Sub
 End Class
 
 ''' <summary>

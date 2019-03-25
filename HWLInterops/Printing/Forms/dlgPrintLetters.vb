@@ -10,7 +10,7 @@ Namespace Printing
 
         Private m_DocID As List(Of Letter)
 
-        Private m_mainUI As mainUI
+        Private m_mainUI As MainUI
 
         Private m_printLayouts As New List(Of LayoutToPrint)
 
@@ -98,17 +98,17 @@ Namespace Printing
         Private Sub dlgPrintdocuments_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 
             ' Lokale Einstellungen sichern
-            m_application.Settings.SetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices, CInt(chkPrintBusinesLayout.Checked).ToString)
+            MainApplication.getInstance.Settings.SetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices, CInt(chkPrintBusinesLayout.Checked).ToString)
 
         End Sub
 
         Private Sub dlgPrintdocuments_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-            m_application.Languages.SetTextOnControl(Me)
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
             ' Text der Überschrift festlegen.. 
-            Me.Text = m_application.Languages.GetTextBydataKind(DataSourceList.Letters) & " " & Me.Text
+            Me.Text = MainApplication.getInstance.Languages.GetTextBydataKind(DataSourceList.Letters) & " " & Me.Text
 
-            Dim reports As New Kernel.Printing.Reports(m_application)
+            Dim reports As New Kernel.Printing.Reports(MainApplication.getInstance)
             reports.SetDataType(DataSourceList.Letters)
 
             For Each item As Kernel.Printing.Report In reports
@@ -118,7 +118,7 @@ Namespace Printing
             grdPrintLayouts.DataSource = m_printLayouts
 
 
-            Dim PrintLayouttext As String = m_application.Settings.GetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices)
+            Dim PrintLayouttext As String = MainApplication.getInstance.Settings.GetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices)
             Dim printLayout As Boolean
             printLayout = Boolean.TryParse(PrintLayouttext, printLayout)
 
@@ -127,7 +127,7 @@ Namespace Printing
         End Sub
 
 
-        Public Sub New(ByVal MainUI As mainUI)
+        Public Sub New(ByVal MainUI As MainUI)
             InitializeComponent()
 
             m_mainUI = MainUI

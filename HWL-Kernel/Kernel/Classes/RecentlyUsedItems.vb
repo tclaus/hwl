@@ -23,7 +23,7 @@ Namespace Kernel
         ''' </summary>
         ''' <param name="BasisApplikation"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
             Me.CriteriaString = "UserName='" & MainApplication.CurrentUser.Key & "'"

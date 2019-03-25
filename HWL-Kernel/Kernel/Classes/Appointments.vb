@@ -26,7 +26,7 @@ Namespace Kernel
             Return apList
         End Function
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
 

@@ -134,7 +134,7 @@ Namespace Data
                 End If
 
             Catch ex As Exception
-                m_mainApplication.Log.WriteLog("Error while locking Data: (" & Me.Key & ") " & ex.Message)
+                m_mainApplication.log.WriteLog("Error while locking Data: (" & Me.Key & ") " & ex.Message)
             End Try
 
 

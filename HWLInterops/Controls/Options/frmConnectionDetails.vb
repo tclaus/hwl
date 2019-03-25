@@ -137,7 +137,7 @@ Public Class frmConnectionDetails
         Try
             Dim pathdlg As New Vista_Api.OpenFileDialog
             pathdlg.CheckFileExists = True
-            pathdlg.Filter = ClausSoftware.mainApplication.ApplicationName & " Datenbankdatei (daten.mdb)|daten.mdb"
+            pathdlg.Filter = ClausSoftware.MainApplication.ApplicationName & " Datenbankdatei (daten.mdb)|daten.mdb"
             pathdlg.Multiselect = False
 
             Dim tmpPath As String = m_dbPath
@@ -162,7 +162,7 @@ Public Class frmConnectionDetails
             End If
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "DataPath", "Ein Fehler trat auf beim anlegen des Datenpfades")
+            MainApplication.getInstance.log.WriteLog(ex, "DataPath", "Ein Fehler trat auf beim anlegen des Datenpfades")
         End Try
 
 
@@ -184,7 +184,7 @@ Public Class frmConnectionDetails
             m_testOK = value
 
             btnOK.Enabled = value
-            If m_application.Connections.ConnectionList.Count >= 1 Then
+            If MainApplication.getInstance.Connections.ConnectionList.Count >= 1 Then
                 chkAsdefault.Enabled = value And Not chkAsdefault.Checked
             End If
         End Set
@@ -229,7 +229,7 @@ Public Class frmConnectionDetails
     End Sub
 
     Private Sub frmConnectionDetails_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         FillControls()
 
@@ -262,12 +262,12 @@ Public Class frmConnectionDetails
             End If
 
             ' Falls dies die einzige Verbindung ist, dann ist diese die erste
-            If m_application.Connections.ConnectionList.Count = 0 Then
+            If MainApplication.getInstance.Connections.ConnectionList.Count = 0 Then
                 chkAsdefault.Checked = True
             End If
 
             ' Gibt es nur diese verbidnung, dann das Ändern der standard-Verbindung nicht zulasen
-            If m_application.Connections.ConnectionList.Count < 2 Then
+            If MainApplication.getInstance.Connections.ConnectionList.Count < 2 Then
                 chkAsdefault.Enabled = False
             Else
                 chkAsdefault.Enabled = True
@@ -329,13 +329,13 @@ Public Class frmConnectionDetails
 
             End If
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "ConnectionDetails", "Fehler beim auswerten des Backupfades")
+            MainApplication.getInstance.log.WriteLog(ex, "ConnectionDetails", "Fehler beim auswerten des Backupfades")
         End Try
     End Sub
 
     Private Sub btnCreateBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCreateBackup.Click
 
-        If m_application.Database.StartBackup("", Me.Connection) Then
+        If MainApplication.getInstance.Database.StartBackup("", Me.Connection) Then
             'TODO: NLS
             MessageBox.Show("Eine Sicherungskopie wurde angelegt.", "Datensicherung", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -364,7 +364,7 @@ Public Class frmConnectionDetails
         LoadingCircle1.Visible = True
         LoadingCircle1.Active = True
 
-        mainUI.CreateDatabaseBackup(Me.Connection)
+        MainUI.CreateDatabaseBackup(Me.Connection)
 
         btnCreateserverBackup.Enabled = True
 
@@ -372,8 +372,8 @@ Public Class frmConnectionDetails
         LoadingCircle1.Active = False
 
         If Me.Connection.Servertype = Tools.enumServerType.MySQL Then
-            MessageBox.Show("Server-Dump liegt unter " & vbCrLf & _
-                                   m_application.Database.LastBackupPath, "Server-Backup angelegt")
+            MessageBox.Show("Server-Dump liegt unter " & vbCrLf &
+                                   MainApplication.getInstance.Database.LastBackupPath, "Server-Backup angelegt")
         End If
 
     End Sub
@@ -385,7 +385,7 @@ Public Class frmConnectionDetails
 
     Private Sub ShowDatabaseSize()
         Try
-            lblDatabaseSize.Text = m_application.Database.GetDatabaseSize(Connection)
+            lblDatabaseSize.Text = MainApplication.getInstance.Database.GetDatabaseSize(Connection)
         Catch ex As Exception
             'TODO: NLS
             Debug.Print("FEHLER beim ermitteln der Datenbankgrösse: " & ex.Message)

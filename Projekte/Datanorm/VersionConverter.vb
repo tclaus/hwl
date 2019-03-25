@@ -44,7 +44,7 @@ Public Class VersionConverter
 
 
         ' Nun neu laden 
-        InitializeImport.Application.Log.WriteLog("Converter not found. Start loading and installing Datanorm Importer")
+        MainApplication.getInstance.log.WriteLog("Converter not found. Start loading and installing Datanorm Importer")
 
         'http://rechnungen-schreiben.de/download/datanorm-konvert.exe
 

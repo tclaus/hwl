@@ -383,7 +383,7 @@ Namespace Tools
         ''' <remarks></remarks>
         Public Shared Function GetDefaultDataPath() As String
             Dim appData As String = GetSpecialFolder(SpecialFolderConst.CSIDL_COMMON_APPDATA)
-            appData = System.IO.Path.Combine(appData, mainApplication.ApplicationName) ' Programmname im Pfad einbauen
+            appData = System.IO.Path.Combine(appData, MainApplication.ApplicationName) ' Programmname im Pfad einbauen
 
             appData = System.IO.Path.Combine(appData, "Daten") ' Daten-Pfad einsetzen
 
@@ -460,7 +460,7 @@ Namespace Tools
     End Class
 
     Public Class Tools
-        Private m_mainApplicaton As mainApplication
+        Private m_mainApplicaton As MainApplication
 
         ''' <summary>
         ''' Enthält die Ersetzungsregel für Nummern
@@ -496,7 +496,7 @@ Namespace Tools
 
         End Function
         ' Datenspeicher kann die Datenbank, oder ein Verzeichnis sein? 
-        Sub New(ByVal mainApplication As mainApplication)
+        Sub New(ByVal mainApplication As MainApplication)
             m_mainApplicaton = mainApplication
         End Sub
 
@@ -610,7 +610,7 @@ Namespace Tools
         Public Function GetDisplayID(ByVal number As Integer, ByVal formatstring As String, ByVal itemDate As Date) As String
             Dim retValue As String
             If Not regNumberValue.IsMatch(formatstring) Then
-                m_mainApplicaton.Log.WriteLog(ClausSoftware.Tools.LogSeverity.ErrorMessage, "Ein $NR konnte im Formatstring nicht gefunden werden. War (" & formatstring & ")")
+                m_mainApplicaton.log.WriteLog(ClausSoftware.Tools.LogSeverity.ErrorMessage, "Ein $NR konnte im Formatstring nicht gefunden werden. War (" & formatstring & ")")
 
                 Throw New ArgumentException("Ein '$NR' konnte nicht in der Eingabezeichenfolge gefunden werden")
             Else
@@ -1221,18 +1221,10 @@ Namespace Tools
     Public Class DisplayNameAttribute
         Inherits System.ComponentModel.DisplayNameAttribute
 
-        Private Shared m_application As mainApplication
+
         Private m_key As String
         Private m_defaultText As String
 
-        ''' <summary>
-        ''' Legt die Instanz der Hauptapplikation fest
-        ''' </summary>
-        ''' <param name="mainApplication"></param>
-        ''' <remarks></remarks>
-        Public Shared Sub SetMainApplication(ByVal mainApplication As mainApplication)
-            m_application = mainApplication
-        End Sub
 
         ''' <summary>
         ''' Erstellt einenen neuen Anzeigenamen mit dem angegeben schlüsel und einem Standardtext
@@ -1264,8 +1256,8 @@ Namespace Tools
         ''' <remarks></remarks>
         Public Overrides ReadOnly Property DisplayName() As String
             Get
-                If m_application IsNot Nothing Or String.IsNullOrEmpty(m_key) Then ' Falls das Applikationsobjekt nicht gesetzt ist oder kein Schlüssel angegeben wurde, dann normal verhalten
-                    Return m_application.Languages.GetText("prop_" & m_key, m_defaultText)
+                If MainApplication.getInstance IsNot Nothing Or String.IsNullOrEmpty(m_key) Then ' Falls das Applikationsobjekt nicht gesetzt ist oder kein Schlüssel angegeben wurde, dann normal verhalten
+                    Return MainApplication.getInstance.Languages.GetText("prop_" & m_key, m_defaultText)
                 Else
                     Return MyBase.DisplayName
                 End If

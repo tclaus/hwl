@@ -8,17 +8,17 @@
     End Property
 
     Public Sub Initialize() Implements IOptionMenue.Initialize
-        If m_application IsNot Nothing Then
-            lstUsers.DataSource = m_application.Users
+        If MainApplication.getInstance IsNot Nothing Then
+            lstUsers.DataSource = MainApplication.getInstance.Users
         End If
     End Sub
 
     Public Sub Reload() Implements IOptionMenue.Reload
-        m_application.Users.Reload()
+        MainApplication.getInstance.Users.Reload()
     End Sub
 
     Public Sub Save() Implements IOptionMenue.Save
-        m_application.Users.Save()
+        MainApplication.getInstance.Users.Save()
     End Sub
 
     Private Sub btnNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNew.Click
@@ -26,24 +26,24 @@
     End Sub
 
     Private Sub ShowCreateNewUser()
-        Dim newuser As Kernel.security.User = m_application.Users.GetNewItem
+        Dim newuser As Kernel.Security.User = MainApplication.getInstance.Users.GetNewItem
         Dim frm As New frmUseredit
         frm.UserAccount = newuser
         If frm.ShowDialog() = DialogResult.OK Then
             newuser.Save()
-            m_application.Users.Reload()
+            MainApplication.getInstance.Users.Reload()
         End If
 
 
     End Sub
 
-    Private Sub ShowEditNewUser(ByVal edituser As Kernel.security.User)
+    Private Sub ShowEditNewUser(ByVal edituser As Kernel.Security.User)
 
         Dim frm As New frmUseredit
         frm.UserAccount = edituser
         If frm.ShowDialog() = DialogResult.OK Then
             edituser.Save()
-            m_application.Users.Reload()
+            MainApplication.getInstance.Users.Reload()
         End If
 
 
@@ -57,7 +57,7 @@
         ' Briefe   | read | Write
         Dim rightsList As New List(Of rightProxy)
 
-        For Each item As String In [Enum].GetNames(GetType(Kernel.security.PermissionModules))
+        For Each item As String In [Enum].GetNames(GetType(Kernel.Security.PermissionModules))
             Dim newRight As New rightProxy()
             newRight.ModulName = item
             newRight.None = True
@@ -92,7 +92,7 @@
         Private m_displayname As String
 
 
-        <System.ComponentModel.DisplayName("Modulname")> _
+        <System.ComponentModel.DisplayName("Modulname")>
         Public ReadOnly Property ModuldisplayName() As String
             Get
                 'TODO: hier eiun Gettext einsetzen
@@ -170,7 +170,7 @@
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.Browsable(False)> _
+        <System.ComponentModel.Browsable(False)>
         Public Property ModulName() As String
             Get
                 Return m_rightName
@@ -195,19 +195,19 @@
     End Function
     Private Sub lstUsers_MouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lstUsers.MouseDoubleClick
         If lstUsers.SelectedItem IsNot Nothing Then
-            ShowEditNewUser(CType(lstUsers.SelectedItem, Kernel.security.User))
+            ShowEditNewUser(CType(lstUsers.SelectedItem, Kernel.Security.User))
         End If
 
     End Sub
 
     Private Sub lstUsers_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstUsers.SelectedIndexChanged
 
-        Dim user As Kernel.security.User
+        Dim user As Kernel.Security.User
 
 
         If lstUsers.SelectedItem IsNot Nothing Then
 
-            user = CType(lstUsers.SelectedItem, Kernel.security.User)
+            user = CType(lstUsers.SelectedItem, Kernel.Security.User)
 
             GenerateRightsList()
         End If
@@ -223,7 +223,7 @@
 
     Private Sub btnEditUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditUser.Click
         If lstUsers.SelectedItem IsNot Nothing Then
-            ShowEditNewUser(CType(lstUsers.SelectedItem, Kernel.security.User))
+            ShowEditNewUser(CType(lstUsers.SelectedItem, Kernel.Security.User))
         End If
     End Sub
 
@@ -253,6 +253,6 @@
     End Property
 
     Private Sub iucOptionsUsers_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
     End Sub
 End Class

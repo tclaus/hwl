@@ -32,14 +32,14 @@
 
     Public Sub Reload() Implements IOptionMenue.Reload
 
-        chksendNoticeUnpaidTransactions.Checked = m_application.Settings.TransactionSettings.SendUnpaidNoticeOnStartup
+        chksendNoticeUnpaidTransactions.Checked = MainApplication.getInstance.Settings.TransactionSettings.SendUnpaidNoticeOnStartup
 
     End Sub
 
 
     Public Sub Save() Implements IOptionMenue.Save
 
-        m_application.Settings.TransactionSettings.SendUnpaidNoticeOnStartup = chksendNoticeUnpaidTransactions.Checked
+        MainApplication.getInstance.Settings.TransactionSettings.SendUnpaidNoticeOnStartup = chksendNoticeUnpaidTransactions.Checked
     End Sub
 
     Private Sub chksendNoticeUnpaidTransactions_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chksendNoticeUnpaidTransactions.CheckedChanged
@@ -60,8 +60,8 @@
 
     End Sub
 
-    
+
     Private Sub iucOptionTransactions_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
     End Sub
 End Class

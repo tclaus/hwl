@@ -4,27 +4,19 @@
 ''' </summary>
 ''' <remarks></remarks>
 Public Class StatisticInfo
-    Private m_application As mainApplication
 
     Private m_AdressbookCount As Integer
-
     Private m_ArticleCount As Integer
-
     Private m_JournalDocuments As Integer
-
     Private m_nextAddressNumber As Integer
-
     Private m_NextArticleNUmber As Integer
-
     Private m_nextInvoiceNumber As Integer
 
     ''' <summary>
     ''' Erstellt eine neue Instanz der Klasse
     ''' </summary>
-    ''' <param name="application"></param>
     ''' <remarks></remarks>
-    Public Sub New(ByVal application As mainApplication)
-        m_application = application
+    Public Sub New()
         FillData()
     End Sub
 
@@ -99,14 +91,14 @@ Public Class StatisticInfo
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub FillData()
-        m_AdressbookCount = m_application.Adressen.GetCount
-        m_ArticleCount = m_application.ArticleList.GetCount
-        m_JournalDocuments = m_application.JournalDocuments.GetCount
+        m_AdressbookCount = MainApplication.getInstance.Adressen.GetCount
+        m_ArticleCount = MainApplication.getInstance.ArticleList.GetCount
+        m_JournalDocuments = MainApplication.getInstance.JournalDocuments.GetCount
 
-        m_nextAddressNumber = m_application.Adressen.GetMaxID
-        m_NextArticleNUmber = m_application.ArticleList.GetMaxID
-        m_nextInvoiceNumber = m_application.JournalDocuments.Invoices.GetMaxID
-        m_NextOffersNumber = m_application.JournalDocuments.Offers.GetMaxID
+        m_nextAddressNumber = MainApplication.getInstance.Adressen.GetMaxID
+        m_NextArticleNUmber = MainApplication.getInstance.ArticleList.GetMaxID
+        m_nextInvoiceNumber = MainApplication.getInstance.JournalDocuments.Invoices.GetMaxID
+        m_NextOffersNumber = MainApplication.getInstance.JournalDocuments.Offers.GetMaxID
     End Sub
 
 

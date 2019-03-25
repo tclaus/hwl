@@ -29,13 +29,18 @@ Namespace Kernel
             Return newItem
         End Function
 
+        Public Sub New()
+            MyBase.New()
+            Initialize()
 
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As CriteriaOperator)
+        End Sub
+
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(BasisApplikation, criteria)
             Initialize()
         End Sub
 
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As String)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As String)
 
             MyBase.New(BasisApplikation, CriteriaOperator.Parse(criteria))
 
@@ -44,7 +49,7 @@ Namespace Kernel
         End Sub
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
 

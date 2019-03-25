@@ -17,7 +17,7 @@ Friend Class DataWriter
     ''' <remarks></remarks>
     Private Const DefaultGroupName As String = "Datanorm Importiert"
 
-    <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
+    <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)>
     Private m_datanormErstellerID As String
 
     Private m_groupsList As New Dictionary(Of String, String) ' 1.: Hauptwarengruppe / Unterwarengruppe, 2: Ziel-Schlüssel der Gruppe
@@ -41,7 +41,8 @@ Friend Class DataWriter
 
     Public Sub New()
         ' Neue Auflistung abholen
-        m_Articles = CType(InitializeImport.Application.ArticleList.GetNewCollectionAsync, ClausSoftware.Kernel.Articles)
+
+        m_Articles = CType(MainApplication.getInstance().ArticleList.GetNewCollectionAsync, ClausSoftware.Kernel.Articles)
 
         ' (Artikel nicht lokal der Auflistung hinzufügen! Es können sehr viele Artikel werden !) 
 
@@ -75,9 +76,9 @@ Friend Class DataWriter
 
             ' Artikeldaten schreiben
             .EAN = articleData.EAN
-            If articleData.Textkennzeichen = enumTextKennzeichen.Default Or _
-                articleData.Textkennzeichen = enumTextKennzeichen.KT1_KT2_Dimension Or _
-                articleData.Textkennzeichen = enumTextKennzeichen.KT1_KT2_LT Or _
+            If articleData.Textkennzeichen = enumTextKennzeichen.Default Or
+                articleData.Textkennzeichen = enumTextKennzeichen.KT1_KT2_Dimension Or
+                articleData.Textkennzeichen = enumTextKennzeichen.KT1_KT2_LT Or
                 articleData.Textkennzeichen = enumTextKennzeichen.KT1_KT2_LT_Dimension Then
 
                 .ShortDescription = articleData.KurzText1
@@ -85,7 +86,7 @@ Friend Class DataWriter
             End If
 
             If Not String.IsNullOrEmpty(articleData.Rabattgruppe) Then
-                .Discount = InitializeImport.Application.Discounts.GetByDTNKey(articleData.Rabattgruppe, Me.ErstellerID)
+                .Discount = MainApplication.getInstance.Discounts.GetByDTNKey(articleData.Rabattgruppe, Me.ErstellerID)
             End If
 
             If articleData.Textkennzeichen = enumTextKennzeichen.LT_KurzText2 Then
@@ -172,7 +173,7 @@ Friend Class DataWriter
                 article.EinzelEK = .preis
                 If .preiskennzeichen <> enumPreisKennzeichen.EmpfohlenerVKNetto Then
                     If .preiskennzeichen = enumPreisKennzeichen.ListenPreis Then
-                        article.Discount = InitializeImport.Application.Discounts.GetByDTNKey(.rabattgruppe)
+                        article.Discount = MainApplication.getInstance.Discounts.GetByDTNKey(.rabattgruppe)
                         'IMPORTANT: Rabattkennzeichen: Multi / Rabatt/ Tererungszuschlag definieren !
 
                     End If
@@ -192,7 +193,7 @@ Friend Class DataWriter
     ''' Stellt einen Textbausteim mit seinem Schlüssl bereit
     ''' </summary>
     ''' <remarks></remarks>
-    <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
+    <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)>
     Private m_textBlock As New Dictionary(Of String, String)
 
     ''' <summary>
@@ -227,7 +228,7 @@ Friend Class DataWriter
         If Not m_groupsList.ContainsKey(DTNKey) Then
 
             ' Neue Gruppe anlegen 
-            Dim grp As Group = InitializeImport.Application.Groups.GetNewItem
+            Dim grp As Group = MainApplication.getInstance.Groups.GetNewItem
             grp.Name = gruppenSatz.Bezeichnung
 
             grp.DTNHauptWarengruppe = gruppenSatz.Hauptwarengruppe
@@ -242,7 +243,7 @@ Friend Class DataWriter
 
             grp.IsExtern = True
             grp.Save()
-            InitializeImport.Application.Groups.Add(grp)
+            MainApplication.getInstance.Groups.Add(grp)
 
             m_groupsList.Add(DTNKey, grp.Key)
 
@@ -257,7 +258,7 @@ Friend Class DataWriter
     Private Sub ScannGroups()
         m_groupsList.Clear()
 
-        For Each item As Group In InitializeImport.Application.Groups
+        For Each item As Group In MainApplication.getInstance.Groups
             Dim DTNKey As String = item.DTNHauptWarengruppe & "/" & item.DTNUnterWarengruppe 'Suchschlüssel von datanorm
             If DTNKey.Length > 1 Then
                 m_groupsList.Add(DTNKey, item.Key)
@@ -296,7 +297,7 @@ Friend Class DataWriter
     ''' <remarks></remarks>
     Private Function GetDTNGroup(hauptGruppenID As String, unterGruppenID As String) As String
         Dim DTNKey As String
-        Static rootGroup As String = InitializeImport.Application.Groups.RootGroup.Key
+        Static rootGroup As String = MainApplication.getInstance.Groups.RootGroup.Key
 
         If Not String.IsNullOrEmpty(hauptGruppenID) Then
             DTNKey = hauptGruppenID & "/"
@@ -322,11 +323,11 @@ Friend Class DataWriter
     ''' <remarks></remarks>
     Public Sub WriteDiscounts(rabatt As Rabattsatz)
 
-        Dim newDiscount As Discount = InitializeImport.Application.Discounts.GetByDTNKey(rabatt.RabattgruppenID)
+        Dim newDiscount As Discount = MainApplication.getInstance.Discounts.GetByDTNKey(rabatt.RabattgruppenID)
 
         If newDiscount Is Nothing Then
-            newDiscount = InitializeImport.Application.Discounts.GetNewItem
-            InitializeImport.Application.Discounts.Add(newDiscount)
+            newDiscount = MainApplication.getInstance.Discounts.GetNewItem
+            MainApplication.getInstance.Discounts.Add(newDiscount)
         End If
 
         newDiscount.DiscountValue = rabatt.Rabattwert

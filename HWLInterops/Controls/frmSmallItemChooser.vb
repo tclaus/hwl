@@ -14,7 +14,7 @@ Public Class frmSmallItemChooser
 
     Private WithEvents m_serverModeDS As XPServerCollectionSource
 
-    Private m_session As Session = m_application.Session
+    Private m_session As Session = MainApplication.getInstance.Session
 
     Private m_selectedItem As ClausSoftware.Data.StaticItem
 
@@ -107,7 +107,7 @@ Public Class frmSmallItemChooser
         Select Case DataKind
 
             Case DataKindenum.Articles
-                m_serverModeDS = New XPServerCollectionSource(m_session, m_application.ArticleList.GetObjectClassInfo)
+                m_serverModeDS = New XPServerCollectionSource(m_session, MainApplication.getInstance.ArticleList.GetObjectClassInfo)
                 m_serverModeDS.DisplayableProperties = "ShortDescription;LongDescription;GroupName;CalulatedEndPrice"
                 '  m_internalFixedFilter = "FALSE" 'ersteinmal nichts anzeign lassen
 
@@ -115,7 +115,7 @@ Public Class frmSmallItemChooser
                 IucSearchPanel1.NullValuePrompt = GetText("SearchingByItemNameOrDescription", "Suche nach Artkelname oder-beschreibung")
 
             Case DataKindenum.Contacts
-                m_serverModeDS = New XPServerCollectionSource(m_session, m_application.Adressen.GetObjectClassInfo)
+                m_serverModeDS = New XPServerCollectionSource(m_session, MainApplication.getInstance.Adressen.GetObjectClassInfo)
                 m_serverModeDS.DisplayableProperties = "ContactDisplayID;ContactsName;Company;ZipCode;Town;Street"
 
                 Me.Text = GetText("msgsearchByContactName", "Kontakt suchen")
@@ -123,15 +123,15 @@ Public Class frmSmallItemChooser
 
 
             Case DataKindenum.CashAccounts
-                m_serverModeDS = New XPServerCollectionSource(m_session, m_application.CashAccounts.GetObjectClassInfo)
-                m_serverModeDS.DisplayableProperties = m_application.CashAccounts.DisplayableProperties
+                m_serverModeDS = New XPServerCollectionSource(m_session, MainApplication.getInstance.CashAccounts.GetObjectClassInfo)
+                m_serverModeDS.DisplayableProperties = MainApplication.getInstance.CashAccounts.DisplayableProperties
                 Me.Text = GetText("msgSearchByAccountName", "Konto suchen")
                 IucSearchPanel1.NullValuePrompt = GetText("msgSearchByAccountNameLong", "Suche nach Kontoname")
 
 
             Case DataKindenum.TextTemplates
-                m_serverModeDS = New XPServerCollectionSource(m_session, m_application.TextTemplates.GetObjectClassInfo)
-                m_serverModeDS.DisplayableProperties = m_application.TextTemplates.DisplayableProperties
+                m_serverModeDS = New XPServerCollectionSource(m_session, MainApplication.getInstance.TextTemplates.GetObjectClassInfo)
+                m_serverModeDS.DisplayableProperties = MainApplication.getInstance.TextTemplates.DisplayableProperties
 
                 Me.Text = GetText("SearchTextBlock", "Textbaustein suchen")
                 IucSearchPanel1.NullValuePrompt = GetText("SearchForTextblocks", "Suche nach Textbaustein")
@@ -311,13 +311,13 @@ Public Class frmSmallItemChooser
     End Sub
 
     Private Sub frmSmallItemChooser_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        m_application.Settings.SaveFormsPos(Me)
+        MainApplication.getInstance.Settings.SaveFormsPos(Me)
     End Sub
 
     Private Sub frmSmallItemChooser_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         Select Case Me.DataKind
             Case DataKindenum.Articles : Me.Text = GetText("SearchArticles", "Artikel suchen")

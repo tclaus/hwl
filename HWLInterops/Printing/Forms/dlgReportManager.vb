@@ -67,9 +67,9 @@ Namespace Printing
         End Sub
 
         Private Sub dlgReportManager_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-            m_application.Settings.SaveFormsPos(Me)
+            MainApplication.getInstance.Settings.SaveFormsPos(Me)
 
-            m_application.Settings.SetSetting("LastKnownReportKind", "Reports", cobDataType.SelectedIndex.ToString)
+            MainApplication.getInstance.Settings.SetSetting("LastKnownReportKind", "Reports", cobDataType.SelectedIndex.ToString)
         End Sub
 
 
@@ -84,13 +84,13 @@ Namespace Printing
                 criteria = DevExpress.Data.Filtering.CriteriaOperator.Parse("DataSourceKind = " & Me.DataListType)
             End If
             ' Falls kein Datentyp gesetzt ist, dann ist der Filter auch gesetzt
-            m_reports = New Reports(m_application)
+            m_reports = New Reports(MainApplication.getInstance)
             m_reports.Filter = criteria
 
             grdReportsList.DataSource = m_reports
 
-            m_application.Settings.RestoreFormsPos(Me)
-            m_application.Languages.SetTextOnControl(Me)
+            MainApplication.getInstance.Settings.RestoreFormsPos(Me)
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
             ' Das Kontextmenü übersetzen
             mnuDelete.Text = GetText(mnuDelete.Name, mnuDelete.Text)
@@ -109,7 +109,7 @@ Namespace Printing
         Private Sub cobDataType_CustomDisplayText(ByVal sender As Object, ByVal e As DevExpress.XtraEditors.Controls.CustomDisplayTextEventArgs) Handles cobDataType.CustomDisplayText
             ' Aus de Enum, die hietr durchkommt den deutschen Text ermitteln
             'If TypeOf e.Value Is DataSourceList Then
-            '    e.DisplayText = m_application.Languages.GetTextBydataKind(CType(e.Value, DataSourceList))
+            '    e.DisplayText = MainApplication.getInstance.Languages.GetTextBydataKind(CType(e.Value, DataSourceList))
             'End If
         End Sub
 
@@ -166,7 +166,7 @@ Namespace Printing
             ''' <returns></returns>
             ''' <remarks></remarks>
             Public Overrides Function ToString() As String
-                Return m_application.Languages.GetTextBydataKind(DataSource)
+                Return MainApplication.getInstance.Languages.GetTextBydataKind(DataSource)
             End Function
 
             Public Sub New(ByVal DataSource As DataSourceList)
@@ -181,7 +181,7 @@ Namespace Printing
             If TypeOf cobDataType.SelectedItem Is DatasourceItem Then
                 newReport.DataSourceKind = CType(cobDataType.SelectedItem, DatasourceItem).DataSource
 
-                newReport.ReportName = m_application.Languages.GetText("NewPrintLayoutName", "Neues DruckLayout")
+                newReport.ReportName = MainApplication.getInstance.Languages.GetText("NewPrintLayoutName", "Neues DruckLayout")
                 newReport.Description = GetText("enum_" & newReport.DataSourceKind, newReport.DataSourceKind.ToString)
                 m_reports.Add(newReport)
             End If
@@ -373,7 +373,7 @@ Namespace Printing
             InitializeComponent()
             Dim LastKnownIndex As Integer
             ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
-            LastKnownIndex = CInt(m_application.Settings.GetSetting("LastKnownReportKind", "Reports", "0"))
+            LastKnownIndex = CInt(MainApplication.getInstance.Settings.GetSetting("LastKnownReportKind", "Reports", "0"))
 
             'NLS wird hier direkt auf dem Conbtrol erledigt (Displaytext - Eigenschaft)
             cobDataType.Properties.Items.Clear()

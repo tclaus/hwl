@@ -19,7 +19,7 @@ Namespace Kernel.Attributes
         Inherits BaseCollection(Of MultiSelectprofile)
         Implements IDataCollection
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
 
@@ -29,7 +29,7 @@ Namespace Kernel.Attributes
 
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As CriteriaOperator)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(BasisApplikation, criteria)
             Initialize()
         End Sub

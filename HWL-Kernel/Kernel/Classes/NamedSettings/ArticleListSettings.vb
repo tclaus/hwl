@@ -7,9 +7,9 @@ Namespace Kernel.NamedSettings
     ''' <remarks></remarks>
     Public Class ArticleListSettings
 
-        Private m_mainApplication As mainApplication
+        Private m_mainApplication As MainApplication
 
-        Friend Sub New(ByVal rootApplication As mainApplication)
+        Friend Sub New(ByVal rootApplication As MainApplication)
             m_mainApplication = rootApplication
         End Sub
 
@@ -35,7 +35,7 @@ Namespace Kernel.NamedSettings
                 Else
                     Return m_mainApplication.TaxRates.GetNormalTax
                 End If
-                m_mainApplication.Log.sendLog()
+                m_mainApplication.log.sendLog()
             End Get
             Set(ByVal value As TaxRate)
                 If value IsNot Nothing Then

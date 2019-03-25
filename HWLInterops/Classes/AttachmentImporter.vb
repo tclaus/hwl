@@ -35,11 +35,9 @@ Public Class AttachmentImporter
 
         Catch ex As Exception
 
-            m_application.Log.WriteLog(ex, "AttachmentImporter", "Fehler beim einfügen von Attachments")
+            MainApplication.getInstance.log.WriteLog(ex, "AttachmentImporter", "Fehler beim einfügen von Attachments")
 
         End Try
-
-
 
     End Sub
 

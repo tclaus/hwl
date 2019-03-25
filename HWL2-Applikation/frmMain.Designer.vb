@@ -74,19 +74,19 @@ Partial Class frmMain
         Me.btnMenuOpenUserFeedbackSite = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMenuCheckForUpdates = New DevExpress.XtraBars.BarButtonItem()
         Me.btnStartTeamViewer = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnMenuLicenses = New DevExpress.XtraBars.BarButtonItem()
         Me.btnAboutBox = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarButtonItem5 = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
+        Me.btnMenuLicenses = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem3 = New DevExpress.XtraBars.BarButtonItem()
         Me.btnHistory = New DevExpress.XtraBars.BarButtonItem()
         Me.BarEditItem1 = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.btnLoadTeamView = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItem5 = New DevExpress.XtraBars.BarButtonItem()
         Me.RepositoryItemLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
         Me.basesearchPanel = New ClausSoftware.HWLInterops.iucSearchPanel()
@@ -96,6 +96,7 @@ Partial Class frmMain
         CType(Me.tabControl, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabControl.SuspendLayout()
         Me.cmsTabbedMenue.SuspendLayout()
+        CType(Me.DefaultBarAndDockingController1.Controller, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ApplicationMenu1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemProgressBar1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -106,13 +107,14 @@ Partial Class frmMain
         'splMainSplitter
         '
         Me.splMainSplitter.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.splMainSplitter.Location = New System.Drawing.Point(0, 24)
+        Me.splMainSplitter.Location = New System.Drawing.Point(0, 32)
+        Me.splMainSplitter.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.splMainSplitter.Name = "splMainSplitter"
         Me.splMainSplitter.Panel1.Controls.Add(Me.IucMenuBar1)
         Me.splMainSplitter.Panel1.Text = "Panel1"
         Me.splMainSplitter.Panel2.Controls.Add(Me.tabControl)
         Me.splMainSplitter.Panel2.Text = "Panel2"
-        Me.splMainSplitter.Size = New System.Drawing.Size(1015, 584)
+        Me.splMainSplitter.Size = New System.Drawing.Size(1450, 991)
         Me.splMainSplitter.SplitterPosition = 179
         Me.splMainSplitter.TabIndex = 18
         Me.splMainSplitter.Text = "SplitContainerControl1"
@@ -125,9 +127,9 @@ Partial Class frmMain
         Me.IucMenuBar1.Appearance.Options.UseForeColor = True
         Me.IucMenuBar1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.IucMenuBar1.Location = New System.Drawing.Point(0, 0)
-        Me.IucMenuBar1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.IucMenuBar1.Margin = New System.Windows.Forms.Padding(4, 7, 4, 7)
         Me.IucMenuBar1.Name = "IucMenuBar1"
-        Me.IucMenuBar1.Size = New System.Drawing.Size(179, 584)
+        Me.IucMenuBar1.Size = New System.Drawing.Size(179, 991)
         Me.IucMenuBar1.TabIndex = 6
         '
         'tabControl
@@ -137,37 +139,40 @@ Partial Class frmMain
         Me.tabControl.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeader
         Me.tabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tabControl.Location = New System.Drawing.Point(0, 0)
+        Me.tabControl.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.tabControl.Name = "tabControl"
         Me.tabControl.SelectedTabPage = Me.tabMain
-        Me.tabControl.Size = New System.Drawing.Size(830, 584)
+        Me.tabControl.Size = New System.Drawing.Size(1266, 991)
         Me.tabControl.TabIndex = 0
         Me.tabControl.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.tabMain})
         '
         'tabMain
         '
         Me.tabMain.ImageIndex = 4
+        Me.tabMain.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
         Me.tabMain.Name = "tabMain"
-        Me.tabMain.Size = New System.Drawing.Size(823, 555)
+        Me.tabMain.Size = New System.Drawing.Size(1260, 957)
         Me.tabMain.Text = "Start"
         '
         'cmsTabbedMenue
         '
+        Me.cmsTabbedMenue.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.cmsTabbedMenue.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuDivideHorizontally, Me.mnuDivideVertically})
         Me.cmsTabbedMenue.Name = "cmsTabbedMenue"
-        Me.cmsTabbedMenue.Size = New System.Drawing.Size(201, 48)
+        Me.cmsTabbedMenue.Size = New System.Drawing.Size(281, 64)
         '
         'mnuDivideHorizontally
         '
         Me.mnuDivideHorizontally.Image = Global.ClausSoftware.GUI.My.Resources.Resources.ArrangeWindowsHS
         Me.mnuDivideHorizontally.Name = "mnuDivideHorizontally"
-        Me.mnuDivideHorizontally.Size = New System.Drawing.Size(200, 22)
+        Me.mnuDivideHorizontally.Size = New System.Drawing.Size(280, 30)
         Me.mnuDivideHorizontally.Text = "Fenster horizontal teilen"
         '
         'mnuDivideVertically
         '
         Me.mnuDivideVertically.Image = Global.ClausSoftware.GUI.My.Resources.Resources.ArrangeSideBySideHS
         Me.mnuDivideVertically.Name = "mnuDivideVertically"
-        Me.mnuDivideVertically.Size = New System.Drawing.Size(200, 22)
+        Me.mnuDivideVertically.Size = New System.Drawing.Size(280, 30)
         Me.mnuDivideVertically.Text = "Fenster vertikal teilen"
         '
         'DefaultBarAndDockingController1
@@ -180,10 +185,8 @@ Partial Class frmMain
         '
         'ApplicationMenu1
         '
-        Me.ApplicationMenu1.BottomPaneControlContainer = Nothing
         Me.ApplicationMenu1.Manager = Me.BarManager1
         Me.ApplicationMenu1.Name = "ApplicationMenu1"
-        Me.ApplicationMenu1.RightPaneControlContainer = Nothing
         '
         'BarManager1
         '
@@ -201,8 +204,8 @@ Partial Class frmMain
         '
         'Bar3
         '
-        Me.Bar3.Appearance.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Bar3.Appearance.Options.UseFont = True
+        Me.Bar3.BarAppearance.Normal.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Bar3.BarAppearance.Normal.Options.UseFont = True
         Me.Bar3.BarName = "Status bar"
         Me.Bar3.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Bottom
         Me.Bar3.DockCol = 0
@@ -218,11 +221,11 @@ Partial Class frmMain
         '
         'ItemstatusText
         '
-        Me.ItemstatusText.Appearance.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ItemstatusText.Appearance.Options.UseFont = True
         Me.ItemstatusText.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.ItemstatusText.Caption = "Statustext"
         Me.ItemstatusText.Id = 24
+        Me.ItemstatusText.ItemAppearance.Normal.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ItemstatusText.ItemAppearance.Normal.Options.UseFont = True
         Me.ItemstatusText.Name = "ItemstatusText"
         Me.ItemstatusText.TextAlignment = System.Drawing.StringAlignment.Near
         '
@@ -250,13 +253,13 @@ Partial Class frmMain
         'lblCurrentConectionstatusBar
         '
         Me.lblCurrentConectionstatusBar.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right
-        Me.lblCurrentConectionstatusBar.Appearance.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCurrentConectionstatusBar.Appearance.Options.UseFont = True
-        Me.lblCurrentConectionstatusBar.Appearance.Options.UseImage = True
         Me.lblCurrentConectionstatusBar.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.lblCurrentConectionstatusBar.Caption = "(Verbindungsname)"
         Me.lblCurrentConectionstatusBar.Glyph = Global.ClausSoftware.GUI.My.Resources.Resources.Network_Harddisk16x16
         Me.lblCurrentConectionstatusBar.Id = 37
+        Me.lblCurrentConectionstatusBar.ItemAppearance.Normal.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurrentConectionstatusBar.ItemAppearance.Normal.Options.UseFont = True
+        Me.lblCurrentConectionstatusBar.ItemAppearance.Normal.Options.UseImage = True
         Me.lblCurrentConectionstatusBar.Name = "lblCurrentConectionstatusBar"
         ToolTipTitleItem1.Text = "(Alias)"
         ToolTipItem1.LeftIndent = 6
@@ -433,7 +436,7 @@ Partial Class frmMain
         '
         Me.btnMenuHelp.Caption = "Hilfe"
         Me.btnMenuHelp.Id = 6
-        Me.btnMenuHelp.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnMenuInvokeHelp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMenuOpenUserFeedbackSite), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMenuCheckForUpdates), New DevExpress.XtraBars.LinkPersistInfo(Me.btnStartTeamViewer), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMenuLicenses), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAboutBox)})
+        Me.btnMenuHelp.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnMenuInvokeHelp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMenuCheckForUpdates), New DevExpress.XtraBars.LinkPersistInfo(Me.btnStartTeamViewer), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAboutBox)})
         Me.btnMenuHelp.Name = "btnMenuHelp"
         '
         'btnMenuInvokeHelp
@@ -464,51 +467,49 @@ Partial Class frmMain
         SuperToolTip2.Items.Add(ToolTipItem2)
         Me.btnStartTeamViewer.SuperTip = SuperToolTip2
         '
-        'btnMenuLicenses
-        '
-        Me.btnMenuLicenses.Caption = "Lizenzen..."
-        Me.btnMenuLicenses.Id = 12
-        Me.btnMenuLicenses.Name = "btnMenuLicenses"
-        '
         'btnAboutBox
         '
         Me.btnAboutBox.Caption = "Über {Appname}..."
         Me.btnAboutBox.Id = 43
         Me.btnAboutBox.Name = "btnAboutBox"
         '
-        'BarButtonItem5
-        '
-        Me.BarButtonItem5.Caption = "Create 5000 JournalItems"
-        Me.BarButtonItem5.Id = 56
-        Me.BarButtonItem5.Name = "BarButtonItem5"
-        '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1015, 24)
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1450, 32)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 608)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1015, 27)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 1023)
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1450, 35)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 24)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 584)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 32)
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 991)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1015, 24)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 584)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1450, 32)
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 991)
+        '
+        'btnMenuLicenses
+        '
+        Me.btnMenuLicenses.Caption = "Lizenzen..."
+        Me.btnMenuLicenses.Id = 12
+        Me.btnMenuLicenses.Name = "btnMenuLicenses"
         '
         'BarButtonItem2
         '
@@ -546,6 +547,12 @@ Partial Class frmMain
         Me.btnLoadTeamView.Id = 52
         Me.btnLoadTeamView.Name = "btnLoadTeamView"
         '
+        'BarButtonItem5
+        '
+        Me.BarButtonItem5.Caption = "Create 5000 JournalItems"
+        Me.BarButtonItem5.Id = 56
+        Me.BarButtonItem5.Name = "BarButtonItem5"
+        '
         'RepositoryItemLookUpEdit1
         '
         Me.RepositoryItemLookUpEdit1.AutoHeight = False
@@ -558,12 +565,12 @@ Partial Class frmMain
         Me.basesearchPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.basesearchPanel.Appearance.BackColor = System.Drawing.Color.Transparent
         Me.basesearchPanel.Appearance.Options.UseBackColor = True
-        Me.basesearchPanel.Location = New System.Drawing.Point(817, 0)
+        Me.basesearchPanel.Location = New System.Drawing.Point(1167, 0)
         Me.basesearchPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.basesearchPanel.Name = "basesearchPanel"
-        Me.basesearchPanel.NullValuePrompt = "Suche...    F3"
+        Me.basesearchPanel.NullValuePrompt = ""
         Me.basesearchPanel.SelectedMenueItem = -1
-        Me.basesearchPanel.Size = New System.Drawing.Size(192, 22)
+        Me.basesearchPanel.Size = New System.Drawing.Size(274, 37)
         Me.basesearchPanel.Status = ClausSoftware.HWLInterops.iucSearchPanel.enumState.empty
         Me.basesearchPanel.TabIndex = 0
         '
@@ -579,9 +586,9 @@ Partial Class frmMain
         '
         Me.Appearance.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Appearance.Options.UseFont = True
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 25.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1015, 635)
+        Me.ClientSize = New System.Drawing.Size(1450, 1058)
         Me.Controls.Add(Me.basesearchPanel)
         Me.Controls.Add(Me.splMainSplitter)
         Me.Controls.Add(Me.barDockControlLeft)
@@ -590,6 +597,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.barDockControlTop)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
+        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "frmMain"
         Me.Text = "HWL"
         CType(Me.splMainSplitter, System.ComponentModel.ISupportInitialize).EndInit()
@@ -597,6 +605,7 @@ Partial Class frmMain
         CType(Me.tabControl, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabControl.ResumeLayout(False)
         Me.cmsTabbedMenue.ResumeLayout(False)
+        CType(Me.DefaultBarAndDockingController1.Controller, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ApplicationMenu1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemProgressBar1, System.ComponentModel.ISupportInitialize).EndInit()

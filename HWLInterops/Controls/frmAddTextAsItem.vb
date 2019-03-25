@@ -35,7 +35,7 @@ Public Class frmAddTextAsItem
 
     Private Sub frmAddTextAsItem_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         FillGroups(trvArticleGroups)
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
 
     End Sub
@@ -52,7 +52,7 @@ Public Class frmAddTextAsItem
 
 
 
-            Dim newArticle As Article = m_application.ArticleList.GetNewItem
+            Dim newArticle As Article = MainApplication.getInstance.ArticleList.GetNewItem
             newArticle.ShortDescription = SimpleArticle.ItemName
             newArticle.LongDescription = SimpleArticle.ItemMemoText
             newArticle.EinzelVK = SimpleArticle.SinglePriceBeforeTax
@@ -70,7 +70,7 @@ Public Class frmAddTextAsItem
 
             ' Bei Focuswechsel die markierung speichern
             Dim group As Group = CType(trvArticleGroups.GetDataRecordByNode(trvArticleGroups.FocusedNode), ClausSoftware.Kernel.Group)
-            m_application.Settings.SetSetting("SelectedArticleGroup", Tools.RegistrySections.ModuleArticles, group.Key)
+            MainApplication.getInstance.Settings.SetSetting("SelectedArticleGroup", Tools.RegistrySections.ModuleArticles, group.Key)
 
 
         End If
@@ -84,10 +84,10 @@ Public Class frmAddTextAsItem
     ''' <remarks></remarks>
     Private Sub FillGroups(ByVal trvGroups As TreeList)
 
-        m_application.Groups.Reload()
+        MainApplication.getInstance.Groups.Reload()
 
 
-        Dim groups As ClausSoftware.Kernel.Groups = m_application.Groups
+        Dim groups As ClausSoftware.Kernel.Groups = MainApplication.getInstance.Groups
         trvGroups.BeginUpdate()
 
         trvGroups.ParentFieldName = "ParentID"
@@ -98,7 +98,7 @@ Public Class frmAddTextAsItem
         'Alle geöffneten Nodes wieder herstellen
         RestoreTreeOpenNodes(trvGroups, m_contextstring)
 
-        Dim lastselecedGroup As String = m_application.Settings.GetSetting("SelectedArticleGroup", ClausSoftware.Tools.RegistrySections.ModuleArticles, "0000")
+        Dim lastselecedGroup As String = MainApplication.getInstance.Settings.GetSetting("SelectedArticleGroup", ClausSoftware.Tools.RegistrySections.ModuleArticles, "0000")
         Dim selecedNode As TreeListNode = trvGroups.FindNodeByKeyID(lastselecedGroup)
         If selecedNode IsNot Nothing Then
             trvGroups.FocusedNode = selecedNode
@@ -149,7 +149,7 @@ Public Class frmAddTextAsItem
     ''' <remarks></remarks>
     Private Function CreateNewGroup(ByVal parentGroup As Group) As Group
 
-        Dim newGroup As Group = m_application.Groups.GetNewItem
+        Dim newGroup As Group = MainApplication.getInstance.Groups.GetNewItem
 
 
         If parentGroup IsNot Nothing Then
@@ -160,7 +160,7 @@ Public Class frmAddTextAsItem
         newGroup.Name = GetText("NewArticleGroupName", "Neue Gruppe")
         newGroup.Save()
 
-        m_application.Groups.Add(newGroup)
+        MainApplication.getInstance.Groups.Add(newGroup)
 
         Return newGroup
     End Function

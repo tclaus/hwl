@@ -3,9 +3,9 @@
 Namespace Kernel.NamedSettings
 
     Public Class TransactionSettings
-        Private m_mainapplication As mainApplication
+        Private m_mainapplication As MainApplication
 
-        Public Sub New(ByVal application As mainApplication)
+        Public Sub New(ByVal application As MainApplication)
             m_mainapplication = application
         End Sub
 

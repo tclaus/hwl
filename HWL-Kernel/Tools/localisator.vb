@@ -13,7 +13,7 @@ Namespace Tools
         ''' </summary>
         ''' <remarks></remarks>
         Private m_unknownTexts As New Dictionary(Of String, String)
-        Private m_application As mainApplication
+
         Private m_isInitialized As Boolean
 
         ''' <summary>
@@ -33,10 +33,9 @@ Namespace Tools
         ''' <remarks></remarks>
         Private m_currentFilePath As String
 
-        Public Sub New(ByVal application As mainApplication)
-            m_application = application
+        Public Sub New()
 
-            m_Path = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), mainApplication.ApplicationName & "\Languages")   ' All Users   => Sprachen unter "Alle Benutzer" anlegen und nutzen
+            m_Path = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), MainApplication.ApplicationName & "\Languages")   ' All Users   => Sprachen unter "Alle Benutzer" anlegen und nutzen
 
             m_Path = System.IO.Path.GetFullPath(m_Path) ' Sollte vom Ausführenden Verzeichnis dadrunter liegn
         End Sub
@@ -60,9 +59,8 @@ Namespace Tools
         Public Sub Initialize()
             m_currentFilePath = System.IO.Path.Combine(m_Path, Me.GetActiveLanguage & ".txt")
 
-            m_application.UserStats.SendStatistics("Language", Me.GetActiveLanguage)
-            m_application.Log.WriteLog("Aktuelle Systemsprache ist: " & Me.GetActiveLanguage)
-            m_application.Log.WriteLog("Suche Sprachdateien unter: '" & System.IO.Path.GetFullPath(m_Path) & "'")
+            MainApplication.getInstance.log.WriteLog("Aktuelle Systemsprache ist: " & Me.GetActiveLanguage)
+            MainApplication.getInstance.log.WriteLog("Suche Sprachdateien unter: '" & System.IO.Path.GetFullPath(m_Path) & "'")
 
             LoadLanguage()
             m_isInitialized = True
@@ -184,14 +182,17 @@ Namespace Tools
         ''' <returns></returns>
         ''' <remarks></remarks>
         Private Function GetSubstitutedKeywords(ByVal orgText As String) As String
-            ' {appName}  = > Kurzname der Applikation
+
+            If String.IsNullOrEmpty(orgText) Or String.IsNullOrEmpty(MainApplication.ApplicationName) Then
+                Return ""
+            End If
+
             Dim newText As String
-            'newText = orgText.Replace("{appname}", mainApplication.ApplicationName)
+                newText = repAppName.Replace(orgText, MainApplication.ApplicationName)
+                newText = newText.Replace("/n", vbCrLf)
 
-            newText = repAppName.Replace(orgText, mainApplication.ApplicationName)
-            newText = newText.Replace("/n", vbCrLf)
+                Return newText
 
-            Return newText
         End Function
 
         ''' <summary>
@@ -334,7 +335,7 @@ Namespace Tools
                     m_defaultLanguage = My.Application.Culture.Name
                 Else
 
-                    m_application.Log.WriteLog("Programmsprache per Komandoparameter auf " & overrideLanguage & " gesetzt.")
+                    MainApplication.getInstance.log.WriteLog("Programmsprache per Komandoparameter auf " & overrideLanguage & " gesetzt.")
 
                     ' Hier auf Gültigkeit prüfen, nicht ZB "XY" als sprache angeben  => Fallback auf englisch? (Deutsch?) 
                     Dim cultureFound As Boolean
@@ -354,7 +355,7 @@ Namespace Tools
                     If Not cultureFound Then
                         'TODO: Eine exception bauen, die eine Klare Anweisung für den Anwender enthält (Klare Problembeschreibung und Lösungsvorschlag)
 
-                        Throw New ArgumentException("The culture given by command line parameter (" & overrideLanguage & ") seems not to exist. Remove the '/lang:' -parameter or correct ist setting. " & vbCrLf & _
+                        Throw New ArgumentException("The culture given by command line parameter (" & overrideLanguage & ") seems not to exist. Remove the '/lang:' -parameter or correct ist setting. " & vbCrLf &
                                                     "Use this form: ""/lang:de"" or ""/lang:de-de""")
                     End If
                     m_defaultLanguage = overrideLanguage
@@ -412,7 +413,7 @@ Namespace Tools
                 End If
             End If
 
-          
+
 
             If Not System.IO.File.Exists(m_currentFilePath) Then
                 Debug.Print("Sprachen-Pfad konnte nicht gefunden werden; lege neuen Pfad an")
@@ -429,7 +430,7 @@ Namespace Tools
             End If
             Dim value As String
 
-            m_application.Log.WriteLog(LogSeverity.Verbose, "Lade Sprachdatei: " & m_currentFilePath)
+            MainApplication.getInstance.log.WriteLog(LogSeverity.Verbose, "Lade Sprachdatei: " & m_currentFilePath)
 
             Using parser As New TextFieldParser(m_currentFilePath)
                 parser.SetDelimiters(delimiter)
@@ -440,7 +441,7 @@ Namespace Tools
                     Try
                         fields = parser.ReadFields()
                     Catch ex As Exception ' Kann auftreten, wenn die Textdatei irgendwie beschädigt ist
-                        m_application.Log.WriteLog(ex, "Languages", "Error while parsing line Nr.: " & parser.ErrorLineNumber)
+                        MainApplication.getInstance.log.WriteLog(ex, "Languages", "Error while parsing line Nr.: " & parser.ErrorLineNumber)
 
                     End Try
 
@@ -482,13 +483,13 @@ Namespace Tools
                     Dim Textdata As String = GetTextFromDictionary()
 
                     If Textdata.Length > 0 Then ' Keine leeren Texte schreiben
-                        m_application.Log.WriteLog(LogSeverity.Verbose, "Writing new language file in: " & m_currentFilePath)
+                        MainApplication.getInstance.log.WriteLog(LogSeverity.Verbose, "Writing new language file in: " & m_currentFilePath)
 
                         My.Computer.FileSystem.WriteAllText(m_currentFilePath, Textdata, False)
                     End If
 
                 Catch ex As Exception
-                    m_application.Log.WriteLog(ex, "Languages", "Error while writing Languagefile")
+                    MainApplication.getInstance.log.WriteLog(ex, "Languages", "Error while writing Languagefile")
                 End Try
 
             End If

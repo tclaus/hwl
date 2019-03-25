@@ -52,7 +52,7 @@ Public Class frmWaitForFileCopy
         sw.Start()
 
         Dim counter As Integer = 1
-        Using session As DevExpress.Xpo.Session = m_application.GetNewSession
+        Using session As DevExpress.Xpo.Session = MainApplication.getInstance.GetNewSession
 
             For Each filename As String In filellist
                 Me.UseWaitCursor = True

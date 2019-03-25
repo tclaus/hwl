@@ -1,6 +1,4 @@
-Imports ClausSoftware.HWLInterops
 Imports ClausSoftware.HWLInterops.Printing
-Imports Microsoft.Win32
 
 
 ''' <summary>
@@ -20,7 +18,7 @@ Public Class frmMain
     ''' Stellt das UI-Objekt bereit. Enthält Steuerungen zum Anlegen und entfernen von Arbeitsmodulen
     ''' </summary>
     ''' <remarks></remarks>
-    Private WithEvents m_mainUI As New mainUI(Me)
+    Private WithEvents m_mainUI As New MainUI(Me)
 
     ''' <summary>
     ''' Stellt das Formular bereit, das eine Anruferliste anzeigt
@@ -28,7 +26,7 @@ Public Class frmMain
     ''' <remarks></remarks>
     Private m_showCallersListform As HWLInterops.frmCallersList
 
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_isFirstStart As Boolean
 
     ''' <summary>
@@ -53,9 +51,9 @@ Public Class frmMain
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private ReadOnly Property MainApplication() As ClausSoftware.mainApplication
+    Private ReadOnly Property MainApplication() As ClausSoftware.MainApplication
         Get
-            Return m_application
+            Return MainApplication.getInstance
         End Get
     End Property
 
@@ -96,9 +94,9 @@ Public Class frmMain
 
 
         Try ' Ein Fehler hier aber dann vollkommen ignorieren.. (Ist eh schlecht, wenn das passiert!
-            m_application.Settings.SaveFormsPos(Me)
+            MainApplication.getInstance.Settings.SaveFormsPos(Me)
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "FormMain_Closing", "Error while closing Form Main")
+            MainApplication.getInstance.log.WriteLog(ex, "FormMain_Closing", "Error while closing Form Main")
         End Try
     End Sub
 
@@ -113,7 +111,7 @@ Public Class frmMain
         AutoWaitCursor.Start()
 
         ' Sprachen der Oberfläche setzen
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         'Menübar übersetzen.
         For Each item As DevExpress.XtraBars.BarItem In BarManager1.Items
@@ -146,7 +144,7 @@ Public Class frmMain
             menue.Dock = DockStyle.Fill
             AddHandler m_menuSelector.ClickedModule, AddressOf ClickedModule
 
-            splMainSplitter.SplitterPosition = CInt(m_application.Settings.GetSetting(splMainSplitter.Name, "MainForm", splMainSplitter.SplitterPosition.ToString))
+            splMainSplitter.SplitterPosition = CInt(MainApplication.getInstance.Settings.GetSetting(splMainSplitter.Name, "MainForm", splMainSplitter.SplitterPosition.ToString))
 
 
         Else
@@ -162,16 +160,16 @@ Public Class frmMain
             AddHandler m_menuSelector.ClickedModule, AddressOf ClickedModule
         End If
 
-        m_application.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
 
         tabControl.TabPages.Clear() ' die Standard-Tabseite leeren; wir fangen dann ganz neu an
 
         'Statustext der Applikation auf die Statuszeile legen
-        AddHandler m_application.Message, AddressOf SetStatusText
-        AddHandler m_application.Progress, AddressOf SetProgress
-        AddHandler m_application.NetworkstateChanged, AddressOf DatabaseStateChanged
-        AddHandler m_application.DatabaseConnectionError, AddressOf DatabaseConnectionLost
+        AddHandler MainApplication.getInstance.Message, AddressOf SetStatusText
+        AddHandler MainApplication.getInstance.Progress, AddressOf SetProgress
+        AddHandler MainApplication.getInstance.NetworkstateChanged, AddressOf DatabaseStateChanged
+        AddHandler MainApplication.getInstance.DatabaseConnectionError, AddressOf DatabaseConnectionLost
 
         basesearchPanel.Top = 0
         basesearchPanel.Left = Me.Width - basesearchPanel.Width - 20
@@ -186,7 +184,7 @@ Public Class frmMain
         SetIncommingCallIcon()
 
         ' Addins aufrufen und laden
-        Dim dummyAddins As Object = m_application.AddIns.AddIns
+        Dim dummyAddins As Object = MainApplication.getInstance.AddIns.AddIns
 
         StartModule(HWLModules.Homescreen)
 
@@ -222,7 +220,7 @@ Public Class frmMain
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub SetIncommingCallIcon()
-        Dim CallList As New Kernel.PhoneCalls(m_application)
+        Dim CallList As New Kernel.PhoneCalls(MainApplication.getInstance)
 
         Dim callIcon As System.Drawing.Image
         Dim maxNumber As Integer = CallList.GetMaxID
@@ -231,10 +229,10 @@ Public Class frmMain
         btnCallerList.SuperTip = New DevExpress.Utils.SuperToolTip()
         btnCallerList.SuperTip.Items.AddTitle(GetText("msgPhoneLineMonitor", "Telefonanrufe"))
 
-        If m_application.Settings.MonitorPhoneLinesLastNumber < maxNumber Then
+        If MainApplication.getInstance.Settings.MonitorPhoneLinesLastNumber < maxNumber Then
             callIcon = My.Resources.telephone_16x16
             ' Anzahl der Calls überlagern
-            Dim callCount As String = (maxNumber - m_application.Settings.MonitorPhoneLinesLastNumber).ToString
+            Dim callCount As String = (maxNumber - MainApplication.getInstance.Settings.MonitorPhoneLinesLastNumber).ToString
 
             callIcon = Tools.Tools.AddTextToImage(CType(callIcon, Bitmap), callCount)
             btnCallerList.SuperTip.Items.Add(GetText("msgCountCalls", "Neue Anrufe: {0}", callCount))
@@ -255,7 +253,7 @@ Public Class frmMain
     ''' <remarks></remarks>
     Public Sub ShowCallersListIcon()
         ' Telefon nur einblenden, wenn auch die Option gesetzt ist
-        If m_application.Settings.MonitorPhoneLines Then
+        If MainApplication.getInstance.Settings.MonitorPhoneLines Then
             btnCallerList.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
         Else
             btnCallerList.Visibility = DevExpress.XtraBars.BarItemVisibility.OnlyInCustomizing
@@ -391,17 +389,6 @@ Public Class frmMain
         m_mainUI.OpenToolExtrasConnections()
     End Sub
 
-    Private Sub btnLicenses_click(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuLicenses.ItemClick
-        Try
-            Dim licenses As New frmLicenses
-            licenses.ShowDialog()
-        Catch ex As Exception
-            m_application.Log.WriteLog(ex, "License-Dialog", "Error in License-Dialog")
-        End Try
-
-    End Sub
-
-
 
     Private Sub btnPageSetup_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuPageSetup.ItemClick
         Try
@@ -409,18 +396,18 @@ Public Class frmMain
                 frm.ShowDialog()
             End Using
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "ReportManager", "ERROR while open Report Manager")
+            MainApplication.getInstance.log.WriteLog(ex, "ReportManager", "ERROR while open Report Manager")
         End Try
 
     End Sub
 
     Private Sub btnStats_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuTopLists.ItemClick
         Try
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.ModulStart, "Statistics", "Open Statistic-Module")
+
             Dim frm As New frmModuleContainer(HWLModules.StatisticTop10)
             frm.ShowDialog()
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei Statistiken")
+            MainApplication.getInstance.log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei Statistiken")
         End Try
 
 
@@ -428,11 +415,11 @@ Public Class frmMain
 
     Private Sub btnFixedCosts_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuFixedCosts.ItemClick
         Try
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.ModulStart, "FixedCost", "Open Fixcosts-Module")
+
             Dim frm As New frmModuleContainer(HWLModules.FixedCosts)
             frm.ShowDialog()
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei fixkosten")
+            MainApplication.getInstance.log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei fixkosten")
         End Try
     End Sub
 
@@ -440,11 +427,11 @@ Public Class frmMain
 
     Private Sub btnReports_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnReports.ItemClick
         Try
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.ModulStart, "Cash_Flow", "Öffne Auswertungen-Module")
+
             Dim frm As New frmFinanzen
             frm.ShowDialog()
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Cash_Flow", "Error while opening the Dialog 'Cash Flow'")
+            MainApplication.getInstance.log.WriteLog(ex, "Cash_Flow", "Error while opening the Dialog 'Cash Flow'")
         End Try
 
 
@@ -462,13 +449,13 @@ Public Class frmMain
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub m_mainUI_ModuleCollectionChanged(ByVal sender As HWLInterops.mainUI, ByVal e As HWLInterops.ModuleCollectionChangedEventArgs) Handles m_mainUI.ModuleCollectionChanged
+    Private Sub m_mainUI_ModuleCollectionChanged(ByVal sender As HWLInterops.MainUI, ByVal e As HWLInterops.ModuleCollectionChangedEventArgs) Handles m_mainUI.ModuleCollectionChanged
         ModulManager(sender, e)
 
     End Sub
 
     Private Sub BarButtonItem4_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem4.ItemClick
-        m_application.JournalDocuments.CreateTransactionEntries()
+        MainApplication.getInstance.JournalDocuments.CreateTransactionEntries()
 
     End Sub
 
@@ -496,13 +483,10 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_ResizeEnd(sender As Object, e As System.EventArgs) Handles Me.ResizeEnd
-        m_application.Settings.SaveFormsPos(Me)
+        MainApplication.getInstance.Settings.SaveFormsPos(Me)
     End Sub
 
     Private Sub frmMain_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
-
-
-        MainClass.SendApplicationStartuptime()
 
         ' Nun überwachungsprozesse starten
         m_mainUI.StartProcesses()
@@ -516,7 +500,7 @@ Public Class frmMain
         m_lastKnownSize = Me.Size
 
         ' Minimiert-Status für das "Ausblenden wenn minimiert" - Menü abholen
-        m_hideIfMinimized = CBool(m_application.Settings.GetSetting("HideIfMinimizes", "UI", "FALSE"))
+        m_hideIfMinimized = CBool(MainApplication.getInstance.Settings.GetSetting("HideIfMinimizes", "UI", "FALSE"))
 
         Me.IsFirstStart = True
 
@@ -560,7 +544,7 @@ Public Class frmMain
     Private Sub StartShowOverdueTransactionNotification(ByVal sender As Object, ByVal e As EventArgs)
         RemoveHandler System.Windows.Forms.Application.Idle, AddressOf StartShowOverdueTransactionNotification
 
-        If m_application.Settings.TransactionSettings.SendUnpaidNoticeOnStartup Then
+        If MainApplication.getInstance.Settings.TransactionSettings.SendUnpaidNoticeOnStartup Then
             m_mainUI.StartShowOverdueTransactionsThread()
         End If
 
@@ -568,7 +552,7 @@ Public Class frmMain
 
 
     Private Sub LoadschedulerinBackground(ByVal sender As Object, ByVal e As EventArgs)
-        If m_application.Appointments.Session.IsObjectsLoading Then
+        If MainApplication.getInstance.Appointments.Session.IsObjectsLoading Then
             System.Threading.Thread.Sleep(2000)
             Exit Sub
         End If
@@ -609,7 +593,7 @@ Public Class frmMain
 
             lastItemButton.Caption = caption
             lastItemButton.Tag = item.Element
-            lastItemButton.Glyph = mainUI.GetItemSmallImage(item.Element)
+            lastItemButton.Glyph = MainUI.GetItemSmallImage(item.Element)
 
             If TypeOf item.Element Is Kernel.JournalDocument Then
                 If CType(item.Element, Kernel.JournalDocument).IsCanceled Then
@@ -666,9 +650,7 @@ Public Class frmMain
             End Using
 
         Catch ex As Exception
-            m_application.Log.WriteLog(Tools.LogSeverity.Critical, "AddIns", ex.Message, ex.ToString)
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "AddIns", ex.ToString)
-
+            MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Critical, "AddIns", ex.Message, ex.ToString)
         End Try
 
     End Sub
@@ -677,7 +659,7 @@ Public Class frmMain
         Dim sql As String = "UPDATE MATERIALLISTE SET IsActive=1"
         Dim sw As New Stopwatch
         sw.Start()
-        m_application.Database.ExcecuteNonQuery(sql)
+        MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
         sw.Stop()
         Debug.Print("Das setzen hat: " & sw.Elapsed.ToString & " gedauert")
 
@@ -698,7 +680,7 @@ Public Class frmMain
 
 
 
-    Delegate Sub deleModulestarter(ByVal sender As mainUI, ByVal e As ModuleCollectionChangedEventArgs)
+    Delegate Sub deleModulestarter(ByVal sender As MainUI, ByVal e As ModuleCollectionChangedEventArgs)
     Private ModulManagerstarter As New deleModulestarter(AddressOf ModulManager)
 
     Private m_workPaneTabPages As New List(Of iucMainModule) ' eventuell später in eigene Klasse setzen
@@ -710,7 +692,7 @@ Public Class frmMain
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub ModulManager(ByVal sender As mainUI, ByVal e As ModuleCollectionChangedEventArgs)
+    Private Sub ModulManager(ByVal sender As MainUI, ByVal e As ModuleCollectionChangedEventArgs)
         If Me.InvokeRequired Then
 
             Me.Invoke(ModulManagerstarter, sender, e)
@@ -763,10 +745,10 @@ Public Class frmMain
                     newpage.PageVisible = False
                 End If
 
-                m_application.Languages.SetTextOnControl(newpage) ' Texte für alles setzen
+                MainApplication.getInstance.Languages.SetTextOnControl(newpage) ' Texte für alles setzen
                 m_workPaneTabPages.Add(e.WorkPane)
 
-                m_application.SendMessage(newpage.Text & " " & GetText("msgReady", "bereit"))
+                MainApplication.getInstance.SendMessage(newpage.Text & " " & GetText("msgReady", "bereit"))
             End If
 
             tabControl.SelectedTabPage = newpage
@@ -817,7 +799,7 @@ Public Class frmMain
 
     Private Sub tabControl_SelectedPageChanging(ByVal sender As Object, ByVal e As DevExpress.XtraTab.TabPageChangingEventArgs) Handles tabControl.SelectedPageChanging
         ' nach dem Tab-Wechsel die Statusleise säubern. 
-        m_application.SendMessage("")
+        MainApplication.getInstance.SendMessage("")
 
     End Sub
 
@@ -915,13 +897,13 @@ Public Class frmMain
     End Sub
 
     Private Sub btnAboutBox_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAboutBox.ItemClick
-        Using frm As New SplashScreen
+        Using frm As New frmSplashScreen
             frm.AboutMode = True
             frm.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
             frm.lblStatusMessage.Text = ""
             frm.Text = My.Application.Info.ProductName
-            frm.ShowDialog()
-
+            Dim result As DialogResult = frm.ShowDialog()
+            Debug.Print("result:" & result)
         End Using
 
     End Sub
@@ -946,7 +928,7 @@ Public Class frmMain
 
     Private Sub btnHideIfMinimized_CheckedChanged(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnHideIfMinimized.CheckedChanged
         m_hideIfMinimized = btnHideIfMinimized.Checked
-        m_application.Settings.SetSetting("HideIfMinimizes", "UI", m_hideIfMinimized.ToString)
+        MainApplication.getInstance.Settings.SetSetting("HideIfMinimizes", "UI", m_hideIfMinimized.ToString)
     End Sub
 
     Private Sub tabControl_SelectedPageChanged(ByVal sender As System.Object, ByVal e As DevExpress.XtraTab.TabPageChangedEventArgs) Handles tabControl.SelectedPageChanged
@@ -982,7 +964,7 @@ Public Class frmMain
             Dim base As String = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
 
             base &= "\" & MainApplication.ApplicationName
-            m_application.Log.WriteLog("Suche angepasstes Hintergrundbild in: " & base)
+            MainApplication.getInstance.log.WriteLog("Suche angepasstes Hintergrundbild in: " & base)
 
             base &= "\background"  ' Dateinamen bilden
 
@@ -997,7 +979,7 @@ Public Class frmMain
 
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "UI", "Getting external Background  Image for Home workpane failed")
+            MainApplication.getInstance.log.WriteLog(ex, "UI", "Getting external Background  Image for Home workpane failed")
         End Try
 
     End Sub
@@ -1017,8 +999,8 @@ Public Class frmMain
         ' wird nach einem "Database Connection Changed" - event gefeuert. 
         ' Sollte einen Text angeben
 
-        If m_application.DatabaseConnectionstate <> DBConnectionState.OK Then
-            MessageBox.Show(GetText("msgDatabaseConnectionexecpectedlyLost", "Die Datenbankverbindung wurde unterbrochen- der Vorgang konnte nicht ausgeführt werden" & vbCrLf & _
+        If MainApplication.getInstance.DatabaseConnectionstate <> DBConnectionState.OK Then
+            MessageBox.Show(GetText("msgDatabaseConnectionexecpectedlyLost", "Die Datenbankverbindung wurde unterbrochen- der Vorgang konnte nicht ausgeführt werden" & vbCrLf &
                                     "Untersuchen Sie die Verbindung zur Datenbank."), GetText("msgHeadlineDatabseConnectionLost", "Datenbankverbindung verloren"), MessageBoxButtons.OK, MessageBoxIcon.Hand)
 
         End If
@@ -1031,7 +1013,7 @@ Public Class frmMain
     ''' <remarks></remarks>
     Private Sub SetConnectionstatusText()
         Dim connectionDisplayName As String
-        If m_application.Connections.WorkConnection.Servertype = Tools.enumServerType.Access Then
+        If MainApplication.getInstance.Connections.WorkConnection.Servertype = Tools.enumServerType.Access Then
             connectionDisplayName = GetText("localDatabaseFile", "Lokal")
         Else
             connectionDisplayName = GetText("remoteDatabaseServer", "Server")
@@ -1039,7 +1021,7 @@ Public Class frmMain
 
         ' Datenbank-Status ermitteln
         Dim failureText As String
-        If m_application.DatabaseConnectionstate = DBConnectionState.OK Then
+        If MainApplication.getInstance.DatabaseConnectionstate = DBConnectionState.OK Then
             failureText = String.Empty
             lblCurrentConectionstatusBar.Glyph = My.Resources.Network_Harddisk16x16
         Else
@@ -1048,15 +1030,15 @@ Public Class frmMain
             lblCurrentConectionstatusBar.Glyph = My.Resources.Network_Harddisk__Warning_16x16
         End If
 
-        lblCurrentConectionstatusBar.Caption = connectionDisplayName & ": " & m_application.Connections.WorkConnection.AliasName & failureText
+        lblCurrentConectionstatusBar.Caption = connectionDisplayName & ": " & MainApplication.getInstance.Connections.WorkConnection.AliasName & failureText
 
         Dim info As New DevExpress.Utils.SuperToolTipSetupArgs(lblCurrentConectionstatusBar.SuperTip)
-        info.Title.Text = m_application.Connections.WorkConnection.AliasName & failureText
-        info.Contents.Text = m_application.Connections.WorkConnection.GetConnectionDescription
+        info.Title.Text = MainApplication.getInstance.Connections.WorkConnection.AliasName & failureText
+        info.Contents.Text = MainApplication.getInstance.Connections.WorkConnection.GetConnectionDescription
 
         ' Geschwindigkeit anzeigen lassen 
-        If m_application.Connections.WorkConnection.Servertype = Tools.enumServerType.MySQL And m_application.DatabaseConnectionstate = DBConnectionState.OK Then
-            info.Contents.Text &= vbCrLf & m_application.LastDatabaseSpeed & "ms"
+        If MainApplication.getInstance.Connections.WorkConnection.Servertype = Tools.enumServerType.MySQL And MainApplication.getInstance.DatabaseConnectionstate = DBConnectionState.OK Then
+            info.Contents.Text &= vbCrLf & MainApplication.getInstance.LastDatabaseSpeed & "ms"
         End If
 
         lblCurrentConectionstatusBar.SuperTip.Setup(info)
@@ -1064,7 +1046,7 @@ Public Class frmMain
     End Sub
 
     Private Sub ItemstatusText_ItemDoubleClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles ItemstatusText.ItemDoubleClick
-        Process.Start(m_application.Log.LogFilePath)
+        Process.Start(MainApplication.getInstance.log.LogFilePath)
     End Sub
 
 
@@ -1073,7 +1055,7 @@ Public Class frmMain
         Try
             If m_showCallersListform Is Nothing Then
                 m_showCallersListform = New HWLInterops.frmCallersList(m_mainUI)
-                m_showCallersListform.Calls = New Kernel.PhoneCalls(m_application)
+                m_showCallersListform.Calls = New Kernel.PhoneCalls(MainApplication.getInstance)
             Else
                 m_showCallersListform.Calls.Reload()
             End If
@@ -1086,7 +1068,7 @@ Public Class frmMain
             End If
         Catch ex As Exception
 
-            m_application.Log.WriteLog(ex, "ShowCallerList", "Fehler beim Anzeigen der Anruferliste.")
+            MainApplication.getInstance.log.WriteLog(ex, "ShowCallerList", "Fehler beim Anzeigen der Anruferliste.")
         End Try
 
     End Sub
@@ -1118,20 +1100,20 @@ Public Class frmMain
 
 
     Private Sub splMainSplitter_SplitterPositionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles splMainSplitter.SplitterPositionChanged
-        m_application.Settings.SetSetting(splMainSplitter.Name, "MainForm", splMainSplitter.SplitterPosition.ToString)
+        MainApplication.getInstance.Settings.SetSetting(splMainSplitter.Name, "MainForm", splMainSplitter.SplitterPosition.ToString)
 
     End Sub
 
     Private Sub btnRemoveAllImportetItems_ItemClick(sender As System.Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnRemoveAllImportetItems.ItemClick
-        If MessageBox.Show("Es werden alle Artikel und Artikelgruppen gelöscht, die durch einen Datanorm-Import angelegt wurden!" & _
+        If MessageBox.Show("Es werden alle Artikel und Artikelgruppen gelöscht, die durch einen Datanorm-Import angelegt wurden!" &
                            "Möchten Sie fortfahren?", "Datamorm-Artikel löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
             Dim removedItemCount As Integer
             Dim removedGroupCount As Integer
 
-            removedItemCount = m_application.Database.ExcecuteNonQuery("DELETE FROM Materialliste where quelleDatanorm=1")
-            removedGroupCount = m_application.Database.ExcecuteNonQuery("DELETE FROM material_gruppen where quelleDatanorm=1")
+            removedItemCount = MainApplication.getInstance.Database.ExcecuteNonQuery("DELETE FROM Materialliste where quelleDatanorm=1")
+            removedGroupCount = MainApplication.getInstance.Database.ExcecuteNonQuery("DELETE FROM material_gruppen where quelleDatanorm=1")
 
-            m_application.SendMessage("Alle Datanorm-Artikel entfernt: " & removedItemCount & " Artikel, und " & removedGroupCount & " Gruppen.")
+            MainApplication.getInstance.SendMessage("Alle Datanorm-Artikel entfernt: " & removedItemCount & " Artikel, und " & removedGroupCount & " Gruppen.")
 
 
         End If
@@ -1140,7 +1122,7 @@ Public Class frmMain
 
     Private Sub btnStartTeamViewer_ItemClick(sender As System.Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnStartTeamViewer.ItemClick
         Try
-            m_application.Log.WriteLog("Starte Teamviewer per Download")
+            MainApplication.getInstance.log.WriteLog("Starte Teamviewer per Download")
             Process.Start("http://www.teamviewer.com/download/TeamViewerQS_de.exe")
         Catch ex As Exception
 
@@ -1151,7 +1133,7 @@ Public Class frmMain
         Dim sw As New Stopwatch
         sw.Start()
 
-        For Each item As Kernel.JournalDocument In m_application.JournalDocuments
+        For Each item As Kernel.JournalDocument In MainApplication.getInstance.JournalDocuments
             If item.DocumentType = enumJournalDocumentType.Angebot Then
                 item.Delete()
             End If
@@ -1162,11 +1144,11 @@ Public Class frmMain
             Dim journalDocumentCounter As Integer
 
             Do While journalDocumentCounter < 5000
-                Dim newJournalDocument As Kernel.JournalDocument = m_application.JournalDocuments.GetNewItem
+                Dim newJournalDocument As Kernel.JournalDocument = MainApplication.getInstance.JournalDocuments.GetNewItem
 
                 newJournalDocument.DocumentType = enumJournalDocumentType.Rechnung
 
-                newJournalDocument.Address = m_application.Adressen(0)
+                newJournalDocument.Address = MainApplication.getInstance.Adressen(0)
                 Dim newgroup As Kernel.JournalArticleGroup = newJournalDocument.ArticleGroups.GetNewItem
                 newgroup.HeaderText = "so ein Kopftext"
 
@@ -1183,7 +1165,7 @@ Public Class frmMain
                     newArticle.ItemName = "Langtext des Artikels Langtext des Artikels  Langtext des Artikels  Langtext des Artikels"
                     articleCounter += 1
                     newArticle.SinglePriceBeforeTax = CDec(Rnd() * 1000)
-                    newArticle.TaxRate = m_application.TaxRates.GetNormalTax
+                    newArticle.TaxRate = MainApplication.getInstance.TaxRates.GetNormalTax
 
                     newgroup.AddJournalItem(newArticle)
                     articleCounter += 1
@@ -1212,7 +1194,6 @@ Public Class frmMain
 
         If m_eventLogForm Is Nothing Then
             m_eventLogForm = New frmEventLog
-            m_eventLogForm.MainApplication = Me.MainApplication
         End If
 
         If Not m_eventLogForm.Visible Then

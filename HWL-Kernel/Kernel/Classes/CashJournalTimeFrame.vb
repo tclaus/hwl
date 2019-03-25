@@ -3,16 +3,15 @@
     ''' Stellt ein Zeitbereich einer Auflistung von Kassenbucheinträgen dar
     ''' </summary>
     ''' <remarks></remarks>
-    <Serializable()> _
-Public Class CashJournalTimeFrame
+    <Serializable()>
+    Public Class CashJournalTimeFrame
 
         Dim m_startDate As Date
         Dim m_endDate As Date
         Dim m_cashJournalItems As CashJournalItems
-        Dim m_application As mainApplication
 
         Public Function GetCashJournalTimeFrame(ByVal startDate As System.DateTime, ByVal endDate As System.DateTime) As CashJournalTimeFrame
-            Dim newCashTimeFrame As New CashJournalTimeFrame(m_application)
+            Dim newCashTimeFrame As New CashJournalTimeFrame()
             newCashTimeFrame.SetTimeInterval(startDate, endDate)
 
             Return newCashTimeFrame
@@ -20,7 +19,7 @@ Public Class CashJournalTimeFrame
         End Function
 
         Public Function GetCashJournalTimeFrame() As CashJournalTimeFrame
-            Dim newCashTimeFrame As New CashJournalTimeFrame(m_application)
+            Dim newCashTimeFrame As New CashJournalTimeFrame()
             newCashTimeFrame.SetTimeInterval(Date.MinValue, Date.MaxValue)
             Return newCashTimeFrame
 
@@ -98,7 +97,7 @@ Public Class CashJournalTimeFrame
         ''' </summary>
         ''' <remarks></remarks>
         Private Sub CreateData()
-            m_cashJournalItems = CType(m_application.CashJournal.GetNewCollection, CashJournalItems)
+            m_cashJournalItems = CType(MainApplication.getInstance.CashJournal.GetNewCollection, CashJournalItems)
             If Me.StartDate > Date.MinValue Then
                 m_cashJournalItems.StartDate = Me.StartDate
                 m_cashJournalItems.EndDate = Me.EndDate
@@ -119,16 +118,6 @@ Public Class CashJournalTimeFrame
             m_endDate = enddate
             CreateData()
         End Sub
-
-        ''' <summary>
-        ''' Erstellt eine neue Instanz der Klasse
-        ''' </summary>
-        ''' <param name="application"></param>
-        ''' <remarks></remarks>
-        Friend Sub New(ByVal application As mainApplication)
-            m_application = application
-
-        End Sub
-
     End Class
+
 End Namespace

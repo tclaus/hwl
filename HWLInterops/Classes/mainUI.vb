@@ -6,14 +6,14 @@ Delegate Sub OnAction()
 ''' Stellt die Grafische Steuerung der Oberfläche bereit
 ''' </summary>
 ''' <remarks></remarks>
-Public Class mainUI
+Public Class MainUI
     ''' <summary>
     ''' Wird ausgelöst, wenn die Auflistung der geladenen Module sich geändert hat, zB neue werden erstellt oder es werden welche entfernt
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Public Shared Event ModuleCollectionChanged(ByVal sender As mainUI, ByVal e As ModuleCollectionChangedEventArgs)
+    Public Shared Event ModuleCollectionChanged(ByVal sender As MainUI, ByVal e As ModuleCollectionChangedEventArgs)
 
     ''' <summary>
     ''' Signalisiert ein neuen eingehenen Anruf
@@ -24,7 +24,7 @@ Public Class mainUI
     Public Event NewIncommingCall(ByVal sender As Object, ByVal e As EventArgs)
 
 
-    <EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <EditorBrowsable(EditorBrowsableState.Advanced)>
     Private m_printingManager As Printing.PrintingManager
 
 
@@ -41,7 +41,7 @@ Public Class mainUI
     ''' stellt einen Update-Planer zur Verfügung, plant und führt Updates aus
     ''' </summary>
     ''' <remarks></remarks>
-    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
     Private WithEvents m_updateManager As New Update.UpdateManager
 
     ''' <summary>
@@ -54,25 +54,25 @@ Public Class mainUI
     ''' Enthält eine Instanz des CAPI (ISDN) - Treibers
     ''' </summary>
     ''' <remarks></remarks>
-    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
     Private m_myPhony As Telephony.CAPIPhony
 
     ''' <summary>
     ''' stellt eine LIste mit den zuletzt verwendeten elementen zur Verfügung
     ''' </summary>
     ''' <remarks></remarks>
-    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
     Private WithEvents m_mruManager As MRUElementManager
 
     ''' <summary>
     ''' Enthält eine Auflistung mit IDs mit Ereignissen, die bereits als Notify-Meldung ausgegeben wurden
     ''' </summary>
     ''' <remarks></remarks>
-    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
     Private m_dontNotifyAnyMore As New List(Of String)
 
-    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
-  Private m_tasksModule As frmModuleContainer
+    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
+    Private m_tasksModule As frmModuleContainer
 
     ''' <summary>
     ''' Sendet eine Anforderung, die suchbar zu focusssieren
@@ -80,7 +80,7 @@ Public Class mainUI
     ''' <param name="mainUI"></param>
     ''' <param name="Empty"></param>
     ''' <remarks></remarks>
-    Event FocusSearchBar(ByVal mainUI As mainUI, ByVal Empty As EventArgs)
+    Event FocusSearchBar(ByVal mainUI As MainUI, ByVal Empty As EventArgs)
 
     Private m_ActiveWorkPane As mainControlContainer
     ''' <summary>
@@ -225,11 +225,11 @@ Public Class mainUI
     ''' <remarks></remarks>
     Public Shared Function GetItemTypeName(ByVal item As Data.StaticItem) As String
         If TypeOf item Is Transaction Then
-            Return m_application.Languages.GetText("TypeTransaction", "Geschäftsvorfall")
+            Return MainApplication.getInstance.Languages.GetText("TypeTransaction", "Geschäftsvorfall")
         End If
 
         If TypeOf item Is CashJournalItem Then
-            Return m_application.Languages.GetText("TypeCashJournalItem", "Geschäftsvorfall (Kasse)")
+            Return MainApplication.getInstance.Languages.GetText("TypeCashJournalItem", "Geschäftsvorfall (Kasse)")
         End If
 
         If TypeOf item Is JournalDocument Then
@@ -238,20 +238,20 @@ Public Class mainUI
         End If
 
         If TypeOf item Is Adress Then
-            Return m_application.Languages.GetText("TypeAdress", "Kontakt")
+            Return MainApplication.getInstance.Languages.GetText("TypeAdress", "Kontakt")
         End If
 
         If TypeOf item Is Letter Then
-            Return m_application.Languages.GetText("TypeLetter", "Korrespondenz")
+            Return MainApplication.getInstance.Languages.GetText("TypeLetter", "Korrespondenz")
 
         End If
 
         If TypeOf item Is Article Then
-            Return m_application.Languages.GetText("TypeArticle", "Artikel")
+            Return MainApplication.getInstance.Languages.GetText("TypeArticle", "Artikel")
         End If
 
         If TypeOf item Is Reminder Then
-            Return m_application.Languages.GetText("TypeReminder", "Mahnung")
+            Return MainApplication.getInstance.Languages.GetText("TypeReminder", "Mahnung")
         End If
 
         Return Nothing
@@ -293,10 +293,10 @@ Public Class mainUI
         Dim itemsCounter As Integer
 
         Dim maxAlertcount As Integer = 5
-        m_application.Transactions.Filter = Nothing
-        m_application.Transactions.Criteria = Nothing
+        MainApplication.getInstance.Transactions.Filter = Nothing
+        MainApplication.getInstance.Transactions.Criteria = Nothing
 
-        For Each item As Transaction In m_application.Transactions
+        For Each item As Transaction In MainApplication.getInstance.Transactions
             If item.IsOverdue And Not item.DontCheckPayments Then
 
                 ' Benachrichtigen zu diesem Element nicht mehr anzeigen lassen 
@@ -360,7 +360,7 @@ Public Class mainUI
         ' Alle Kassenbucheinträge
         SyncLock Me
             ' Jeweils 10 Stück, dann ein "Mehr..." einblenden
-            If Not m_application.PeriodicCheckConnection(True) Then Exit Sub
+            If Not MainApplication.getInstance.PeriodicCheckConnection(True) Then Exit Sub
 
             ' In BaseItems ein "Search(Parameter as string) einbetten ? 
             Dim searchModule As iucMainModule = Me.OpenWorkingPane(HWLModules.GlobalSearch)
@@ -372,8 +372,8 @@ Public Class mainUI
             SearchPanel.StartInfoMessageProcess()
             'Adressen
             '-----------------
-            m_application.SendMessage("Suche in Adressen...") 'TODO: NLS
-            Dim searchedAdresses As Data.BaseCollection(Of Adress) = m_application.Adressen.SearchByParameter(plainSearchText)
+            MainApplication.getInstance.SendMessage("Suche in Adressen...") 'TODO: NLS
+            Dim searchedAdresses As Data.BaseCollection(Of Adress) = MainApplication.getInstance.Adressen.SearchByParameter(plainSearchText)
 
             For Each item As Data.StaticItem In searchedAdresses
                 SearchPanel.QueryResult.Add(item)
@@ -383,8 +383,8 @@ Public Class mainUI
 
             ' Journaldokument
             '----------------
-            m_application.SendMessage("Suche in Journaldokumente...") 'TODO: NLS
-            Dim searchedDocuments As Data.BaseCollection(Of JournalDocument) = m_application.JournalDocuments.SearchByParameter(plainSearchText)
+            MainApplication.getInstance.SendMessage("Suche in Journaldokumente...") 'TODO: NLS
+            Dim searchedDocuments As Data.BaseCollection(Of JournalDocument) = MainApplication.getInstance.JournalDocuments.SearchByParameter(plainSearchText)
             searchedDocuments.Sorting.Add(New DevExpress.Xpo.SortProperty("ID", DevExpress.Xpo.DB.SortingDirection.Descending))
 
             For Each item As Data.StaticItem In searchedDocuments
@@ -394,8 +394,8 @@ Public Class mainUI
 
             'Vorderungen/Verbindlichkeiten
             '---------------- 
-            m_application.SendMessage("Suche in Geschäftsvorfälle...") 'TODO: NLS
-            Dim searchedTransactions As Data.BaseCollection(Of Transaction) = m_application.Transactions.SearchByParameter(plainSearchText)
+            MainApplication.getInstance.SendMessage("Suche in Geschäftsvorfälle...") 'TODO: NLS
+            Dim searchedTransactions As Data.BaseCollection(Of Transaction) = MainApplication.getInstance.Transactions.SearchByParameter(plainSearchText)
             searchedTransactions.Sorting.Add(New DevExpress.Xpo.SortProperty("ID", DevExpress.Xpo.DB.SortingDirection.Descending))
 
             For Each item As Data.StaticItem In searchedTransactions
@@ -405,7 +405,7 @@ Public Class mainUI
 
             ' Kasse
             '----------------
-            Dim searchedCashActions As Data.BaseCollection(Of CashJournalItem) = m_application.CashJournal.SearchByParameter(plainSearchText)
+            Dim searchedCashActions As Data.BaseCollection(Of CashJournalItem) = MainApplication.getInstance.CashJournal.SearchByParameter(plainSearchText)
 
             For Each item As Data.StaticItem In searchedCashActions
                 SearchPanel.QueryResult.Add(item)
@@ -414,8 +414,8 @@ Public Class mainUI
 
             ' Artikelliste
             '----------------
-            m_application.SendMessage("Suche in Artikellliste..")
-            Dim searchedArticles As Data.BaseCollection(Of Article) = m_application.ArticleList.SearchByParameter(plainSearchText)
+            MainApplication.getInstance.SendMessage("Suche in Artikellliste..")
+            Dim searchedArticles As Data.BaseCollection(Of Article) = MainApplication.getInstance.ArticleList.SearchByParameter(plainSearchText)
             searchedArticles.Sorting.Add(New DevExpress.Xpo.SortProperty("ID", DevExpress.Xpo.DB.SortingDirection.Descending))
 
             For Each item As Data.StaticItem In searchedArticles
@@ -427,7 +427,7 @@ Public Class mainUI
             SearchPanel.RefreshGrid()
 
             SearchPanel.EndSearch()
-            m_application.SendMessage(GetText("msgSearchEnded", "Suche beendet."))
+            MainApplication.getInstance.SendMessage(GetText("msgSearchEnded", "Suche beendet."))
         End SyncLock
 
     End Sub
@@ -454,10 +454,10 @@ Public Class mainUI
     End Sub
 
 
-    <EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <EditorBrowsable(EditorBrowsableState.Advanced)>
     Delegate Sub OpenelementWindowDele(ByVal element As Data.StaticItem)
 
-    <EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <EditorBrowsable(EditorBrowsableState.Advanced)>
     Private m_OpenelementWindows As New OpenelementWindowDele(AddressOf OpenElementWindow)
 
     ''' <summary>
@@ -483,7 +483,7 @@ Public Class mainUI
         End If
 
         'TODO: Falls bereits ein Fenster geöffnet ist; dann dieses auch wieder in den Vordergrund holen 
-        If Not m_application.PeriodicCheckConnection(True) Then Exit Sub
+        If Not MainApplication.getInstance.PeriodicCheckConnection(True) Then Exit Sub
 
         If TypeOf element Is Adress Then
             Dim elementWindow As iucAddressBook
@@ -574,17 +574,17 @@ Public Class mainUI
     ''' <remarks></remarks>
     Public Function OpenWorkingPane(ByVal modulTyp As HWLModules, ByVal openNewPanel As Boolean) As iucMainModule
         Try
-            m_application.SendMessage(GetText("msgStartupNewWorkingPane", "Starte neues Modul: ") & m_application.Languages.GetText(modulTyp.ToString) & "...")
+            MainApplication.getInstance.SendMessage(GetText("msgStartupNewWorkingPane", "Starte neues Modul: ") & MainApplication.getInstance.Languages.GetText(modulTyp.ToString) & "...")
 
             '    SyncLock Me
 
             ' Bei beenden nicht auch noch die Datenbank prüfen
-            If modulTyp <> HWLModules.ExitApp And modulTyp <> HWLModules.Scheduler AndAlso Not m_application.PeriodicCheckConnection(True) Then Return Nothing
+            If modulTyp <> HWLModules.ExitApp And modulTyp <> HWLModules.Scheduler AndAlso Not MainApplication.getInstance.PeriodicCheckConnection(True) Then Return Nothing
 
             Dim newWorkingControl As iucMainModule = Nothing
             Dim sw As New Stopwatch
             sw.Start()
-            m_application.Log.WriteLog("Adding new Module: " & modulTyp.ToString)
+            MainApplication.getInstance.log.WriteLog("Adding new Module: " & modulTyp.ToString)
 
             If modulTyp <> HWLModules.ExitApp Then
 
@@ -627,7 +627,6 @@ Public Class mainUI
                     newWorkingControl.CollapseLowerPanel()
                 End If
 
-                m_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.StartupTime, modulTyp.ToString, sw.Elapsed.ToString)
                 RaiseEvent ModuleCollectionChanged(Me, moduleChangedArg) ' sendet eine Nachricht, um das ändern die Komponentenliste zu veröffentlichen
                 Return newWorkingControl
 
@@ -639,7 +638,7 @@ Public Class mainUI
 
                     'TODO: Als Funktion mit Rückgabewert definieren und alles Schliesen
                 Next
-                m_application.CloseConnection()
+                MainApplication.getInstance.CloseConnection()
 
                 System.Windows.Forms.Application.Exit()
                 Return Nothing
@@ -647,7 +646,7 @@ Public Class mainUI
             '    End SyncLock
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "AddNewModule", "Error while starting new Module of type:" & modulTyp.ToString)
+            MainApplication.getInstance.log.WriteLog(ex, "AddNewModule", "Error while starting new Module of type:" & modulTyp.ToString)
 
             If modulTyp = HWLModules.ExitApp Then ' "Notabschaltung"
                 System.Windows.Forms.Application.Exit()
@@ -797,14 +796,14 @@ Public Class mainUI
         Catch ex As Exception
             Debug.Print("Fehler beim Initailisieren des CAPI-Treibes")
             ' Gab es einen Fehler, dann nicht wieder versuchen das Teil einzuschalten
-            m_application.Settings.MonitorPhoneLines = False
+            MainApplication.getInstance.Settings.MonitorPhoneLines = False
         End Try
 
         ' weitere Initialiserungenm
         Me.StartUpdateWizard()
 
         ' Laden einiger Assemblies für die Report-Anzeige
-        
+
         AddHandler System.Windows.Forms.Application.Idle, AddressOf PreloadPrintManager
 
     End Sub
@@ -831,15 +830,13 @@ Public Class mainUI
     Sub StartClassificationWindow(ByVal attributeClass As Kernel.Attributes.ClassDefinition)
         Try
 
-            m_application.UserStats.SendStatistics("Classification", "Open Classification Window")
-
             Dim frm As New frmArticleAttributes
             frm.ActiveAttributeClass = attributeClass
             If frm.ShowDialog = DialogResult.OK Then
                 frm.ActiveAttributeClass.Save()
             End If
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "StartClassificationWindow", "Error in Window Classification")
+            MainApplication.getInstance.log.WriteLog(ex, "StartClassificationWindow", "Error in Window Classification")
         End Try
 
     End Sub
@@ -869,7 +866,7 @@ Public Class mainUI
                 frm.ShowDialog()
             End Using
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "UI", "Error: Optional-Dialog")
+            MainApplication.getInstance.log.WriteLog(ex, "UI", "Error: Optional-Dialog")
         End Try
 
     End Sub
@@ -919,11 +916,11 @@ Public Class mainUI
         ' 
         Dim UpdateIntervalName As String ' vom Anwender gewünschtes Interval
         Dim NextCheckDate As Date  ' Anhängig vom Interval, das nächste Prüfdatum
-        UpdateIntervalName = m_application.Settings.GetSetting("UpdateCheckInterval", "Update", "Daily")
+        UpdateIntervalName = MainApplication.getInstance.Settings.GetSetting("UpdateCheckInterval", "Update", "Daily")
 
         Select Case UpdateIntervalName
             Case "Never"
-                m_application.Log.WriteLog("Update check Interval was set to 'Never'. No search for Updates")
+                MainApplication.getInstance.log.WriteLog("Update check Interval was set to 'Never'. No search for Updates")
                 Exit Sub
             Case "Weekly"
                 NextCheckDate = LastCheck.AddDays(7)
@@ -933,7 +930,7 @@ Public Class mainUI
 
             Case Else ' im else - Fall konnte der Wert nicht gelesen werden, dann "Daily"
                 NextCheckDate = LastCheck.AddDays(1)
-                m_application.Settings.SetSetting("UpdateCheckInterval", "Update", "Daily")
+                MainApplication.getInstance.Settings.SetSetting("UpdateCheckInterval", "Update", "Daily")
         End Select
 
 
@@ -941,7 +938,7 @@ Public Class mainUI
             My.Settings.LastUpdateCheck = Today
             My.Settings.Save()
             ' Prüfung überfällig; starte Update-Zyklus
-            m_application.Log.WriteLog("Found that a update-check should be performed by Usersettings (" & UpdateIntervalName & ")")
+            MainApplication.getInstance.log.WriteLog("Found that a update-check should be performed by Usersettings (" & UpdateIntervalName & ")")
             m_updateManager.StartTimer()
         Else
             ' Zeitschwelle nicht überschritten
@@ -965,12 +962,12 @@ Public Class mainUI
                     Dim GetUpdate As New Update.frmGetUpdate(m_updateManager)
                     GetUpdate.ShowDialog()
                 Else
-                    MessageBox.Show(GetText("msgNoUpdatesAvailable", "Es sind keine Aktualisierungen verfügbar"), mainApplication.ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show(GetText("msgNoUpdatesAvailable", "Es sind keine Aktualisierungen verfügbar"), MainApplication.ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
             End If
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "ERROR", "Update-Error")
+            MainApplication.getInstance.log.WriteLog(ex, "ERROR", "Update-Error")
         End Try
     End Sub
 
@@ -1004,41 +1001,6 @@ Public Class mainUI
     End Function
 
     ''' <summary>
-    ''' Prüft, ob die Basislizenz gültig ist und gespeichert werden darf. Gibt dann eine Meldung aus, das dies verhindert wurde.
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function CheckIfLicenceValidForSaving() As Boolean
-        Return True
-
-        'important: LIZENZPRÜFUNG: Wieder einschaltn für Prüfung!
-        Return CheckIfLicenceValidForSaving(m_application.Licenses.GetBaseLicense)
-    End Function
-
-    ''' <summary>
-    ''' Prüft ob die angegebene Lizenz gültig ist und Daten gespeichert werden können. Gibt dann eine Meldung aus, das dies verhindert wurde.
-    ''' </summary>
-    ''' <param name="license"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function CheckIfLicenceValidForSaving(ByVal license As Data.LicenseItem) As Boolean
-
-        If Not m_application.Licenses.IsBaseActive Then
-            Dim lizenceText As String = m_application.Languages.GetText("msgLicencePeriodExiredText", "Ihre Basislizenz ist nicht mehr gültig. sie können keine weiteren Daten speichern." & vbCrLf & _
-                            "Möchten sie nun unsere Webseite besuchen um eine Lizenz zu erwerben?")
-            Dim licenceCaption As String = m_application.Languages.GetText("msgLicencePeriodExiredCaption", "Testzeitraum abgelaufen")
-
-            If MessageBox.Show(lizenceText, licenceCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Hand) = DialogResult.Yes Then
-                Process.Start(wwwProductPricesPage)
-            End If
-            Return False
-        Else
-            Return True
-        End If
-    End Function
-
-
-    ''' <summary>
     ''' Setzt den Focus auf das such-Fenster
     ''' </summary>
     ''' <remarks></remarks>
@@ -1064,7 +1026,7 @@ Public Class mainUI
                 Me.ActiveWorkPane.ReloadData()
 
             Catch ex As Exception
-                m_application.Log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
             End Try
         End If
 
@@ -1086,7 +1048,7 @@ Public Class mainUI
                 Me.ActiveWorkPane.Print()
 
             Catch ex As Exception
-                m_application.Log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
             End Try
         End If
     End Sub
@@ -1107,7 +1069,7 @@ Public Class mainUI
                 Me.ActiveWorkPane.Save()
 
             Catch ex As Exception
-                m_application.Log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
             End Try
         End If
 
@@ -1121,7 +1083,7 @@ Public Class mainUI
     ''' <remarks></remarks>
     Public Sub CheckForDefaultLayouts()
 
-        m_application.SendMessage(GetText("msgCheckingDefaultPrintingLayouts", "Prüfe Druck-Layouts"))
+        MainApplication.getInstance.SendMessage(GetText("msgCheckingDefaultPrintingLayouts", "Prüfe Druck-Layouts"))
         Printing.PrintingManager.CheckAndRepairDefaultLaoyuts()
 
     End Sub
@@ -1135,31 +1097,21 @@ Public Class mainUI
     ''' <remarks></remarks>
     Public Sub OpenReportDesigner(ByVal dataObject As Object, ByVal reportType As DataSourceList, ByVal report As Kernel.Printing.Report)
         Try
-            If m_application.Licenses.IsActivDesigner Then
+
+            If m_reportDesigner Is Nothing Then
+                m_reportDesigner = New Printing.frmPrintingManager(dataObject, reportType)
+            Else
+                m_reportDesigner.DataSourceType = reportType
+                m_reportDesigner.Data = dataObject
 
             End If
 
-            If Not m_application.Licenses.IsActivDesigner Then
-                MessageBox.Show("Der Testzeitraum für den Druck-Designer ist abgelaufen." & vbCrLf & _
-                                "Um Druck-Formulare bearbeiten zu können müssen sie eine separate Lizenz erwerben", "Testzeitraum beendet", MessageBoxButtons.OK, MessageBoxIcon.Hand)
-                Exit Sub
-            End If
-
-
-                If m_reportDesigner Is Nothing Then
-                    m_reportDesigner = New Printing.frmPrintingManager(dataObject, reportType)
-                Else
-                    m_reportDesigner.DataSourceType = reportType
-                    m_reportDesigner.Data = dataObject
-
-                End If
-
-                m_reportDesigner.ActiveReport = report
-                m_reportDesigner.ActivateBuisinesFrame = False
-                m_reportDesigner.ShowDialog()
+            m_reportDesigner.ActiveReport = report
+            m_reportDesigner.ActivateBuisinesFrame = False
+            m_reportDesigner.ShowDialog()
         Catch ex As Exception
 
-            m_application.Log.WriteLog(ex, "PrintingSystem", "Error in Report Designer")
+            MainApplication.getInstance.log.WriteLog(ex, "PrintingSystem", "Error in Report Designer")
 
         End Try
     End Sub
@@ -1309,15 +1261,15 @@ Public Class mainUI
         Dim helpfile As String = String.Empty
         Try
 
-            Dim langCode As String = m_application.Languages.GetActiveLanguage.Substring(0, 2)
+            Dim langCode As String = MainApplication.getInstance.Languages.GetActiveLanguage.Substring(0, 2)
 
             helpfile = My.Application.Info.DirectoryPath & "\helpfiles\Help-" & langCode & ".chm"
 
             Process.Start(helpfile)
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Help", "ERROR: Opening help file failed. (" & helpfile & ")")
-            m_application.SendMessage(ex.Message)
+            MainApplication.getInstance.log.WriteLog(ex, "Help", "ERROR: Opening help file failed. (" & helpfile & ")")
+            MainApplication.getInstance.SendMessage(ex.Message)
         End Try
     End Sub
 
@@ -1332,7 +1284,7 @@ Public Class mainUI
 
         'Wenn bisher kein Rücksprung, dann kann nun 
         Dim retValue As Boolean
-        retValue = m_application.Database.StartBackup("", backupConnection)
+        retValue = MainApplication.getInstance.Database.StartBackup("", backupConnection)
         Return retValue
 
     End Function
@@ -1347,14 +1299,14 @@ Public Class mainUI
     ''' <remarks></remarks>
     Private Shared Function SetBackupDumper() As Boolean
         Const DumpFileName As String = "mysqldump.exe"
-        If m_application IsNot Nothing Then
-            Dim lastDumpFilePath As String = m_application.Settings.GetSetting("mySQLDumpPath", "Connections", "", m_application.CurrentUser.Key)
+        If MainApplication.getInstance IsNot Nothing Then
+            Dim lastDumpFilePath As String = MainApplication.getInstance.Settings.GetSetting("mySQLDumpPath", "Connections", "", MainApplication.getInstance.CurrentUser.Key)
 
 
 
             If System.IO.File.Exists(lastDumpFilePath) Then
             Else
-                m_application.Log.WriteLog("MySqlDump not found in Path!")
+                MainApplication.getInstance.log.WriteLog("MySqlDump not found in Path!")
 
                 If MessageBox.Show("Zum sichern einer Server-Datenbank ist die Datei 'MySQLDump' notwendig. Geben Sie nun den Pfad der Datei an: ", "Dienstprogramm nicht gefunden", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
 
@@ -1367,7 +1319,7 @@ Public Class mainUI
                         path = openfileDlg.FileName
 
                         If System.IO.File.Exists(path) Then
-                            m_application.Settings.SetSetting("mySQLDumpPath", "Connections", path, m_application.CurrentUser.Key)
+                            MainApplication.getInstance.Settings.SetSetting("mySQLDumpPath", "Connections", path, MainApplication.getInstance.CurrentUser.Key)
 
                         End If
 
@@ -1449,7 +1401,7 @@ End Class
 ''' <remarks></remarks>
 Friend Class GlobalKeyHandler
     Implements IMessageFilter
-    Private m_mainUI As mainUI
+    Private m_mainUI As MainUI
 
     Private Enum WindowsMessages
 
@@ -1457,7 +1409,7 @@ Friend Class GlobalKeyHandler
 
     End Enum
 
-    Public Sub New(ByVal ui As mainUI)
+    Public Sub New(ByVal ui As MainUI)
 
         m_mainUI = ui
     End Sub

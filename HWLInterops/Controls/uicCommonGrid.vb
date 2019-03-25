@@ -165,7 +165,7 @@ Public Class uicCommonGrid
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function GetTitleText(ByVal ds As DataSourceList) As String
-        Return m_application.Languages.GetTextBydataKind(ds)
+        Return MainApplication.getInstance.Languages.GetTextBydataKind(ds)
     End Function
 
     ''' <summary>
@@ -175,7 +175,7 @@ Public Class uicCommonGrid
     Public Sub RefreshData()
         Try
             If m_serverModeDS IsNot Nothing Then
-                'm_application.Session.DropIdentityMap()   ' Böse !
+                'MainApplication.getInstance.Session.DropIdentityMap()   ' Böse !
                 m_serverModeDS.Reload()
             Else
                 ' CType(grvCommonGrid.DataSource, BaseCollection(Of ClausSoftware.Data.StaticItem)).Reload()
@@ -333,123 +333,123 @@ Public Class uicCommonGrid
         Select Case datasource
             Case DataSourceList.Addressbook
 
-                m_serverModeDS = New XPServerCollectionSource(m_application.Session, m_application.Adressen.GetObjectClassInfo)
-                m_serverModeDS.DisplayableProperties = m_application.Adressen.DisplayableProperties
+                m_serverModeDS = New XPServerCollectionSource(MainApplication.getInstance.Session, MainApplication.getInstance.Adressen.GetObjectClassInfo)
+                m_serverModeDS.DisplayableProperties = MainApplication.getInstance.Adressen.DisplayableProperties
                 m_dataSourceType = datasource
 
 
             Case DataSourceList.Journal
-                m_serverModeDS = New XPServerCollectionSource(m_application.Session, m_application.JournalDocuments.GetObjectClassInfo)
-                m_serverModeDS.DisplayableProperties = m_application.JournalDocuments.DisplayableProperties
+                m_serverModeDS = New XPServerCollectionSource(MainApplication.getInstance.Session, MainApplication.getInstance.JournalDocuments.GetObjectClassInfo)
+                m_serverModeDS.DisplayableProperties = MainApplication.getInstance.JournalDocuments.DisplayableProperties
                 m_dataSourceType = datasource
-                If TypeOf m_application.JournalDocuments Is IGridFormatter Then
-                    formatter = CType(m_application.JournalDocuments, IGridFormatter)
+                If TypeOf MainApplication.getInstance.JournalDocuments Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.JournalDocuments, IGridFormatter)
                 End If
 
             Case DataSourceList.Articles
-                m_serverModeDS = New XPServerCollectionSource(m_application.Session, m_application.ArticleList.GetObjectClassInfo)
-                m_serverModeDS.DisplayableProperties = m_application.ArticleList.DisplayableProperties
+                m_serverModeDS = New XPServerCollectionSource(MainApplication.getInstance.Session, MainApplication.getInstance.ArticleList.GetObjectClassInfo)
+                m_serverModeDS.DisplayableProperties = MainApplication.getInstance.ArticleList.DisplayableProperties
                 m_dataSourceType = datasource
 
-                If Not m_application.Settings.Articlesettings.ShowInactiveItems Then  ' Inaktive Artikel in Listen nicht mehr anzeigen lassen , falls ausgeschaltet werfden diese Artikel grau dargestellt
+                If Not MainApplication.getInstance.Settings.Articlesettings.ShowInactiveItems Then  ' Inaktive Artikel in Listen nicht mehr anzeigen lassen , falls ausgeschaltet werfden diese Artikel grau dargestellt
                     m_serverModeDS.FixedFilterString = "IsActive=" & True
                 End If
 
 
-                If TypeOf m_application.ArticleList Is IGridFormatter Then
-                    formatter = CType(m_application.ArticleList, IGridFormatter)
+                If TypeOf MainApplication.getInstance.ArticleList Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.ArticleList, IGridFormatter)
                 End If
 
             Case DataSourceList.CashJournalMonthy
-                If TypeOf m_application.CashJournal Is IGridFormatter Then
-                    formatter = CType(m_application.CashJournal, IGridFormatter)
+                If TypeOf MainApplication.getInstance.CashJournal Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.CashJournal, IGridFormatter)
                     SetGridFormatType(formatter)
 
                 End If
 
-                m_application.CashJournal.Reload()
-                grdCommonGrid.DataSource = m_application.CashJournal
+                MainApplication.getInstance.CashJournal.Reload()
+                grdCommonGrid.DataSource = MainApplication.getInstance.CashJournal
                 m_dataSourceType = DataSourceList.CashJournalMonthy
 
             Case DataSourceList.Transactions
-                If TypeOf m_application.Transactions Is IGridFormatter Then
-                    formatter = CType(m_application.Transactions, IGridFormatter)
+                If TypeOf MainApplication.getInstance.Transactions Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.Transactions, IGridFormatter)
                     SetGridFormatType(formatter)
 
                 End If
 
-                m_application.Transactions.Reload()
-                grdCommonGrid.DataSource = m_application.Transactions
+                MainApplication.getInstance.Transactions.Reload()
+                grdCommonGrid.DataSource = MainApplication.getInstance.Transactions
                 m_dataSourceType = DataSourceList.Transactions
 
             Case DataSourceList.Tasks
-                m_serverModeDS = New XPServerCollectionSource(m_application.Session, m_application.Tasks.GetObjectClassInfo)
-                m_serverModeDS.DisplayableProperties = m_application.Tasks.DisplayableProperties
+                m_serverModeDS = New XPServerCollectionSource(MainApplication.getInstance.Session, MainApplication.getInstance.Tasks.GetObjectClassInfo)
+                m_serverModeDS.DisplayableProperties = MainApplication.getInstance.Tasks.DisplayableProperties
                 m_dataSourceType = datasource
-                If TypeOf m_application.Tasks Is IGridFormatter Then
-                    formatter = CType(m_application.Transactions, IGridFormatter)
+                If TypeOf MainApplication.getInstance.Tasks Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.Transactions, IGridFormatter)
                 End If
 
             Case DataSourceList.Units
                 ' Kein servermodus !
-                If TypeOf m_application.Units Is IGridFormatter Then
-                    formatter = CType(m_application.Units, IGridFormatter)
+                If TypeOf MainApplication.getInstance.Units Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.Units, IGridFormatter)
                 End If
-                grdCommonGrid.DataSource = m_application.Units
+                grdCommonGrid.DataSource = MainApplication.getInstance.Units
                 m_dataSourceType = DataSourceList.Units
 
             Case DataSourceList.Discounts
                 ' Kein servermodus !
-                If TypeOf m_application.Discounts Is IGridFormatter Then
-                    formatter = CType(m_application.Discounts, IGridFormatter)
+                If TypeOf MainApplication.getInstance.Discounts Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.Discounts, IGridFormatter)
                 End If
 
-                grdCommonGrid.DataSource = m_application.Discounts
+                grdCommonGrid.DataSource = MainApplication.getInstance.Discounts
                 m_dataSourceType = DataSourceList.Discounts
 
             Case DataSourceList.LoanAccounts
                 ' Kein servermodus !
-                If TypeOf m_application.LoanAccounts Is IGridFormatter Then
-                    formatter = CType(m_application.LoanAccounts, IGridFormatter)
+                If TypeOf MainApplication.getInstance.LoanAccounts Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.LoanAccounts, IGridFormatter)
                 End If
 
-                grdCommonGrid.DataSource = m_application.LoanAccounts
+                grdCommonGrid.DataSource = MainApplication.getInstance.LoanAccounts
                 m_dataSourceType = DataSourceList.LoanAccounts
 
 
                 'Benutzerlisten 
             Case DataSourceList.users
-                If TypeOf m_application.Users Is IGridFormatter Then
-                    formatter = CType(m_application.Users, IGridFormatter)
+                If TypeOf MainApplication.getInstance.Users Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.Users, IGridFormatter)
                     SetGridFormatType(formatter)
 
                 End If
 
-                grdCommonGrid.DataSource = m_application.Users
+                grdCommonGrid.DataSource = MainApplication.getInstance.Users
                 m_dataSourceType = DataSourceList.users
 
 
             Case DataSourceList.HistoryCategories
 
 
-                grdCommonGrid.DataSource = m_application.HistoryCategories
+                grdCommonGrid.DataSource = MainApplication.getInstance.HistoryCategories
                 m_dataSourceType = DataSourceList.HistoryCategories
 
 
             Case DataSourceList.FixedCosts
-                If TypeOf m_application.FixedCosts Is IGridFormatter Then
-                    formatter = CType(m_application.FixedCosts, IGridFormatter)
+                If TypeOf MainApplication.getInstance.FixedCosts Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.FixedCosts, IGridFormatter)
                 End If
 
-                grdCommonGrid.DataSource = m_application.FixedCosts
+                grdCommonGrid.DataSource = MainApplication.getInstance.FixedCosts
                 m_dataSourceType = DataSourceList.FixedCosts
 
             Case DataSourceList.FixedCostGroup
-                If TypeOf m_application.FixedCostGroups Is IGridFormatter Then
-                    formatter = CType(m_application.FixedCostGroups, IGridFormatter)
+                If TypeOf MainApplication.getInstance.FixedCostGroups Is IGridFormatter Then
+                    formatter = CType(MainApplication.getInstance.FixedCostGroups, IGridFormatter)
                 End If
 
-                grdCommonGrid.DataSource = m_application.FixedCostGroups
+                grdCommonGrid.DataSource = MainApplication.getInstance.FixedCostGroups
                 m_dataSourceType = DataSourceList.FixedCostGroup
 
         End Select
@@ -485,7 +485,6 @@ Public Class uicCommonGrid
 
         ' Nun das Grid für den Server-Mode vorbereiten, dann Formatieren
 
-        grdCommonGrid.ServerMode = True
         grdCommonGrid.DataSource = Nothing
 
         grdCommonGrid.DataSource = m_serverModeDS
@@ -549,7 +548,7 @@ Public Class uicCommonGrid
             GridPrinting.ShowPreviewDialog()
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Listendruck", "Fehler beim erstellen der Druck-Vorschau")
+            MainApplication.getInstance.log.WriteLog(ex, "Listendruck", "Fehler beim erstellen der Druck-Vorschau")
         End Try
 
     End Sub
@@ -599,10 +598,10 @@ Public Class uicCommonGrid
         Select Case m_dataSourceType
 
             Case DataSourceList.Units
-                m_application.Units.Save()
+                MainApplication.getInstance.Units.Save()
 
             Case DataSourceList.Discounts
-                m_application.Discounts.Save()
+                MainApplication.getInstance.Discounts.Save()
 
 
             Case Else
@@ -732,7 +731,7 @@ Public Class uicCommonGrid
             RaiseEvent RowChangedData(Me, EventArgs.Empty)
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this dataitem from GridMenü: " & ex.Message)
+            MainApplication.getInstance.log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this dataitem from GridMenü: " & ex.Message)
             MessageBox.Show(GetText("msgUnresolvedContraintsInDataItemCantDelete", "Kann Datensatz nicht löschen, es liegen eventuell noch Verweise vor."), GetText("msgDeleteRejected", "Löschen nicht möglich."), MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Finally
 
@@ -757,7 +756,7 @@ Public Class uicCommonGrid
                 RaiseEvent AfterDeleteItem(Me, New StaticItemEventArgs(dataItem))
 
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "Fehler in der Ereinisbehandlung des Löschens von Elementen", "AfterDeleteItem - Fehler")
+                MainApplication.getInstance.log.WriteLog(ex, "Fehler in der Ereinisbehandlung des Löschens von Elementen", "AfterDeleteItem - Fehler")
             End Try
 
 
@@ -804,9 +803,9 @@ Public Class uicCommonGrid
             CType(grvCommonGrid.DataSource, XPBaseCollection).Criteria = criteriaValue
             'Select Case m_dataSourceType
             '    Case DataSourceList.Addressbook
-            '        m_application.Adressen.Filter = value
+            '        MainApplication.getInstance.Adressen.Filter = value
             '    Case DataSourceList.CashJournal
-            '        m_application.CashJournal.Filter = value
+            '        MainApplication.getInstance.CashJournal.Filter = value
             '    Case Else
             '        Throw New NotImplementedException("Das setzen von Filtern ist noch nicht implementiert für den Typ: " & m_dataSourceType.ToString)
 
@@ -949,57 +948,57 @@ Public Class uicCommonGrid
         Select Case m_dataSourceType
             Case DataSourceList.Addressbook
 
-                newItem = m_application.Adressen.GetNewItem()
-                'm_application.Adressen.Add(CType(newItem, Adress))
+                newItem = MainApplication.getInstance.Adressen.GetNewItem()
+                'MainApplication.getInstance.Adressen.Add(CType(newItem, Adress))
 
                 newID = newItem.ID
 
             Case DataSourceList.Tasks
 
-                newItem = m_application.Tasks.GetNewItem()
-                m_application.Tasks.Add(CType(newItem, Task))
+                newItem = MainApplication.getInstance.Tasks.GetNewItem()
+                MainApplication.getInstance.Tasks.Add(CType(newItem, Task))
 
                 newID = newItem.ID
 
             Case DataSourceList.CashJournalMonthy
-                newItem = m_application.CashJournal.GetNewItem()
-                'm_application.CashJournal.Add(CType(newItem, CashJournalItem))
+                newItem = MainApplication.getInstance.CashJournal.GetNewItem()
+                'MainApplication.getInstance.CashJournal.Add(CType(newItem, CashJournalItem))
 
                 newID = newItem.ID
 
             Case DataSourceList.Transactions
-                newItem = m_application.Transactions.GetNewItem()
-                ' m_application.Transactions.Add(CType(newItem, Transaction))
+                newItem = MainApplication.getInstance.Transactions.GetNewItem()
+                ' MainApplication.getInstance.Transactions.Add(CType(newItem, Transaction))
 
                 newID = newItem.ID
 
             Case DataSourceList.Units
-                newItem = m_application.Units.GetNewItem()
-                m_application.Units.Add(CType(newItem, Unit))
+                newItem = MainApplication.getInstance.Units.GetNewItem()
+                MainApplication.getInstance.Units.Add(CType(newItem, Unit))
 
                 newID = newItem.ID
 
             Case DataSourceList.Discounts
-                newItem = m_application.Discounts.GetNewItem()
-                m_application.Discounts.Add(CType(newItem, Discount))
+                newItem = MainApplication.getInstance.Discounts.GetNewItem()
+                MainApplication.getInstance.Discounts.Add(CType(newItem, Discount))
 
                 newID = newItem.ID
 
             Case DataSourceList.LoanAccounts
-                newItem = m_application.LoanAccounts.GetNewItem
-                m_application.LoanAccounts.Add(CType(newItem, LoanAccount))
+                newItem = MainApplication.getInstance.LoanAccounts.GetNewItem
+                MainApplication.getInstance.LoanAccounts.Add(CType(newItem, LoanAccount))
 
             Case DataSourceList.FixedCosts
-                newItem = m_application.FixedCosts.GetNewItem
-                m_application.FixedCosts.Add(CType(newItem, FixedCost))
+                newItem = MainApplication.getInstance.FixedCosts.GetNewItem
+                MainApplication.getInstance.FixedCosts.Add(CType(newItem, FixedCost))
 
             Case DataSourceList.FixedCostGroup
-                newItem = m_application.FixedCostGroups.GetNewItem
-                m_application.FixedCostGroups.Add(CType(newItem, FixedCostGroup))
+                newItem = MainApplication.getInstance.FixedCostGroups.GetNewItem
+                MainApplication.getInstance.FixedCostGroups.Add(CType(newItem, FixedCostGroup))
 
             Case DataSourceList.HistoryCategories
-                newItem = m_application.HistoryCategories.GetNewItem()
-                m_application.HistoryCategories.Add(CType(newItem, HistoryCategory))
+                newItem = MainApplication.getInstance.HistoryCategories.GetNewItem()
+                MainApplication.getInstance.HistoryCategories.Add(CType(newItem, HistoryCategory))
 
             Case Else
                 Throw New NotImplementedException("Ein Objekt von diesem Type: " & m_dataSourceType.ToString & " kann nicht neu angelegt werden.")
@@ -1235,7 +1234,7 @@ Public Class uicCommonGrid
         Dim SelectedCount As Integer = CType(sender, GridView).SelectedRowsCount
         Dim maxcount As Integer = CType(sender, GridView).RowCount
 
-        m_application.SendMessage(GetText("msgSelectedItemCount", "{0} von {1} markiert.", CStr(SelectedCount), CStr(maxcount)), True)
+        MainApplication.getInstance.SendMessage(GetText("msgSelectedItemCount", "{0} von {1} markiert.", CStr(SelectedCount), CStr(maxcount)), True)
 
     End Sub
 
@@ -1338,8 +1337,8 @@ Public Class uicCommonGrid
 
 
     Private Sub uicCommonGrid_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        If m_application IsNot Nothing Then
-            m_application.Languages.SetTextOnControl(cmsCommonGridMenue)
+        If MainApplication.getInstance IsNot Nothing Then
+            MainApplication.getInstance.Languages.SetTextOnControl(cmsCommonGridMenue)
         End If
     End Sub
 

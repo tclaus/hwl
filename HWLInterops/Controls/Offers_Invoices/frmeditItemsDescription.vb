@@ -32,13 +32,13 @@ Namespace Offers
         End Sub
 
         Private Sub frmeditItemsDescription_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-            m_application.Settings.SaveFormsPos(Me)
+            MainApplication.getInstance.Settings.SaveFormsPos(Me)
 
         End Sub
 
         Private Sub frmeditItemsDescription_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-            m_application.Languages.SetTextOnControl(Me)
-            m_application.Settings.RestoreFormsPos(Me)
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
+            MainApplication.getInstance.Settings.RestoreFormsPos(Me)
         End Sub
 
         Private Sub txtmemo_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles txtmemo.DragEnter

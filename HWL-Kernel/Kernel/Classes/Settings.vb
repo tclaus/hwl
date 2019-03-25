@@ -222,7 +222,7 @@ Namespace Kernel
         ''' <remarks></remarks>
         Public Sub RestoreFormsPos(ByVal frm As System.Windows.Forms.Form, ByVal context As String)
 
-            MainApplication.Log.WriteLog("Stelle Position und Grösse des Formulars wieder her: " & frm.Name)
+            MainApplication.log.WriteLog("Stelle Position und Grösse des Formulars wieder her: " & frm.Name)
 
             Dim name As String = MainApplication.CurrentUser.Key
 
@@ -499,7 +499,7 @@ Namespace Kernel
                 SetSetting(name, area, value, MainApplication.CurrentUser.Key)
 
             Catch ex As Exception
-                MainApplication.Log.WriteLog("ERROR while writing setting!", "SetSetting")
+                MainApplication.log.WriteLog("ERROR while writing setting!", "SetSetting")
             End Try
 
         End Sub
@@ -937,7 +937,7 @@ Namespace Kernel
                     Me.SetSetting("QualiFeedback", RegistrySections.Communication, CStr(CInt(value)))
 
                 Catch ex As Exception
-                    MainApplication.Log.WriteLog("Quilifeedback - einstellung kann nicht geschrieben werden:" & ex.Message)
+                    MainApplication.log.WriteLog("Quilifeedback - einstellung kann nicht geschrieben werden:" & ex.Message)
                 End Try
 
             End Set
@@ -970,13 +970,13 @@ Namespace Kernel
             End Set
         End Property
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
             Initialize()
         End Sub
 
-        Public Sub New(ByVal baseApplication As mainApplication, ByVal criteria As CriteriaOperator)
+        Public Sub New(ByVal baseApplication As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(baseApplication, criteria)
             Initialize()
         End Sub

@@ -165,7 +165,7 @@ Public Class ScannerManager
             position = journalentry.ArticleGroups(Me.GroupNumber)
         End If
 
-        Dim itemsToRemove As New ClausSoftware.Kernel.JournalArticleItems(m_application)
+        Dim itemsToRemove As New ClausSoftware.Kernel.JournalArticleItems(MainApplication.getInstance)
 
 
 
@@ -178,7 +178,7 @@ Public Class ScannerManager
 
                 With BasketItem
                     newitem.ItemCount = CDec(.Ammount)
-                    newitem.ItemmemoText = .Article.ShortDescription
+                    newitem.ItemMemoText = .Article.ShortDescription
 
                     newitem.ItemUnit = .Article.VerpackungsEinheit
 
@@ -200,11 +200,11 @@ Public Class ScannerManager
     ''' <remarks></remarks>
     Private Function CheckAndCreateJournal() As ClausSoftware.Kernel.JournalDocument
 
-        Dim journal As ClausSoftware.Kernel.JournalDocument = m_application.JournalDocuments.GetItem(m_documentNumber)
+        Dim journal As ClausSoftware.Kernel.JournalDocument = MainApplication.getInstance.JournalDocuments.GetItem(m_documentNumber)
 
         If journal Is Nothing Then
 
-            journal = New ClausSoftware.Kernel.JournalDocument(m_application.Session)
+            journal = New ClausSoftware.Kernel.JournalDocument(MainApplication.getInstance.Session)
             journal.ReplikID = Me.DocumentKey
             journal.DocumentType = CType(Me.DocType, ClausSoftware.enumJournalDocumentType)
             journal.CreatedAt = Date.Today

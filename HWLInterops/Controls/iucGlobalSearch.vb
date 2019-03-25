@@ -168,7 +168,7 @@ Public Class iucGlobalSearch
 
     Public ReadOnly Property DisplayText() As String Implements IModule.DisplayText
         Get
-            Return m_application.Languages.GetText("lblSearchResults", "Suchergebnisse")
+            Return MainApplication.getInstance.Languages.GetText("lblSearchResults", "Suchergebnisse")
         End Get
     End Property
 

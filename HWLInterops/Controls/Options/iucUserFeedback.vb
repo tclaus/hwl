@@ -10,7 +10,7 @@ Public Class iucUserFeedback
 
     Public Sub Initialize() Implements IOptionMenue.Initialize
         modmain.InitializeApplication()
-        chkqualicheck.Checked = m_application.Settings.SettingSendStatistics
+        chkqualicheck.Checked = MainApplication.getInstance.Settings.SettingSendStatistics
     End Sub
 
     Public Sub Reload() Implements IOptionMenue.Reload
@@ -23,7 +23,7 @@ Public Class iucUserFeedback
 
 
     Private Sub chkqualicheck_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkqualicheck.CheckedChanged
-        m_application.Settings.SettingSendStatistics = chkqualicheck.Checked
+        MainApplication.getInstance.Settings.SettingSendStatistics = chkqualicheck.Checked
     End Sub
     Public Overrides Function ToString() As String
         Return Me.DisplayName

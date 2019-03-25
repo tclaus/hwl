@@ -27,7 +27,7 @@ Namespace Update
  
 
         <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
-        Private AppName As String = ClausSoftware.mainApplication.ApplicationName()
+        Private AppName As String = ClausSoftware.MainApplication.ApplicationName()
         ''' <summary>
         ''' Enthält den Text der Changelog-datei
         ''' </summary>
@@ -95,7 +95,7 @@ Namespace Update
         Property AutoCheckUpdates As Boolean
             Get
                 Dim UpdateInterval As String
-                UpdateInterval = m_application.Settings.GetSetting("UpdateCheckInterval", "Update", "Daily")
+                UpdateInterval = MainApplication.getInstance.Settings.GetSetting("UpdateCheckInterval", "Update", "Daily")
                 ' Die Texte sind nur für die interene Speicherung gedacht
                 If UpdateInterval = "Daily" Or UpdateInterval = "Weekly" Then
                     Return True
@@ -106,9 +106,9 @@ Namespace Update
             End Get
             Set(ByVal value As Boolean)
                 If value Then
-                    m_application.Settings.SetSetting("UpdateCheckInterval", "Update", "Daily")
+                    MainApplication.getInstance.Settings.SetSetting("UpdateCheckInterval", "Update", "Daily")
                 Else
-                    m_application.Settings.SetSetting("UpdateCheckInterval", "Update", "Never")
+                    MainApplication.getInstance.Settings.SetSetting("UpdateCheckInterval", "Update", "Never")
                 End If
             End Set
         End Property
@@ -142,10 +142,10 @@ Namespace Update
         ''' <remarks></remarks>
         Private Sub StartAutomaticUpdateCheck()
             If m_UpdateRecentlyChecked Then
-                m_application.Log.WriteLog("Auto update rejected, user has already checked for Updates manually")
+                MainApplication.getInstance.log.WriteLog("Auto update rejected, user has already checked for Updates manually")
                 Exit Sub
             End If
-            m_application.SendMessage(GetText("msgLookingForUpdates", "Suche nach Updates..."))
+            MainApplication.getInstance.SendMessage(GetText("msgLookingForUpdates", "Suche nach Updates..."))
 
             Me.GetLatestChangeLogFile(True)
 
@@ -153,12 +153,12 @@ Namespace Update
             My.Settings.LastUpdateCheck = Today
 
             If m_lastChangelog.Length > 0 AndAlso Me.NewUpdateAvailable Then
-                m_application.UserStats.SendStatistics(Tools.ReportMessageType.Info, "UpdateCheck", "A Programm Update is available")
+
 
                 Dim GetUpdateDialog As New Update.frmGetUpdate(Me)
                 GetUpdateDialog.ShowDialog()
             Else
-                m_application.SendMessage(GetText("msgNonewUpdates", "Keine Aktualisierungen verfügbar."))
+                MainApplication.getInstance.SendMessage(GetText("msgNonewUpdates", "Keine Aktualisierungen verfügbar."))
 
             End If
 
@@ -168,16 +168,16 @@ Namespace Update
         ''' Enthält das Datum und die Version der Datei im Changelog
         ''' </summary>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Public Structure FileHeader
             Public FileDate As Date
             Public FileVersion As Version ' im format "1.1.2222"
         End Structure
 
 
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private m_newChangelog As Boolean
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private m_changelogheader As FileHeader
         ''' <summary>
         ''' Initialisiert das Teil
@@ -230,15 +230,15 @@ Namespace Update
 
             Catch ex As WebException
                 m_lastChangelog = ""
-                m_application.Log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
+                MainApplication.getInstance.log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
                 If Not internalCheck Then
-                    MessageBox.Show(GetText("msgTextNetworkErrorGettingUpdateFile", "Ein Fehler ist aufgetreten beim holen der Aktualisierung. /n Kontrollieren Sie Ihre Netzwerkverbindung und Proxy Einstellungen.") & vbCrLf & _
+                    MessageBox.Show(GetText("msgTextNetworkErrorGettingUpdateFile", "Ein Fehler ist aufgetreten beim holen der Aktualisierung. /n Kontrollieren Sie Ihre Netzwerkverbindung und Proxy Einstellungen.") & vbCrLf &
                                      ex.Message, GetText("msgHeaderNetworkErrorGettingUpdateFile", "Aktualisierungsdaten konnten nicht geholt werden"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
 
             Catch ex As Exception
                 m_lastChangelog = ""
-                m_application.Log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
+                MainApplication.getInstance.log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
                 If Not internalCheck Then
                     MessageBox.Show(GetText("msgTextNetworkCommonErrorGettingUpdateFile", "Ein Problem  ist aufgetreten beim holen der Aktualisierung. /n {0}", ex.Message), GetText("msgHeaderNetworkErrorGettingUpdateFile", "Aktualisierungsdaten konnten nicht geholt werden"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
@@ -272,14 +272,14 @@ Namespace Update
                 'IMPORTANT: Auf künftige Versionsnummern achten 
                 If Me.ApplicationVersion < Me.ChangeLogHeader.FileVersion Then
 
-                    m_application.Log.WriteLog("Set UpdateAvail  (True) Reason: Appversion is lower than changelog reports. ")
+                    MainApplication.getInstance.log.WriteLog("Set UpdateAvail  (True) Reason: Appversion is lower than changelog reports. ")
                     RetValue = True
                     Return RetValue
                 End If
 
                 ' (Unnötig) das Datum prüfen
                 If Me.ApplicationDate < Me.ChangeLogHeader.FileDate Then
-                    m_application.Log.WriteLog("Set UpdateAvail  (True) Reason: appdate is too old")
+                    MainApplication.getInstance.log.WriteLog("Set UpdateAvail  (True) Reason: appdate is too old")
 
                     RetValue = True
                     Return RetValue
@@ -328,7 +328,7 @@ Namespace Update
             'PB2-Update.exe
             ' HWL2-Update.exe
             Dim filename As String
-            If ClausSoftware.mainApplication.ApplicationName.StartsWith("HWL", StringComparison.InvariantCultureIgnoreCase) Then
+            If ClausSoftware.MainApplication.ApplicationName.StartsWith("HWL", StringComparison.InvariantCultureIgnoreCase) Then
                 filename = "hwl2.5-update.exe"
             Else
                 filename = "pb2-update.exe"
@@ -399,10 +399,10 @@ Namespace Update
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private ReadOnly Property DownloadBasePath() As String
             Get
-                    Return HWLReleasePath
+                Return HWLReleasePath
             End Get
         End Property
 
@@ -413,7 +413,7 @@ Namespace Update
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private Function GetChangeLogPath() As String
             Dim changelogPath As String = DownloadBasePath()
 
@@ -432,7 +432,7 @@ Namespace Update
     ''' </summary>
     ''' <remarks></remarks>
     Friend Class WebRetrieve
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Delegate Sub StartDownloadDelegate(ByVal url As String, ByVal path As String)
         Private m_file As String
 
@@ -471,10 +471,10 @@ Namespace Update
 
                     Try
 
-                        m_application.Log.WriteLog("Try to start Update from : " & m_file, " -Update")
-                        m_application.UserStats.SendStatistics("UpdateManager", "Try to install new Update. ")
+                        MainApplication.getInstance.log.WriteLog("Try to start Update from : " & m_file, " -Update")
+
                         Process.Start(m_file)
-                        m_application.CloseConnection()
+                        MainApplication.getInstance.CloseConnection()
                         System.Windows.Forms.Application.Exit()
 
                     Catch ex As FileNotFoundException

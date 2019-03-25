@@ -10,7 +10,7 @@ Namespace Printing
 
         Private m_DocID As List(Of JournalDocument)
 
-        Private m_mainUI As mainUI
+        Private m_mainUI As MainUI
 
         Private m_printLayouts As New List(Of LayoutToPrint)
 
@@ -85,7 +85,7 @@ Namespace Printing
                 m_mainUI.OpenReportPreview(Me.DocumentsList, DataSourceList.Journaldocument, GetSelectedReports, PrintOptions)
             Catch ex As Exception
 
-                m_application.Log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
+                MainApplication.getInstance.log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
                 MessageBox.Show("Fehler beim drucken aufgetreten. Kontrollieren sie Ihre Drucker-Einstellungen.", "Drucker-Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
             End Try
@@ -94,17 +94,17 @@ Namespace Printing
         Private Sub PrintDirect()
             Try
 
-                setUsersOptions()
+                SetUsersOptions()
                 CheckDocumentIsNew()
 
                 m_mainUI.PrintReportsDirect(Me.DocumentsList, DataSourceList.Journaldocument, GetSelectedReports, PrintOptions)
             Catch ex As Exception
 
-                m_application.Log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
+                MainApplication.getInstance.log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
 
 
                 'TODO : Default Printer angeben
-                MessageBox.Show("Fehler beim Drucken aufgetreten. Kontrollieren sie Ihre Drucker-Einstellungen." & vbCrLf & _
+                MessageBox.Show("Fehler beim Drucken aufgetreten. Kontrollieren sie Ihre Drucker-Einstellungen." & vbCrLf &
                                 "Druckername: " & GetDefaultPrintername(), "Drucker-Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
             End Try
@@ -155,19 +155,19 @@ Namespace Printing
         Private Sub dlgPrintdocuments_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 
             ' Lokale Einstellungen sichern
-            m_application.Settings.SetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices, CInt(chkPrintBusinesLayout.Checked).ToString)
+            MainApplication.getInstance.Settings.SetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices, CInt(chkPrintBusinesLayout.Checked).ToString)
 
-            m_application.Settings.ItemsSettings.DefaultPageCount = CShort(txtPageCount.Value)
+            MainApplication.getInstance.Settings.ItemsSettings.DefaultPageCount = CShort(txtPageCount.Value)
 
         End Sub
 
         Private Sub dlgPrintdocuments_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-            m_application.Languages.SetTextOnControl(Me)
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
             ' Text der Überschrift festlegen.. 
-            Me.Text = m_application.Languages.GetTextBydataKind(DataSourceList.Journaldocument) & " " & Me.Text
+            Me.Text = MainApplication.getInstance.Languages.GetTextBydataKind(DataSourceList.Journaldocument) & " " & Me.Text
 
-            Dim reports As New Kernel.Printing.Reports(m_application)
+            Dim reports As New Kernel.Printing.Reports(MainApplication.getInstance)
             reports.SetDataType(DataSourceList.Journaldocument)
 
             For Each item As Kernel.Printing.Report In reports
@@ -175,19 +175,19 @@ Namespace Printing
             Next
 
             grdPrintLayouts.DataSource = m_printLayouts
-            Dim PrintBuisinessLayout As String = m_application.Settings.GetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices, "1")
+            Dim PrintBuisinessLayout As String = MainApplication.getInstance.Settings.GetSetting(Tools.RegistryValues.PrintMemoTexte, Tools.RegistrySections.ModuleInvoices, "1")
             If Not String.IsNullOrEmpty(PrintBuisinessLayout) Then
                 chkPrintBusinesLayout.Checked = CBool(PrintBuisinessLayout)
             End If
 
-            txtPageCount.Value = m_application.Settings.ItemsSettings.DefaultPageCount
+            txtPageCount.Value = MainApplication.getInstance.Settings.ItemsSettings.DefaultPageCount
 
 
 
         End Sub
 
 
-        Public Sub New(ByVal MainUI As mainUI)
+        Public Sub New(ByVal MainUI As MainUI)
             InitializeComponent()
 
             m_mainUI = MainUI

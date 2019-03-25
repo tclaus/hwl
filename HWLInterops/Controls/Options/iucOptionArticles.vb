@@ -30,20 +30,20 @@ Public Class iucOptionArticles
     ''' <remarks></remarks>
     Private Sub LoadSettings(ByVal force As Boolean)
         cboTax.Properties.Items.Clear()
-        cboTax.Properties.Items.AddRange(m_application.TaxRates)
-        cboTax.SelectedItem = m_application.Settings.Articlesettings.DefaultTaxRate
+        cboTax.Properties.Items.AddRange(MainApplication.getInstance.TaxRates)
+        cboTax.SelectedItem = MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate
 
-        chkShowDiscounts.Checked = CBool(m_application.Settings.GetSetting(RegistryValues.ShowArticleDiscounts, RegistrySections.ModuleArticles, "0", force))
+        chkShowDiscounts.Checked = CBool(MainApplication.getInstance.Settings.GetSetting(RegistryValues.ShowArticleDiscounts, RegistrySections.ModuleArticles, "0", force))
 
-        chkShowRessources.Checked = CBool(m_application.Settings.GetSetting(RegistryValues.ShowArticleRessources, RegistrySections.ModuleArticles, "0", force))
-        chkShowInactiveItems.Checked = m_application.Settings.Articlesettings.ShowInactiveItems
+        chkShowRessources.Checked = CBool(MainApplication.getInstance.Settings.GetSetting(RegistryValues.ShowArticleRessources, RegistrySections.ModuleArticles, "0", force))
+        chkShowInactiveItems.Checked = MainApplication.getInstance.Settings.Articlesettings.ShowInactiveItems
 
     End Sub
 
     Public Sub Save() Implements IOptionMenue.Save
 
         If cboTax.SelectedItem IsNot Nothing Then
-            m_application.Settings.Articlesettings.DefaultTaxRate = CType(cboTax.SelectedItem, TaxRate)
+            MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate = CType(cboTax.SelectedItem, TaxRate)
         End If
 
 
@@ -86,12 +86,12 @@ Public Class iucOptionArticles
 
     Private Sub chkShowDiscounts_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowDiscounts.CheckedChanged
 
-        m_application.Settings.SetSetting(RegistryValues.ShowArticleDiscounts, RegistrySections.ModuleArticles, CStr(CInt(chkShowDiscounts.Checked)))
+        MainApplication.getInstance.Settings.SetSetting(RegistryValues.ShowArticleDiscounts, RegistrySections.ModuleArticles, CStr(CInt(chkShowDiscounts.Checked)))
 
     End Sub
 
     Private Sub chkShowRessources_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowRessources.CheckedChanged
-        m_application.Settings.SetSetting(RegistryValues.ShowArticleRessources, RegistrySections.ModuleArticles, CStr(CInt(chkShowRessources.Checked)))
+        MainApplication.getInstance.Settings.SetSetting(RegistryValues.ShowArticleRessources, RegistrySections.ModuleArticles, CStr(CInt(chkShowRessources.Checked)))
     End Sub
 
     Public ReadOnly Property NeedsRestart As Boolean Implements IOptionMenue.NeedsRestart
@@ -105,12 +105,12 @@ Public Class iucOptionArticles
     End Sub
 
     Private Sub chkShowInactiveItems_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowInactiveItems.CheckedChanged
-        m_application.Settings.Articlesettings.ShowInactiveItems = chkShowInactiveItems.Checked
+        MainApplication.getInstance.Settings.Articlesettings.ShowInactiveItems = chkShowInactiveItems.Checked
 
     End Sub
 
     Private Sub iucOptionArticles_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
     End Sub
 
     Private Sub cmdSetTaxForAllItems_Click(sender As System.Object, e As System.EventArgs) Handles cmdSetTaxForAllItems.Click
@@ -127,11 +127,11 @@ Public Class iucOptionArticles
         If result = DialogResult.Yes Then
             Dim tax As Kernel.TaxRate = CType(cboTax.SelectedItem, TaxRate)
 
-            Dim sql As String = "Update " & Kernel.Article.Tablename & " SET mwst=" & tax.ID
-            m_application.SendMessage("Starte Aktualisierung der Artikelsteuersätze...")
+            Dim sql As String = "Update " & Kernel.Article.TableName & " SET mwst=" & tax.ID
+            MainApplication.getInstance.SendMessage("Starte Aktualisierung der Artikelsteuersätze...")
             Dim count As Integer
-            count = m_application.Database.ExcecuteNonQuery(sql)
-            m_application.SendMessage(count & " Artikel aktualisiert.")
+            count = MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
+            MainApplication.getInstance.SendMessage(count & " Artikel aktualisiert.")
 
         End If
     End Sub
@@ -149,10 +149,10 @@ Public Class iucOptionArticles
         result = MessageBox.Show("Möchten Sie alle Artikel auf den Status 'Aktiv' setzen?? ", "Alle Artikel aktivieren", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
             Dim sql As String = "Update " & Kernel.Article.TableName & " SET IsActive=TRUE"
-            m_application.SendMessage("Starte Aktualisierung des Aktiv-Status...")
+            MainApplication.getInstance.SendMessage("Starte Aktualisierung des Aktiv-Status...")
             Dim count As Integer
-            count = m_application.Database.ExcecuteNonQuery(sql)
-            m_application.SendMessage(count & " Artikel aktualisiert.")
+            count = MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
+            MainApplication.getInstance.SendMessage(count & " Artikel aktualisiert.")
         End If
     End Sub
 

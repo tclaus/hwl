@@ -21,7 +21,7 @@ Public Class frmListCashAccounts
     Private Sub frmListCashAccounts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         modmain.InitializeApplication()
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         FillListBox()
 
@@ -42,7 +42,7 @@ Public Class frmListCashAccounts
             Return m_selectedAccount
         End Get
         Set(ByVal value As CashAccount)
-            m_selectedAccount = value            
+            m_selectedAccount = value
         End Set
     End Property
 
@@ -78,19 +78,19 @@ Public Class frmListCashAccounts
 
         Dim itemsList As New List(Of CashAccount)
 
-        m_application.CashAccounts.Reload()
+        MainApplication.getInstance.CashAccounts.Reload()
 
         searchtext = searchtext.Trim
         If Not String.IsNullOrEmpty(searchtext) Then
 
-            For Each item As CashAccount In m_application.CashAccounts
+            For Each item As CashAccount In MainApplication.getInstance.CashAccounts
                 If item.ToString.ToLower.Contains(searchtext) Then
                     itemsList.Add(item)
                 End If
             Next
 
         Else
-            itemsList.AddRange(m_application.CashAccounts)
+            itemsList.AddRange(MainApplication.getInstance.CashAccounts)
 
         End If
 
@@ -171,12 +171,12 @@ Public Class frmListCashAccounts
         If selectedCashAccount Is Nothing Then Exit Sub
 
         ' Prüfe, ob Buchungen existieren 
-        Dim oldCashes As New CashJournalItems(m_application, "CashAccountID=" & selectedCashAccount.AccountID)
-        Dim oldTransactions As New Transactions(m_application, "CashAccountID=" & selectedCashAccount.AccountID)
+        Dim oldCashes As New CashJournalItems(MainApplication.getInstance, "CashAccountID=" & selectedCashAccount.AccountID)
+        Dim oldTransactions As New Transactions(MainApplication.getInstance, "CashAccountID=" & selectedCashAccount.AccountID)
 
         'TODO: NLS
         If oldCashes.Count > 0 Or oldTransactions.Count > 0 Then
-            Dim result As DialogResult = MessageBox.Show("Es existieren noch Buchungsvorfälle, die dieses Konto benutzen." & vbCrLf & _
+            Dim result As DialogResult = MessageBox.Show("Es existieren noch Buchungsvorfälle, die dieses Konto benutzen." & vbCrLf &
                             "Möchten Sie das Konto Löschen, und die Buchungen einem anderen Konto zuweisen?", "Konto wird verwendet", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2)
 
 
@@ -193,7 +193,7 @@ Public Class frmListCashAccounts
 
                     If selecedItem.AccountID <> selectedCashAccount.AccountID And selecedItem.AccountID >= 0 Then
                         ' nun alle Buchungen dieser ID zuweisen!
-                        m_application.Session.BeginTransaction()
+                        MainApplication.getInstance.Session.BeginTransaction()
 
 
                         For Each cashItem As CashJournalItem In oldCashes
@@ -206,7 +206,7 @@ Public Class frmListCashAccounts
                             transaction.Save()
                         Next
                         selectedCashAccount.Delete()
-                        m_application.Session.CommitTransaction()
+                        MainApplication.getInstance.Session.CommitTransaction()
 
                     End If
 
@@ -321,7 +321,7 @@ Public Class frmListCashAccounts
         End If
 
         If e.KeyCode = Keys.F3 Then
-            m_application.CashAccounts.Reload()
+            MainApplication.getInstance.CashAccounts.Reload()
             trvAccounts.RefreshDataSource()
         End If
 
@@ -335,7 +335,7 @@ Public Class frmListCashAccounts
         IucSearchPanel1.Focus()
 
         ' Falls noch kein Konto angegeben wurde, dann den Neu-Dialog aufrufen
-        If m_application.CashAccounts.Count = 0 Then
+        If MainApplication.getInstance.CashAccounts.Count = 0 Then
             CreateNewCashAccount()
         End If
 

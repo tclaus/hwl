@@ -30,14 +30,14 @@ Namespace Kernel
             Return Nothing
         End Function
 
-        Public Sub New(ByVal baseApplication As mainApplication)
+        Public Sub New(ByVal baseApplication As MainApplication)
             MyBase.New(baseApplication)
 
             Initialize()
         End Sub
 
 
-        Public Sub New(ByVal baseApplication As mainApplication, ByVal criteria As criteriaoperator)
+        Public Sub New(ByVal baseApplication As MainApplication, ByVal criteria As criteriaoperator)
             MyBase.New(baseApplication, criteria)
 
             Initialize()

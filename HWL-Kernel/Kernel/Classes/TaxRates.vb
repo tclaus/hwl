@@ -111,13 +111,13 @@ Namespace Kernel
         End Function
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
             MyBase.New(BasisApplikation)
 
             Initialize()
         End Sub
 
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
             MyBase.New(BasisApplikation, criteria)
             Initialize()
         End Sub

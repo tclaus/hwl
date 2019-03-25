@@ -28,7 +28,7 @@ Namespace Tools
 
         Private m_DefaultHWLID As String = String.Empty
         Private m_defaultConnection As Connection
-        Private m_application As mainApplication
+
 
         Public Shared IsValid As Boolean
         Public Shared LastErrorMessage As String
@@ -43,7 +43,7 @@ Namespace Tools
         Public ReadOnly Property ProfileFilename() As String
             Get
                 Dim connectionName As String
-                connectionName = System.IO.Path.Combine(ClausSoftware.Tools.Services.GetSpecialFolder(Services.SpecialFolderConst.CSIDL_APPDATA), mainApplication.ApplicationName)
+                connectionName = System.IO.Path.Combine(ClausSoftware.Tools.Services.GetSpecialFolder(Services.SpecialFolderConst.CSIDL_APPDATA), MainApplication.ApplicationName)
                 If Not System.IO.Directory.Exists(connectionName) Then
                     System.IO.Directory.CreateDirectory(connectionName)
                 End If
@@ -113,7 +113,7 @@ Namespace Tools
             With conn
                 .AliasName = "Standard"
                 .Path = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
-                .Path = System.IO.Path.Combine(.Path, mainApplication.ApplicationName)
+                .Path = System.IO.Path.Combine(.Path, MainApplication.ApplicationName)
                 .BackupPath = System.IO.Path.Combine(.Path, "Backup")
                 .IsDefault = True
                 .Servertype = enumServerType.Access
@@ -335,7 +335,7 @@ Namespace Tools
             Dim binReader As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             binReader.AssemblyFormat = Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
 
-            m_application.SendMessage(m_application.Languages.GetText("ReadingConnectionsList", "Lese Liste der Datenbankverbindungen..."))
+            MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("ReadingConnectionsList", "Lese Liste der Datenbankverbindungen..."))
             Me.ConnectionList.Clear()
 
             If System.IO.File.Exists(ProfileFilename) Then
@@ -523,7 +523,7 @@ Namespace Tools
 
             Dim defaultConnection As New Connection()
             With defaultConnection
-                .AliasName = m_application.Languages.GetText("DefaultConnectionName", "Standard")
+                .AliasName = MainApplication.getInstance.Languages.GetText("DefaultConnectionName", "Standard")
                 .Database = ""
                 .Path = DataPath
                 .Password = Services.GetDBPassword(.Path)
@@ -577,8 +577,8 @@ Namespace Tools
         ''' <remarks></remarks>
         Public Sub ClearAndRefreshAPPID()
             m_DefaultHWLID = ClausSoftware.Tools.Services.GetNewHWLID
-            m_application.Settings.SettingProgrammID = m_DefaultHWLID
-            m_application.Settings.Save()
+            MainApplication.getInstance.Settings.SettingProgrammID = m_DefaultHWLID
+            MainApplication.getInstance.Settings.Save()
         End Sub
 
         ''' <summary>
@@ -639,14 +639,12 @@ Namespace Tools
         ''' <summary>
         ''' Erstellt eine neue Instanz der Klasse. Das Connections-Objekt existiert nur einmal 
         ''' </summary>
-        ''' <param name="application"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal application As mainApplication)
+        Public Sub New()
             Debug.Print("Erstelle neue Instanz von Connections")
 
-            m_application = application
 
-            Dim shortAppName As String = mainApplication.ApplicationName
+            Dim shortAppName As String = MainApplication.ApplicationName
 
             If shortAppName.StartsWith("HWL") Then shortAppName = "HWL1.7"
             If shortAppName.StartsWith("PB") Then shortAppName = "PB1.7"

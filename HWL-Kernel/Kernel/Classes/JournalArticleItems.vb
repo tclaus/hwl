@@ -42,7 +42,7 @@ Namespace Kernel
         ''' </summary>
         ''' <param name="BasisApplikation"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
             MyBase.New(BasisApplikation)
 
             Initialize()
@@ -65,7 +65,7 @@ Namespace Kernel
         ''' <param name="BasisApplikation"></param>
         ''' <param name="criteria"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
             MyBase.New(BasisApplikation, criteria)
 
             Initialize()

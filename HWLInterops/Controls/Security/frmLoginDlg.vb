@@ -5,8 +5,6 @@
 ''' <remarks></remarks>
 Public Class frmLoginDlg
 
-    Private m_application As ClausSoftware.mainApplication
-
     Private m_loginOK As Boolean
 
     ''' <summary>
@@ -22,26 +20,10 @@ Public Class frmLoginDlg
 
     End Property
 
-    ''' <summary>
-    ''' Ruft den Stamm der Applikation ab oder legt diesen fest
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Property Application() As ClausSoftware.mainApplication
-        Get
-            Return m_application
-        End Get
-        Set(ByVal value As ClausSoftware.mainApplication)
-            m_application = value
-        End Set
-    End Property
-
-
 
     Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
-        If m_application.Users.Count > 0 Then
-            Dim loginname As ClausSoftware.Kernel.security.User = m_application.Users.Find(txtUsername.Text)
+        If MainApplication.getInstance.Users.Count > 0 Then
+            Dim loginname As ClausSoftware.Kernel.Security.User = MainApplication.getInstance.Users.Find(txtUsername.Text)
             If loginname IsNot Nothing Then
                 If loginname.CheckPassword(txtPassword.Text) Then
                     m_loginOK = True
@@ -73,7 +55,7 @@ Public Class frmLoginDlg
 
 
     Private Sub frmLoginDlg_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 End Class

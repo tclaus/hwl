@@ -37,7 +37,7 @@ Public Class frmEditCashAccounts
     ''' <remarks></remarks>
     Sub FillMwSt()
 
-        cboMwSt.DataSource = m_application.TaxRates
+        cboMwSt.DataSource = MainApplication.getInstance.TaxRates
         cboMwSt.ValueMember = "ID"
         cboMwSt.DisplayMember = "Displayname"
         cboMwSt.SelectedValue = m_cashAccount.TaxID
@@ -55,7 +55,7 @@ Public Class frmEditCashAccounts
         cboBaseAccount.Items.Add("")  ' das 'leere' Element
         cboBaseAccount.Items.Add("-") ' Trennstrich, danach bginnen die Oberkonten
 
-        For Each account As CashAccount In m_application.CashAccounts.GetBaseAccounts
+        For Each account As CashAccount In MainApplication.getInstance.CashAccounts.GetBaseAccounts
             'If account.ParentID = 0 Then
             cboBaseAccount.Items.Add(account)
             ' End If
@@ -85,7 +85,7 @@ Public Class frmEditCashAccounts
         End If
         If CheckIfExists() Then
             'TODO: NLS
-            MessageBox.Show("Diese Kontonummer wurder bereits vergeben. " & vbCrLf & _
+            MessageBox.Show("Diese Kontonummer wurder bereits vergeben. " & vbCrLf &
                             "Bitte wählen Sie eine andere Kontonummer.", "Kontonummer bereits vergeben", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
 
@@ -103,7 +103,7 @@ Public Class frmEditCashAccounts
     ''' <remarks></remarks>
     Function CheckIfExists() As Boolean
 
-        For Each account As CashAccount In m_application.CashAccounts
+        For Each account As CashAccount In MainApplication.getInstance.CashAccounts
             If account.AccountNumber.Equals(m_cashAccount.AccountNumber, StringComparison.InvariantCultureIgnoreCase) Then
                 If account.ID <> m_cashAccount.ID Then
                     ' Dann gibt es mindestends einen CashAccount, der eine gleiche Kontonummer hat
@@ -117,7 +117,7 @@ Public Class frmEditCashAccounts
 
     Private Sub frmEditCashAccounts_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         txtName.Focus()
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 

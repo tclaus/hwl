@@ -14,14 +14,14 @@ Namespace Kernel.AboItems
         Inherits BaseCollection(Of AboItem)
         Implements IDataCollection
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
 
             Initialize()
         End Sub
 
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As CriteriaOperator)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(BasisApplikation, criteria)
             Initialize()
         End Sub

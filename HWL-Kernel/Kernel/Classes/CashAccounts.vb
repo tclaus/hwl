@@ -20,7 +20,7 @@ Namespace Kernel
         Private m_list As New Dictionary(Of Integer, CashAccount)
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As String)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As String)
 
             MyBase.New(BasisApplikation, CriteriaOperator.Parse(criteria))
 
@@ -29,7 +29,7 @@ Namespace Kernel
         End Sub
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
 

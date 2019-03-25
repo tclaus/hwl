@@ -21,21 +21,18 @@ Public Class iucOptionConnections
 
 
     Public Sub Initialize() Implements IOptionMenue.Initialize
-        If m_application Is Nothing Then
-            m_application = New ClausSoftware.mainApplication
-        End If
 
-        m_application.Connections.ReadConnections()
-        lstConnections.DataSource = m_application.Connections.ConnectionList
+        MainApplication.getInstance.Connections.ReadConnections()
+        lstConnections.DataSource = MainApplication.getInstance.Connections.ConnectionList
         lstConnections.Refresh()
 
-        lstConnections.SelectedItem = m_application.Connections.DefaultConnection
+        lstConnections.SelectedItem = MainApplication.getInstance.Connections.DefaultConnection
 
     End Sub
 
     Private m_showDBOptions As Boolean = True
 
-    <Description("Zeigt Datenbankoptionen an")> _
+    <Description("Zeigt Datenbankoptionen an")>
     Property ShowDatabaseOptions As Boolean
         Get
             Return m_showDBOptions
@@ -52,43 +49,6 @@ Public Class iucOptionConnections
         End Set
     End Property
 
-
-    ''' <summary>
-    ''' Erstellt ein Backup in der Cloud
-    ''' </summary>
-    ''' <remarks></remarks>
-    Friend Sub CreateDataBaseBackup()
-        Exit Sub
-        Dim t As New CloudDatabase.HWLClouldService
-        ' TODO: Hier anhand des Tokens 
-        ' Dim by As Byte() = t.GetDataBaseBackup("simpletest")
-
-        If lstConnections.SelectedItem IsNot Nothing Then
-            ' 208d6a49fb344505b009305e38315996  Joerg_DB_Test auf Cloud-Server
-
-            Try
-                Dim selectedItem As Connection = CType(lstConnections.SelectedItem, Connection)
-                Dim by As Byte() = t.GetDataBaseBackup(selectedItem.Token)
-                Debug.Print(CStr(by.Length))
-
-                ' Probelme: Dauert lange
-                ' Prozess Serverseitig ausgelasetet
-                '  
-                ' WebService Startet lediglich den Dump an, und liefert (später Asynchron) die URL des Zipp-File aus ? 
-
-
-            Catch ex As Exception
-                m_application.Log.WriteLog("Fehler in der Übertragung des Datenbank-Backups: " & ex.Message)
-
-
-            End Try
-
-
-        End If
-
-
-    End Sub
-
     Public Sub Reload() Implements IOptionMenue.Reload
         Initialize()
     End Sub
@@ -101,7 +61,6 @@ Public Class iucOptionConnections
         Initialize()
     End Sub
 
-
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         DeleteSelectedItem()
     End Sub
@@ -110,7 +69,7 @@ Public Class iucOptionConnections
 
         Dim selectedCon As ClausSoftware.Tools.Connection = SelectedConnection
         If selectedCon IsNot Nothing Then
-            If selectedCon.Equals(m_application.Connections.DefaultConnection) Or selectedCon.IsDefault Then
+            If selectedCon.Equals(MainApplication.getInstance.Connections.DefaultConnection) Or selectedCon.IsDefault Then
                 'TODO: NLS
                 MessageBox.Show("Sie können die aktuelle Verbindung nicht löschen", "Kann Verbindung nicht löschen", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
@@ -118,7 +77,7 @@ Public Class iucOptionConnections
 
             'TODO: NLS
             If MessageBox.Show("Möchten Sie die gewählte Verbindung " & selectedCon.AliasName & " wirklich löschen?", "Verbindung löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                m_application.Connections.Remove(selectedCon)
+                MainApplication.getInstance.Connections.Remove(selectedCon)
                 Initialize()
             End If
         End If
@@ -144,10 +103,10 @@ Public Class iucOptionConnections
             If EditItem(selectedCon) = DialogResult.OK Then
 
                 If selectedCon.IsDefault Then
-                    m_application.Connections.DefaultConnection = selectedCon
+                    MainApplication.getInstance.Connections.DefaultConnection = selectedCon
                 End If
 
-                m_application.Connections.SaveConnections()
+                MainApplication.getInstance.Connections.SaveConnections()
             End If
         End If
     End Sub
@@ -168,7 +127,7 @@ Public Class iucOptionConnections
 
         ' besser Die Connection-List als eigen Klasse abspeichern und nur einen Default-eigenschaft definieren
         If connection.IsDefault Then ' die standard-Verbindung erzwingen
-            m_application.Connections.DefaultConnection = connection
+            MainApplication.getInstance.Connections.DefaultConnection = connection
         End If
 
         Return result
@@ -192,11 +151,11 @@ Public Class iucOptionConnections
 
         If EditItem(newConnection) = DialogResult.OK Then
             If newConnection.IsDefault Then
-                m_application.Connections.DefaultConnection = newConnection
+                MainApplication.getInstance.Connections.DefaultConnection = newConnection
             End If
 
-            m_application.Connections.Add(newConnection)
-            'm_application.Connections.SaveClassicConnections()
+            MainApplication.getInstance.Connections.Add(newConnection)
+            'MainApplication.getInstance.Connections.SaveClassicConnections()
             Initialize()
         End If
 
@@ -217,21 +176,17 @@ Public Class iucOptionConnections
 
     Private Sub iucOptionConnections_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Me.DesignMode Then Exit Sub
-        Debug.Print("Status von m_application ist: " & (m_application Is Nothing))
+        Debug.Print("Status von MainApplication.getInstance ist: " & (MainApplication.getInstance Is Nothing))
 
-        If m_application IsNot Nothing Then
-            Dim defaultconnection As Connection = m_application.Connections.DefaultConnection
+        If MainApplication.getInstance IsNot Nothing Then
+            Dim defaultconnection As Connection = MainApplication.getInstance.Connections.DefaultConnection
             If defaultconnection IsNot Nothing Then
                 m_orgConnection = CType(defaultconnection.Clone, Connection)
             End If
         End If
 
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
-    End Sub
-
-    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        Process.Start(constWebServerInfo)
     End Sub
 
     Public Overrides Function ToString() As String
@@ -255,7 +210,7 @@ Public Class iucOptionConnections
     Public ReadOnly Property NeedsRestart As Boolean Implements IOptionMenue.NeedsRestart
         Get
             If m_orgConnection IsNot Nothing Then
-                Return Not m_orgConnection.Equals(m_application.Connections.DefaultConnection)
+                Return Not m_orgConnection.Equals(MainApplication.getInstance.Connections.DefaultConnection)
             Else
                 Return True
             End If
@@ -269,20 +224,20 @@ Public Class iucOptionConnections
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub CreateBackup()
-        m_application.Database.StartBackup("", Me.SelectedConnection)
+        MainApplication.getInstance.Database.StartBackup("", Me.SelectedConnection)
     End Sub
 
     Private Sub btnCreateDBBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCreateDBBackup.Click
         If Me.SelectedConnection IsNot Nothing Then
             Try
-                mainUI.CreateDatabaseBackup(Me.SelectedConnection)
+                MainUI.CreateDatabaseBackup(Me.SelectedConnection)
 
                 If Me.SelectedConnection.Servertype = Tools.enumServerType.MySQL Then
-                    MessageBox.Show("Server-Dump liegt unter " & vbCrLf & _
-                                           m_application.Database.LastBackupPath, "Server-Backup angelegt")
+                    MessageBox.Show("Server-Dump liegt unter " & vbCrLf &
+                                           MainApplication.getInstance.Database.LastBackupPath, "Server-Backup angelegt")
                 End If
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "Database Backup", "Fehler beim Anlegen eines Backups von '" & Me.SelectedConnection.GetConnectionShortDescription & "'")
+                MainApplication.getInstance.log.WriteLog(ex, "Database Backup", "Fehler beim Anlegen eines Backups von '" & Me.SelectedConnection.GetConnectionShortDescription & "'")
             End Try
 
         End If

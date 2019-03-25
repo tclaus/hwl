@@ -19,7 +19,7 @@
         ''' Initializes the Connector and sets up a conenction to the main Kernel
         ''' </summary>
         ''' <remarks></remarks>
-        Sub StartUp(ByVal rootApplication As mainApplication)
+        Sub StartUp(ByVal rootApplication As MainApplication)
 
         ''' <summary>
         ''' Returns the Displayname of this connector

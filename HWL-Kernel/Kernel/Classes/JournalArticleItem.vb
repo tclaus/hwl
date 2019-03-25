@@ -1162,7 +1162,7 @@ Private m_itemMemoText As String = String.Empty
     ''' <remarks></remarks>
     Public Class JournalTaxValuePair
 
-        Private m_mainApplication As mainApplication
+        Private m_mainApplication As MainApplication
 
         Private m_Netto As Decimal
 
@@ -1260,7 +1260,7 @@ Private m_itemMemoText As String = String.Empty
             End Set
         End Property
 
-        Public Sub New(ByVal mainApp As mainApplication)
+        Public Sub New(ByVal mainApp As MainApplication)
             m_mainApplication = mainApp
         End Sub
     End Class

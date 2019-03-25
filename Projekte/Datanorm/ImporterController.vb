@@ -1,7 +1,7 @@
 ﻿
 Public Class ImporterController
 
-    Private m_application As ClausSoftware.mainApplication
+
     Private m_datanorm As New DatanormParser()
     Private m_filenameList As New List(Of SingleFile)
 
@@ -13,9 +13,7 @@ Public Class ImporterController
     Private threadStartParameters As New Threading.ThreadStart(AddressOf StartImport)
     Private threadImportData As Threading.Thread
 
-    Sub New(ByVal mainApplication As ClausSoftware.mainApplication)
-        ' TODO: Complete member initialization 
-        m_application = mainApplication
+    Sub New()
 
         AddHandler m_datanorm.LineRead, AddressOf FireLineRead
         AddHandler m_datanorm.Message, AddressOf FireMessageSent
@@ -27,9 +25,9 @@ Public Class ImporterController
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Friend ReadOnly Property Application As ClausSoftware.mainApplication
+    Friend ReadOnly Property Application As ClausSoftware.MainApplication
         Get
-            Return m_application
+            Return MainApplication.getInstance
         End Get
     End Property
 

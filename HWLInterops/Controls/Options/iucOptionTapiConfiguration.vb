@@ -6,23 +6,23 @@ Public Class iucOptionTapiConfiguration
     Implements IOptionMenue
 
 
-    Private m_mainUI As mainUI
+    Private m_mainUI As MainUI
 
 
     Public Sub Initialize() Implements IOptionMenue.Initialize
-        chkMonitorCAPIDevices.Checked = m_application.Settings.MonitorPhoneLines
+        chkMonitorCAPIDevices.Checked = MainApplication.getInstance.Settings.MonitorPhoneLines
     End Sub
 
     Public Sub Reload() Implements IOptionMenue.Reload
-        m_application.Settings.MonitorPhoneLinesReload()
-        chkMonitorCAPIDevices.Checked = m_application.Settings.MonitorPhoneLines
+        MainApplication.getInstance.Settings.MonitorPhoneLinesReload()
+        chkMonitorCAPIDevices.Checked = MainApplication.getInstance.Settings.MonitorPhoneLines
 
     End Sub
 
     Public Sub Save() Implements IOptionMenue.Save
 
         ' Phone: ein / Ausschalten
-        m_application.Settings.MonitorPhoneLines = chkMonitorCAPIDevices.Checked
+        MainApplication.getInstance.Settings.MonitorPhoneLines = chkMonitorCAPIDevices.Checked
         m_mainUI.Telephony.MonitorPhoneLines = chkMonitorCAPIDevices.Checked
     End Sub
 
@@ -38,11 +38,11 @@ Public Class iucOptionTapiConfiguration
     End Property
 
     Private Sub iucOptionTapiConfiguration_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 
-    Public Sub New(ByVal mainUI As mainUI)
+    Public Sub New(ByVal mainUI As MainUI)
 
         ' This call is required by the designer.
         InitializeComponent()

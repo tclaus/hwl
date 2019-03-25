@@ -23,11 +23,11 @@ Public Class frmAddBarcodeToArticle
     Private Sub IucSearchPanel1_SearchTextChanged(ByVal sender As Object, ByVal e As SearchTextEventArgs) Handles SearchPanelEAN.SearchTextChanged
         Dim Text As String = e.Text
 
-        Dim eanArticle As New ClausSoftware.Kernel.Articles(m_application)
-        eanArticle.CriteriaString = "EAN='" & text & "'"
+        Dim eanArticle As New ClausSoftware.Kernel.Articles(MainApplication.getInstance)
+        eanArticle.CriteriaString = "EAN='" & Text & "'"
 
         ' Zuweisen nur möglich, wenn auch ein Barcode existiert
-        If text.Length > 0 Then
+        If Text.Length > 0 Then
             btnAssign.Enabled = True
         Else
             btnAssign.Enabled = False
@@ -64,14 +64,14 @@ Public Class frmAddBarcodeToArticle
         Dim newArticleForm As New frmQuickArticleAdd
 
 
-        Dim newArticle As ClausSoftware.Kernel.Article = m_application.ArticleList.GetNewItem
+        Dim newArticle As ClausSoftware.Kernel.Article = MainApplication.getInstance.ArticleList.GetNewItem
 
         'den neuen Artikel der aktuell selektierten Grupppe zuweisen
         newArticle.GroupID = GroupsGridBox.SelectedGroupID
         newArticle.EAN = SearchPanelEAN.Text
         newArticleForm.Material = newArticle
         If newArticleForm.ShowDialog = Windows.Forms.DialogResult.OK Then
-            m_application.ArticleList.Add(newArticle)
+            MainApplication.getInstance.ArticleList.Add(newArticle)
             newArticle.Save()
         End If
 
@@ -103,13 +103,13 @@ Public Class frmAddBarcodeToArticle
     Sub AssignArticleToBarcode(ByVal articleKey As String, ByVal ean As String)
 
         ' Prüfe, ob dann doppelte möglicbh wären
-        Dim eanArticle As New ClausSoftware.Kernel.Articles(m_application)
+        Dim eanArticle As New ClausSoftware.Kernel.Articles(MainApplication.getInstance)
         eanArticle.CriteriaString = "EAN='" & ean & "'"
         If eanArticle.Count > 0 Then
             Dim result As DialogResult
 
-            result = MessageBox.Show("Es existiert bereits mindestends ein Artikel mit dieser EAN-Nummer." & vbCrLf & _
-                            "Möchten Sie den neuen Artikel dieser Nummer zuweisen und die EAN-Nummern der anderen Artikel löschen?", _
+            result = MessageBox.Show("Es existiert bereits mindestends ein Artikel mit dieser EAN-Nummer." & vbCrLf &
+                            "Möchten Sie den neuen Artikel dieser Nummer zuweisen und die EAN-Nummern der anderen Artikel löschen?",
                              "Artikel mit der selben EAN gefunden", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
 
             If result = Windows.Forms.DialogResult.Cancel Then Exit Sub
@@ -126,7 +126,7 @@ Public Class frmAddBarcodeToArticle
         End If
         ' neue EAN zuweisen
         Dim article As ClausSoftware.Kernel.Article
-        article = m_application.ArticleList.GetItem(articleKey)
+        article = MainApplication.getInstance.ArticleList.GetItem(articleKey)
         article.EAN = SearchPanelEAN.Text
         article.Save()
 

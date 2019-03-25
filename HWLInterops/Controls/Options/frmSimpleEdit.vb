@@ -20,7 +20,7 @@ Public Class frmSimpleEdit
 
    
     Private Sub SimpleEdit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SimpleEdit.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 End Class

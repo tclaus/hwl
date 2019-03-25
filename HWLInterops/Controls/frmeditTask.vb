@@ -58,7 +58,7 @@ Friend Class frmeditTask
 
 
     Private Sub frmeditTask_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         FillControls()
         txtSubject.Focus()

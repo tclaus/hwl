@@ -30,19 +30,19 @@ Public Class frmAttributesMultiSelecteditor
     End Property
 
     Private Sub frmAttributesMultiSelecteditor_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        If m_application IsNot Nothing Then
-            m_application.Settings.SaveFormsPos(Me)
+        If MainApplication.getInstance IsNot Nothing Then
+            MainApplication.getInstance.Settings.SaveFormsPos(Me)
         End If
     End Sub
 
 
     Private Sub frmAttributesMultiSelecteditor_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        m_selectores = New Kernel.Attributes.MultiSelectProfiles(m_application)
+        m_selectores = New Kernel.Attributes.MultiSelectProfiles(MainApplication.getInstance)
 
         grdSelector.DataSource = m_selectores
-        m_application.Languages.SetTextOnControl(Me)
-        m_application.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
     End Sub
 

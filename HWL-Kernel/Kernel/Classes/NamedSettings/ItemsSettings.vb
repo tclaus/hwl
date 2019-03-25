@@ -8,7 +8,7 @@ Namespace Kernel.NamedSettings
     ''' <remarks></remarks>
     Public Class ItemsSettings
 
-        Private m_mainapplication As mainApplication
+        Private m_mainapplication As MainApplication
 
         ''' <summary>
         ''' Den Kopftext für Artikelgruppen im Auslieferungszustand
@@ -17,7 +17,7 @@ Namespace Kernel.NamedSettings
         Private defaultGroupsHeadertext As String
         Private defaultGroupsFooterText As String
 
-        Public Sub New(ByVal application As mainApplication)
+        Public Sub New(ByVal application As MainApplication)
             m_mainapplication = application
 
             ' Alte Standardtexte

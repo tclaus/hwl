@@ -194,8 +194,8 @@
     <Compile Include="..\CommonAssemblyInfo.vb">
       <Link>CommonAssemblyInfo.vb</Link>
     </Compile>
-    <Compile Include="Database\dbEngine.vb">
-    </Compile>
+    <Compile Include="Database\DbEngine.vb" />
+    <Compile Include="Database\DBResult.vb" />
     <Compile Include="Import\AddIns.vb" />
     <Compile Include="Import\IImportInterface.vb" />
     <Compile Include="Kernel\Classes\AboItems\AboItem.vb" />
@@ -326,9 +326,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Kernel\Classes\TrackedItem.vb" />
-    <Compile Include="Kernel\Classes\Transaction.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Kernel\Classes\Transaction.vb" />
     <Compile Include="Kernel\Classes\Transactions.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -348,7 +346,6 @@
     <Compile Include="Kernel\Classes\WorkItems.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\Data\Licenses.vb" />
     <Compile Include="Kernel\Data\SchemaUpdater.vb" />
     <Compile Include="Kernel\enums.vb" />
     <Compile Include="Kernel\events.vb" />
@@ -356,20 +353,21 @@
     <Compile Include="Kernel\Interfaces\GridFormatter.vb" />
     <Compile Include="Kernel\Interfaces\ISortableItem.vb" />
     <Compile Include="Kernel\Interfaces\IStaticDatabase.vb" />
-    <Compile Include="Kernel\security\UserGroup.vb" />
-    <Compile Include="Kernel\security\UserGroups.vb">
+    <Compile Include="Kernel\MainApplication.vb" />
+    <Compile Include="Kernel\Security\UserGroup.vb" />
+    <Compile Include="Kernel\Security\UserGroups.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\security\SecurityLock.vb" />
-    <Compile Include="Kernel\security\SecurityLocks.vb">
+    <Compile Include="Kernel\Security\SecurityLock.vb" />
+    <Compile Include="Kernel\Security\SecurityLocks.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\security\UserRight.vb" />
-    <Compile Include="Kernel\security\UserRights.vb">
+    <Compile Include="Kernel\Security\UserRight.vb" />
+    <Compile Include="Kernel\Security\UserRights.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\security\User.vb" />
-    <Compile Include="Kernel\security\Users.vb">
+    <Compile Include="Kernel\Security\User.vb" />
+    <Compile Include="Kernel\Security\Users.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="modservices.vb" />
@@ -399,9 +397,7 @@
     <Compile Include="Kernel\Classes\JournalDocuments.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\Classes\CashJournalItem.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Kernel\Classes\CashJournalItem.vb" />
     <Compile Include="Kernel\Classes\CashJournalItems.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -439,7 +435,6 @@
     <Compile Include="Kernel\Classes\Adressen.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\mainApplication.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -462,18 +457,12 @@
     <Compile Include="Tools\Connection.vb" />
     <Compile Include="Tools\enumDocType.vb" />
     <Compile Include="Tools\ErrorHandler.vb" />
-    <Compile Include="Tools\ftpClass.vb" />
     <Compile Include="Tools\StatisticInfo.vb" />
     <Compile Include="Tools\Localisator.vb" />
     <Compile Include="Tools\LogHandling.vb" />
     <Compile Include="Tools\ThumbnailCreator.vb" />
     <Compile Include="Tools\UserStats.vb" />
     <Compile Include="Tools\Services.vb" />
-    <Compile Include="Web References\OnlineReporting\Reference.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\licenses.licx" />
@@ -485,7 +474,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Klassenübersicht.cd" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -495,14 +483,8 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="Web References\OnlineReporting\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.vb</LastGenOutput>
-    </None>
-    <None Include="Web References\OnlineReporting\StatisticsReporting.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="HWL-Developer-Key.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -544,30 +526,15 @@
     <None Include="Resources\no_picture.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Import\readme.txt" />
     <Content Include="MySql.Data.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Web References\OnlineReporting\StatisticsReporting.disco" />
     <None Include="Resources\Final_Demand.vlg" />
     <None Include="Resources\Second_Remind.vlg" />
     <None Include="Resources\First_Remind.vlg" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://83.169.8.193/data/StatisticsReporting.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\OnlineReporting\</RelPath>
-      <UpdateFromURL>http://83.169.8.193/data/StatisticsReporting.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>HWLKernel_OnlineReporting_StatisticsReporting</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

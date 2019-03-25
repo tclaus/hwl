@@ -8,13 +8,13 @@ Namespace AddIns
     ''' <remarks></remarks>
     Public Class AddInManager
 
-        Private m_application As mainApplication
+
 
         ''' <summary>
         ''' Stellt eine Auflistung von Klassen zur Verfügung, die als AddIn genutzt werden können
         ''' </summary>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)>
         Private m_AddInsList As New List(Of AddIns.IImportAddIn)
         ''' <summary>
         ''' Die verlängerung des Basispfades in dem die AddOns (Connectors) enthaltn sind
@@ -44,7 +44,7 @@ Namespace AddIns
             m_AddInsList.Clear()
             m_AddInsList.AddRange(GetAssemblies(My.Application.Info.DirectoryPath)) ' suche im eignen (Anwendungs-Binärpfad
 
-            m_AddInsList.AddRange(GetAssemblies(System.IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyDocuments, mainApplication.ApplicationName))) ' suche in 'eigenen Dokumente\HWL-2'
+            m_AddInsList.AddRange(GetAssemblies(System.IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyDocuments, MainApplication.ApplicationName))) ' suche in 'eigenen Dokumente\HWL-2'
 
         End Sub
 
@@ -61,7 +61,7 @@ Namespace AddIns
 
             Dim addinList As New List(Of AddIns.IImportAddIn)
 
-            m_application.Log.WriteLog("Searching  in """ & searchPathName & """ for AddIns")
+            MainApplication.getInstance.log.WriteLog("Searching  in """ & searchPathName & """ for AddIns")
 
             If Not System.IO.Directory.Exists(searchPathName) Then  ' Pfad vorhanden ? 
                 Debug.Print("  Pfad nicht gefunden oder leer:" & searchPathName)
@@ -79,13 +79,13 @@ Namespace AddIns
                 Try
                     Dim a As Assembly = Assembly.LoadFrom(filename)
 
-                    m_application.Log.WriteLog("  Testing """ & a.GetName.ToString & """ if it has Addin Classes...")
+                    MainApplication.getInstance.log.WriteLog("  Testing """ & a.GetName.ToString & """ if it has Addin Classes...")
 
                     Dim itemFound As Boolean = False
                     For Each addinPoint As Type In a.GetTypes
                         If addinPoint.GetInterface(MyAddinPointTypeName) IsNot Nothing Then
                             Dim connector As AddIns.IImportAddIn = CType(Activator.CreateInstance(addinPoint), ClausSoftware.AddIns.IImportAddIn)
-                            connector.StartUp(m_application)
+                            connector.StartUp(MainApplication.getInstance)
                             addinList.Add(connector)
                             itemFound = True
 
@@ -96,7 +96,7 @@ Namespace AddIns
                         ' entladen nicht unterstützt
                     End If
                 Catch ex As Exception
-                    m_application.Log.WriteLog(Tools.LogSeverity.ErrorMessage, "Error while opening Addin: " & filename & ". ErrorText:' " & ex.Message)
+                    MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.ErrorMessage, "Error while opening Addin: " & filename & ". ErrorText:' " & ex.Message)
                 End Try
             Next
 
@@ -104,15 +104,6 @@ Namespace AddIns
 
         End Function
 
-
-        ''' <summary>
-        ''' Startet eine neue Instanzd er Klasse
-        ''' </summary>
-        ''' <param name="mainApplication"></param>
-        ''' <remarks></remarks>
-        Friend Sub New(ByVal mainApplication As mainApplication)
-            m_application = mainApplication
-        End Sub
     End Class
 
 End Namespace

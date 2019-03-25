@@ -24,8 +24,6 @@ Namespace Kernel
         ''' Ruft einen Typ anhand des DokumentenTyps ab. (Die Datenbank-ID wird hier nicht verwendet!)
         ''' </summary>
         ''' <param name="id">Die Dokumenten - Zugriffsnummer</param>
-        ''' <value></value>
-        ''' <returns></returns>
         ''' <remarks></remarks>
         Function GetByDocumentID(id As Integer) As JournalDocumentType
             If m_dict Is Nothing Then Rebuild()
@@ -44,7 +42,7 @@ Namespace Kernel
         End Function
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
 
@@ -72,7 +70,7 @@ Namespace Kernel
 
         End Sub
 
-        Public Sub New(ByVal baseApplication As mainApplication, ByVal criteria As CriteriaOperator)
+        Public Sub New(ByVal baseApplication As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(baseApplication, criteria)
             Initialize()
 

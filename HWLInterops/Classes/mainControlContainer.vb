@@ -14,7 +14,7 @@ Public Class mainControlContainer
     ''' <remarks></remarks>
     Event DisplayTextChanged(ByVal sender As mainControlContainer, ByVal e As DisplayTextEventArgs)
 
-    Private Shared m_mainUI As mainUI
+    Private Shared m_mainUI As MainUI
 
     ''' <summary>
     '''  Zeigt ein kleines Bild an, das in dern Tabs erscheint. Muss im Arbeitsmodul überschrieben werden
@@ -72,7 +72,7 @@ Public Class mainControlContainer
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared ReadOnly Property MainUI() As mainUI
+    Public Shared ReadOnly Property MainUI() As MainUI
         Get
             Return m_mainUI
         End Get
@@ -83,7 +83,7 @@ Public Class mainControlContainer
     ''' </summary>
     ''' <param name="ui"></param>
     ''' <remarks></remarks>
-    Public Sub New(ByVal ui As mainUI)
+    Public Sub New(ByVal ui As MainUI)
         Me.New()
         Debug.Assert(ui IsNot Nothing, "UI-Klasse darf nicht nothing sein!")
         m_mainUI = ui
