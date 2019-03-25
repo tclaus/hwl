@@ -1,9 +1,0 @@
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\bin\x86\Release\Vista Api.dll
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\bin\x86\Release\Vista Api.pdb
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Release\Vista_Api.CommandDialog.resources
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Release\Vista_Api.CommandLink.resources
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Release\Vista_Api.ListView.resources
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Release\Vista_Api.Properties.Resources.resources
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Release\Vista Api.csproj.GenerateResource.Cache
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Release\Vista Api.dll
-C:\Entwicklung\HWL-NEXT\Main\Vista Api\obj\x86\Release\Vista Api.pdb
