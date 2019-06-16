@@ -10,9 +10,9 @@ Public Class frmImportExportManager
 
     Private Sub frmImportExportManager_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         ' Sprachen der Oberfläche setzen
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
-        lstAddIns.DataSource = m_application.AddIns.AddIns
+        lstAddIns.DataSource = MainApplication.getInstance.AddIns.AddIns
         lstAddIns.DisplayMember = "DisplayName"
 
     End Sub
@@ -44,7 +44,7 @@ Public Class frmImportExportManager
             End If
         Catch ex As Exception
             If item IsNot Nothing Then
-                m_application.Log.WriteLog(Tools.LogSeverity.Critical, "ERROR Starting Addin", "Error while Starting Addin '" & item.DisplayName & "'", ex.Message)
+                MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Critical, "ERROR Starting Addin", "Error while Starting Addin '" & item.DisplayName & "'", ex.Message)
             End If
             MessageBox.Show("Text der Fehlermeldung: " & vbCrLf & ex.Message, "Fehler beim Aufrufen des Addins", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 

@@ -8,8 +8,6 @@
 Friend Class frmErrorMessage
 
     Private m_exception As System.Exception
-    Private m_application As mainApplication
-
 
     Private m_Handler As MainErrorHandler
     Public Property ErrorHandler() As MainErrorHandler
@@ -70,18 +68,18 @@ Friend Class frmErrorMessage
             Trace.TraceWarning("Fehler beim senden der Nachricht! " & e.Error.ToString)
             ' Alternative anbieten ? 
 
-            Dim msgText As String = m_application.Languages.GetText("msgCriticalErrorOccuredWhileSending", "Ein Problem ist aufgetreten beim senden der Daten. " & vbCrLf & _
+            Dim msgText As String = MainApplication.getInstance.Languages.GetText("msgCriticalErrorOccuredWhileSending", "Ein Problem ist aufgetreten beim senden der Daten. " & vbCrLf & _
                                                                     "Bitte benachrichtigen Sie unseren Support." & vbCrLf & _
                                                                      "Text der Fehlermeldung:" & vbCrLf)
-            Dim msgcaption As String = m_application.Languages.GetText("headCriticalErrorOccuredWhileSending", "Konnte Fehlerdaten nicht senden")
+            Dim msgcaption As String = MainApplication.getInstance.Languages.GetText("headCriticalErrorOccuredWhileSending", "Konnte Fehlerdaten nicht senden")
 
             MessageBox.Show(msgText & _
                             "'" & e.Error.Message & "'", msgcaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         Else
 
-            Dim msgText As String = m_application.Languages.GetText("msgThankYouForSendingErrorMessage", "Vielen Dank für das Senden des Berichtes.")
-            Dim msgCaption As String = m_application.Languages.GetText("msgHeadThanksForSendingErrorMessage", "Bericht gesendet")
+            Dim msgText As String = MainApplication.getInstance.Languages.GetText("msgThankYouForSendingErrorMessage", "Vielen Dank für das Senden des Berichtes.")
+            Dim msgCaption As String = MainApplication.getInstance.Languages.GetText("msgHeadThanksForSendingErrorMessage", "Bericht gesendet")
 
             MessageBox.Show(msgText, msgCaption, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         End If
@@ -133,8 +131,8 @@ Friend Class frmErrorMessage
 
     Private Sub frmErrorMessage_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
 
-        Dim caption As String = m_application.Languages.GetText("msgTroubleReports", "Problemberichte")
-        Dim message As String = m_application.Languages.GetText("msgTroubleReportsTest", "Das Programm hatte ein schwerwiegendes Problem und musste beendet werden. Sie können uns aber eine Fehlermeldung senden, mit dessen Hilfe wir versuchen können, das Problem zu beheben. " & vbCrLf & _
+        Dim caption As String = MainApplication.getInstance.Languages.GetText("msgTroubleReports", "Problemberichte")
+        Dim message As String = MainApplication.getInstance.Languages.GetText("msgTroubleReportsTest", "Das Programm hatte ein schwerwiegendes Problem und musste beendet werden. Sie können uns aber eine Fehlermeldung senden, mit dessen Hilfe wir versuchen können, das Problem zu beheben. " & vbCrLf & _
                         "In diesem Fehlerbereicht sind keinerlei persönliche Daten enthalten, sondern lediglich technische Eigenschaften, die zu dem Problem geführt haben könnten." & vbCrLf & _
                         "Alternativ können sie uns auch direkt eine e-Mail senden und das Problem schildern.")
 
@@ -149,14 +147,14 @@ Friend Class frmErrorMessage
 
     End Sub
 
-    Public Sub New(ByVal mainApp As mainApplication)
+    Public Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
-        m_application = mainApp
+
 
         ' Add any initialization after the InitializeComponent() call.
-        mainApp.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 End Class

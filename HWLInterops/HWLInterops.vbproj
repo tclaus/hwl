@@ -272,6 +272,7 @@
     <Compile Include="Classes\mainUI.vb" />
     <Compile Include="Classes\modEnums.vb" />
     <Compile Include="Classes\MRUElements.vb" />
+    <Compile Include="Controls\FixCostUserValues.vb" />
     <Compile Include="Controls\Offers_Invoices\frmRTFItemDescriptionEdit.Designer.vb">
       <DependentUpon>frmRTFItemDescriptionEdit.vb</DependentUpon>
     </Compile>
@@ -600,6 +601,8 @@
     </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Helper\DragDropHelper.vb" />
+    <Compile Include="HWLModulesEnum.vb" />
+    <Compile Include="Main.vb" />
     <Compile Include="Printing\Forms\dlgPrintLetters.Designer.vb">
       <DependentUpon>dlgPrintLetters.vb</DependentUpon>
     </Compile>
@@ -672,6 +675,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="webSites.vb" />
     <Compile Include="XRDesignRibbonControllerResources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1437,7 +1441,6 @@
     <EmbeddedResource Include="Printing\Forms\SimplePrintingTextedit.resx">
       <DependentUpon>SimplePrintingTextedit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <SubType>Designer</SubType>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

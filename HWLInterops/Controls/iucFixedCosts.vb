@@ -10,7 +10,7 @@ Public Class iucFixedCosts
     ''' Enthält die Benutzereingaben
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_userValues As New fixCostUserValues
+    Private m_userValues As New FixCostUserValues
     ''' <summary>
     ''' Gesamtjahreskosten
     ''' </summary>
@@ -68,11 +68,11 @@ Public Class iucFixedCosts
 
 
         Dim m As New System.IO.MemoryStream
-        Dim ser As New System.Xml.Serialization.XmlSerializer(GetType(fixCostUserValues))
+        Dim ser As New System.Xml.Serialization.XmlSerializer(GetType(FixCostUserValues))
         ser.Serialize(m, m_userValues)
 
 
-        m_application.Settings.SetSetting("fixedCostUserValues", "fixedCostsUserValues", m, m_application.CurrentUser.Key)
+        MainApplication.getInstance.Settings.SetSetting("fixedCostUserValues", "fixedCostsUserValues", m, MainApplication.getInstance.CurrentUser.Key)
     End Sub
 
     ''' <summary>
@@ -84,19 +84,19 @@ Public Class iucFixedCosts
             Dim inValue As IO.StringReader
             Dim tmpstr As String
 
-            tmpstr = m_application.Settings.GetSetting("fixedCostUserValues", "fixedCostsUserValues", "", m_application.CurrentUser.Key)
+            tmpstr = MainApplication.getInstance.Settings.GetSetting("fixedCostUserValues", "fixedCostsUserValues", "", MainApplication.getInstance.CurrentUser.Key)
 
             inValue = New IO.StringReader(tmpstr)
 
-            Dim ser As New System.Xml.Serialization.XmlSerializer(GetType(fixCostUserValues))
-            m_userValues = CType(ser.Deserialize(inValue), fixCostUserValues)
+            Dim ser As New System.Xml.Serialization.XmlSerializer(GetType(FixCostUserValues))
+            m_userValues = CType(ser.Deserialize(inValue), FixCostUserValues)
 
         Catch ex As Exception
             Debug.Print("Fehler beim deserialiseren: " & ex.Message) ' egal, dann eben ohne Benutztereinstellungem
         End Try
 
         If m_userValues Is Nothing Then
-            m_userValues = New fixCostUserValues
+            m_userValues = New FixCostUserValues
         End If
 
         With m_userValues
@@ -163,7 +163,7 @@ Public Class iucFixedCosts
     Private Sub iucFixedCosts_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         If DesignMode Then Exit Sub
 
-        m_application.FixedCosts.Reload()
+        MainApplication.getInstance.FixedCosts.Reload()
         UicCommonGrid1.Context = "FixedCosts"
         UicCommonGrid1.Editable = False
         UicCommonGrid1.SetDataSource(DataSourceList.FixedCosts)
@@ -227,7 +227,7 @@ Public Class iucFixedCosts
     ''' <remarks></remarks>
     Private Sub BeforeCreateNewItem(ByVal sender As Object, ByVal e As CreateItemArgs)
         e.Cancel = True
-        Dim item As FixedCost = m_application.FixedCosts.GetNewItem()
+        Dim item As FixedCost = MainApplication.getInstance.FixedCosts.GetNewItem()
         OpenSelectedItem(item)
     End Sub
 
@@ -262,12 +262,12 @@ Public Class iucFixedCosts
                 If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
 
                 item.Save()
-                m_application.FixedCosts.Reload()
+                MainApplication.getInstance.FixedCosts.Reload()
                 UicCommonGrid1.RefreshData()
                 FillSumFields()
             End If
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Error in fixCost Details", "Fehler beim anzeigen der Fixkostendetails")
+            MainApplication.getInstance.Log.WriteLog(ex, "Error in fixCost Details", "Fehler beim anzeigen der Fixkostendetails")
         End Try
 
     End Sub
@@ -280,7 +280,7 @@ Public Class iucFixedCosts
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 
@@ -485,118 +485,4 @@ Public Class iucFixedCosts
     Private Sub lblFixedCostMinutesPerHourValue_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblFixedCostMinutesPerHourValue.TextChanged
         CostPerMinuteDivided()
     End Sub
-End Class
-
-''' <summary>
-''' Enthält die Werte, die der Anwender in fioxkosten eingegben hat
-''' </summary>
-''' <remarks></remarks>
-<Serializable()> _
-Public Class fixCostUserValues
-
-    Private m_MonthPerYear As Decimal = 12
-
-    Private m_daysPerMonth As Decimal = 20
-
-    Private m_hoursPerDay As Decimal = 8
-
-    Private m_minutesPerHour As Decimal = 60
-
-
-    Private m_WorkersPerYear As Decimal = 1
-
-    Private m_workersPerMonth As Decimal = 1
-
-    Private m_workersPerDay As Decimal = 1
-
-    Private m_workersPerHour As Decimal = 1
-
-    Private m_workersPerMinute As Decimal = 1
-
-    Public Property WorkersPerMinute() As Decimal
-        Get
-            Return m_workersPerMinute
-        End Get
-        Set(ByVal value As Decimal)
-            m_workersPerMinute = value
-        End Set
-    End Property
-
-    Public Property WorkersPerHour() As Decimal
-        Get
-            Return m_workersPerHour
-        End Get
-        Set(ByVal value As Decimal)
-            m_workersPerHour = value
-        End Set
-    End Property
-
-    Public Property WorkersPerDay() As Decimal
-        Get
-            Return m_workersPerDay
-        End Get
-        Set(ByVal value As Decimal)
-            m_workersPerDay = value
-        End Set
-    End Property
-
-    Public Property WorkersPerMonth() As Decimal
-        Get
-            Return m_workersPerMonth
-        End Get
-        Set(ByVal value As Decimal)
-            m_workersPerMonth = value
-        End Set
-    End Property
-
-    Public Property WorkersPerYear() As Decimal
-        Get
-            Return m_WorkersPerYear
-        End Get
-        Set(ByVal value As Decimal)
-            m_WorkersPerYear = value
-        End Set
-    End Property
-
-
-    Public Property MinutesPerHour() As Decimal
-        Get
-            Return m_minutesPerHour
-        End Get
-        Set(ByVal value As Decimal)
-            m_minutesPerHour = value
-        End Set
-    End Property
-
-    Public Property HoursPerDay() As Decimal
-        Get
-            Return m_hoursPerDay
-        End Get
-        Set(ByVal value As Decimal)
-            m_hoursPerDay = value
-        End Set
-    End Property
-
-    Public Property DaysPerMonth() As Decimal
-        Get
-            Return m_daysPerMonth
-        End Get
-        Set(ByVal value As Decimal)
-            m_daysPerMonth = value
-        End Set
-    End Property
-
-    Public Property MonthPerYear() As Decimal
-        Get
-            Return m_MonthPerYear
-        End Get
-        Set(ByVal value As Decimal)
-            m_MonthPerYear = value
-        End Set
-    End Property
-
-    Public Sub New()
-
-    End Sub
-
 End Class

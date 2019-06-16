@@ -6,7 +6,7 @@ Namespace Telephony
 
     Public Class frmCallNotification
 
-        Private m_mainUI As mainUI
+        Private m_mainUI As MainUI
 
         Private m_callInfo As PhoneCall
 
@@ -57,7 +57,7 @@ Namespace Telephony
 
             'PictureEdit1.Image = My.Resources.telephone_48x48
 
-            m_application.Languages.SetTextOnControl(Me)
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         End Sub
 
@@ -66,7 +66,7 @@ Namespace Telephony
             ' Nur das Adressbuch 
             If Me.CallInfo.CallerAddress IsNot Nothing Then
 
-                'Dim newAdressentry As Adress = m_application.Adressen.GetNewItem
+                'Dim newAdressentry As Adress = MainApplication.getInstance.Adressen.GetNewItem
                 'newAdressentry.Telefon1 = "0" & Me.CallInfo.CallingID ' Führende Null angeben
                 'Me.CallInfo.CallerAddress = newAdressentry
                 m_mainUI.OpenElementWindow(Me.CallInfo.CallerAddress)
@@ -84,7 +84,7 @@ Namespace Telephony
         ''' </summary>
         ''' <param name="thisMainUI"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal thisMainUI As mainUI)
+        Public Sub New(ByVal thisMainUI As MainUI)
 
             ' Dieser Aufruf ist für den Windows Form-Designer erforderlich.
             InitializeComponent()

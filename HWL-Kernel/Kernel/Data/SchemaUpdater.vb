@@ -8,13 +8,8 @@ Namespace Data
     ''' <remarks></remarks>
     Public Class SchemaUpdater
 
-
-        Dim m_application As mainApplication
         Dim m_lastError As String = String.Empty
 
-        Sub New(ByVal mainApplication As mainApplication)
-            m_application = mainApplication
-        End Sub
 
         ''' <summary>
         ''' Aktualisiert die Datenbank und räumt liegengelassene Daten auf. Versionsunabhängig, kann immer durchgeführt werden
@@ -49,26 +44,26 @@ Namespace Data
 
 
             Try
-                m_application.SendMessage("Bereinige Datenbank...") 'TODO: NLS
+                MainApplication.getInstance.SendMessage("Bereinige Datenbank...") 'TODO: NLS
                 ' Leere Bilder entsorgen
                 sql = "delete FROM " & ImageData.TableName & " where data is null"
-                m_application.Database.ExcecuteNonQuery(sql)
+                MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
 
                 sql = " UPDATE " & Article.TableName & " SET intartnummer=ID WHERE intartnummer is null or intartnummer=''"
-                m_application.Database.ExcecuteNonQuery(sql)
+                MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
 
                 Debug.Print("Vater-ID von JournalArtikel ermitteln")
                 sql = "Update Items I,Positions P SET I.ParentItemID= P.ReplikID where P.Nummer = I.LfndNUmmer AND I.Status=P.Status And I.Seite=P.Seite AND (I.ParentItemID is null or I.ParentItemID='')"
-                m_application.Database.ExcecuteNonQuery(sql)
+                MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
 
                 Debug.Print("Vater-ID von JournalGruppen setzen")
                 sql = "Update JournalListe J, Positions P SET P.ParentItemID = J.ReplikID WHERE P.Nummer=J.lfndNUmmer AND P.Status=J.Status AND J.ForPrinting=0 AND  (P.ParentItemID ='' or P.ParentItemID is NULL)"
-                m_application.Database.ExcecuteNonQuery(sql)
+                MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
 
                 ' Aus den Properties die alten Udpate-Hinweise entfernen, da nun etwas anders gemanaged
                 Debug.Print("Aus den Properties mit Skope Update entfernen, da nun lokal gemanaged")
                 sql = "DELETE FROM PROPERTIES where Skope='Update' and (Name='LastUpdate' or Name='Interval')  "
-                m_application.Database.ExcecuteNonQuery(sql)
+                MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
 
                 ' Artikel mit falsch gesetzter >Interner Artikelnummer ensorgen
 
@@ -78,19 +73,19 @@ Namespace Data
                 ' 1. Alle Dateileichen einsammeln; 
                 ' 2. Aus den Material_Bildern löschen
                 sql = "Delete from material_bilder where verweisID not in (SELECT  ReplikID from materialliste)"
-                If m_application.Database.ExcecuteNonQuery(sql) > 0 Then
-                    If m_application.Connections.WorkConnection.Servertype = Tools.enumServerType.MySQL Then
+                If MainApplication.getInstance.Database.ExcecuteNonQuery(sql) > 0 Then
+                    If MainApplication.getInstance.Connections.WorkConnection.Servertype = Tools.enumServerType.MySQL Then
                         sql = "OPTIMIZE TABLE material_bilder "
                         Dim result As Integer
-                        result = m_application.Database.ExcecuteNonQuery(sql)
-                        m_application.SendMessage(result & " alte Artikelbilder ohne Artikel entfernt") 'TODO: NLS
+                        result = MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
+                        MainApplication.getInstance.SendMessage(result & " alte Artikelbilder ohne Artikel entfernt") 'TODO: NLS
                     End If
                 End If
 
                 'Dateileichen: Attachmentverknüpfungen ohne Attacjtachment
-                sql = "select ar.ID from attachmentsrelations ar LEFT JOIN attachments a ON ar.targetID = a.replikID" & _
+                sql = "select ar.ID from attachmentsrelations ar LEFT JOIN attachments a ON ar.targetID = a.replikID" &
                 " where a.replikID Is null "
-                Dim dt As DataTable = m_application.Database.GetData(sql)
+                Dim dt As DataTable = MainApplication.getInstance.Database.GetData(sql)
                 If dt.Rows.Count > 0 Then
                     Dim sqlDeleteRelation As String = "DELETE FROM " & AttachmentsRelation.Tablename & " WHERE ID in("
                     For Each item As DataRow In dt.Rows
@@ -99,9 +94,9 @@ Namespace Data
                     Next
                     sqlDeleteRelation &= "-1)"
                     Dim result As Integer
-                    result = m_application.Database.ExcecuteNonQuery(sqlDeleteRelation)
+                    result = MainApplication.getInstance.Database.ExcecuteNonQuery(sqlDeleteRelation)
 
-                    m_application.SendMessage(result & " alte Anhangsverknüpfungen gelöscht")
+                    MainApplication.getInstance.SendMessage(result & " alte Anhangsverknüpfungen gelöscht")
 
                 End If
 
@@ -115,7 +110,7 @@ Namespace Data
                 Debug.Print("ReorgDatabase: SQL=" & sql & ex.Message)
 
             Finally
-                m_application.SendMessage("")
+                MainApplication.getInstance.SendMessage("")
             End Try
 
         End Sub
@@ -124,8 +119,8 @@ Namespace Data
             Dim c As IDbCommand = s.DataLayer.CreateCommand
             Try
                 ' AttachmentRelations: ein Index kam später hinzu, könnte sein, das dieser nicht angelegt werden kann
-                Dim sql As String = "SELECT count(*),sourceid,targetid FROM attachmentsrelations" & _
-                                                    " group by sourceid,targetid" & _
+                Dim sql As String = "SELECT count(*),sourceid,targetid FROM attachmentsrelations" &
+                                                    " group by sourceid,targetid" &
                                                     " Having count(*)>1"
                 c.CommandText = sql
                 Dim dt As New DataTable
@@ -147,7 +142,7 @@ Namespace Data
                 Loop While dt.Rows.Count > 0
 
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "Fehler beim reparieren von Anhangs-Verknüpfungen", "LastChanceRepairTables")
+                MainApplication.getInstance.Log.WriteLog(ex, "Fehler beim reparieren von Anhangs-Verknüpfungen", "LastChanceRepairTables")
             End Try
 
         End Sub
@@ -158,8 +153,8 @@ Namespace Data
         ''' <remarks></remarks>
         Sub StartUpdate()
 
-            m_application.StartMarqueeBar()
-            m_application.SendMessage(m_application.Languages.GetText("UpdatingDatabase", "Aktualisiere Datenbank..."))
+            MainApplication.getInstance.StartMarqueeBar()
+            MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("UpdatingDatabase", "Aktualisiere Datenbank..."))
             Dim dbVersion As String = "1.7.1740"  'Initialer Startwert
             Try
                 Dim resultCount As Integer
@@ -168,7 +163,7 @@ Namespace Data
                 Dim lastKnownVersion As String
 
                 ' DB-Verbindung erstellen, um Datenbank-Update zu machen
-                Dim conn As String = Tools.Connections.GetConnectionString(m_application.Connections.WorkConnection)
+                Dim conn As String = Tools.Connections.GetConnectionString(MainApplication.getInstance.Connections.WorkConnection)
                 Using dl As IDataLayer = XpoDefault.GetDataLayer(conn, DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema)
 
 
@@ -179,43 +174,43 @@ Namespace Data
 
 
 
-                        If m_application.Session IsNot Nothing Then
-                            If m_application.Session.Connection IsNot Nothing Then
-                                m_application.Session.Connection.Close()
+                        If MainApplication.getInstance.Session IsNot Nothing Then
+                            If MainApplication.getInstance.Session.Connection IsNot Nothing Then
+                                MainApplication.getInstance.Session.Connection.Close()
                             End If
                         End If
 
                         'IMPORTANT 1.5 Prüfung woanders machen ! - Zumindest mit einer anderen Connection!
 
-                        Dim retValue As Object = m_application.Database.ExcecuteScalar("SELECT VersionID FROM HWLVERSION")
+                        Dim retValue As Object = MainApplication.getInstance.Database.ExcecuteScalar("SELECT VersionID FROM HWLVERSION")
                         If TypeOf retValue Is String Then
 
                             lastKnownVersion = CStr(retValue)
 
                             If CStr(retValue).StartsWith("1.5") Then
 
-                                m_application.Log.WriteLog("Kann Datenbank nicht aktualisieren. Gelesene Datenbank ist: " & CStr(retValue))
+                                MainApplication.getInstance.Log.WriteLog("Kann Datenbank nicht aktualisieren. Gelesene Datenbank ist: " & CStr(retValue))
 
-                                Throw New Exception(m_application.Languages.GetText("msgInitialHWL1.7 Database needed.", "Eine 1.7er Datenbank wird für das Update benötigt. " & vbCrLf & _
-                                                    "Installieren Sie erst eine 1.7 Version und starten diese, bevor Sie {appname}-2 starten." & vbCrLf & vbCrLf & _
+                                Throw New Exception(MainApplication.getInstance.Languages.GetText("msgInitialHWL1.7 Database needed.", "Eine 1.7er Datenbank wird für das Update benötigt. " & vbCrLf &
+                                                    "Installieren Sie erst eine 1.7 Version und starten diese, bevor Sie {appname}-2 starten." & vbCrLf & vbCrLf &
                                                     "Aktuelle Datenbank ist: '" & CStr(retValue) & "'"))
                             Else
-                                m_application.UserStats.SendStatistics("DBVersion before Update", CStr(retValue))
+                                MainApplication.getInstance.UserStats.SendStatistics("DBVersion before Update", CStr(retValue))
                             End If
                         Else
                             ' entweder kompltt leere Datenbank oder ein anderes Problem ist aufgereten
-                            m_application.Log.WriteLog("Tabelle HWLVersion nicht gefunden und kein Eintrag orhanden!")
+                            MainApplication.getInstance.Log.WriteLog("Tabelle HWLVersion nicht gefunden und kein Eintrag orhanden!")
                         End If
 
 
                         Dim assemblies As System.Reflection.Assembly() = New System.Reflection.Assembly() _
-                            {GetType(mainApplication).Assembly}
-                        m_application.SendMessage("Aktualisiere Datenbankschema...") 'TODo: NLS
+                            {GetType(MainApplication).Assembly}
+                        MainApplication.getInstance.SendMessage("Aktualisiere Datenbankschema...") 'TODo: NLS
 
                         ' Ein Backup anlegen, bevor das Schema auf "2.0" aktualisiert wird
                         If TypeOf retValue Is String Then ' Kann sein, das kein return wert angegeben wurde
                             If CStr(retValue).StartsWith("1") Then
-                                m_application.Database.StartBackup(CStr(retValue), m_application.Connections.WorkConnection)
+                                MainApplication.getInstance.Database.StartBackup(CStr(retValue), MainApplication.getInstance.Connections.WorkConnection)
                             End If
                         End If
 
@@ -228,7 +223,7 @@ Namespace Data
                     dl.Connection.Close()
                 End Using
 
-                m_application.Database.CloseConnection()
+                MainApplication.getInstance.Database.CloseConnection()
 
                 System.Windows.Forms.Application.DoEvents()
 
@@ -236,33 +231,33 @@ Namespace Data
 
                 ReorgDatabase(lastKnownVersion)
                 ' Hier nun die eigentliche session bauen 
-                m_application.SetSession(XpoHelper.GetNewSession)
+                MainApplication.getInstance.SetSession(XpoHelper.GetNewSession)
 
-                Dim dbCommand As IDbCommand = m_application.Database.GetConnection.CreateCommand
+                Dim dbCommand As IDbCommand = MainApplication.getInstance.Database.GetConnection.CreateCommand
 
-                dbVersion = m_application.DBVersion
+                dbVersion = MainApplication.getInstance.DBVersion
                 Debug.Print("Prüfe Datenbankschema auf Aktualität. Aktuelle Datenversion ist: " & dbVersion)
 
                 ' Lesen vor dem Update
-                m_application.Database.GenerateDatabaseSchema()
+                MainApplication.getInstance.Database.GenerateDatabaseSchema()
 
 
                 ' Daten aktualisieren. Bei Neuinstallierung fängt die Versionsnummer bei "2.0.0" an - keine Alten daten vorhanden
                 If dbVersion >= "1.7.1740" Then
-                    m_application.SendMessage(m_application.Languages.GetText("UpdatingFrom1.7.1740", "Aktualisiere Datenbank ab Version 1.7.1740..."))
+                    MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("UpdatingFrom1.7.1740", "Aktualisiere Datenbank ab Version 1.7.1740..."))
 
                     '    If dbCommand Is Nothing Then System.Windows.Forms.MessageBox.Show("DBCommand is nothing")
 
                     If dbVersion < "1.7.1749" Then
                         ' Bilder-Verweise reparieren
-                        sql = "update Material_Bilder M,Materialliste ML SET M.VerweisID=ML.ReplikID" & _
+                        sql = "update Material_Bilder M,Materialliste ML SET M.VerweisID=ML.ReplikID" &
         " where ML.BildID = M.ReplikID AND M.VerweisID =''"
 
                         dbCommand.CommandText = sql
                         dbCommand.ExecuteNonQuery()
 
                         ' Artikel Aktivieren
-                        sql = "update Materialliste SET IsActive=True" & _
+                        sql = "update Materialliste SET IsActive=True" &
                            " where IsActive is null or  IsActive =False"
 
                         dbCommand.CommandText = sql
@@ -270,7 +265,7 @@ Namespace Data
 
 
                         ' Adressen aktivieren
-                        sql = "update Adressen SET IsActive=True" & _
+                        sql = "update Adressen SET IsActive=True" &
    " where IsActive is null or  IsActive =False"
 
                         dbCommand.CommandText = sql
@@ -320,19 +315,19 @@ Namespace Data
                         dbCommand.ExecuteNonQuery()
 
                         dbVersion = "1.7.1749"
-                        m_application.DBVersion = dbVersion
+                        MainApplication.getInstance.DBVersion = dbVersion
                     End If
                 End If
                 If dbVersion < "2.00.0000" Then
-                    m_application.SendMessage(m_application.Languages.GetText("UpdatingFrom2.0", "Aktualisiere Datenbank ab Version 2.0.0..."))
+                    MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("UpdatingFrom2.0", "Aktualisiere Datenbank ab Version 2.0.0..."))
 
 
                     ' Adressbuch hat zusätzliche Spalten erhalten mit Datum und Änderungsdatum => Übertragen
                     Try
                         Dim actualNumber, count As Integer
-                        count = m_application.Adressen.Count
-                        ' m_application.Adressen.Session.BeginTransaction()
-                        For Each item As Adress In m_application.Adressen
+                        count = MainApplication.getInstance.Adressen.Count
+                        ' MainApplication.getInstance.Adressen.Session.BeginTransaction()
+                        For Each item As Adress In MainApplication.getInstance.Adressen
 
                             Date.TryParse(item.Datum, item.CreatedAt)
                             Date.TryParse(item.LastChanged, item.ChangedAt)
@@ -340,44 +335,44 @@ Namespace Data
                             item.SavewithoutTracking()
 
                             actualNumber += 1
-                            m_application.SendMessage("Aktualisiere Adressbuch (Datum der letzten Änderung): " & actualNumber & "/" & count & ".", True) 'TODO:NLS
+                            MainApplication.getInstance.SendMessage("Aktualisiere Adressbuch (Datum der letzten Änderung): " & actualNumber & "/" & count & ".", True) 'TODO:NLS
 
                         Next
-                        'm_application.Adressen.Session.CommitTransaction()
+                        'MainApplication.getInstance.Adressen.Session.CommitTransaction()
 
                     Catch ex As Exception
                         Debug.Print("Fehler in Version 2.00:" & ex.Message)
                     End Try
 
                     dbVersion = "2.00.0000"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0001" Then
-                    m_application.SendMessage(m_application.Languages.GetText("UpdatingFrom2.01", "Aktualisiere Datenbank ab Version 2.0.1..."))
+                    MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("UpdatingFrom2.01", "Aktualisiere Datenbank ab Version 2.0.1..."))
                     ' die Steuerdaten der Artikel rübernehmen!
 
                     ' Vorab schon die Daten laden; sonst klappt es nicht mit dem Update !
-                    m_application.JournalDocuments.Load()
-                    m_application.TaxRates.Load()
+                    MainApplication.getInstance.JournalDocuments.Load()
+                    MainApplication.getInstance.TaxRates.Load()
 
-                    Dim count As Integer = m_application.JournalDocuments.Count
+                    Dim count As Integer = MainApplication.getInstance.JournalDocuments.Count
                     Dim actualNumber As Integer
 
 
                     ' Installationsdateum zurückseten !
                     Dim licenseCode As String
-                    If mainApplication.ApplicationName.StartsWith("HWL") Then
+                    If MainApplication.ApplicationName.StartsWith("HWL") Then
                         licenseCode = Licenses.m_licenseItemHWL.GUID()
                     Else
                         licenseCode = Licenses.m_licenseItemPB.GUID()
                     End If
                     ' installationsdatum zurückseten , bei neuinstallation
-                    m_application.Settings.SetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
+                    MainApplication.getInstance.Settings.SetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
 
 
 
-                    For Each journalDocument As JournalDocument In m_application.JournalDocuments
+                    For Each journalDocument As JournalDocument In MainApplication.getInstance.JournalDocuments
                         For Each pos As JournalArticleGroup In journalDocument.ArticleGroups
 
                             For posItemID As Integer = 0 To pos.ArticleList.Count - 1
@@ -392,34 +387,34 @@ Namespace Data
                             Next
                         Next
                         actualNumber += 1
-                        m_application.SendMessage("Aktualisiere Journaldaten: " & actualNumber & "/" & count & ".", True) 'TODO:NLS
+                        MainApplication.getInstance.SendMessage("Aktualisiere Journaldaten: " & actualNumber & "/" & count & ".", True) 'TODO:NLS
                     Next
 
-                    m_application.SendMessage("Journaldaten aktualisiert.") 'TODO:NLS
+                    MainApplication.getInstance.SendMessage("Journaldaten aktualisiert.") 'TODO:NLS
 
                     ' Nun das Steuer-Bit setzen, damit werden Artikel nur in Netto PLUS MwSt oder Brutto Ink MwSt angezeigt
 
-                    m_application.SendMessage("Aktualisiere Steuerdaten...") 'TODO:NLS
+                    MainApplication.getInstance.SendMessage("Aktualisiere Steuerdaten...") 'TODO:NLS
 
                     actualNumber = 0
-                    m_application.EndMarqueeBar()
-                    For Each item As JournalDocument In m_application.JournalDocuments
-                        item.ShowWithoutTax = m_application.Settings.ItemsSettings.ShowWithoutTax
+                    MainApplication.getInstance.EndMarqueeBar()
+                    For Each item As JournalDocument In MainApplication.getInstance.JournalDocuments
+                        item.ShowWithoutTax = MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax
                         item.Plainsave()
                         actualNumber += 1
-                        m_application.SendMessage("Aktualisiere Journaldaten (Steuerdaten) : " & actualNumber & "/" & count & ".", True) 'TODO:NLS
+                        MainApplication.getInstance.SendMessage("Aktualisiere Journaldaten (Steuerdaten) : " & actualNumber & "/" & count & ".", True) 'TODO:NLS
 
                     Next
-                    m_application.StartMarqueeBar()
+                    MainApplication.getInstance.StartMarqueeBar()
 
 
                     dbVersion = "2.00.0001"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 'Targettype
                 If dbVersion < "2.00.0002" Then
-                    m_application.SendMessage(m_application.Languages.GetText("UpdatingFrom2.02", "Aktualisiere Datenbank ab Version 2.0.2..."))
+                    MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("UpdatingFrom2.02", "Aktualisiere Datenbank ab Version 2.0.2..."))
 
 
                     ' Kassebuchsteuersätze übernehmen Sterern /Werte Paare zusammensetzen
@@ -428,46 +423,46 @@ Namespace Data
                     dbCommand.ExecuteNonQuery()
 
                     dbVersion = "2.00.0002"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0003" Then
-                    m_application.SendMessage(m_application.Languages.GetText("UpdatingFrom2.03", "Aktualisiere Datenbank ab Version 2.0.3..."))
+                    MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("UpdatingFrom2.03", "Aktualisiere Datenbank ab Version 2.0.3..."))
 
                     ' Alte Mahnungen gibt es nicht mehr !
 
                     dbVersion = "2.00.0003"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0004" Then
                     ' Geschäftsvorfälle ...
                     'TODo: NLS
-                    m_application.SendMessage("Aktualisiere Geschäftsvorfälle-Übersicht...") 'TODO:NLS
+                    MainApplication.getInstance.SendMessage("Aktualisiere Geschäftsvorfälle-Übersicht...") 'TODO:NLS
                     Dim id, maxvalue As Integer
-                    maxvalue = m_application.JournalDocuments.Count
+                    maxvalue = MainApplication.getInstance.JournalDocuments.Count
 
-                    For Each item As JournalDocument In m_application.JournalDocuments
+                    For Each item As JournalDocument In MainApplication.getInstance.JournalDocuments
                         item.SetHistoryItem()
                         id += 1
-                        m_application.SendProgress("Journal-Historie erzeugen: " & id & "/" & maxvalue, id, maxvalue)
+                        MainApplication.getInstance.SendProgress("Journal-Historie erzeugen: " & id & "/" & maxvalue, id, maxvalue)
                     Next
 
                     dbVersion = "2.00.0004"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0005" Then
                     ' Geschäftsvorfälle ...
-                    m_application.SendMessage("Aktualisiere ""Erstellt am / Geändert am"" - Daten der Artikelliste ...") 'TODO:NLS
+                    MainApplication.getInstance.SendMessage("Aktualisiere ""Erstellt am / Geändert am"" - Daten der Artikelliste ...") 'TODO:NLS
 
                     Dim maxvalue As Integer
-                    maxvalue = m_application.ArticleList.Count
+                    maxvalue = MainApplication.getInstance.ArticleList.Count
 
 
                     For n As Integer = 0 To maxvalue - 1
 
-                        Dim item As Article = m_application.ArticleList(n)
+                        Dim item As Article = MainApplication.getInstance.ArticleList(n)
 
                         Dim changedAt As Date
                         If Date.TryParse(item.ChangedAtOld, changedAt) Then
@@ -486,28 +481,28 @@ Namespace Data
 
                         If n Mod 10 = 0 Then
                             'TODO: NLS
-                            m_application.SendProgress("Artikel geändert: " & n & "/" & maxvalue, n, maxvalue)
+                            MainApplication.getInstance.SendProgress("Artikel geändert: " & n & "/" & maxvalue, n, maxvalue)
                         End If
 
                     Next
 
 
                     dbVersion = "2.00.0005"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
                 If dbVersion < "2.00.0006" Then
 
 
 
                     dbVersion = "2.00.0006"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0007" Then
-                    m_application.SendMessage("Aktualisiere Datenbank ab Version 2.0.7...") 'TODO:NLS
+                    MainApplication.getInstance.SendMessage("Aktualisiere Datenbank ab Version 2.0.7...") 'TODO:NLS
 
-                    m_application.SendMessage("Setze Zahlungen in Forderungen/Verbindlichkeiten...")
-                    Dim dps As New DownPayments(m_application)
+                    MainApplication.getInstance.SendMessage("Setze Zahlungen in Forderungen/Verbindlichkeiten...")
+                    Dim dps As New DownPayments(MainApplication.getInstance)
                     Dim enUS As New Globalization.CultureInfo("en-US")
 
                     Dim itemcounter As Integer
@@ -517,7 +512,7 @@ Namespace Data
 
                         Dim newPaidDate As Date
 
-                        If m_application.Connections.DefaultConnection.Servertype = Tools.enumServerType.MySQL Then
+                        If MainApplication.getInstance.Connections.DefaultConnection.Servertype = Tools.enumServerType.MySQL Then
                             ' im server-Format hinterlegt
                             If Date.TryParseExact(item.Datum, "MM/dd/yyyy hh:mm:ss", enUS, Globalization.DateTimeStyles.None, newPaidDate) Then
                                 item.PaidDate = newPaidDate
@@ -542,15 +537,15 @@ Namespace Data
                     dps = Nothing
 
                     Dim n, maxvalue As Integer
-                    maxvalue = m_application.Transactions.Count
+                    maxvalue = MainApplication.getInstance.Transactions.Count
 
-                    For Each item As Transaction In m_application.Transactions
+                    For Each item As Transaction In MainApplication.getInstance.Transactions
                         If item.IsPaidInternal Then
                             If item.GetDownPayments.Count = 0 Then
                                 Dim newdp As DownPayment = item.GetDownPayments.GetNewItem
                                 newdp.Ammount = item.TotalAmmount
                                 newdp.PaidDate = item.PaidDate
-                                newdp.Description = m_application.Languages.GetText("paid", "Bezahlt")
+                                newdp.Description = MainApplication.getInstance.Languages.GetText("paid", "Bezahlt")
                                 newdp.ParentTransaction = item
                                 newdp.Save()
                             End If
@@ -558,13 +553,13 @@ Namespace Data
                         n += 1
                         If n Mod 10 = 0 Then
                             'TODO: NLS
-                            m_application.SendProgress("Artikel geändert: " & n & "/" & maxvalue, n, maxvalue)
+                            MainApplication.getInstance.SendProgress("Artikel geändert: " & n & "/" & maxvalue, n, maxvalue)
                         End If
 
                     Next
 
                     dbVersion = "2.00.0007"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
 
@@ -574,7 +569,7 @@ Namespace Data
                     ' Hilfstabelle anlegen 
                     Dim jLIste As New Dictionary(Of Integer, JournalDocument)
 
-                    For Each item As JournalDocument In m_application.JournalDocuments
+                    For Each item As JournalDocument In MainApplication.getInstance.JournalDocuments
                         If item.DocumentType = enumJournalDocumentType.Rechnung Then
                             ' Fehler absichern - kann sein, das das Dokument bereits existiert
                             If Not jLIste.ContainsKey(item.DocumentID) Then
@@ -585,13 +580,13 @@ Namespace Data
 
                     Next
 
-                    m_application.Transactions.Session = m_application.GetNewSession
-                    m_application.Transactions.Reload()
+                    MainApplication.getInstance.Transactions.Session = MainApplication.getInstance.GetNewSession
+                    MainApplication.getInstance.Transactions.Reload()
 
                     Dim n, maxValue As Integer
-                    maxValue = m_application.Transactions.Count
+                    maxValue = MainApplication.getInstance.Transactions.Count
 
-                    For Each item As Transaction In m_application.Transactions
+                    For Each item As Transaction In MainApplication.getInstance.Transactions
                         If item.InternalDocumentID.ToString = item.ItemDisplayNumber Then
                             ' Dann stimmt was nicht. 
                             If jLIste.ContainsKey(item.InternalDocumentID) Then
@@ -605,7 +600,7 @@ Namespace Data
                         n += 1
                         If n Mod 10 = 0 Then
                             'TODO: NLS
-                            m_application.SendProgress("Transaktionen referenz-ID vergabe: " & n & "/" & maxValue, n, maxValue)
+                            MainApplication.getInstance.SendProgress("Transaktionen referenz-ID vergabe: " & n & "/" & maxValue, n, maxValue)
                         End If
 
                     Next
@@ -615,11 +610,11 @@ Namespace Data
 
                     lstToDelete.Clear()
                     ' Die löschen, die nicht im Journal existieren !
-                    For Each item As Transaction In m_application.Transactions
+                    For Each item As Transaction In MainApplication.getInstance.Transactions
                         If item.IsIntern Then
-                            If m_application.JournalDocuments.GetItem(item.InternalDocumentID) Is Nothing Then
+                            If MainApplication.getInstance.JournalDocuments.GetItem(item.InternalDocumentID) Is Nothing Then
                                 ' Löschen !
-                                m_application.SendMessage("Transaktion '" & item.ToString & " hat keinen Journaleintrag!")
+                                MainApplication.getInstance.SendMessage("Transaktion '" & item.ToString & " hat keinen Journaleintrag!")
                                 lstToDelete.Add(item)
                             End If
                         End If
@@ -633,70 +628,70 @@ Namespace Data
                         lstToDelete(0).DeleteInternal()
                         lstToDelete.Remove(lstToDelete(0))  ' das oberste nun entfernen
                     Loop
-                    m_application.SendMessage(deleteCount & " geisterhafte Transaktions-Einträge gelöscht")
-                    m_application.Transactions.Reload()
+                    MainApplication.getInstance.SendMessage(deleteCount & " geisterhafte Transaktions-Einträge gelöscht")
+                    MainApplication.getInstance.Transactions.Reload()
 
                     dbVersion = "2.00.0008"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0009" Then
-                    m_application.SendMessage("Lösche nicht mehr verwendete Tabellen...") 'TODO:NLS
+                    MainApplication.getInstance.SendMessage("Lösche nicht mehr verwendete Tabellen...") 'TODO:NLS
                     ' Alte Tabellen löschen (In HWL 2 nicht mehr genutzt oder nie genutzt
                     '                    Alte Tabellen entfernen (HWL - 2 braucht nicht mehr alle Tabellen) 
                     '"Bank"   - Nie benutzt, auch nicht nötig
-                    m_application.Database.DropTable("Bank")
+                    MainApplication.getInstance.Database.DropTable("Bank")
 
                     '"Beschaffungsliste" - In HWL1 / 1.7 zum ermitteln des Ausdruckes benötigt
-                    m_application.Database.DropTable("Beschaffungsliste")
+                    MainApplication.getInstance.Database.DropTable("Beschaffungsliste")
 
                     '"euroagent" - Wurde in HWl 1 benötigt um euro umwandlung der Preise zu ermitteln
-                    m_application.Database.DropTable("euroagent")
+                    MainApplication.getInstance.Database.DropTable("euroagent")
 
                     '"Kassenbuchtexte" - sollte mal Texte für da sSchnelle auffüllen des Kassenbuches enthalten; wird nun aus der aktuellen Kassenbuchliste erzeugt
-                    m_application.Database.DropTable("Kassenbuchtexte")
+                    MainApplication.getInstance.Database.DropTable("Kassenbuchtexte")
 
                     '"material_kategorien" - war mal Gruppe / Kategorie; in HWL 1.7 bereits obsolete
-                    m_application.Database.DropTable("material_kategorien")
+                    MainApplication.getInstance.Database.DropTable("material_kategorien")
 
                     '"HandwerkGruppenItems"
-                    m_application.Database.DropTable("HandwerkGruppenItems")
+                    MainApplication.getInstance.Database.DropTable("HandwerkGruppenItems")
 
                     '"HandwerkGruppenListe"  - altes "Handwerk" - Modul aus HWl -1
-                    m_application.Database.DropTable("HandwerkGruppenListe")
+                    MainApplication.getInstance.Database.DropTable("HandwerkGruppenListe")
 
                     '"tmphandwerkitems" in HWl 1 Modul "Handwerk".. 
-                    m_application.Database.DropTable("tmphandwerkitems")
+                    MainApplication.getInstance.Database.DropTable("tmphandwerkitems")
 
                     '"tmpkalk" in HWl 1 / 1.7 Hilfstabelle zum Drucken von Rechnungen
-                    m_application.Database.DropTable("tmpkalk")
+                    MainApplication.getInstance.Database.DropTable("tmpkalk")
 
                     '"material_texte" für Datanorm mal entworfen - nie Benutzt.  (Vielleicht nochmal interessant?) 
-                    m_application.Database.DropTable("material_texte")
+                    MainApplication.getInstance.Database.DropTable("material_texte")
 
                     '"protokoll" - Sollte mal das Logfile enthalten; aber nie umgesetzt. 
-                    m_application.Database.DropTable("protokoll")
+                    MainApplication.getInstance.Database.DropTable("protokoll")
 
                     '"tmptab" - ? 
-                    m_application.Database.DropTable("tmptab")
+                    MainApplication.getInstance.Database.DropTable("tmptab")
 
                     '"MWSTTMP" - Zwischentabelle; für irgendwas mal verwendet
-                    m_application.Database.DropTable("MWSTTMP")
+                    MainApplication.getInstance.Database.DropTable("MWSTTMP")
 
                     '"wahr" - Hilfstabelle, um Ja / Nein werte aufzulösen
-                    m_application.Database.DropTable("wahr")
+                    MainApplication.getInstance.Database.DropTable("wahr")
 
                     '"Sondertxte" - nie verwendet
-                    m_application.Database.DropTable("Sondertxte")
+                    MainApplication.getInstance.Database.DropTable("Sondertxte")
 
                     dbVersion = "2.00.0009"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0011" Then
 
                     'Den neuen Anzeigetext für den Journaltyp vergeben
-                    Dim jtypes As New JournalDocumentTypes(m_application)
+                    Dim jtypes As New JournalDocumentTypes(MainApplication.getInstance)
                     If jtypes.Count = 0 Then
                         ' Journaldokument-Typ Tabellen füllen
                         For Each item As enumJournalDocumentType In [Enum].GetValues(GetType(enumJournalDocumentType))
@@ -707,18 +702,18 @@ Namespace Data
                             jtypes.Add(newType)
                             newType.Save()
                         Next
-                        m_application.JournalDocuments.DocumentTypeNames.Reload()
+                        MainApplication.getInstance.JournalDocuments.DocumentTypeNames.Reload()
                     End If
 
 
                     dbVersion = "2.00.0011"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0012" Then
                     '  Anrufernummern mit einer führenden "0" versehen
 
-                    Dim callers As New PhoneCalls(m_application)
+                    Dim callers As New PhoneCalls(MainApplication.getInstance)
                     For Each callElement As PhoneCall In callers
                         ' Erkennung von Internen Nummern ? 
                         If callElement.CallingID.Length > 4 Then
@@ -732,7 +727,7 @@ Namespace Data
 
 
                     dbVersion = "2.00.0012"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
                 End If
 
                 If dbVersion < "2.00.0013" Then
@@ -742,7 +737,7 @@ Namespace Data
                     SetTextFieldLength()
 
                     dbVersion = "2.00.0013"
-                    m_application.DBVersion = dbVersion
+                    MainApplication.getInstance.DBVersion = dbVersion
 
                 End If
                 If dbVersion < "2.00.0014" Then
@@ -752,37 +747,37 @@ Namespace Data
                     dbCommand.CommandText = sql
                     dbCommand.ExecuteNonQuery()
 
-                    m_application.DBVersion = "2.00.0014"
+                    MainApplication.getInstance.DBVersion = "2.00.0014"
                 End If
 
                 If dbVersion < "2.00.0015" Then
 
                     'Noch einige Felder verlängern
-                    CheckClass(New ActiveInstance(m_application.Session))
-                    CheckClass(New JournalArticleItem(m_application.Session))
+                    CheckClass(New ActiveInstance(MainApplication.getInstance.Session))
+                    CheckClass(New JournalArticleItem(MainApplication.getInstance.Session))
 
-                    m_application.DBVersion = "2.00.0015"
+                    MainApplication.getInstance.DBVersion = "2.00.0015"
                 End If
 
                 If dbVersion < "2.00.0016" Then
 
                     'Formatierte Beschreibungsfelder in Artikellisten einpflegen
                     sql = "UPDATE " & JournalArticleItem.TableName & " SET  RTFMemoText=Beschreibung "
-                    m_application.Database.ExcecuteNonQuery(sql)
+                    MainApplication.getInstance.Database.ExcecuteNonQuery(sql)
 
-                    m_application.DBVersion = "2.00.0016"
+                    MainApplication.getInstance.DBVersion = "2.00.0016"
                 End If
 
                 If dbVersion < "2.00.0017" Then
 
-                    CheckClass(New Appointment(m_application.Session)) ' Location, subject und Description verlängert
-                    m_application.DBVersion = "2.00.0017"
+                    CheckClass(New Appointment(MainApplication.getInstance.Session)) ' Location, subject und Description verlängert
+                    MainApplication.getInstance.DBVersion = "2.00.0017"
                 End If
                 If dbVersion < "2.00.0018" Then
 
                     ' Das Feld "Vorname" hatte bisher den kompletten Namen enthalten; wird nun gesplittet in Vor- und Nachname
 
-                    For Each adresse As Adress In m_application.Adressen
+                    For Each adresse As Adress In MainApplication.getInstance.Adressen
                         Dim OldVorname As String = adresse.FirstName ' Hatte mal das komplette Feld ethalten
 
                         If Not String.IsNullOrEmpty(OldVorname) Then ' Nicht leer 
@@ -812,14 +807,14 @@ Namespace Data
                         adresse.SavewithoutTracking()
                     Next
 
-                    m_application.DBVersion = "2.00.0018"
+                    MainApplication.getInstance.DBVersion = "2.00.0018"
                 End If
 
                 If dbVersion < "2.00.0019" Then
 
                     'Spalte verlängern - bei komplexen Adressen wurde das nicht berücksichtigt
                     SetTextColLength(Adress.Tablename, "  LieferAdresse", 1000)
-                    m_application.DBVersion = "2.00.0019"
+                    MainApplication.getInstance.DBVersion = "2.00.0019"
                 End If
 
 
@@ -830,7 +825,7 @@ Namespace Data
                 m_lastError = "In Version: " & dbVersion & vbCrLf & vbCrLf & ex.Message
 
             Finally
-                m_application.EndMarqueeBar()
+                MainApplication.getInstance.EndMarqueeBar()
             End Try
 
 
@@ -841,29 +836,29 @@ Namespace Data
 
             Dim FieldAddressCompanysize As Integer
 
-            FieldAddressCompanysize = CInt(m_application.Database.GetColumnCharacterLength(Adress.Tablename, "Firma"))
+            FieldAddressCompanysize = CInt(MainApplication.getInstance.Database.GetColumnCharacterLength(Adress.Tablename, "Firma"))
             If FieldAddressCompanysize = 50 Then
                 ' auf 250 setzen
                 SetTextColLength(Adress.Tablename, "Firma", 250)
             End If
 
-            CheckClass(New Adress(m_application.Session))
-            CheckClass(New Appointment(m_application.Session))
-            CheckClass(New Article(m_application.Session))
-            CheckClass(New Attachment(m_application.Session))
-            CheckClass(New CashJournalItem(m_application.Session))
-            CheckClass(New RecentlyUsed(m_application.Session))
-            CheckClass(New Reminder(m_application.Session))
-            CheckClass(New Transaction(m_application.Session))
-            CheckClass(New CashJournalItem(m_application.Session))
-            CheckClass(New Letter(m_application.Session))
-            CheckClass(New Unit(m_application.Session))
-            CheckClass(New JournalDocument(m_application.Session))
-            CheckClass(New JournalArticleItem(m_application.Session))
-            CheckClass(New JournalArticleGroup(m_application.Session))
-            CheckClass(New FixedCost(m_application.Session))
-            CheckClass(New CashAccount(m_application.Session))
-            CheckClass(New JournalDocument(m_application.Session))
+            CheckClass(New Adress(MainApplication.getInstance.Session))
+            CheckClass(New Appointment(MainApplication.getInstance.Session))
+            CheckClass(New Article(MainApplication.getInstance.Session))
+            CheckClass(New Attachment(MainApplication.getInstance.Session))
+            CheckClass(New CashJournalItem(MainApplication.getInstance.Session))
+            CheckClass(New RecentlyUsed(MainApplication.getInstance.Session))
+            CheckClass(New Reminder(MainApplication.getInstance.Session))
+            CheckClass(New Transaction(MainApplication.getInstance.Session))
+            CheckClass(New CashJournalItem(MainApplication.getInstance.Session))
+            CheckClass(New Letter(MainApplication.getInstance.Session))
+            CheckClass(New Unit(MainApplication.getInstance.Session))
+            CheckClass(New JournalDocument(MainApplication.getInstance.Session))
+            CheckClass(New JournalArticleItem(MainApplication.getInstance.Session))
+            CheckClass(New JournalArticleGroup(MainApplication.getInstance.Session))
+            CheckClass(New FixedCost(MainApplication.getInstance.Session))
+            CheckClass(New CashAccount(MainApplication.getInstance.Session))
+            CheckClass(New JournalDocument(MainApplication.getInstance.Session))
 
             SetTextColLength(JournalDocument.Tablename, "CreatedByID", 64)
             ' Wie kann man das generell erfassen ? 
@@ -877,15 +872,15 @@ Namespace Data
         ''' <remarks></remarks>
         Private Sub CheckClass(persitentClass As StaticItem)
 
-            m_application.SendMessage("Aktualisiere Feldlängen..(" & persitentClass.ClassInfo.TableName & ")") 'TODO:NLS
+            MainApplication.getInstance.SendMessage("Aktualisiere Feldlängen..(" & persitentClass.ClassInfo.TableName & ")") 'TODO:NLS
 
             Debug.Print("Checke Tabelle " & persitentClass.ClassInfo.TableName)
             For Each item As DevExpress.Xpo.Metadata.XPMemberInfo In persitentClass.ClassInfo.PersistentProperties
                 If item.MemberType Is GetType(String) Then
                     Debug.Print(" Checke FeldType: " & item.MappingField)
-                    If item.MappingFieldSize > m_application.Database.GetColumnCharacterLength(persitentClass.ClassInfo.TableName, item.MappingField) Then
+                    If item.MappingFieldSize > MainApplication.getInstance.Database.GetColumnCharacterLength(persitentClass.ClassInfo.TableName, item.MappingField) Then
                         'HIT
-                        Debug.Print("  CharacterField Size mismatch!   DB-Size: " & m_application.Database.GetColumnCharacterLength(persitentClass.ClassInfo.TableName, item.MappingField) & ", Needs to be:" & item.MappingFieldSize)
+                        Debug.Print("  CharacterField Size mismatch!   DB-Size: " & MainApplication.getInstance.Database.GetColumnCharacterLength(persitentClass.ClassInfo.TableName, item.MappingField) & ", Needs to be:" & item.MappingFieldSize)
 
                         SetTextColLength(persitentClass.ClassInfo.TableName, item.MappingField, item.MappingFieldSize)
 
@@ -895,12 +890,12 @@ Namespace Data
 
             ' ReplikID nochmal prüfen (aus Altdaten-Übernahme)
             Try
-                If m_application.Database.GetColumnCharacterLength(persitentClass.ClassInfo.TableName, "ReplikID") > 32 Then
-                    m_application.Log.WriteLog(" Verkürze Feld 'ReplikID' in Tabelle: '" & persitentClass.ClassInfo.TableName & "'.")
+                If MainApplication.getInstance.Database.GetColumnCharacterLength(persitentClass.ClassInfo.TableName, "ReplikID") > 32 Then
+                    MainApplication.getInstance.Log.WriteLog(" Verkürze Feld 'ReplikID' in Tabelle: '" & persitentClass.ClassInfo.TableName & "'.")
                     SetTextColLength(persitentClass.ClassInfo.TableName, "ReplikID", 32)
                 End If
             Catch ex As Exception
-                m_application.Log.WriteLog("  Beim verkürzen des Feldes ist ist ein Fehler aufgetreten: " & ex.Message)
+                MainApplication.getInstance.Log.WriteLog("  Beim verkürzen des Feldes ist ist ein Fehler aufgetreten: " & ex.Message)
             End Try
 
         End Sub
@@ -918,7 +913,7 @@ Namespace Data
             Dim sqlMySQL As String = "ALTER TABLE " & tablename & " MODIFY COLUMN " & columnName
 
 
-            If m_application.Database.DatabaseType = Tools.enumServerType.Access Then
+            If MainApplication.getInstance.Database.DatabaseType = Tools.enumServerType.Access Then
                 If newSize < 254 Then
                     sqlAccess &= " TEXT(" & newSize & ")"
                 Else
@@ -926,7 +921,7 @@ Namespace Data
 
                 End If
 
-                m_application.Database.ExcecuteNonQuery(sqlAccess)
+                MainApplication.getInstance.Database.ExcecuteNonQuery(sqlAccess)
             Else
                 If newSize < 254 Then
                     sqlMySQL &= " VARCHAR(" & newSize & ")"
@@ -935,7 +930,7 @@ Namespace Data
 
                 End If
 
-                m_application.Database.ExcecuteNonQuery(sqlMySQL)
+                MainApplication.getInstance.Database.ExcecuteNonQuery(sqlMySQL)
             End If
 
         End Sub
@@ -966,7 +961,7 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function ValidateSchema() As Boolean
-            Return m_application.IsSchemaValid
+            Return MainApplication.getInstance.IsSchemaValid
         End Function
 
 

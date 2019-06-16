@@ -362,11 +362,11 @@ Namespace Kernel
     Public Class CashTaxPairs
         Inherits TaxValuePairs
 
-        Public Sub New(ByVal baseApp As mainApplication)
+        Public Sub New(ByVal baseApp As MainApplication)
             MyBase.New(baseApp)
         End Sub
 
-        Public Sub New(ByVal baseapplication As mainApplication, ByVal criteriastr As String)
+        Public Sub New(ByVal baseapplication As MainApplication, ByVal criteriastr As String)
             MyBase.New(baseapplication, criteriastr)
         End Sub
 

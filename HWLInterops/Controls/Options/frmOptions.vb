@@ -52,7 +52,7 @@ Public Class frmOptions
 
     Private m_optionsList As New Dictionary(Of String, ClausSoftware.HWLInterops.IOptionMenue)
 
-    Private m_mainui As mainUI
+    Private m_mainui As MainUI
 
 
     ''' <summary>
@@ -152,13 +152,13 @@ Public Class frmOptions
 
     Private Sub frmOptions_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 
-        m_application.Settings.SaveFormsPos(Me)
+        MainApplication.getInstance.Settings.SaveFormsPos(Me)
     End Sub
 
     Private Sub frmOptions_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        m_application.Languages.SetTextOnControl(Me)
-        m_application.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
         ShowOption(SettingsOptionType.Items)
         For Each itemGroup As DevExpress.XtraNavBar.NavBarGroup In nbcOptionBar.Groups
@@ -224,7 +224,7 @@ Public Class frmOptions
     End Sub
 
 
-    Public Sub New(ByVal mainui As mainUI)
+    Public Sub New(ByVal mainui As MainUI)
 
         ' Dieser Aufruf ist für den Windows Form-Designer erforderlich.
         InitializeComponent()

@@ -15,7 +15,7 @@ Public Class frmConnectionConfiguration
 
     Private Sub frmConnectionConfiguration_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         IucOptionConnections1.Initialize()
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 End Class

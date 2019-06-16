@@ -7,8 +7,6 @@ Namespace Kernel
     ''' <remarks></remarks>
     Public Class CanceledDocuments
 
-        Private m_application As mainApplication
-
         ''' <summary>
         ''' Enthälte eien Auflistung von Journal Keys, die als 'storniert' gekennzeichnet sind
         ''' </summary>
@@ -21,7 +19,7 @@ Namespace Kernel
         ''' <param name="journalDoc"></param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        Public Function GetCanceldState(ByVal journalDoc As journaldocument) As Boolean
+        Public Function GetCanceldState(ByVal journalDoc As JournalDocument) As Boolean
 
             Return m_canceldJournalDocIDs.Contains(journalDoc.ID)
 
@@ -43,7 +41,7 @@ Namespace Kernel
                 atwork = True
 
                 Dim sql As String = "SELECT ReplikID,ID from " & JournalDocument.Tablename & " where IsCanceled = true"
-                Dim dt As DataTable = m_application.Database.GetData(sql)
+                Dim dt As DataTable = MainApplication.getInstance.Database.GetData(sql)
 
                 m_canceldJournalDocIDs.Clear()
                 m_CanceldJournalDocReplikIDs.Clear()
@@ -77,8 +75,5 @@ Namespace Kernel
 
         End Sub
 
-        Public Sub New(ByVal mainApplication As mainApplication)
-            m_application = mainApplication
-        End Sub
     End Class
 End Namespace

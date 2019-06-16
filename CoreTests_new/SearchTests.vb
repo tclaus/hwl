@@ -19,11 +19,11 @@ Public Class SearchTests
     <Test(Description:="Volltextsuche")> _
     Public Sub Suche1()
         Dim searchedList As Data.BaseCollection(Of Adress)
-        searchedList = m_Application.Adressen.SearchByParameter("Claus")
+        searchedList = MainApplication.getInstance.Adressen.SearchByParameter("Claus")
 
         Assert.NotNull(searchedList, "suchliste war nothing. sollte aber eine leere Liste sein")
 
-        searchedList = m_Application.Adressen.SearchByParameter("--wdcfhuweru--")
+        searchedList = MainApplication.getInstance.Adressen.SearchByParameter("--wdcfhuweru--")
 
         Assert.NotNull(searchedList, "Suchliste war nothing. sollte aber eine leere Liste sein")
 

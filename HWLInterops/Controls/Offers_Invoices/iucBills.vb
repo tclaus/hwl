@@ -156,7 +156,7 @@ Namespace Offers
         ''' <remarks></remarks>
         Sub Initialize()
 
-            ActiveItem = New ClausSoftware.Kernel.JournalDocument(m_application.Session)
+            ActiveItem = New ClausSoftware.Kernel.JournalDocument(MainApplication.getInstance.Session)
 
             ' Preview-Eigenscahft liegt im Grid-Layout
             chkShowPreviewLines.Checked = grvItems.OptionsView.ShowPreview
@@ -183,7 +183,7 @@ Namespace Offers
 
             Catch ex As Exception
                 ' TODO: eine fehlende Verbindung markieren
-                m_application.Log.WriteLog(ex, "Journalstart", "Fehler im Journal")
+                MainApplication.getInstance.Log.WriteLog(ex, "Journalstart", "Fehler im Journal")
             End Try
         End Sub
 
@@ -197,7 +197,7 @@ Namespace Offers
         ''' <remarks></remarks>
         Private Sub StartOpenJournal()
 
-            If Not m_application.PeriodicCheckConnection(True) Then Exit Sub
+            If Not MainApplication.getInstance.PeriodicCheckConnection(True) Then Exit Sub
 
             If m_journalForm Is Nothing Then m_journalForm = New frmJournal(MainUI)
 
@@ -228,9 +228,9 @@ Namespace Offers
         ''' <remarks></remarks>
         Private Sub OpenJournalEntryInternal(ByVal documentItem As JournalDocument)
 
-            If m_application.PeriodicCheckConnection(True) Then
-                m_application.JournalDocuments.Filter = Nothing
-                m_application.JournalDocuments.Criteria = Nothing
+            If MainApplication.getInstance.PeriodicCheckConnection(True) Then
+                MainApplication.getInstance.JournalDocuments.Filter = Nothing
+                MainApplication.getInstance.JournalDocuments.Criteria = Nothing
 
                 ' Farge, falls das aktive Dokument noch bearbeitet wurde, Speichern oder neues Fenster öffnen ? 
                 If ActiveItem IsNot Nothing Then
@@ -287,7 +287,7 @@ Namespace Offers
             datDocumentVisibleDate.EditValue = ActiveItem.DocumentDate
 
             If ActiveItem.IsNew Then
-                chkShowWithoutTax.Checked = m_application.Settings.ItemsSettings.ShowWithoutTax
+                chkShowWithoutTax.Checked = MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax
             Else
                 chkShowWithoutTax.Checked = Not ActiveItem.ShowWithoutTax
             End If
@@ -593,8 +593,8 @@ Namespace Offers
             IsLoading = True
 
             ' Neuen dokumententyp abhängig von der letzten eingabe des Benuzters
-            Dim newDocType As enumJournalDocumentType = CType(m_application.Settings.ItemsSettings.LastUsedDocumentType, enumJournalDocumentType)
-            ActiveItem = m_application.JournalDocuments.GetNewItem(newDocType)
+            Dim newDocType As enumJournalDocumentType = CType(MainApplication.getInstance.Settings.ItemsSettings.LastUsedDocumentType, enumJournalDocumentType)
+            ActiveItem = MainApplication.getInstance.JournalDocuments.GetNewItem(newDocType)
 
             Dim firstArticleGroup As New JournalArticleGroup(ActiveItem)
 
@@ -634,7 +634,7 @@ Namespace Offers
 
             Catch ex As Exception
 
-                m_application.Log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog eines Dokuments")
+                MainApplication.getInstance.Log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog eines Dokuments")
                 MessageBox.Show("Fehler beim Drucken eines Dokumentes aufgetreten.", "Fehler aufgetreten", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
             End Try
@@ -659,7 +659,7 @@ Namespace Offers
             If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
             If ActiveItem.IsDeleted Then
                 'TODO: NLS
-                m_application.SendMessage("Zu speicherndes Dokument war als 'gelöscht'markiert. Speichern nicht möglich")
+                MainApplication.getInstance.SendMessage("Zu speicherndes Dokument war als 'gelöscht'markiert. Speichern nicht möglich")
                 Exit Sub
             End If
 
@@ -675,7 +675,7 @@ Namespace Offers
                     cobDocumentType.Enabled = False
 
 
-                    m_application.SendMessage(GetText("msgsaved", "Gespeichert."))
+                    MainApplication.getInstance.SendMessage(GetText("msgsaved", "Gespeichert."))
                     MainUI.MRUManager.AddMRUElement(ActiveItem)
                     Me.IsLoading = False
 
@@ -929,14 +929,14 @@ Namespace Offers
         ''' <remarks></remarks>
         Private Sub FillCombo()
 
-            repUnitCombo.Items.AddRange(m_application.Units)
-            repTaxValues.Items.AddRange(m_application.TaxRates)
+            repUnitCombo.Items.AddRange(MainApplication.getInstance.Units)
+            repTaxValues.Items.AddRange(MainApplication.getInstance.TaxRates)
 
 
             cobDocumentType.Properties.Items.Clear()
 
             'Baut aus dem ENUM eine Liste auf 
-            For Each item As JournalDocumentType In m_application.JournalDocuments.DocumentTypeNames
+            For Each item As JournalDocumentType In MainApplication.getInstance.JournalDocuments.DocumentTypeNames
 
                 If Not item.IsALL Then
                     cobDocumentType.Properties.Items.Add(item)
@@ -1318,7 +1318,7 @@ Namespace Offers
                 item.ParentArticleGroup = GetFocusedArticleGroup()
                 item.ShowWithTax = m_activeItem.ShowWithoutTax
                 item.Sequence = item.ParentArticleGroup.ArticleList.GetMaxPositionNumber + 1
-                item.TaxRate = m_application.Settings.ItemsSettings.DefaultUnboundTaxRate
+                item.TaxRate = MainApplication.getInstance.Settings.ItemsSettings.DefaultUnboundTaxRate
 
                 item.ParentArticleGroup.AddJournalItem(item)
 
@@ -1382,7 +1382,7 @@ Namespace Offers
                 m_activeItem.DocumentType = CType(CType(cobDocumentType.SelectedItem, JournalDocumentType).InternalID, enumJournalDocumentType)
 
                 If Not Me.IsLoading Then ' Nur Benutzereingaben ermitteln; niht das Laden von Dokumente
-                    m_application.Settings.ItemsSettings.LastUsedDocumentType = m_activeItem.DocumentType
+                    MainApplication.getInstance.Settings.ItemsSettings.LastUsedDocumentType = m_activeItem.DocumentType
                 End If
 
             End If
@@ -1498,7 +1498,7 @@ Namespace Offers
         End Sub
 
         Private Sub splBillsHeaderPane1_SplitGroupPanelCollapsed(ByVal sender As Object, ByVal e As DevExpress.XtraEditors.SplitGroupPanelCollapsedEventArgs) Handles splBillsHeaderPane.SplitGroupPanelCollapsed
-            m_application.Settings.SetSetting(splBillsHeaderPane.Name & "_Collapsed", "Bills", e.Collapsed.ToString)
+            MainApplication.getInstance.Settings.SetSetting(splBillsHeaderPane.Name & "_Collapsed", "Bills", e.Collapsed.ToString)
 
         End Sub
 
@@ -1509,7 +1509,7 @@ Namespace Offers
                 splBillsHeaderPane.SplitterPosition = 195
             End If
 
-            m_application.Settings.SetSetting(splBillsHeaderPane.Name & "_pos", "Bills", splBillsHeaderPane.SplitterPosition.ToString)
+            MainApplication.getInstance.Settings.SetSetting(splBillsHeaderPane.Name & "_pos", "Bills", splBillsHeaderPane.SplitterPosition.ToString)
 
 
         End Sub
@@ -1524,7 +1524,7 @@ Namespace Offers
             Me.IsLoading = False
         End Sub
 
-        Public Sub New(ByVal myUI As mainUI)
+        Public Sub New(ByVal myUI As MainUI)
             MyBase.New(myUI)
 
             Me.IsLoading = True
@@ -1582,7 +1582,7 @@ Namespace Offers
                 If m_activeItem.CashAccount IsNot Nothing Then
                     btnCashAccount.Text = m_activeItem.CashAccount.ToString
                 Else
-                    m_activeItem.CashAccount = m_application.Settings.LastSelectedCashAccount
+                    m_activeItem.CashAccount = MainApplication.getInstance.Settings.LastSelectedCashAccount
                 End If
 
 
@@ -1739,11 +1739,11 @@ Namespace Offers
 
 
         Private Sub setHeader_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-            If m_application IsNot Nothing Then
+            If MainApplication.getInstance IsNot Nothing Then
                 Dim collapsed As Boolean
                 Dim pos As Integer
-                collapsed = CBool(m_application.Settings.GetSetting(splBillsFooterPane.Name & "_Collapsed", "Bills", Boolean.FalseString))
-                pos = CInt(m_application.Settings.GetSetting(splBillsFooterPane.Name & "_pos", "Bills", splBillsFooterPane.SplitterPosition.ToString))
+                collapsed = CBool(MainApplication.getInstance.Settings.GetSetting(splBillsFooterPane.Name & "_Collapsed", "Bills", Boolean.FalseString))
+                pos = CInt(MainApplication.getInstance.Settings.GetSetting(splBillsFooterPane.Name & "_pos", "Bills", splBillsFooterPane.SplitterPosition.ToString))
 
                 splBillsFooterPane.SplitterPosition = pos
                 splBillsFooterPane.Collapsed = collapsed
@@ -1751,8 +1751,8 @@ Namespace Offers
 
                 repItemsShortTextB.Buttons(0).Image = My.Resources.view
 
-                collapsed = CBool(m_application.Settings.GetSetting(splBillsHeaderPane.Name & "_Collapsed", "Bills", Boolean.FalseString))
-                pos = CInt(m_application.Settings.GetSetting(splBillsHeaderPane.Name & "_pos", "Bills", splBillsHeaderPane.SplitterPosition.ToString))
+                collapsed = CBool(MainApplication.getInstance.Settings.GetSetting(splBillsHeaderPane.Name & "_Collapsed", "Bills", Boolean.FalseString))
+                pos = CInt(MainApplication.getInstance.Settings.GetSetting(splBillsHeaderPane.Name & "_pos", "Bills", splBillsHeaderPane.SplitterPosition.ToString))
 
                 splBillsHeaderPane.SplitterPosition = pos
                 splBillsHeaderPane.Collapsed = collapsed
@@ -1776,8 +1776,8 @@ Namespace Offers
                 colItemNumber.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending
 
 
-                txtFooterText.Properties.MaxLength = CInt(m_application.Database.GetColumnCharacterLength(JournalDocument.Tablename, "Fusstext"))
-                txtHeadText.Properties.MaxLength = CInt(m_application.Database.GetColumnCharacterLength(JournalDocument.Tablename, "Kopftext"))
+                txtFooterText.Properties.MaxLength = CInt(MainApplication.getInstance.Database.GetColumnCharacterLength(JournalDocument.Tablename, "Fusstext"))
+                txtHeadText.Properties.MaxLength = CInt(MainApplication.getInstance.Database.GetColumnCharacterLength(JournalDocument.Tablename, "Kopftext"))
 
                 FillCombo()
                 ReduceTaxFields()
@@ -2418,7 +2418,7 @@ Namespace Offers
                 articleItem.ItemMemoText = .ItemMemoText
                 articleItem.RTFItemMemoText = .RTFItemMemoText
 
-                articleItem.ItemUnit = m_application.Units.GetItem(.UnitID)
+                articleItem.ItemUnit = MainApplication.getInstance.Units.GetItem(.UnitID)
                 'articleItem.ItemPicture = .ItemImage
                 articleItem.ManufactorsAddressID = .AdressID
                 articleItem.OrgItemID = .OrgItemID
@@ -2428,7 +2428,7 @@ Namespace Offers
                 articleItem.ItemPicture = .ItemPicture
                 articleItem.TimeInMinutes = .TimeInMinutes
                 articleItem.DiscountValue = .DiscountValue
-                articleItem.TaxRate = m_application.TaxRates.GetItem(.TaxRateID)
+                articleItem.TaxRate = MainApplication.getInstance.TaxRates.GetItem(.TaxRateID)
 
             End With
         End Sub
@@ -2671,7 +2671,7 @@ Namespace Offers
                     m_activeItem.CashAccount = selectedCashAccount
                     btnCashAccount.Text = selectedCashAccount.ToString
 
-                    m_application.Settings.LastSelectedCashAccount = selectedCashAccount
+                    MainApplication.getInstance.Settings.LastSelectedCashAccount = selectedCashAccount
                 End If
 
 
@@ -2689,7 +2689,7 @@ Namespace Offers
 
                 ' Bei Freitext die letzte Änderung übernehmen
                 If item.IsText Then
-                    m_application.Settings.ItemsSettings.DefaultUnboundTaxRate = item.TaxRate
+                    MainApplication.getInstance.Settings.ItemsSettings.DefaultUnboundTaxRate = item.TaxRate
                 End If
             End If
 
@@ -2880,7 +2880,7 @@ Namespace Offers
                 Next
 
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "Bills", "Error in 'MakeGroupVisible'")
+                MainApplication.getInstance.Log.WriteLog(ex, "Bills", "Error in 'MakeGroupVisible'")
             End Try
 
         End Sub
@@ -2915,12 +2915,12 @@ Namespace Offers
         End Sub
 
         Private Sub splBillsFooterPane_SplitGroupPanelCollapsed(ByVal sender As Object, ByVal e As DevExpress.XtraEditors.SplitGroupPanelCollapsedEventArgs) Handles splBillsFooterPane.SplitGroupPanelCollapsed
-            m_application.Settings.SetSetting(splBillsFooterPane.Name & "_Collapsed", "Bills", e.Collapsed.ToString)
+            MainApplication.getInstance.Settings.SetSetting(splBillsFooterPane.Name & "_Collapsed", "Bills", e.Collapsed.ToString)
 
         End Sub
 
         Private Sub splBillsFooterPane_SplitterMoved(ByVal sender As Object, ByVal e As System.EventArgs) Handles splBillsFooterPane.SplitterMoved
-            m_application.Settings.SetSetting(splBillsFooterPane.Name & "_pos", "Bills", splBillsFooterPane.SplitterPosition.ToString)
+            MainApplication.getInstance.Settings.SetSetting(splBillsFooterPane.Name & "_pos", "Bills", splBillsFooterPane.SplitterPosition.ToString)
 
         End Sub
 
@@ -3011,7 +3011,7 @@ Namespace Offers
             If item IsNot Nothing Then
                 Dim CurrentName As String
                 CurrentName = item.HeaderText
-                m_application.Settings.ItemsSettings.DefaultItemsGroupHeadline = CurrentName
+                MainApplication.getInstance.Settings.ItemsSettings.DefaultItemsGroupHeadline = CurrentName
             End If
         End Sub
 

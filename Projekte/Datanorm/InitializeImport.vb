@@ -5,16 +5,6 @@
 Public Class InitializeImport
     Implements ClausSoftware.AddIns.IImportAddIn
 
-
-    Private Shared m_application As ClausSoftware.mainApplication
-
-    Public Shared ReadOnly Property Application As ClausSoftware.mainApplication
-        Get
-            Return m_application
-        End Get
-    End Property
-
-
     Public ReadOnly Property UniqeID As String Implements ClausSoftware.AddIns.IImportAddIn.UniqeID
         Get
             Return "78378CA1-A9B3-4B64-B93E-801CE7E5A123"
@@ -35,13 +25,13 @@ Public Class InitializeImport
 
     Public Sub Show() Implements ClausSoftware.AddIns.IImportAddIn.Show
 
-        Dim importController As New ImporterController(m_application)
+        Dim importController As New ImporterController()
         importController.ShowDialog()
 
     End Sub
 
-    Public Sub StartUp(ByVal rootApplication As ClausSoftware.mainApplication) Implements ClausSoftware.AddIns.IImportAddIn.StartUp
-        m_application = rootApplication
+    Public Sub StartUp(ByVal rootApplication As ClausSoftware.MainApplication) Implements ClausSoftware.AddIns.IImportAddIn.StartUp
+
     End Sub
 
     Public ReadOnly Property ShouldStartupOnStart As Boolean Implements AddIns.IImportAddIn.ShouldStartupOnStart

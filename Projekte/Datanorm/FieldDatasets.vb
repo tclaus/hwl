@@ -135,12 +135,12 @@ Friend Structure Preisänderungssatz
     Public teuerungszuschlag As enumRabattkennzeichen
 End Structure
 
-Friend Structure leitungssatz
+Friend Structure Leitungssatz
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
 End Structure
 
-Friend Structure leitungssatzc1
+Friend Structure LeitungssatzC1
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public artikelnummer As String
@@ -153,7 +153,7 @@ Friend Structure leitungssatzc1
     Public querschnitt As String
 End Structure
 
-Friend Structure artikelstücklisten
+Friend Structure Artikelstücklisten
     Public verarbeitungsmerker As String
     Public setnummer As String
     Public setmerker As String
@@ -163,7 +163,7 @@ Friend Structure artikelstücklisten
     Public menge As String
 End Structure
 
-Friend Structure artikelset
+Friend Structure Artikelset
     Public verarbeitungsmerker As String
     Public setnummer As String
     Public setmerker As String
@@ -175,7 +175,7 @@ Friend Structure artikelset
     Public menge As String
 End Structure
 
-Friend Structure leitungssatzc2
+Friend Structure Leitungssatzc2
     Public verarbeitungsmerker As String
     Public verwendnungszweck As String
     Public artikelnummer As String
@@ -184,14 +184,14 @@ Friend Structure leitungssatzc2
 End Structure
 
 
-Friend Structure leistungssatzzoll
+Friend Structure LeistungssatzZoll
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public artikelnummer As String
     Public warennummer As String
 End Structure
 
-Friend Structure leistungssatzgefahrenVBF
+Friend Structure LeistungssatzGefahrenVBF
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public artikelnummer As String
@@ -204,7 +204,7 @@ Friend Structure leistungssatzgefahrenVBF
     Public flammpunktkennzeichen As String
 End Structure
 
-Friend Structure leistungssatzgefahrenGGVS
+Friend Structure LeistungssatzGefahrenGGVS
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public artikelnummer As String
@@ -218,7 +218,7 @@ Friend Structure leistungssatzgefahrenGGVS
     Public versandstück As String
 End Structure
 
-Friend Structure leistungssatzfliesen
+Friend Structure LeistungssatzFliesen
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public artikelnummer As String
@@ -246,7 +246,7 @@ Friend Structure leistungssatzfliesen
     Public stückjealternativmengeneinheit As String
 End Structure
 
-Friend Structure leistungssatzarbeitszeiten
+Friend Structure LeistungssatzArbeitszeiten
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public leistungsentnummer As String
@@ -256,7 +256,7 @@ Friend Structure leistungssatzarbeitszeiten
     Public leistungsartikelnummer As String
 End Structure
 
-Friend Structure leistungssatzartikel
+Friend Structure LeistungssatzArtikel
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public artikelnummer As String
@@ -265,7 +265,7 @@ Friend Structure leistungssatzartikel
     Public arbeitszeit As String
 End Structure
 
-Friend Structure leistungssatzsach
+Friend Structure LeistungssatzSach
     Public verarbeitungsmerker As String
     Public verwendungszweck As String
     Public artikelnummer As String

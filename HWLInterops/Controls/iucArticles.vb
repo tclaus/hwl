@@ -30,7 +30,7 @@ Public Class iucArticles
 
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
     End Sub
@@ -117,18 +117,18 @@ Public Class iucArticles
 
         ' Standard Steuersatz festlegen 
         Dim DefaultTax As TaxRate
-        Dim TaxID As Integer = CInt(m_application.Settings.GetSetting(RegistryValues.ArticleDefaultTax, RegistrySections.ModuleArticles, "2"))
+        Dim TaxID As Integer = CInt(MainApplication.getInstance.Settings.GetSetting(RegistryValues.ArticleDefaultTax, RegistrySections.ModuleArticles, "2"))
 
         LoadCurrentItem(e.NewItem)
 
-        DefaultTax = m_application.TaxRates.GetItem(TaxID)
+        DefaultTax = MainApplication.getInstance.TaxRates.GetItem(TaxID)
         If DefaultTax IsNot Nothing Then
             cboTax.SelectedItem = DefaultTax
         Else
             If cboTax.Properties.Items.Count > 0 Then
                 cboTax.SelectedIndex = 0
             Else
-                MessageBox.Show("Sie haben keine Steuersätze definiert." & vbCrLf & _
+                MessageBox.Show("Sie haben keine Steuersätze definiert." & vbCrLf &
                 "Legen Sie im Menü 'Optionen'=>'Steuern' die Steuersätze fest", "Kein Steuersatz definiert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
 
@@ -237,17 +237,17 @@ Public Class iucArticles
         MruBase1.Properties.Items.Clear()
         MruPack.Properties.Items.Clear()
 
-        MruBase.Properties.Items.AddRange(m_application.Units)
-        MruBase1.Properties.Items.AddRange(m_application.Units)
-        MruPack.Properties.Items.AddRange(m_application.Units)
+        MruBase.Properties.Items.AddRange(MainApplication.getInstance.Units)
+        MruBase1.Properties.Items.AddRange(MainApplication.getInstance.Units)
+        MruPack.Properties.Items.AddRange(MainApplication.getInstance.Units)
 
-        cboRabatt.Properties.Items.AddRange(m_application.Discounts)
+        cboRabatt.Properties.Items.AddRange(MainApplication.getInstance.Discounts)
 
         cboTax.Properties.Items.Clear()
-        cboTax.Properties.Items.AddRange(m_application.TaxRates)
+        cboTax.Properties.Items.AddRange(MainApplication.getInstance.TaxRates)
 
         cboWorkAccount.Properties.Items.Clear()
-        cboWorkAccount.Properties.Items.AddRange(m_application.LoanAccounts)
+        cboWorkAccount.Properties.Items.AddRange(MainApplication.getInstance.LoanAccounts)
 
 
     End Sub
@@ -396,7 +396,7 @@ Public Class iucArticles
 
         End If
 
-        ActiveItem = m_application.ArticleList.GetNewItem
+        ActiveItem = MainApplication.getInstance.ArticleList.GetNewItem
         txtName.Focus()
         txtName.SelectAll()
 
@@ -414,7 +414,7 @@ Public Class iucArticles
 
         Catch ex As Exception
 
-            m_application.Log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog der Artikelliste")
+            MainApplication.getInstance.Log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog der Artikelliste")
             MessageBox.Show("Fehler beim Drucken der Artikelliste aufgetreten.", "Fehler aufgetreten", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         End Try
@@ -440,7 +440,7 @@ Public Class iucArticles
             End If
 
             ActiveItem.Save()
-            m_application.SendMessage(GetText("msgsaved", "Gespeichert."))
+            MainApplication.getInstance.SendMessage(GetText("msgsaved", "Gespeichert."))
 
             ActiveItem.ImageList.Save()
             ArticlesGrid.RefreshData()
@@ -483,8 +483,8 @@ Public Class iucArticles
 
         txtName.Focus()
 
-        m_application.Languages.SetTextOnControl(cmsBomItems)
-        m_application.Languages.SetTextOnControl(cmsImages)
+        MainApplication.getInstance.Languages.SetTextOnControl(cmsBomItems)
+        MainApplication.getInstance.Languages.SetTextOnControl(cmsImages)
 
     End Sub
 
@@ -497,9 +497,9 @@ Public Class iucArticles
         Dim resourcesVisibility As Boolean
         Dim discountsVisibility As Boolean
 
-        discountsVisibility = CBool(m_application.Settings.GetSetting(RegistryValues.ShowArticleDiscounts, RegistrySections.ModuleArticles, "0"))
+        discountsVisibility = CBool(MainApplication.getInstance.Settings.GetSetting(RegistryValues.ShowArticleDiscounts, RegistrySections.ModuleArticles, "0"))
 
-        resourcesVisibility = CBool(m_application.Settings.GetSetting(RegistryValues.ShowArticleRessources, RegistrySections.ModuleArticles, "0"))
+        resourcesVisibility = CBool(MainApplication.getInstance.Settings.GetSetting(RegistryValues.ShowArticleRessources, RegistrySections.ModuleArticles, "0"))
 
         chkDiscountEnable.Visible = discountsVisibility
         tabPanelDiscounts.Visible = discountsVisibility
@@ -886,7 +886,7 @@ Public Class iucArticles
                 lblLastSoldDate.Text = LastSoldDate.ToString("d")
             End If
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "FillSoldItemsValue", "Error in geting LastSellingDate")
+            MainApplication.getInstance.Log.WriteLog(ex, "FillSoldItemsValue", "Error in geting LastSellingDate")
         End Try
     End Sub
 
@@ -991,7 +991,7 @@ Public Class iucArticles
         End If
 
         If e.Page Is tabComponents Then
-            FillSubArticles()            
+            FillSubArticles()
             RefreshCalculatedBOMPrice()
         End If
 
@@ -1570,15 +1570,15 @@ Public Class iucArticles
 
         Friend Shared nodesList As New Dictionary(Of DevExpress.XtraEditors.BaseEdit, Node)
 
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private m_nextNodes As New List(Of Node)
 
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private m_visited As Boolean
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private m_control As DevExpress.XtraEditors.BaseEdit
 
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Private m_valueGetter As delGetValue
 
         Sub New(ByVal control As DevExpress.XtraEditors.BaseEdit, ByVal value As delGetValue)
@@ -1824,7 +1824,7 @@ Public Class iucArticles
                 Dim frm As New frmSimpleEdit(DataSourceList.LoanAccounts)
                 If frm.ShowDialog() = DialogResult.OK Then
                     cboWorkAccount.Properties.Items.Clear()
-                    cboWorkAccount.Properties.Items.AddRange(m_application.LoanAccounts)
+                    cboWorkAccount.Properties.Items.AddRange(MainApplication.getInstance.LoanAccounts)
 
                 End If
             End If

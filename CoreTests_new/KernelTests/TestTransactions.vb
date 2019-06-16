@@ -13,7 +13,7 @@ Public Class TestTransactions
 
     <Test(Description:="Erstellt eine Transaktion und legt diese als 'Bezahlt' fest. Dann muss eine Splittbuchung eingegangen sein.")> _
     Public Sub TestTransactionIsPaid()
-        Dim t As Transaction = m_Application.Transactions.GetNewItem
+        Dim t As Transaction = MainApplication.getInstance.Transactions.GetNewItem
 
 
         t.TotalAmmount = 123
@@ -30,12 +30,12 @@ Public Class TestTransactions
     ''' Testet die Steuersätze
     ''' </summary>
     ''' <remarks></remarks>
-    <Test()> _
+    <Test()>
     Public Sub TestTaxes()
         Dim s As New StartUp
         s.Start()
 
-        Dim t As Transactions = m_Application.Transactions
+        Dim t As Transactions = MainApplication.getInstance.Transactions
 
         Assert.NotNull(t, "Transaction (Ver/For) konnten nicht ermittelt werden")
         Assert.IsTrue(t.Count >= 0, "Transaction (Ver/For)  Anzahl war null")
@@ -57,10 +57,10 @@ Public Class TestTransactions
 
     End Sub
 
-    <Test(description:="Testet die Behandlung des Stornierens unter Forerungen/Verbindlichkeiten")> _
+    <Test(Description:="Testet die Behandlung des Stornierens unter Forerungen/Verbindlichkeiten")>
     Public Sub TestCanceldDocuments()
 
-        Dim t As Transaction = m_Application.Transactions.GetNewItem
+        Dim t As Transaction = MainApplication.getInstance.Transactions.GetNewItem
         Assert.IsFalse(t.IsCanceled, "Neue Transaktionen dürfen nicht gecancelt sein!")
 
         t.SetCanceled()
@@ -74,9 +74,9 @@ Public Class TestTransactions
     ''' Ruft eine auflistung von verwendeten Texten ab
     ''' </summary>
     ''' <remarks></remarks>
-    <Test()> _
+    <Test()>
     Public Sub GetColumnDataGrouped()
-        Dim str As String() = m_Application.Transactions.GetListOfTexts
+        Dim str As String() = MainApplication.getInstance.Transactions.GetListOfTexts
         Assert.IsNotNull(str, "Liste der Texte war leer")
     End Sub
 

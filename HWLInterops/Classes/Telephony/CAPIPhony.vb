@@ -7,7 +7,7 @@ Namespace Telephony
     ''' </summary>
     ''' <remarks></remarks>
     Public Class CAPIPhony
-        Private m_mainUI As mainUI
+        Private m_mainUI As MainUI
 
         Private Delegate Sub deleBeginShowCallInfobox(ByVal callInfo As Kernel.PhoneCall)
         Private Delegate Sub deleBeginHideCallInfobox()
@@ -83,7 +83,7 @@ Namespace Telephony
 
                 frm.ShowDialog()
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "CallNotification Window", "frm.ShowDialog")
+                MainApplication.getInstance.Log.WriteLog(ex, "CallNotification Window", "frm.ShowDialog")
             End Try
 
 
@@ -110,7 +110,7 @@ Namespace Telephony
                 Try
                     Debug.Print("(New-Call) Caller: " & e.Connection.CallingPartyNumber & " | Called: " & e.Connection.CalledPartyNumber)
 
-                        Dim newPhoneLogentry As Kernel.PhoneCall = New Kernel.PhoneCall(m_application.GetNewSession)
+                    Dim newPhoneLogentry As Kernel.PhoneCall = New Kernel.PhoneCall(MainApplication.getInstance.GetNewSession)
                     newPhoneLogentry.TargetCallID = e.Connection.CalledPartyNumber
                     newPhoneLogentry.CallingID = e.Connection.CallingPartyNumber
 
@@ -183,7 +183,7 @@ Namespace Telephony
         ' ''' <remarks></remarks>
         'Function FindAdressByCallerID(ByVal callid As String) As Adress
 
-        '    For Each adress As Adress In m_application.Adressen
+        '    For Each adress As Adress In MainApplication.getInstance.Adressen
         '        Dim simplePhoneNumber As String = adress.Telefon1
         '        If Not String.IsNullOrEmpty(simplePhoneNumber) Then
         '            Debug.Print(simplePhoneNumber)
@@ -204,14 +204,14 @@ Namespace Telephony
         '    Return Nothing
         'End Function
 
-        Public Sub New(ByVal thisMainUI As mainUI)
+        Public Sub New(ByVal thisMainUI As MainUI)
             m_mainUI = thisMainUI
             Try
                 capi = New Mommosoft.Capi.CapiApplication
 
-                m_MonitorPhoneLines = m_application.Settings.MonitorPhoneLines
+                m_MonitorPhoneLines = MainApplication.getInstance.Settings.MonitorPhoneLines
             Catch ex As Exception
-                m_application.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Es stand keine CAPI-Verbindung zur Verfügung: " & ex.Message)
+                MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Es stand keine CAPI-Verbindung zur Verfügung: " & ex.Message)
                 m_isAvailable = False
             End Try
         End Sub

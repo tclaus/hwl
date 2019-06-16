@@ -81,7 +81,7 @@ Namespace Kernel
         ''' <remarks></remarks>
         Public Shared Function GetDownPaymentsForItem(ByVal parentTransaction As Transaction) As DownPayments
 
-            Dim appdata As mainApplication = BaseClass.m_mainApplication
+            Dim appdata As MainApplication = BaseClass.m_mainApplication
 
             Dim Payments As DownPayments = New DownPayments(appdata, parentTransaction)
             Payments.Sorting.Clear()
@@ -162,20 +162,20 @@ Namespace Kernel
         ''' <param name="BasisApplikation"></param>
         ''' <param name="parentTransaction"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal parentTransaction As Transaction)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal parentTransaction As Transaction)
             MyBase.New(BasisApplikation, DevExpress.Data.Filtering.CriteriaOperator.Parse("TransactionID=" & parentTransaction.ID))
             m_parentTransaction = parentTransaction
             Initialize()
         End Sub
 
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As CriteriaOperator)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(BasisApplikation, criteria)
             Initialize()
         End Sub
 
 
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
             MyBase.New(BasisApplikation)
 
             Initialize()

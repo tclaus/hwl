@@ -14,10 +14,10 @@ Namespace DataBase
         Private m_connectionString As String
         Private m_datbasename As String
         Private m_dbconnection As DbConnection
-        Private m_timeout As Integer = 3600 ' 60 Minuten Timeout (default ist 30) 
+        Private ReadOnly m_timeout As Integer = 3600 ' 60 Minuten Timeout (default ist 30) 
         Private m_connectionData As Tools.Connection
 
-        Private m_mainApplication As mainApplication
+        Private m_mainApplication As MainApplication
 
         ''' <summary>
         ''' Stellt eine Verbinudung zur Haupt Applikationsklasse her
@@ -25,11 +25,11 @@ Namespace DataBase
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        Property MainApplication As mainApplication
+        Property MainApplication As MainApplication
             Get
                 Return m_mainApplication
             End Get
-            Set(ByVal value As mainApplication)
+            Set(ByVal value As MainApplication)
                 m_mainApplication = value
             End Set
         End Property

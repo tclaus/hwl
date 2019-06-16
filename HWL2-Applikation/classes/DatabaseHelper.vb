@@ -28,10 +28,10 @@
             c.Servertype = Tools.enumServerType.MySQL
             c.Username = data.Username
             c.Token = tokenID
-            m_application.Connections.Add(c)
-            m_application.Connections.DefaultConnection = c
+            MainApplication.getInstance.Connections.Add(c)
+            MainApplication.getInstance.Connections.DefaultConnection = c
 
-            m_application.Connections.SaveConnections()
+            MainApplication.getInstance.Connections.SaveConnections()
             Dim msgText As String = GetText("msgNewDatabaseserverCreated", "Eine neue Datenbankverbindung wurde unter der Bezeichnung '{0}' neu angelegt.", c.AliasName)
             Dim headlinetext As String = GetText("msgHeadDatabaseConnectionSaved", "Datenbankverbindung gespeichert")
             MessageBox.Show(msgText, headlinetext, MessageBoxButtons.OK, MessageBoxIcon.Information)

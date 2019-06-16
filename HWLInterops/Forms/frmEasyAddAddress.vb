@@ -38,7 +38,7 @@ Public Class frmEasyAddAddress
 
 
     Private Sub SAveAsNewAddress()
-        m_newAddress = m_application.Adressen.GetNewItem
+        m_newAddress = MainApplication.getInstance.Adressen.GetNewItem
         m_newAddress.Company = txtCompany.Text
         m_newAddress.FirstName = txtFirstName.Text
         m_newAddress.LastName = txtLastName.Text
@@ -55,12 +55,12 @@ Public Class frmEasyAddAddress
         '                "Zur Adressliste hinzufügen?", "Adresse hinzufügen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
 
-        result = MessageBox.Show(GetText("AskAddNewAddress", "Möchten Sie die Adresse: /n {0} /n" & _
+        result = MessageBox.Show(GetText("AskAddNewAddress", "Möchten Sie die Adresse: /n {0} /n" &
                         " zur Adressliste hinzufügen?", m_newAddress.InvoiceAdressWindow), GetText("AskAddAddress", "Adresse hinzufügen"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
         If result = Windows.Forms.DialogResult.Yes Then
             m_newAddress.Save()
-            m_application.Adressen.Add(m_newAddress)
+            MainApplication.getInstance.Adressen.Add(m_newAddress)
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
             Exit Sub

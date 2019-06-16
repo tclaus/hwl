@@ -46,12 +46,8 @@ Namespace Data
         ''' enthält eine Auflistung vin ID-werten zu Objekten. stellt einen Zugriffscache dar
         ''' </summary>
         ''' <remarks></remarks>
-        <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
+        <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)>
         Private m_dictionaryId As New Dictionary(Of Integer, itemType)
-
-        <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
-        Private Shared m_application As mainApplication
-        ' Private m_dictionary As New Dictionary(Of String, itemType)
 
         ''' <summary>
         ''' Ist true, wenn eins der Elemente ungespeicherte Änderungen hat
@@ -225,13 +221,13 @@ Namespace Data
         ''' <remarks></remarks>
         Public Function GetCount(sqlcondition As String) As Integer
             Dim sql As String
-            Sql = "SELECT COUNT(*) from " & Me.GetObjectClassInfo.TableName
+            sql = "SELECT COUNT(*) from " & Me.GetObjectClassInfo.TableName
 
             If Not String.IsNullOrEmpty(sqlcondition) Then
                 sql &= " WHERE " & sqlcondition
             End If
 
-            Dim res As Object = m_application.Database.ExcecuteScalar(sql)
+            Dim res As Object = MainApplication.getInstance.Database.ExcecuteScalar(sql)
 
             If Not TypeOf res Is DBNull Then ' Bei leeren Tabellen kann DBNull zurückgegeben werden
                 Debug.Print("Anzahl Zeilen: " & CInt(res))
@@ -255,7 +251,7 @@ Namespace Data
             Try
                 table = Me.GetObjectClassInfo.TableName
                 Dim sql As String = "SELECT MAX(ID) FROM " & table
-                Dim res As Object = m_application.Database.ExcecuteScalar(sql)
+                Dim res As Object = MainApplication.getInstance.Database.ExcecuteScalar(sql)
 
                 If Not TypeOf res Is DBNull Then ' Bei leeren Tabellen kann DBNull zurückgegeben werden
                     Result = CInt(res)
@@ -264,7 +260,7 @@ Namespace Data
                 End If
 
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "GetMaxID", "Error while getting MAX(ID) from " & table)
+                MainApplication.getInstance.Log.WriteLog(ex, "GetMaxID", "Error while getting MAX(ID) from " & table)
             End Try
 
             Return Result
@@ -384,7 +380,7 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Overridable Function GetNewCollection() As BaseCollection(Of itemType)
-            Dim newItemCollection As New BaseCollection(Of itemType)(m_application)
+            Dim newItemCollection As New BaseCollection(Of itemType)(MainApplication.getInstance)
             Return newItemCollection
 
         End Function
@@ -396,7 +392,7 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Overridable Function GetNewCollection(ByVal criteria As CriteriaOperator) As BaseCollection(Of itemType)
-            Dim newItemCollection As New BaseCollection(Of itemType)(m_application, criteria)
+            Dim newItemCollection As New BaseCollection(Of itemType)(MainApplication.getInstance, criteria)
             Return newItemCollection
 
         End Function
@@ -502,7 +498,7 @@ Namespace Data
                 MyBase.Load()
             Catch ex As Exception
                 firstFailed = True
-                m_application.Log.WriteLog(ex, "LOAD", "First Fail")
+                MainApplication.getInstance.Log.WriteLog(ex, "LOAD", "First Fail")
 
             End Try
 
@@ -564,7 +560,7 @@ Namespace Data
                 MyBase.Reload()
             Catch ex As Exception
                 firstFailed = True
-                m_application.Log.WriteLog(ex, "RELOAD", "First Fail")
+                MainApplication.getInstance.Log.WriteLog(ex, "RELOAD", "First Fail")
             End Try
             If firstFailed Then
                 MyBase.Reload()
@@ -576,11 +572,8 @@ Namespace Data
         ''' </summary>
         ''' <param name="BaseApplication">Stammklasse die alle weiteren Classen zur verfügung stellt</param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal baseApplication As mainApplication)
+        Public Sub New(ByVal baseApplication As MainApplication)
             MyBase.New(baseApplication.Session)
-
-            BaseCollection(Of itemType).m_application = baseApplication
-
         End Sub
 
         ''' <summary>
@@ -608,9 +601,8 @@ Namespace Data
         ''' <param name="baseApplication"></param>
         ''' <param name="criteria"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal baseApplication As mainApplication, ByVal criteria As CriteriaOperator)
+        Public Sub New(ByVal baseApplication As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(baseApplication.Session, criteria)
-            m_application = baseApplication
 
         End Sub
 
@@ -621,7 +613,7 @@ Namespace Data
         ''' </summary>
         ''' <remarks></remarks>
         Public Sub New()
-            MyBase.New(m_application.Session)
+            MyBase.New(MainApplication.getInstance.Session)
 
         End Sub
 
@@ -634,16 +626,16 @@ Namespace Data
         'ReadOnly Property MainApplication() As mainApplication
         '    <DebuggerStepThrough()> _
         '    Get
-        '        Return m_application
+        '        Return MainApplication.getInstance
         '    End Get
 
         'End Property
-        <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
-<ComponentModel.Browsable(False)> _
-        Overloads Shared ReadOnly Property MainApplication() As mainApplication
-            <DebuggerStepThrough()> _
+        <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)>
+        <ComponentModel.Browsable(False)>
+        Overloads Shared ReadOnly Property MainApplication() As MainApplication
+            <DebuggerStepThrough()>
             Get
-                Return m_application
+                Return MainApplication.getInstance
             End Get
 
         End Property

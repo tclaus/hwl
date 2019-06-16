@@ -14,18 +14,18 @@ Public Class frmStaticSituation
             startDate = New Date(year, 1, 1)
             endDate = New Date(year, 12, 31)
 
-            m_application.Transactions.Criteria = New DevExpress.Data.Filtering.BetweenOperator("ItemDate", startDate, endDate)
-            m_application.CashJournal.Criteria = New DevExpress.Data.Filtering.BetweenOperator("TransactionDate", startDate, endDate)
+            MainApplication.getInstance.Transactions.Criteria = New DevExpress.Data.Filtering.BetweenOperator("ItemDate", startDate, endDate)
+            MainApplication.getInstance.CashJournal.Criteria = New DevExpress.Data.Filtering.BetweenOperator("TransactionDate", startDate, endDate)
 
         Else
-            m_application.CashJournal.Criteria = Nothing
-            m_application.Transactions.Criteria = Nothing
+            MainApplication.getInstance.CashJournal.Criteria = Nothing
+            MainApplication.getInstance.Transactions.Criteria = Nothing
         End If
 
-        Dim transactionSums As Kernel.TransactionSum = m_application.Transactions.SumAmmount
+        Dim transactionSums As Kernel.TransactionSum = MainApplication.getInstance.Transactions.SumAmmount
 
         Dim totalCash, bankValue, openReceiveables, openPayables, totalMoney, storeValue As Decimal
-        totalCash = m_application.CashJournal.GetCashAfterThis
+        totalCash = MainApplication.getInstance.CashJournal.GetCashAfterThis
         bankValue = (transactionSums.PaidAmmountInbound - transactionSums.PaidAmmountOutbound)
         openReceiveables = transactionSums.UnpaidAmmountInbound
         openPayables = transactionSums.UnpaidAmmountOutbound
@@ -48,21 +48,21 @@ Public Class frmStaticSituation
     End Sub
 
     Private Sub frmStaticSituation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         FillValues(0)
 
         Dim years As New List(Of Integer)
 
 
-        For Each item As String In m_application.Transactions.GetItemYears
+        For Each item As String In MainApplication.getInstance.Transactions.GetItemYears
             If Not years.Contains(CInt(item)) Then
                 years.Add(CInt(item))
 
             End If
         Next
 
-        For Each item As String In m_application.CashJournal.GetItemYears
+        For Each item As String In MainApplication.getInstance.CashJournal.GetItemYears
             If Not years.Contains(CInt(item)) Then
                 years.Add(CInt(item))
 

@@ -13,9 +13,9 @@ Public Class TestJournal
 
     <Test(description:="Prüft das Journal-Adressfenster Nach Zuweisung einer Adresse. (Inhalte sollten gleich sein)")> _
     Public Sub JournalDocument()
-        Dim newItem As JournalDocument = m_Application.JournalDocuments.GetNewItem
+        Dim newItem As JournalDocument = MainApplication.getInstance.JournalDocuments.GetNewItem
 
-        newItem.Address = m_Application.Adressen(0) ' Adressen zuweisen
+        newItem.Address = MainApplication.getInstance.Adressen(0) ' Adressen zuweisen
 
         StringAssert.AreEqualIgnoringCase(newItem.AddressWindow, newItem.Address.InvoiceAdressWindow, "Bei der Zuweisung einer Adresse sollte das Adressfenster übergeben werden")
 
@@ -25,10 +25,10 @@ Public Class TestJournal
 
     End Sub
 
-    <Test(description:="Legt ein neuen Journaleintrag an und speichert diesen")> _
+    <Test(Description:="Legt ein neuen Journaleintrag an und speichert diesen")>
     Public Sub TestCreateJournalDocument()
-        Dim newDocument As JournalDocument = m_Application.JournalDocuments.GetNewItem
-        newDocument.Address = m_Application.Adressen(0) ' Adressen zuweisen
+        Dim newDocument As JournalDocument = MainApplication.getInstance.JournalDocuments.GetNewItem
+        newDocument.Address = MainApplication.getInstance.Adressen(0) ' Adressen zuweisen
 
         Dim itemGroup1 As New Kernel.JournalArticleGroup(newDocument) ' Neu aus Collection
         Assert.AreEqual(itemGroup1.ParentDocument, newDocument, "Vater der Artikelgruppe sollte das Journaldokument sein")
@@ -60,12 +60,12 @@ Public Class TestJournal
 
     End Sub
 
-    <Test(Description:="Testet den Rabatt des Journals")> _
+    <Test(Description:="Testet den Rabatt des Journals")>
     Public Sub TestJournalDiscount()
 
         ' Rabattwerte vom netto-Preis
-        Dim newDocument As JournalDocument = m_Application.JournalDocuments.GetNewItem
-        newDocument.Address = m_Application.Adressen(0) ' Adressen zuweisen
+        Dim newDocument As JournalDocument = MainApplication.getInstance.JournalDocuments.GetNewItem
+        newDocument.Address = MainApplication.getInstance.Adressen(0) ' Adressen zuweisen
 
         newDocument.ShowWithoutTax = True  ' Damit beziehen sich Rabatte dann auf den Netto-Preis
 
@@ -108,8 +108,8 @@ Public Class TestJournal
         '====================================================================
         '====================================================================
         ' Rabattwerte vom Brutto-Preis
-        newDocument = m_Application.JournalDocuments.GetNewItem
-        newDocument.Address = m_Application.Adressen(0) ' Adressen zuweisen
+        newDocument = MainApplication.getInstance.JournalDocuments.GetNewItem
+        newDocument.Address = MainApplication.getInstance.Adressen(0) ' Adressen zuweisen
 
         newDocument.ShowWithoutTax = False  ' Damit beziehen sich Rabatte dann auf den Brutto-Preis
 
@@ -122,7 +122,7 @@ Public Class TestJournal
         newarticle.ItemName = "testartikel"
         newarticle.ItemCount = 12
         newarticle.SinglePriceBeforeTax = 100
-        newarticle.TaxRate = m_Application.TaxRates.GetNormalTax ' 19%
+        newarticle.TaxRate = MainApplication.getInstance.TaxRates.GetNormalTax ' 19%
 
         itemGroup1.ItemCount = 5
 
@@ -151,26 +151,26 @@ Public Class TestJournal
 
     End Sub
 
-    <Description("Testet das Aufsummieren der einzelnen Journalelemente")> _
-    <Test()> _
+    <Description("Testet das Aufsummieren der einzelnen Journalelemente")>
+    <Test()>
     Public Sub TestAccumulatedItems()
         ' 1. Allgemeine Funktion
         ' 2. Korrektes addieren
 
-        Dim newDocument As JournalDocument = m_Application.JournalDocuments.GetNewItem
-        newDocument.Address = m_Application.Adressen(0) ' Adressen zuweisen
+        Dim newDocument As JournalDocument = MainApplication.getInstance.JournalDocuments.GetNewItem
+        newDocument.Address = MainApplication.getInstance.Adressen(0) ' Adressen zuweisen
 
 
         newDocument.AddArticleGroup(newDocument.ArticleGroups.GetNewItem)
         ' Artikel ermitteln
-        newDocument.ArticleGroups(0).AddArticleItem(m_Application.ArticleList(1))
+        newDocument.ArticleGroups(0).AddArticleItem(MainApplication.getInstance.ArticleList(1))
         ' Hier nun Artikel zuweisen
 
         newDocument.ArticleGroups(0).ArticleList(0).GetArticleItem.EinzelEK = 100  ' Basispreis temporär zuweisen
         newDocument.ArticleGroups(0).ArticleList(0).ItemCount = 2
 
         ' noch mal ein Artikel zuweisen
-        newDocument.ArticleGroups(0).AddArticleItem(m_Application.ArticleList(1)) ' Der selbe Artikel, aber andere Eigenschaften
+        newDocument.ArticleGroups(0).AddArticleItem(MainApplication.getInstance.ArticleList(1)) ' Der selbe Artikel, aber andere Eigenschaften
         newDocument.ArticleGroups(0).ArticleList(1).ItemCount = 1   ' Das sind nun 3 Artikel
 
 
@@ -183,37 +183,37 @@ Public Class TestJournal
 
     End Sub
 
-    <Test(description:="Testet die Darstellung der Journaltypen")> _
+    <Test(Description:="Testet die Darstellung der Journaltypen")>
     Public Sub TestJournalTypes()
-        Assert.NotNull(m_Application.JournalDocuments.DocumentTypeNames, "Journaltypen müssen gefüllt werden!")
+        Assert.NotNull(MainApplication.getInstance.JournalDocuments.DocumentTypeNames, "Journaltypen müssen gefüllt werden!")
 
-        For Each item As JournalDocumentType In m_Application.JournalDocuments.DocumentTypeNames
+        For Each item As JournalDocumentType In MainApplication.getInstance.JournalDocuments.DocumentTypeNames
             Assert.IsNotNullOrEmpty(item.Name, "Typename darf niemals leer sein !")
         Next
 
         'der "Alle" - Typ
-        Dim allType As JournalDocumentType = m_Application.JournalDocuments.DocumentTypeNames.GetByDocumentID(enumJournalDocumentType.ALL)
+        Dim allType As JournalDocumentType = MainApplication.getInstance.JournalDocuments.DocumentTypeNames.GetByDocumentID(enumJournalDocumentType.ALL)
         Assert.IsTrue(allType.InternalID = -1, "Der alle-Typ hatte die falsche Nummer")
         Assert.IsTrue(allType.IsALL, "Der ALLE-Typ wurde nicht erkannt!")
         Assert.IsTrue(allType.Visible, "Interner Typ 'ALLE' kann nicht unsichtbar werden")
 
         Trace.Write("Journaltyp ALLE: '" & allType.ToString & "'")
 
-        Dim invoiceType As JournalDocumentType = m_Application.JournalDocuments.DocumentTypeNames.GetByDocumentID(enumJournalDocumentType.Rechnung)
+        Dim invoiceType As JournalDocumentType = MainApplication.getInstance.JournalDocuments.DocumentTypeNames.GetByDocumentID(enumJournalDocumentType.Rechnung)
         Assert.IsTrue(invoiceType.InternalID = enumJournalDocumentType.Rechnung, "Rechnungstyp hatte die falsche Nummer")
         Trace.Write("Journaltyp Rechnung: '" & invoiceType.ToString & "'")
 
-        Dim reminderType As JournalDocumentType = m_Application.JournalDocuments.DocumentTypeNames.GetByDocumentID(enumJournalDocumentType.Mahnung)
+        Dim reminderType As JournalDocumentType = MainApplication.getInstance.JournalDocuments.DocumentTypeNames.GetByDocumentID(enumJournalDocumentType.Mahnung)
         Assert.IsTrue(reminderType.InternalID = enumJournalDocumentType.Mahnung, "Mahnungstyp hatte die falsche Nummer")
         Trace.Write("Journaltyp reminder: '" & reminderType.ToString & "'")
 
 
     End Sub
 
-    <Test(description:="Testet das Stornieren (Canceln) ")> _
+    <Test(Description:="Testet das Stornieren (Canceln) ")>
     Public Sub TestCanceledDocument()
-        Dim newDocument As JournalDocument = m_Application.JournalDocuments.GetNewItem
-        newDocument.Address = m_Application.Adressen(0) ' Adressen zuweisen
+        Dim newDocument As JournalDocument = MainApplication.getInstance.JournalDocuments.GetNewItem
+        newDocument.Address = MainApplication.getInstance.Adressen(0) ' Adressen zuweisen
 
 
         newDocument.Save()

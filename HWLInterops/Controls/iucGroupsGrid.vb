@@ -72,7 +72,7 @@ Public Class iucGroupsGrid
     Friend ReadOnly Property ArticleGroups As Groups
         Get
             If m_groups Is Nothing Then
-                m_groups = New Groups(m_application)
+                m_groups = New Groups(MainApplication.getInstance)
             End If
             Return m_groups
         End Get
@@ -84,7 +84,7 @@ Public Class iucGroupsGrid
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function GetBaseArticleListCritera() As DevExpress.Data.Filtering.CriteriaOperator
-        If Not m_application.Settings.Articlesettings.ShowInactiveItems Then  ' Wenn eingeschaltet, dann nur aktive Artikel anzeign lassen
+        If Not MainApplication.getInstance.Settings.Articlesettings.ShowInactiveItems Then  ' Wenn eingeschaltet, dann nur aktive Artikel anzeign lassen
             Dim c As New DevExpress.Data.Filtering.BinaryOperator("IsActive", True)
             Return c
         Else
@@ -100,8 +100,8 @@ Public Class iucGroupsGrid
         m_isLoading = True
 
 
-        serverModeDS = New XPServerCollectionSource(m_application.GetNewSession, m_application.ArticleList.GetObjectClassInfo)
-        serverModeDS.DisplayableProperties = m_application.ArticleList.DisplayableProperties
+        serverModeDS = New XPServerCollectionSource(MainApplication.getInstance.GetNewSession, MainApplication.getInstance.ArticleList.GetObjectClassInfo)
+        serverModeDS.DisplayableProperties = MainApplication.getInstance.ArticleList.DisplayableProperties
 
 
         serverModeDS.FixedFilterCriteria = GetBaseArticleListCritera()
@@ -134,7 +134,7 @@ Public Class iucGroupsGrid
         m_isLoading = False
 
         ' Letzes Foccussiertes Node wieder aktivieren
-        Dim lastselecedGroup As String = m_application.Settings.GetSetting("SelectedArticleGroup", ClausSoftware.Tools.RegistrySections.ModuleArticles, "0000")
+        Dim lastselecedGroup As String = MainApplication.getInstance.Settings.GetSetting("SelectedArticleGroup", ClausSoftware.Tools.RegistrySections.ModuleArticles, "0000")
         Dim selecedNode As TreeListNode = trvGroups.FindNodeByKeyID(lastselecedGroup)
         If selecedNode IsNot Nothing Then
             trvGroups.FocusedNode = selecedNode
@@ -162,7 +162,7 @@ Public Class iucGroupsGrid
         'Alle geöffneten Nodes wieder herstellen
         RestoreTreeOpenNodes(trvGroups, Context)
 
-        Dim lastselecedGroup As String = m_application.Settings.GetSetting("SelectedArticleGroup", ClausSoftware.Tools.RegistrySections.ModuleArticles, "0000")
+        Dim lastselecedGroup As String = MainApplication.getInstance.Settings.GetSetting("SelectedArticleGroup", ClausSoftware.Tools.RegistrySections.ModuleArticles, "0000")
         Dim selecedNode As TreeListNode = trvGroups.FindNodeByKeyID(lastselecedGroup)
         If selecedNode IsNot Nothing Then
             trvGroups.FocusedNode = selecedNode
@@ -214,7 +214,7 @@ Public Class iucGroupsGrid
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    <DebuggerStepThrough()> _
+    <DebuggerStepThrough()>
     Private Sub GridView1_CustomDrawCell(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs) Handles grvArticles.CustomDrawCell
         Dim article As Article = CType(grvArticles.GetRow(e.RowHandle), ClausSoftware.Kernel.Article)
 
@@ -242,7 +242,7 @@ Public Class iucGroupsGrid
             Dim item As Article = CType(grvArticles.GetRow(e.RowHandle), Article)
             If item IsNot Nothing Then
 
-                e.IsEmpty = Not m_application.AttachmentRelations.HasAttachments(item.ReplikID)
+                e.IsEmpty = Not MainApplication.getInstance.AttachmentRelations.HasAttachments(item.ReplikID)
 
 
             End If
@@ -343,7 +343,7 @@ Public Class iucGroupsGrid
         Dim view As GridView = CType(sender, GridView)
         If e.Button = MouseButtons.Left And Not downHitInfo Is Nothing Then
             Dim dragSize As Size = SystemInformation.DragSize
-            Dim dragRect As Rectangle = New Rectangle(New Point(CInt(downHitInfo.HitPoint.X - dragSize.Width / 2), _
+            Dim dragRect As Rectangle = New Rectangle(New Point(CInt(downHitInfo.HitPoint.X - dragSize.Width / 2),
                  CInt(downHitInfo.HitPoint.Y - dragSize.Height / 2)), dragSize)
 
             If Not dragRect.Contains(New Point(e.X, e.Y)) Then
@@ -573,7 +573,7 @@ Public Class iucGroupsGrid
             If groupToDelete.SubGroups.Count > 0 Or groupToDelete.ArticleCountInGroup > 0 Then  'OrElse groupToDelete.HasArticles 
 
                 'TODO:NLS
-                dResult = System.Windows.Forms.MessageBox.Show("Diese Gruppe :'" & groupToDelete.Name & "' enthält weitere Daten oder Gruppen! " & vbCrLf & _
+                dResult = System.Windows.Forms.MessageBox.Show("Diese Gruppe :'" & groupToDelete.Name & "' enthält weitere Daten oder Gruppen! " & vbCrLf &
                                                                "Möchten Sie diese Gruppe und alles was sich darin befindet Löschen? (Untergruppen und Artikel)?", "Gruppe enthält Daten", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning)
                 If dResult = DialogResult.Cancel Then
                     Exit Sub
@@ -656,8 +656,8 @@ Public Class iucGroupsGrid
     ''' <remarks></remarks>
     Private Sub SaveGridStyle(ByVal context As String)
         SaveGridStyles(grdArticles, context)
-        m_application.Settings.SetSetting("GridLayout-Splitter", context, CStr(SplitContainer1.SplitterPosition))
-        m_application.Settings.SetSetting("GridLayout-RowHeigh", context, CStr(grvArticles.RowHeight))
+        MainApplication.getInstance.Settings.SetSetting("GridLayout-Splitter", context, CStr(SplitContainer1.SplitterPosition))
+        MainApplication.getInstance.Settings.SetSetting("GridLayout-RowHeigh", context, CStr(grvArticles.RowHeight))
 
 
 
@@ -674,8 +674,8 @@ Public Class iucGroupsGrid
     ''' <remarks></remarks>
     Private Sub LoadGridStyle(ByVal context As String)
         RestoreGridStyles(grdArticles, context)
-        SplitContainer1.SplitterPosition = CInt(m_application.Settings.GetSetting("GridLayout-Splitter", context, CStr(SplitContainer1.SplitterPosition)))
-        grvArticles.RowHeight = CInt(m_application.Settings.GetSetting("GridLayout-RowHeigh", context, CStr(grvArticles.RowHeight)))
+        SplitContainer1.SplitterPosition = CInt(MainApplication.getInstance.Settings.GetSetting("GridLayout-Splitter", context, CStr(SplitContainer1.SplitterPosition)))
+        grvArticles.RowHeight = CInt(MainApplication.getInstance.Settings.GetSetting("GridLayout-RowHeigh", context, CStr(grvArticles.RowHeight)))
     End Sub
 
 
@@ -768,7 +768,7 @@ Public Class iucGroupsGrid
                     End If
 
                     lstToDelete.Add(item.ID)
-                    m_application.SendMessage(currentID & "/ " & maxCount & " " & GetText("deleted"))
+                    MainApplication.getInstance.SendMessage(currentID & "/ " & maxCount & " " & GetText("deleted"))
                     item.Delete()
 
                     currentID += 1
@@ -815,7 +815,7 @@ Public Class iucGroupsGrid
 
         If e.Button = MouseButtons.Left And Not downHitInfo Is Nothing Then
             Dim dragSize As Size = SystemInformation.DragSize
-            Dim dragRect As Rectangle = New Rectangle(New Point(CInt(downHitInfo.HitPoint.X - dragSize.Width / 2), _
+            Dim dragRect As Rectangle = New Rectangle(New Point(CInt(downHitInfo.HitPoint.X - dragSize.Width / 2),
                  CInt(downHitInfo.HitPoint.Y - dragSize.Height / 2)), dragSize)
 
             If Not dragRect.Contains(New Point(e.X, e.Y)) Then
@@ -886,7 +886,7 @@ Public Class iucGroupsGrid
             End If
 
         Catch ex As Exception
-            m_application.Log.WriteLog("Fehler beim RowDoubleClick: " & ex.Message)
+            MainApplication.getInstance.Log.WriteLog("Fehler beim RowDoubleClick: " & ex.Message)
         End Try
 
     End Sub
@@ -917,10 +917,10 @@ Public Class iucGroupsGrid
     Private Sub iucGroupsGrid_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If DesignMode Then Exit Sub
 
-        If m_application IsNot Nothing Then
+        If MainApplication.getInstance IsNot Nothing Then
             ' weitere initailisierungen... 
-            m_application.Languages.SetTextOnControl(cmsGrid)
-            m_application.Languages.SetTextOnControl(cmsTreeView)
+            MainApplication.getInstance.Languages.SetTextOnControl(cmsGrid)
+            MainApplication.getInstance.Languages.SetTextOnControl(cmsTreeView)
         End If
     End Sub
 
@@ -1093,7 +1093,7 @@ Public Class iucGroupsGrid
             Dim Article As ClausSoftware.Kernel.Article = TryCast(grvArticles.GetRow(itemNumber), ClausSoftware.Kernel.Article)
 
             If Article IsNot Nothing Then
-                Article.CopyExtern = mnuCopySelectedArticles.Checked
+                Article.Copyextern = mnuCopySelectedArticles.Checked
                 grvArticles.RefreshRow(itemNumber)
 
             End If
@@ -1239,7 +1239,7 @@ Public Class iucGroupsGrid
         Dim SelectedCount As Integer = CType(sender, GridView).SelectedRowsCount
         Dim maxcount As Integer = CType(sender, GridView).RowCount
 
-        m_application.SendMessage(GetText("msgSelectedItemCount", "{0} von {1} markiert.", CStr(SelectedCount), CStr(maxcount)), True)
+        MainApplication.getInstance.SendMessage(GetText("msgSelectedItemCount", "{0} von {1} markiert.", CStr(SelectedCount), CStr(maxcount)), True)
 
     End Sub
 
@@ -1314,8 +1314,8 @@ Public Class iucGroupsGrid
             command.Description = "Sie finden den Artikel dann unter ""Alle"" Artikel wieder"
             command.ShowDialog()
 
-            If MessageBox.Show("Sie haben keine Gruppe gewählt. Möchten Sie einen Artikel anlegen, ohne diesen einer bestimmten Gruppe zuzuweisen?" & vbCrLf & _
-                               "Sie finden den Artikel dann unter 'Alle Artikel' wieder.", _
+            If MessageBox.Show("Sie haben keine Gruppe gewählt. Möchten Sie einen Artikel anlegen, ohne diesen einer bestimmten Gruppe zuzuweisen?" & vbCrLf &
+                               "Sie finden den Artikel dann unter 'Alle Artikel' wieder.",
                             "Keine Artikelgruppe gewählt", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = DialogResult.Yes Then
 
                 groupKey = Groups.RootID
@@ -1334,12 +1334,12 @@ Public Class iucGroupsGrid
         End If
 
         Dim newItem As ClausSoftware.Kernel.Article
-        newItem = m_application.ArticleList.GetNewItem()
+        newItem = MainApplication.getInstance.ArticleList.GetNewItem()
 
         newItem.GroupID = groupKey
         newItem.ShortDescription = GetText("NewArticleName", "<Neuer Artikel>")
         newItem.Save()
-        ' m_application.ArticleList.Add(newItem)
+        ' MainApplication.getInstance.ArticleList.Add(newItem)
 
         newID = newItem.ID
 
@@ -1392,7 +1392,7 @@ Public Class iucGroupsGrid
             parentArticle = CType(CType(view.ParentView, GridView).GetFocusedRow, Article)
 
             For Each item As Attachment In attachmentsToDelete
-                m_application.AttachmentRelations.Remove(parentArticle.Key, item)
+                MainApplication.getInstance.AttachmentRelations.Remove(parentArticle.Key, item)
             Next
 
 
@@ -1427,7 +1427,7 @@ Public Class iucGroupsGrid
                 Row.Delete()
             Next
         Catch ex As Exception
-            m_application.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this GroupItem from GridMenü: " & ex.Message)
+            MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this GroupItem from GridMenü: " & ex.Message)
             MessageBox.Show(GetText("msgUnresolvedContraintsInDataItemCantDelete", "Kann Datensatz nicht löschen, es liegen eventuell noch Verweise vor."), GetText("msgDeleteRejected", "Löschen nicht möglich."), MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         Finally
@@ -1472,7 +1472,7 @@ Public Class iucGroupsGrid
                 m_selectedGroup = group
                 RaiseEvent SelectedGroupChanged(m_selectedGroup.Key)
 
-                m_application.Settings.SetSetting("SelectedArticleGroup", ModuleArticles, m_selectedGroup.Key)
+                MainApplication.getInstance.Settings.SetSetting("SelectedArticleGroup", ModuleArticles, m_selectedGroup.Key)
 
             Else
                 If serverModeDS IsNot Nothing Then
@@ -1480,7 +1480,7 @@ Public Class iucGroupsGrid
                     serverModeDS.FixedFilterCriteria = GetBaseArticleListCritera()
                 End If
 
-                m_application.Settings.SetSetting("SelectedArticleGroup", ModuleArticles, "0000")
+                MainApplication.getInstance.Settings.SetSetting("SelectedArticleGroup", ModuleArticles, "0000")
                 RaiseEvent SelectedGroupChanged("0000")
             End If
 
@@ -1512,7 +1512,7 @@ Public Class iucGroupsGrid
             Dim newarticle As Article = CType(m_focusedItem.Clone, Article)
             Dim newId As Integer
 
-            ' m_application.ArticleList.Add(newarticle)
+            ' MainApplication.getInstance.ArticleList.Add(newarticle)
             newarticle.Save()
             newId = newarticle.ID
 

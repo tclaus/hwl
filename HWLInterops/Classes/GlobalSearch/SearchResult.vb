@@ -93,8 +93,8 @@
                 Me.Description = item.ToString.Replace(vbCrLf, " ")
                 Me.IDNumber = CStr(item.ID)
                 Me.Key = item.Key
-                Me.Icon = mainUI.GetItemSmallImage(item)
-                Me.ItemTyp = mainUI.GetItemTypeName(item)
+                Me.Icon = MainUI.GetItemSmallImage(item)
+                Me.ItemTyp = MainUI.GetItemTypeName(item)
 
                 m_orgItem = item
             End If

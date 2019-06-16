@@ -36,19 +36,19 @@ Public Class iucOptionNumberGenerator
         If m_isLoading Then Exit Sub
 
 
-        m_Info = m_application.UserStats.InfoItem
+        m_Info = MainApplication.getInstance.UserStats.InfoItem
         Try
-            lblInvoicesPreview.Text = m_application.Tools.GetDisplayID(CInt(txtInvoicesInitialNumber.EditValue) + m_Info.NextInvoiceNumber, txtInvoicesReplacement.Text, Now)
+            lblInvoicesPreview.Text = MainApplication.getInstance.Tools.GetDisplayID(CInt(txtInvoicesInitialNumber.EditValue) + m_Info.NextInvoiceNumber, txtInvoicesReplacement.Text, Now)
         Catch
             lblInvoicesPreview.Text = "-"
         End Try
         Try
-            lblOffersPreview.Text = m_application.Tools.GetDisplayID(CInt(txtOffersInitialNumber.EditValue) + m_Info.NextOffersNumber, txtOffersReplacement.Text, Now)
+            lblOffersPreview.Text = MainApplication.getInstance.Tools.GetDisplayID(CInt(txtOffersInitialNumber.EditValue) + m_Info.NextOffersNumber, txtOffersReplacement.Text, Now)
         Catch
             lblOffersPreview.Text = "-"
         End Try
         Try
-            lblCustomersPreview.Text = m_application.Tools.GetDisplayID(CInt(txtCustomersInitialNumber.EditValue) + m_Info.NextAddressNumber, txtCustomersReplacement.Text, Now)
+            lblCustomersPreview.Text = MainApplication.getInstance.Tools.GetDisplayID(CInt(txtCustomersInitialNumber.EditValue) + m_Info.NextAddressNumber, txtCustomersReplacement.Text, Now)
         Catch
             lblCustomersPreview.Text = "-"
         End Try
@@ -95,16 +95,16 @@ Public Class iucOptionNumberGenerator
 
         m_isLoading = True
         'Adressen
-        txtCustomersInitialNumber.EditValue = m_application.Settings.SettingAdressID_Base
-        txtCustomersReplacement.Text = m_application.Settings.SettingAdressID_Format
+        txtCustomersInitialNumber.EditValue = MainApplication.getInstance.Settings.SettingAdressID_Base
+        txtCustomersReplacement.Text = MainApplication.getInstance.Settings.SettingAdressID_Format
 
         'Angebote
-        txtOffersInitialNumber.EditValue = m_application.Settings.SettingOffersID_Base
-        txtOffersReplacement.Text = m_application.Settings.SettingOffersID_Format
+        txtOffersInitialNumber.EditValue = MainApplication.getInstance.Settings.SettingOffersID_Base
+        txtOffersReplacement.Text = MainApplication.getInstance.Settings.SettingOffersID_Format
 
         'Rechnungen
-        txtInvoicesInitialNumber.EditValue = m_application.Settings.SettingInvoicesID_Base
-        txtInvoicesReplacement.EditValue = m_application.Settings.SettingInvoicesID_Format
+        txtInvoicesInitialNumber.EditValue = MainApplication.getInstance.Settings.SettingInvoicesID_Base
+        txtInvoicesReplacement.EditValue = MainApplication.getInstance.Settings.SettingInvoicesID_Format
         m_isLoading = False
 
         ' Neu aufbauen
@@ -132,11 +132,11 @@ Public Class iucOptionNumberGenerator
     Private Sub btnShowPlaceHolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnShowPlaceHolder.Click
         Dim str As String = ""
 
-        For Each item As KeyValuePair(Of String, String) In m_application.Tools.GetReplacementStringsNumbergenerator
+        For Each item As KeyValuePair(Of String, String) In MainApplication.getInstance.Tools.GetReplacementStringsNumbergenerator
             str &= item.Key & ":" & item.Value & vbCrLf
         Next
 
-        MessageBox.Show(str, GetText("PlaceHoldersInNumberGenerator","Ersetzungen im Nummerngenerator"), MessageBoxButtons.OK)
+        MessageBox.Show(str, GetText("PlaceHoldersInNumberGenerator", "Ersetzungen im Nummerngenerator"), MessageBoxButtons.OK)
 
     End Sub
 
@@ -161,61 +161,61 @@ Public Class iucOptionNumberGenerator
         Dim strDocuments As String = GetText("CommonDocuments", "Dokumente")
         Dim strInvoices As String = GetText("Invoices", "Rechnungen")
 
-        If CInt(txtCustomersInitialNumber.EditValue) <> m_application.Settings.SettingAdressID_Base Or CStr(txtCustomersReplacement.EditValue) <> m_application.Settings.SettingAdressID_Format Then
+        If CInt(txtCustomersInitialNumber.EditValue) <> MainApplication.getInstance.Settings.SettingAdressID_Base Or CStr(txtCustomersReplacement.EditValue) <> MainApplication.getInstance.Settings.SettingAdressID_Format Then
             ' Adressbuch-Nummern neu schreiben
             ' (Display-ID setzen)
-            m_application.Settings.SettingAdressID_Base = CInt(txtCustomersInitialNumber.EditValue)
-            m_application.Settings.SettingAdressID_Format = CStr(txtCustomersReplacement.EditValue)
+            MainApplication.getInstance.Settings.SettingAdressID_Base = CInt(txtCustomersInitialNumber.EditValue)
+            MainApplication.getInstance.Settings.SettingAdressID_Format = CStr(txtCustomersReplacement.EditValue)
 
-            m_application.Adressen.Criteria = Nothing ' Sicherstellen, das wir alles erwischen
-            itemcount = m_application.Adressen.Count
+            MainApplication.getInstance.Adressen.Criteria = Nothing ' Sicherstellen, das wir alles erwischen
+            itemcount = MainApplication.getInstance.Adressen.Count
             counter = 0
-            m_application.SendMessage(GetText("WritingNewAddressNumbers", "Schreibe neue Kontaktnummern"))
-            For Each item As Adress In m_application.Adressen
+            MainApplication.getInstance.SendMessage(GetText("WritingNewAddressNumbers", "Schreibe neue Kontaktnummern"))
+            For Each item As Adress In MainApplication.getInstance.Adressen
                 item.RefreshDisplayID()
                 item.Save()
                 counter += 1
-                m_application.SendProgress(strAddresses, counter, itemcount)
+                MainApplication.getInstance.SendProgress(strAddresses, counter, itemcount)
 
             Next
         End If
 
         ' Nun allgemein alle Dokuemnte neu schreiben...
-        If CInt(txtOffersInitialNumber.EditValue) <> m_application.Settings.SettingOffersID_Base Or CStr(txtOffersReplacement.EditValue) <> m_application.Settings.SettingOffersID_Format Then
-            m_application.Settings.SettingOffersID_Base = CInt(txtOffersInitialNumber.EditValue)
-            m_application.Settings.SettingOffersID_Format = CStr(txtOffersReplacement.EditValue)
+        If CInt(txtOffersInitialNumber.EditValue) <> MainApplication.getInstance.Settings.SettingOffersID_Base Or CStr(txtOffersReplacement.EditValue) <> MainApplication.getInstance.Settings.SettingOffersID_Format Then
+            MainApplication.getInstance.Settings.SettingOffersID_Base = CInt(txtOffersInitialNumber.EditValue)
+            MainApplication.getInstance.Settings.SettingOffersID_Format = CStr(txtOffersReplacement.EditValue)
 
-            itemcount = m_application.JournalDocuments.Count
-            m_application.SendMessage(GetText("WritingNewOfferNumbers", "Schreibe neue Angebots-Nummern"))
+            itemcount = MainApplication.getInstance.JournalDocuments.Count
+            MainApplication.getInstance.SendMessage(GetText("WritingNewOfferNumbers", "Schreibe neue Angebots-Nummern"))
 
-            For Each item As JournalDocument In m_application.JournalDocuments
+            For Each item As JournalDocument In MainApplication.getInstance.JournalDocuments
                 If item.DocumentType = enumJournalDocumentType.Angebot Then
                     item.RefreshDisplayID()
                     item.Plainsave()
                 End If
 
                 counter += 1
-                m_application.SendProgress(strDocuments, counter, itemcount)
+                MainApplication.getInstance.SendProgress(strDocuments, counter, itemcount)
 
             Next
         End If
         '.. Und weil es so schön war, nun nur alle Rechnungen schreiben
-        If CInt(txtInvoicesInitialNumber.EditValue) <> m_application.Settings.SettingInvoicesID_Base Or CStr(txtInvoicesReplacement.EditValue) <> m_application.Settings.SettingInvoicesID_Format Then
-            m_application.Settings.SettingInvoicesID_Base = CInt(txtInvoicesInitialNumber.EditValue)
-            m_application.Settings.SettingInvoicesID_Format = CStr(txtInvoicesReplacement.EditValue)
+        If CInt(txtInvoicesInitialNumber.EditValue) <> MainApplication.getInstance.Settings.SettingInvoicesID_Base Or CStr(txtInvoicesReplacement.EditValue) <> MainApplication.getInstance.Settings.SettingInvoicesID_Format Then
+            MainApplication.getInstance.Settings.SettingInvoicesID_Base = CInt(txtInvoicesInitialNumber.EditValue)
+            MainApplication.getInstance.Settings.SettingInvoicesID_Format = CStr(txtInvoicesReplacement.EditValue)
 
-            m_application.JournalDocuments.Criteria = Nothing
+            MainApplication.getInstance.JournalDocuments.Criteria = Nothing
 
-            m_application.SendMessage(GetText("WritingNewInvoiceNumbers", "Schreibe neue Rechnungs-Nummern"))
+            MainApplication.getInstance.SendMessage(GetText("WritingNewInvoiceNumbers", "Schreibe neue Rechnungs-Nummern"))
 
-            For Each item As JournalDocument In m_application.JournalDocuments
+            For Each item As JournalDocument In MainApplication.getInstance.JournalDocuments
                 If item.DocumentType = enumJournalDocumentType.Rechnung Then
                     item.RefreshDisplayID()
                     item.Plainsave()
                 End If
 
                 counter += 1
-                m_application.SendProgress(strInvoices, counter, itemcount)
+                MainApplication.getInstance.SendProgress(strInvoices, counter, itemcount)
             Next
 
 
@@ -262,13 +262,13 @@ Public Class iucOptionNumberGenerator
     End Sub
 
     Private Sub iucOptionNumberGenerator_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
-        txtInvoicesInitialNumber.EditValue = m_application.Settings.SettingInvoicesID_Base
-        txtInvoicesReplacement.EditValue = m_application.Settings.SettingInvoicesID_Format
+        txtInvoicesInitialNumber.EditValue = MainApplication.getInstance.Settings.SettingInvoicesID_Base
+        txtInvoicesReplacement.EditValue = MainApplication.getInstance.Settings.SettingInvoicesID_Format
 
-        txtOffersInitialNumber.EditValue = m_application.Settings.SettingOffersID_Base
-        txtOffersReplacement.EditValue = m_application.Settings.SettingOffersID_Format
+        txtOffersInitialNumber.EditValue = MainApplication.getInstance.Settings.SettingOffersID_Base
+        txtOffersReplacement.EditValue = MainApplication.getInstance.Settings.SettingOffersID_Format
 
     End Sub
 End Class

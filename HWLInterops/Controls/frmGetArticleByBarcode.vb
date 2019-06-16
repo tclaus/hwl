@@ -36,7 +36,7 @@ Public Class frmGetArticleByBarcode
         End If
 
         Dim criteria As DevExpress.Data.Filtering.CriteriaOperator = DevExpress.Data.Filtering.CriteriaOperator.Parse("EAN='" & text & "'")
-        Dim eanArticle As New ClausSoftware.Kernel.Articles(m_application, criteria)
+        Dim eanArticle As New ClausSoftware.Kernel.Articles(MainApplication.getInstance, criteria)
 
         Debug.Print("Suche:" & criteria.LegacyToString)
 

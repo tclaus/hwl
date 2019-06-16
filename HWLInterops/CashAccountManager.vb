@@ -1,5 +1,5 @@
 ﻿Imports ClausSoftware.Kernel
-
+Imports ClausSoftware.MainApplication
 
 Public Class CashAccountManager
 
@@ -10,7 +10,7 @@ Public Class CashAccountManager
 
 
     ''' <summary>
-    ''' Fügt ein neues KOnto hinzu und gibt zu Zugriffsnummer zurück, -1 falls Fehlgeschlagen
+    ''' Fügt ein neues Konto hinzu und gibt zu Zugriffsnummer zurück, -1 falls Fehlgeschlagen
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
@@ -18,18 +18,18 @@ Public Class CashAccountManager
 
         ' Finde höchste interne NUmmer
         Dim maxid As Integer
-        For Each account As CashAccount In m_application.CashAccounts
+        For Each account As CashAccount In MainApplication.getInstance.CashAccounts
             If account.AccountID > maxid Then
                 maxid = account.AccountID
             End If
         Next
 
 
-        Dim newCashAccount As CashAccount = m_application.CashAccounts.GetNewItem
+        Dim newCashAccount As CashAccount = MainApplication.getInstance.CashAccounts.GetNewItem
         newCashAccount.AccountID = maxid + 1
 
         newCashAccount.AccountName = "<neues Buchungskonto>" 'TODO: NLS
-        newCashAccount.TaxID = m_application.Settings.SettingDefaultTaxID
+        newCashAccount.TaxID = MainApplication.getInstance.Settings.SettingDefaultTaxID
 
         Using frm As New frmEditCashAccounts(newCashAccount, True)
             If frm.ShowDialog = DialogResult.OK Then

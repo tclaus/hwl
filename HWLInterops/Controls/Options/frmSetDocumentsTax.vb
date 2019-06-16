@@ -14,10 +14,10 @@ Public Class frmSetDocumentsTax
             Dim targetDate As DateTime = New Date(CInt(txtYear.EditValue), 1, 1)
             Dim newTaxRate As TaxRate = CType(cobTaxRate.SelectedItem, TaxRate)
 
-            Dim MaxCount As Integer = m_application.JournalDocuments.Count
+            Dim MaxCount As Integer = MainApplication.getInstance.JournalDocuments.Count
             Dim currentCount As Integer = 0
 
-            For Each item As JournalDocument In m_application.JournalDocuments
+            For Each item As JournalDocument In MainApplication.getInstance.JournalDocuments
                 Try
                     If item.DocumentDate > targetDate Then
                         For Each Group As JournalArticleGroup In item.ArticleGroups
@@ -41,7 +41,7 @@ Public Class frmSetDocumentsTax
                 lblProgress.Text = currentCount & "/" & MaxCount
                 lblProgress.Refresh()
             Next
-            
+
 
         End If
 
@@ -50,7 +50,7 @@ Public Class frmSetDocumentsTax
 
     Private Sub frmSetDocumentsTax_Load(sender As Object, e As System.EventArgs) Handles Me.Load
 
-        For Each TaxRate As TaxRate In m_application.TaxRates
+        For Each TaxRate As TaxRate In MainApplication.getInstance.TaxRates
             ' Nur nicht Leere Steuern zulassen
             If TaxRate.TaxValue > 0 Then
                 cobTaxRate.Properties.Items.Add(TaxRate)

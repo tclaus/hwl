@@ -18,15 +18,15 @@ Public Class KernelTest
     <Category("Fixkosten")> _
     <Test()> _
     Public Sub OpenFixedCosts()
-        Dim fixedCosts As ClausSoftware.Kernel.FixedCosts = m_Application.FixedCosts
+        Dim fixedCosts As ClausSoftware.Kernel.FixedCosts = MainApplication.getInstance.FixedCosts
         Assert.IsNotNull(fixedCosts, "Fixkostentabelle konnte nicht geöffnet werden")
 
     End Sub
 
 
-    <Test(Description:="Öffne Appointments (Termine)")> _
+    <Test(Description:="Öffne Appointments (Termine)")>
     Public Sub OpenAppointments()
-        Dim ap As Kernel.Appointments = m_Application.Appointments
+        Dim ap As Kernel.Appointments = MainApplication.getInstance.Appointments
 
         Assert.NotNull(ap, "Appointments konnten nicht geöffnet werden")
         Assert.IsTrue(ap.Count >= 0, "Appointments.Count abfragen geht nicht")
@@ -34,9 +34,9 @@ Public Class KernelTest
 
     End Sub
 
-    <Test()> _
+    <Test()>
     Public Sub OpenAppointmentRessource()
-        Dim apR As Kernel.AppointmentsResources = m_Application.AppointmentResources
+        Dim apR As Kernel.AppointmentsResources = MainApplication.getInstance.AppointmentResources
         Assert.NotNull(apR, "Appointment-Resource  konnten nicht geöffnet werden")
         Assert.IsTrue(apR.Count >= 0, "AppointmentRessources.Count abfragen geht nicht")
 
@@ -46,9 +46,9 @@ Public Class KernelTest
     ''' Öffnet die Kassenbucheinträge
     ''' </summary>
     ''' <remarks></remarks>
-    <Test(Description:="Kassenbucheinträge")> _
+    <Test(Description:="Kassenbucheinträge")>
     Public Sub OpenCashJournalItems()
-        Dim cash As Kernel.CashJournalItems = m_Application.CashJournal
+        Dim cash As Kernel.CashJournalItems = MainApplication.getInstance.CashJournal
         Assert.NotNull(cash, "CashJournalItems  konnten nicht geöffnet werden")
         Assert.IsTrue(cash.Count >= 0, "CashJournalItems.Count abfragen geht nicht")
 
@@ -59,25 +59,25 @@ Public Class KernelTest
     ''' Öffnet die Kassenbucheinträge
     ''' </summary>
     ''' <remarks></remarks>
-    <Test(Description:="Kassenbucheinträge")> _
+    <Test(Description:="Kassenbucheinträge")>
     Public Sub OpenCashJournalIAccounts()
-        Dim cash As Kernel.CashAccounts = m_Application.CashAccounts
+        Dim cash As Kernel.CashAccounts = MainApplication.getInstance.CashAccounts
         Assert.NotNull(cash, "CashAccounts  konnten nicht geöffnet werden")
         Assert.IsTrue(cash.Count >= 0, "CashAccounts.Count abfragen geht nicht")
 
     End Sub
 
-    <Category("Fixkosten")> _
-    <Test()> _
+    <Category("Fixkosten")>
+    <Test()>
     Public Sub CreateNewFixedCosts()
         Dim orgCount As Integer
-        Dim fixedCosts As ClausSoftware.Kernel.FixedCosts = m_Application.FixedCosts
+        Dim fixedCosts As ClausSoftware.Kernel.FixedCosts = MainApplication.getInstance.FixedCosts
 
         orgCount = fixedCosts.Count ' Origane Anzahl feststellen
 
         Dim newItem As ClausSoftware.Kernel.FixedCost = fixedCosts.GetNewItem
 
-        newItem.Subject = "Test-Eintrag"        
+        newItem.Subject = "Test-Eintrag"
         newItem.Save()
         fixedCosts.Reload()
 
@@ -86,33 +86,33 @@ Public Class KernelTest
 
     End Sub
 
-    <Category("settings")> _
-    <Description("Prüft die unterschiedlichen Möglichkeiten des Laden und Speichern von Einstellungen")> _
+    <Category("settings")>
+    <Description("Prüft die unterschiedlichen Möglichkeiten des Laden und Speichern von Einstellungen")>
     Public Sub TestSettings()
 
         Dim valueOwnValue As String = "Deins"
         Dim valueOtherValue As String = "Meins"
         Dim valueNoUser As String = "No Value"
 
-        m_Application.Settings.SetSetting("ABC", "123", valueOwnValue) ' Speichert einen Wert, und weist diesen dem aktuellen Benutzer zu
-        m_Application.Settings.SetSetting("ABC", "123", valueOtherValue, "dummyUser") ' Speichert einen Wert, und weist diesen einem anderen Benutzer zu
+        MainApplication.getInstance.Settings.SetSetting("ABC", "123", valueOwnValue) ' Speichert einen Wert, und weist diesen dem aktuellen Benutzer zu
+        MainApplication.getInstance.Settings.SetSetting("ABC", "123", valueOtherValue, "dummyUser") ' Speichert einen Wert, und weist diesen einem anderen Benutzer zu
 
         Dim testOwnValue As String
         Dim testOtherValue As String
         Dim testNoValue As String
 
 
-        testOwnValue = m_Application.Settings.GetSetting("ABC", "123", "") ' mein eiger wert abholen
-        testOtherValue = m_Application.Settings.GetSetting("ABC", "123", "", "dummyUser") ' Anderen wert abholen
+        testOwnValue = MainApplication.getInstance.Settings.GetSetting("ABC", "123", "") ' mein eiger wert abholen
+        testOtherValue = MainApplication.getInstance.Settings.GetSetting("ABC", "123", "", "dummyUser") ' Anderen wert abholen
 
         Assert.AreEqual(valueOwnValue, testOwnValue, "Benutzerwert war nach dem einlesen nicht gleich dem geschriebenen wert")
         Assert.AreEqual(valueOtherValue, testOtherValue, "Wert eines anderen Benutzers war nach dem einlesen nicht gleich dem geschriebenen wert")
 
 
-        m_Application.Settings.SetSetting("ABC", "123", valueNoUser, "") ' Speichert einen Wert ohne Benutzerzuweisung
-        m_Application.Settings.SetSetting("ABC", "123", "QuatschValue") ' Darf nicht den Wert ohne Benutzerangabe überschreiben
+        MainApplication.getInstance.Settings.SetSetting("ABC", "123", valueNoUser, "") ' Speichert einen Wert ohne Benutzerzuweisung
+        MainApplication.getInstance.Settings.SetSetting("ABC", "123", "QuatschValue") ' Darf nicht den Wert ohne Benutzerangabe überschreiben
 
-        testNoValue = m_Application.Settings.GetSetting("ABC", "123", "", "")
+        testNoValue = MainApplication.getInstance.Settings.GetSetting("ABC", "123", "", "")
         Assert.AreEqual(valueNoUser, testNoValue, "Geschriebener Wert ist nicht mit dem gelesenen Wert identisch!")
     End Sub
 
@@ -121,11 +121,11 @@ Public Class KernelTest
     ''' Beim Start muss immer ein Applikations-Benutzer existieren
     ''' </summary>
     ''' <remarks></remarks>
-    <Category("Kernel")> _
-    <Test()> _
+    <Category("Kernel")>
+    <Test()>
     Public Sub ApplicationUserSet()
-        Assert.NotNull(m_Application.CurrentUser, "Ein standard-benutzer muss immer gesetzt sein. Ist Keine Benutzerverwaltung aktiv, so muss ein Dummy-Benutzer mit Rechnernamen/Anmeldenamen gesetzt sein.")
-        Assert.NotNull(m_Application.CurrentUser.Key, "ein Standardbenutzer ist gesetzt. Die Key-Eigenschaft war aber leer.")
+        Assert.NotNull(MainApplication.getInstance.CurrentUser, "Ein standard-benutzer muss immer gesetzt sein. Ist Keine Benutzerverwaltung aktiv, so muss ein Dummy-Benutzer mit Rechnernamen/Anmeldenamen gesetzt sein.")
+        Assert.NotNull(MainApplication.getInstance.CurrentUser.Key, "ein Standardbenutzer ist gesetzt. Die Key-Eigenschaft war aber leer.")
 
     End Sub
 
@@ -133,38 +133,38 @@ Public Class KernelTest
     ''' Die Application ID sollteniemals leer sein!
     ''' </summary>
     ''' <remarks></remarks>
-    <Test()> _
+    <Test()>
     Public Sub testAppID()
-        Assert.IsNotEmpty(m_Application.ApplicationID)
+        Assert.IsNotEmpty(MainApplication.getInstance.ApplicationID)
     End Sub
 
     ''' <summary>
     ''' Öffnet den Adressen-Datensatz
     ''' </summary>
     ''' <remarks></remarks>
-    <Test()> _
-     Public Sub OpenAddress()
+    <Test()>
+    Public Sub OpenAddress()
 
         Dim adressen As Kernel.Adressen
 
-        adressen = m_Application.Adressen
+        adressen = MainApplication.getInstance.Adressen
         Assert.IsNotNull(adressen, "Adressen war kein gefülltes Objekt")
         Assert.IsTrue(adressen.Count >= 0, "Adressen.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Test(Description:="Ruft die Auflistung der Calls für diesen Kontakt ab")> _
+    <Test(Description:="Ruft die Auflistung der Calls für diesen Kontakt ab")>
     Public Sub TestAdressPhoneCallList()
-        Dim pc As PhoneCalls = m_Application.Adressen(0).PhoneCallList
+        Dim pc As PhoneCalls = MainApplication.getInstance.Adressen(0).PhoneCallList
 
-        Assert.NotNull(m_Application.Adressen(0).PhoneCallList, "Liste der Calls für eine Adresse war leer")
+        Assert.NotNull(MainApplication.getInstance.Adressen(0).PhoneCallList, "Liste der Calls für eine Adresse war leer")
 
 
         Dim orgCount As Integer = pc.Count ' Anzahl merken
 
 
         Dim newcall As PhoneCall = pc.GetNewItem()
-        newcall.CallerAddress = m_Application.Adressen(0)
+        newcall.CallerAddress = MainApplication.getInstance.Adressen(0)
         newcall.CallingID = "007"
         newcall.Save()
 
@@ -179,7 +179,7 @@ Public Class KernelTest
 
         Assert.NotNull(newcall.CallState, "Anrufzustand darf nicht nothing sein")
         newcall.Reload()
-        Assert.IsTrue(newcall.CallerAddress.Key = m_Application.Adressen(0).Key, "Anruferadreswse sollte nun wieder hergestellt sein")
+        Assert.IsTrue(newcall.CallerAddress.Key = MainApplication.getInstance.Adressen(0).Key, "Anruferadreswse sollte nun wieder hergestellt sein")
 
         newcall.CallState = PhoneCall.CallStateType.Answered
 
@@ -198,15 +198,15 @@ Public Class KernelTest
     ''' Prüft das direkte Locking eines Elementes 
     ''' </summary>
     ''' <remarks></remarks>
-    <Description("Setzt ein Lock auf ein beliebiges Element und prüft dieses")> _
-    <Test()> _
+    <Description("Setzt ein Lock auf ein beliebiges Element und prüft dieses")>
+    <Test()>
     Public Sub BeginLock()
-        Dim maxCount As Integer = m_Application.Adressen.Count - 1
+        Dim maxCount As Integer = MainApplication.getInstance.Adressen.Count - 1
         Dim r As Random = New Random()
 
         Dim index As Integer = r.Next(0, maxCount - 1)
 
-        Dim Adress As Kernel.Adress = m_Application.Adressen(index)
+        Dim Adress As Kernel.Adress = MainApplication.getInstance.Adressen(index)
         Adress.ForceUnlock()
 
         Dim lockState As ClausSoftware.Data.LockType
@@ -224,22 +224,22 @@ Public Class KernelTest
 
     End Sub
 
-    <Test(description:="Öffnet die Artikel-Attribute liste")> _
+    <Test(Description:="Öffnet die Artikel-Attribute liste")>
     Public Sub OpenClassDefinitions()
-        Dim classdef As Kernel.Attributes.ClassDefinitions = m_Application.ClassDefinitions
+        Dim classdef As Kernel.Attributes.ClassDefinitions = MainApplication.getInstance.ClassDefinitions
         Assert.IsNotNull(classdef, "Classefinition war nothing")
         Assert.IsTrue(classdef.Count >= 0, "Konnte die Anzahl nicht abrufen")
 
     End Sub
 
-    <Description("Loading Application Units")> _
-    <Test()> _
-     Public Sub OpenUnits()
+    <Description("Loading Application Units")>
+    <Test()>
+    Public Sub OpenUnits()
         Debug.Print("Lade Einheiten")
 
         Dim Einheiten As Kernel.Units
 
-        Einheiten = m_Application.Units
+        Einheiten = MainApplication.getInstance.Units
         Assert.IsNotNull(Einheiten, "Einheiten war kein gefülltes Objekt")
         Assert.IsTrue(Einheiten.Count >= 0, "Einheiten.Count konnte nicht ermittelt werden")
 
@@ -252,9 +252,9 @@ Public Class KernelTest
     ''' Fixkostengruppe
     ''' </summary>
     ''' <remarks></remarks>
-    <Test(description:="Öffne Fixkostengruppen")> _
+    <Test(Description:="Öffne Fixkostengruppen")>
     Public Sub OpenFixedCostGroups()
-        Dim fg As Kernel.FixedCostGroups = m_Application.FixedCostGroups
+        Dim fg As Kernel.FixedCostGroups = MainApplication.getInstance.FixedCostGroups
 
         Assert.IsNotNull(fg, "Fixkostengruppe war kein gefülltes Objekt")
         Assert.IsTrue(fg.Count >= 0, "Fixkostengruppe.Count konnte nicht ermittelt werden")
@@ -266,77 +266,77 @@ Public Class KernelTest
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub TestLastDatabaseSpeedValue()
-        Dim value As Integer = m_Application.LastDatabaseSpeed
+        Dim value As Integer = MainApplication.getInstance.LastDatabaseSpeed
 
     End Sub
     ''' <summary>
     ''' Artikelgruppen
     ''' </summary>
     ''' <remarks></remarks>
-    <Test(description:="ArtikelGruppen")> _
+    <Test(Description:="ArtikelGruppen")>
     Public Sub OpenArticleGroups()
-        Dim fg As Kernel.Groups = m_Application.Groups
+        Dim fg As Kernel.Groups = MainApplication.getInstance.Groups
 
         Assert.IsNotNull(fg, "Artikelgruppen war kein gefülltes Objekt")
         Assert.IsTrue(fg.Count >= 0, "Artikelgruppen.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Test(description:="Öffne Rabatte-Klasse")> _
+    <Test(Description:="Öffne Rabatte-Klasse")>
     Public Sub OpenDiscounts()
-        Dim discounts As Kernel.Discounts = m_Application.Discounts
+        Dim discounts As Kernel.Discounts = MainApplication.getInstance.Discounts
         Assert.IsNotNull(discounts, "Rabatte war kein gefülltes Objekt")
         Assert.IsTrue(discounts.Count >= 0, "Discounts.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Description("Getting Database Version")> _
-    <Test()> _
+    <Description("Getting Database Version")>
+    <Test()>
     Public Sub GetDBVersion()
         Dim DBValue As String
-        DBValue = m_Application.DBVersion
+        DBValue = MainApplication.getInstance.DBVersion
         Debug.Print("Datenbankversion ist: " & DBValue)
 
 
-        m_Application.DBVersion = "1.2.3"
+        MainApplication.getInstance.DBVersion = "1.2.3"
 
-        StringAssert.AreEqualIgnoringCase("1.2.3", m_Application.DBVersion)
+        StringAssert.AreEqualIgnoringCase("1.2.3", MainApplication.getInstance.DBVersion)
         ' wieder herstellen
-        m_Application.DBVersion = DBValue
+        MainApplication.getInstance.DBVersion = DBValue
 
     End Sub
 
 
-    <Test()> _
-    <ExpectedException(GetType(ArgumentException))> _
+    <Test()>
+    <ExpectedException(GetType(ArgumentException))>
     Public Sub SetDBVersion()
         Dim DBValue As String
-        DBValue = m_Application.DBVersion
+        DBValue = MainApplication.getInstance.DBVersion
         Debug.Print("Datenbankversion ist: " & DBValue)
         ' Setze richtige DB Version
 
-        m_Application.DBVersion = "1.4.712"
+        MainApplication.getInstance.DBVersion = "1.4.712"
 
-        Debug.Assert(m_Application.DBVersion = "1.4.712", "Datenbankversion konnte nicht gesetzt werden")
-        m_Application.DBVersion = DBValue
+        Debug.Assert(MainApplication.getInstance.DBVersion = "1.4.712", "Datenbankversion konnte nicht gesetzt werden")
+        MainApplication.getInstance.DBVersion = DBValue
         'Sollte einen Fehler auslösen 
-        m_Application.DBVersion = "Humptydumpty"
+        MainApplication.getInstance.DBVersion = "Humptydumpty"
 
 
     End Sub
 
-    <Test()> _
+    <Test()>
     Public Sub TestAttachments()
-        Dim a As Kernel.Attachments = New Kernel.Attachments(m_Application)
+        Dim a As Kernel.Attachments = New Kernel.Attachments(MainApplication.getInstance)
 
         Assert.NotNull(a, "Attachmets sind null")
         Assert.NotNull(a.Count, "Attachments.count sind null")
 
     End Sub
 
-    <Test()> _
+    <Test()>
     Public Sub CreateAttachment()
-        Dim a As Kernel.Attachment = New Kernel.Attachment(m_Application.Session)
+        Dim a As Kernel.Attachment = New Kernel.Attachment(MainApplication.getInstance.Session)
         a.CreateDate = Today
         Assert.IsFalse(a.DataExist)
 
@@ -353,11 +353,11 @@ Public Class KernelTest
     ''' Das erste Item aus der (Adressen)-Liste rausholen
     ''' </summary>
     ''' <remarks></remarks>
-    <Test()> _
-     Public Sub GetAdressItem()
+    <Test()>
+    Public Sub GetAdressItem()
 
         Dim adressen As Kernel.Adressen
-        adressen = m_Application.Adressen
+        adressen = MainApplication.getInstance.Adressen
         If adressen.Count > 0 Then
             Debug.Print("Company: " & adressen(0).Company)
             Debug.Print("ContactsName: " & adressen(0).ContactsName)
@@ -370,9 +370,9 @@ Public Class KernelTest
 
     End Sub
 
-    <Test()> _
+    <Test()>
     Public Sub CreateAddress()
-        Dim Adressen As Kernel.Adressen = m_Application.Adressen
+        Dim Adressen As Kernel.Adressen = MainApplication.getInstance.Adressen
         Dim OldCount As Long
         Dim NewCount As Long
         Debug.Print("AdresseAnlegen")
@@ -402,7 +402,7 @@ Public Class KernelTest
 
         'Adresse aktualisieren
         Adresse.CreatedAt = New Date(1974, 6, 1)
-        m_Application.Settings.SettingAdressID_Format = "$NR - $YY"
+        MainApplication.getInstance.Settings.SettingAdressID_Format = "$NR - $YY"
         Adresse.RefreshDisplayID()
 
         Debug.Print("Neue Adressennummer: " & Adresse.ContactDisplayID)
@@ -415,40 +415,40 @@ Public Class KernelTest
 
 
     End Sub
-    <Description("Testes die Eindeutigkeit von Kennzeichnungen")> _
-    <Test()> _
+    <Description("Testes die Eindeutigkeit von Kennzeichnungen")>
+    <Test()>
     Public Sub TestAdressesUniqeIds()
         Dim guid As String = System.Guid.NewGuid.ToString
 
-        Assert.IsTrue(m_Application.Adressen.CheckUniqueID(guid), "Unique ID war nicht eindeutig!")  ' Diese ID sollte auf jeden Fall eindeutig sein
+        Assert.IsTrue(MainApplication.getInstance.Adressen.CheckUniqueID(guid), "Unique ID war nicht eindeutig!")  ' Diese ID sollte auf jeden Fall eindeutig sein
 
-        Dim newAdress As Adress = m_Application.Adressen.GetNewItem
+        Dim newAdress As Adress = MainApplication.getInstance.Adressen.GetNewItem
         newAdress.ebayID = guid
         newAdress.Save()
 
-        Assert.IsFalse(m_Application.Adressen.CheckUniqueID(guid), "Unique ID sollte vergeben sein!")  ' Diese ID sollte auf jeden Fall eindeutig sein
+        Assert.IsFalse(MainApplication.getInstance.Adressen.CheckUniqueID(guid), "Unique ID sollte vergeben sein!")  ' Diese ID sollte auf jeden Fall eindeutig sein
 
-        Dim testAdress As Adress = m_Application.Adressen.GetItemByUniqueID(guid)
+        Dim testAdress As Adress = MainApplication.getInstance.Adressen.GetItemByUniqueID(guid)
 
         Assert.AreEqual(testAdress.Key, newAdress.Key, "Adresse konnte durch Unique ID nicht ermittelt werden")
 
 
     End Sub
 
-    <Test()> _
-     Public Sub OpenBriefe()
+    <Test()>
+    Public Sub OpenBriefe()
 
         Dim Briefe As Kernel.Letters
 
-        Briefe = m_Application.Letters
+        Briefe = MainApplication.getInstance.Letters
         Assert.IsNotNull(Briefe, "Briefe war kein gefülltes Objekt")
         Assert.IsTrue(Briefe.Count >= 0, "Adressen.Count konnte nicht ermittelt werden")
 
     End Sub
-    <Test()> _
+    <Test()>
     Public Sub AdressHistory()
 
-        Dim adress As Kernel.Adress = m_Application.Adressen(0)
+        Dim adress As Kernel.Adress = MainApplication.getInstance.Adressen(0)
         Dim Histories As Kernel.AddressHistoryItems = adress.History
 
         Assert.IsTrue(Histories.Categories.Count > 0, "Histories sollte mindestes eine Standard-Kategorie besitzen")
@@ -460,7 +460,7 @@ Public Class KernelTest
 
         Dim newentry As Kernel.AddressHistoryItem = Histories.GetNewItem
         newentry.Adress = adress
-        newentry.Category = m_Application.HistoryCategories.GetRemindersCategory
+        newentry.Category = MainApplication.getInstance.HistoryCategories.GetRemindersCategory
         newentry.Text = "Test History entry"
         newentry.Save()
 
@@ -476,34 +476,34 @@ Public Class KernelTest
 
     End Sub
 
-    <Test()> _
-     Public Sub OpenImages()
+    <Test()>
+    Public Sub OpenImages()
 
         Dim images As Kernel.Images
 
-        images = m_Application.Images
+        images = MainApplication.getInstance.Images
         Assert.IsNotNull(images, "Bilder war kein gefülltes Objekt")
         Assert.IsTrue(images.Count >= 0, "images.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Test()> _
-        Public Sub OpenNotes()
+    <Test()>
+    Public Sub OpenNotes()
 
         Dim Notes As Kernel.Letters
-        Notes = m_Application.Letters
+        Notes = MainApplication.getInstance.Letters
         Assert.IsNotNull(Notes, "Notes war kein gefülltes Objekt")
         Assert.IsTrue(Notes.Count >= 0, "Notes.Count konnte nicht ermittelt werden")
 
     End Sub
 
 
-    <Test()> _
-     Public Sub ShowBriefe()
+    <Test()>
+    Public Sub ShowBriefe()
         Debug.Print("ShowBriefe")
         Dim Briefe As Kernel.Letters
 
-        Briefe = m_Application.Letters
+        Briefe = MainApplication.getInstance.Letters
         Debug.Print("Briefe.Count: " & Briefe.Count)
         If Briefe.Count > 0 Then
             Debug.Print(Briefe(0).AddressField)
@@ -517,20 +517,20 @@ Public Class KernelTest
 
     End Sub
 
-    <Test()> _
-         Public Sub OpenJournal()
+    <Test()>
+    Public Sub OpenJournal()
         Debug.Print("Öffen Journal der Dokumente")
         Dim Journal As Kernel.JournalDocuments
-        Journal = m_Application.JournalDocuments
+        Journal = MainApplication.getInstance.JournalDocuments
 
 
         Assert.IsNotNull(Journal, "Journal war kein gefülltes Objekt")
         Assert.IsTrue(Journal.Count >= 0, "Journal.Count konnte nicht ermittelt werden")
 
     End Sub
-    <Test()> _
+    <Test()>
     Public Sub OpenJournalItems()
-        Dim jItems As New Kernel.JournalArticleItems(m_Application)
+        Dim jItems As New Kernel.JournalArticleItems(MainApplication.getInstance)
         Assert.NotNull(jItems, "JournalItems war kein gefülltest Objekt!")
 
     End Sub
@@ -538,22 +538,22 @@ Public Class KernelTest
 
 
 
-    <Test()> _
-         Public Sub OpenArticleList()
+    <Test()>
+    Public Sub OpenArticleList()
         Debug.Print("Öffnet Materialliste")
         Dim Materialliste As Kernel.Articles
-        Materialliste = m_Application.ArticleList
+        Materialliste = MainApplication.getInstance.ArticleList
 
         Assert.IsNotNull(Materialliste, "Materialliste war kein gefülltes Objekt")
         Assert.IsTrue(Materialliste.Count >= 0, "Materialliste.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Test()> _
-         Public Sub OpenJournalPositions()
+    <Test()>
+    Public Sub OpenJournalPositions()
         Debug.Print("Öffen eine Position im Journal der Dokumente")
         Dim Journal As Kernel.JournalDocuments
-        Journal = m_Application.JournalDocuments
+        Journal = MainApplication.getInstance.JournalDocuments
 
 
         Assert.IsNotNull(Journal, "Journal war kein gefülltes Objekt")
@@ -566,12 +566,12 @@ Public Class KernelTest
 
     End Sub
 
-    <Test()> _
-         Public Sub OpenItems()
+    <Test()>
+    Public Sub OpenItems()
         Debug.Print("Öffen Artikelliste der Dokumente")
         Dim Items As Kernel.JournalArticleItems
 
-        Items = New Kernel.JournalArticleItems(m_Application)
+        Items = New Kernel.JournalArticleItems(MainApplication.getInstance)
 
         Assert.IsNotNull(Items, "Artikelliste war kein gefülltes Objekt")
         Assert.IsTrue(Items.Count >= 0, "Artikelliste.Count konnte nicht ermittelt werden")
@@ -579,24 +579,24 @@ Public Class KernelTest
     End Sub
 
 
-    <Test()> _
-         Public Sub OpenPositions()
+    <Test()>
+    Public Sub OpenPositions()
         Debug.Print("Öffen Positionen der Dokumente")
         Dim Position As Kernel.JournalArticleGroups
 
-        Position = New Kernel.JournalArticleGroups(m_Application)
+        Position = New Kernel.JournalArticleGroups(MainApplication.getInstance)
 
         Assert.IsNotNull(Position, "Positionen war kein gefülltes Objekt")
         Assert.IsTrue(Position.Count >= 0, "Positionen.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Test()> _
-         Public Sub OpenPositionItems()
+    <Test()>
+    Public Sub OpenPositionItems()
         Debug.Print("Öffen die Artikel der Positionen der Dokumente")
         Dim Positionen As Kernel.JournalArticleGroups
 
-        Positionen = New Kernel.JournalArticleGroups(m_Application)
+        Positionen = New Kernel.JournalArticleGroups(MainApplication.getInstance)
 
         Assert.IsNotNull(Positionen, "Positionen war kein gefülltes Objekt")
         Assert.IsTrue(Positionen.Count >= 0, "Positionen.Count konnte nicht ermittelt werden")
@@ -609,74 +609,74 @@ Public Class KernelTest
 
     End Sub
 
-    <Description("Öffnet die Aufgabenliste")> _
-    <Test()> _
+    <Description("Öffnet die Aufgabenliste")>
+    <Test()>
     Public Sub OpenTasks()
         Debug.Print("Öffnet die Aufgabenliste")
         Dim tasks As Kernel.Tasks
 
-        tasks = m_Application.Tasks
+        tasks = MainApplication.getInstance.Tasks
 
         Assert.IsNotNull(tasks, "Aufgaben war kein gefülltes Objekt")
         Assert.IsTrue(tasks.Count >= 0, "Aufgabenliste.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Description("Öffnet die Forderungen-Liste")> _
-<Test()> _
+    <Description("Öffnet die Forderungen-Liste")>
+    <Test()>
     Public Sub OpenTransactions()
         Debug.Print("Öffnet die Forderungen-Liste")
         Dim trans As Kernel.Transactions
 
-        trans = m_Application.Transactions
+        trans = MainApplication.getInstance.Transactions
 
         Assert.IsNotNull(trans, "Forderungen/ Verbindlichkeiten war kein gefülltes Objekt")
         Assert.IsTrue(trans.Count >= 0, "Forderungen/ Verbindlichkeiten .Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Test()> _
-         Public Sub OpenMWST()
+    <Test()>
+    Public Sub OpenMWST()
         Debug.Print("Öffen Mehrwertsteuer-Tabelle der Dokumente")
         Dim Steuern As Kernel.TaxRates
 
-        Steuern = New Kernel.TaxRates(m_Application)
+        Steuern = New Kernel.TaxRates(MainApplication.getInstance)
 
         Assert.IsNotNull(Steuern, "Mehrwertsteuer war kein gefülltes Objekt")
         Assert.IsTrue(Steuern.Count >= 0, "Artikelliste.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Description("Holt ein Objekt anhand der Indexnummer der Auflistung ab")> _
-    <Test()> _
+    <Description("Holt ein Objekt anhand der Indexnummer der Auflistung ab")>
+    <Test()>
     Public Sub OpenObjectbyID()
         Dim target As Object
-        target = m_Application.ArticleList(0)
+        target = MainApplication.getInstance.ArticleList(0)
         Assert.NotNull(target, "Es konnte kein Objekt an der Position '0' geholt werden")
 
     End Sub
 
-    <Description("Testt eine leeres Kriterium in einer Collection")> _
-    <Test()> _
+    <Description("Testt eine leeres Kriterium in einer Collection")>
+    <Test()>
     Public Sub TestEmptyCollectionCriteria()
-        Dim testcll As Articles = New Articles(m_Application, Nothing)
+        Dim testcll As Articles = New Articles(MainApplication.getInstance, Nothing)
         Assert.IsTrue(testcll.Count > 0, "Die Auflistung sollte mit einem leerem Kriterium gefüllt sein.")
     End Sub
 
 
-    <Description("Holt ein Objekt anhand einer ungültigen Indexnummer der Auflistung ab")> _
-<Test()> _
+    <Description("Holt ein Objekt anhand einer ungültigen Indexnummer der Auflistung ab")>
+    <Test()>
     Public Sub OpenObjectbyInvalidID()
         Dim target As Object
-        target = m_Application.ArticleList(m_Application.ArticleList.Count + 5)
+        target = MainApplication.getInstance.ArticleList(MainApplication.getInstance.ArticleList.Count + 5)
         Assert.IsNull(target, "Bei einer ungültigen Zugriffsnummer sollte 'nothing' zurückgegeben werden!")
 
     End Sub
 
-    <Ignore("MySQL Dump für Server-DB nötig; klappt nicht als Unit-Test")> _
-    <Test()> _
+    <Ignore("MySQL Dump für Server-DB nötig; klappt nicht als Unit-Test")>
+    <Test()>
     Public Sub TestStartBackup()
-        Dim result As Boolean = m_Application.Database.StartBackup()
+        Dim result As Boolean = MainApplication.getInstance.Database.StartBackup()
         Assert.IsTrue(result, "Anlegen der Sicherungskopie hat 'False' ergeben.")
 
     End Sub
@@ -685,24 +685,24 @@ Public Class KernelTest
     ''' Holt die Tabelle der Properties, der Einstellungen ab
     ''' </summary>
     ''' <remarks></remarks>
-    <Test()> _
+    <Test()>
     Public Sub OpenEinstellungen()
         Debug.Print("Öffne Einstellungen-Tabelle")
         Dim Einstellungen As Kernel.Settings
 
-        Einstellungen = New Kernel.Settings(m_Application)
+        Einstellungen = New Kernel.Settings(MainApplication.getInstance)
 
         Assert.IsNotNull(Einstellungen, "Einstellungen war kein gefülltes Objekt")
         Assert.IsTrue(Einstellungen.Count >= 0, "Einstellungen.Count konnte nicht ermittelt werden")
 
     End Sub
 
-    <Test()> _
+    <Test()>
     Public Sub GetSetting()
         Debug.Print("Lese und Setze Einstellungen-Tabelle ")
         Dim Einstellungen As Kernel.Settings
 
-        Einstellungen = New Kernel.Settings(m_Application)
+        Einstellungen = New Kernel.Settings(MainApplication.getInstance)
         'Sollte eine Exception auslösen
         Dim Wert As String
         Wert = Einstellungen.GetSetting("irgendwas nicht da", "Kenne ich nicht")
@@ -713,7 +713,7 @@ Public Class KernelTest
 
         Einstellungen.SetSetting(EinstellungName, "Test", "Ohne Benutzer")
 
-        Einstellungen = m_Application.Settings
+        Einstellungen = MainApplication.getInstance.Settings
         Einstellungen.Reload()
 
         Wert = Einstellungen.GetSetting(EinstellungName, "Test")
@@ -724,7 +724,7 @@ Public Class KernelTest
         ' Benutzerdefinierte Einstellung
         Einstellungen.SetSetting(EinstellungName, "Test", "Test-User", "Benutzerdefiniert")
 
-        Einstellungen = m_Application.Settings
+        Einstellungen = MainApplication.getInstance.Settings
         Einstellungen.Reload()
 
         Wert = Einstellungen.GetSetting(EinstellungName, "Test", "Test-User")
@@ -733,53 +733,53 @@ Public Class KernelTest
 
     End Sub
 
-    <Category("Security")> _
-    <Description("Legt einen dummy-Benutzer fest, der aus dem Rechnernamen und eingeloggtem Benutzernamen gebildet wird")> _
-    <Test()> _
+    <Category("Security")>
+    <Description("Legt einen dummy-Benutzer fest, der aus dem Rechnernamen und eingeloggtem Benutzernamen gebildet wird")>
+    <Test()>
     Public Sub getUserByComputer()
-        Dim dummyUser As ClausSoftware.Kernel.security.User = m_Application.Users.GetUserByComputer()
+        Dim dummyUser As ClausSoftware.Kernel.Security.User = MainApplication.getInstance.Users.GetUserByComputer()
 
         Assert.AreEqual(dummyUser.Name, dummyUser.Key, "DummyUser muss denselben Schlüssel haben wie Name")
-        Assert.AreEqual(dummyUser.Name, Kernel.security.Users.MachineUserName, "DummyUser.Name format muss sein: ComputerName\UserName")
-        Assert.AreEqual(dummyUser.Name, Kernel.security.Users.MachineUserName, "DummyUser.Name format muss sein: ComputerName\UserName")
+        Assert.AreEqual(dummyUser.Name, Kernel.Security.Users.MachineUserName, "DummyUser.Name format muss sein: ComputerName\UserName")
+        Assert.AreEqual(dummyUser.Name, Kernel.Security.Users.MachineUserName, "DummyUser.Name format muss sein: ComputerName\UserName")
 
 
     End Sub
 
 
-    <Test()> _
-    <Description("Neue Adress-Einträge müssen immer das aktuelle Erstellungsdatum und Ersteller aufweisen")> _
+    <Test()>
+    <Description("Neue Adress-Einträge müssen immer das aktuelle Erstellungsdatum und Ersteller aufweisen")>
     Public Sub AnewItemHasCorrectCreatedAtState()
-        Dim newAdress As Kernel.Adress = m_Application.Adressen.GetNewItem
+        Dim newAdress As Kernel.Adress = MainApplication.getInstance.Adressen.GetNewItem
 
         Assert.AreEqual(newAdress.CreatedAt, Date.Today, "Adressen Erstellungsdatum war nicht gesetzt.")
-        Assert.AreEqual(newAdress.CreatedByID, m_Application.CurrentUser.Key, "Ersteller einer neuen Adresse war nicht gesetzt. Auch wenn keine Benutzerverwaltung isntalliert ist, muss immer der User.Key als Ersteller angegeben sein (sonst Rechnername/Benutzername)")
+        Assert.AreEqual(newAdress.CreatedByID, MainApplication.getInstance.CurrentUser.Key, "Ersteller einer neuen Adresse war nicht gesetzt. Auch wenn keine Benutzerverwaltung isntalliert ist, muss immer der User.Key als Ersteller angegeben sein (sonst Rechnername/Benutzername)")
 
 
 
     End Sub
 
-    <Test()> _
+    <Test()>
     Public Sub TestBaseClassMethods()
-        Dim a As Kernel.Adress = m_Application.Adressen(0)
+        Dim a As Kernel.Adress = MainApplication.getInstance.Adressen(0)
         Debug.Print("IsDeleted: " & CType(a, BaseClass).IsDeleted)
         Debug.Print("IsLoading: " & CType(a, BaseClass).IsLoading)
 
-        Assert.IsTrue(m_Application.Adressen.Contains(a), "Contains lieferte False (True erwartet)")
-        Assert.IsTrue(m_Application.Adressen.ContainsKey(a.Key), "Contains lieferte False (True erwartet)")
-        Assert.IsFalse(m_Application.Adressen.ContainsKey("Test123abnc"), "Contains lieferte True (False erwartet)")
+        Assert.IsTrue(MainApplication.getInstance.Adressen.Contains(a), "Contains lieferte False (True erwartet)")
+        Assert.IsTrue(MainApplication.getInstance.Adressen.ContainsKey(a.Key), "Contains lieferte False (True erwartet)")
+        Assert.IsFalse(MainApplication.getInstance.Adressen.ContainsKey("Test123abnc"), "Contains lieferte True (False erwartet)")
 
         Dim newA As Kernel.Adress = CType(a.Clone, Kernel.Adress)
         Assert.NotNull(newA, "Klon einer Adresse schlug fehl")
 
-        Assert.NotNull(m_Application.Adressen.FullTextSearchColumns, "Volltext (Adressbuch) war nothing.")
+        Assert.NotNull(MainApplication.getInstance.Adressen.FullTextSearchColumns, "Volltext (Adressbuch) war nothing.")
 
     End Sub
 
-    <Category("Kernel")> _
-    <Test(description:="Ruft einige Daten der Tabellen ab")> _
+    <Category("Kernel")>
+    <Test(Description:="Ruft einige Daten der Tabellen ab")>
     Public Sub GetStatsParameter()
-        Dim i As StatisticInfo = m_Application.UserStats.InfoItem
+        Dim i As StatisticInfo = MainApplication.getInstance.UserStats.InfoItem
 
         Assert.NotNull(i.AddessbookCount, "Konnte nicht gelesen werden")
         Assert.NotNull(i.ArticleCount, "Konnte nicht gelesen werden")
@@ -792,50 +792,50 @@ Public Class KernelTest
 
     End Sub
 
-    <Category("Kernel")> _
-    <Test(Description:="BaseCollection=ToArray")> _
+    <Category("Kernel")>
+    <Test(Description:="BaseCollection=ToArray")>
     Public Sub ToArraytest()
-        Dim lst As List(Of Kernel.Adress) = m_Application.Adressen.ToArray()
+        Dim lst As List(Of Kernel.Adress) = MainApplication.getInstance.Adressen.ToArray()
 
         Assert.NotNull(lst, "Liste 'ToArray' war nothing.")
 
     End Sub
 
-    <Category("Kernel")> _
-    <Test(description:="Ruft Daten direkt aus der Datenbankschnittstelle oder lokaler Aufllistung ab")> _
+    <Category("Kernel")>
+    <Test(Description:="Ruft Daten direkt aus der Datenbankschnittstelle oder lokaler Aufllistung ab")>
     Public Sub GetFromDB()
-        Dim a As Kernel.Adress = m_Application.Adressen(0)
+        Dim a As Kernel.Adress = MainApplication.getInstance.Adressen(0)
 
-        Assert.NotNull(m_Application.Adressen.GetFromDB(a.Key), "Ermitteln eines Datensatzes aus Datenbank anhand des Schlüssels fehlgeschlagen.")
-        Assert.NotNull(m_Application.Adressen.GetFromDB(a.ID), "Ermitteln eines Datensatzes aus Datenbank anhand des Schlüssels fehlgeschlagen.")
+        Assert.NotNull(MainApplication.getInstance.Adressen.GetFromDB(a.Key), "Ermitteln eines Datensatzes aus Datenbank anhand des Schlüssels fehlgeschlagen.")
+        Assert.NotNull(MainApplication.getInstance.Adressen.GetFromDB(a.ID), "Ermitteln eines Datensatzes aus Datenbank anhand des Schlüssels fehlgeschlagen.")
 
-        Assert.NotNull(m_Application.Adressen.GetItem(a.ID), "Bekannter Datensatz aus lokaler Auflistung geht nicht")
-        Assert.NotNull(m_Application.Adressen.GetItem(a.Key), "Bekannter Datensatz aus lokaler Auflistung geht nicht")
+        Assert.NotNull(MainApplication.getInstance.Adressen.GetItem(a.ID), "Bekannter Datensatz aus lokaler Auflistung geht nicht")
+        Assert.NotNull(MainApplication.getInstance.Adressen.GetItem(a.Key), "Bekannter Datensatz aus lokaler Auflistung geht nicht")
 
 
     End Sub
 
-    <Category("Addins")> _
-    <Test(description:="Rufe Addins auf")> _
+    <Category("Addins")>
+    <Test(Description:="Rufe Addins auf")>
     Public Sub StartAddins()
 
 
-        Assert.NotNull(m_Application.AddIns, "Addins konnten nicht geöffnet werden")
-        Assert.NotNull(m_Application.AddIns.AddIns.Count, "Addins.Count konnten nicht geöffnet werden")
+        Assert.NotNull(MainApplication.getInstance.AddIns, "Addins konnten nicht geöffnet werden")
+        Assert.NotNull(MainApplication.getInstance.AddIns.AddIns.Count, "Addins.Count konnten nicht geöffnet werden")
 
-        Debug.Print("Addin count: " & m_Application.AddIns.AddIns.Count)
+        Debug.Print("Addin count: " & MainApplication.getInstance.AddIns.AddIns.Count)
     End Sub
 
-    <Test(description:="testet allgemeine Artikeleigenschaften der Rechnungserstellung")> _
+    <Test(Description:="testet allgemeine Artikeleigenschaften der Rechnungserstellung")>
     Public Sub Settingstest()
-        Assert.NotNull(m_Application.Settings.ItemsSettings.ShowWithoutTax, "ShowItemsnetto hat nothing zurückgegeben")
-        Assert.NotNull(m_Application.Settings.ItemsSettings.ShowItemsWithTax, "ShowItemswithTax hat nothing zurückgegeben")
+        Assert.NotNull(MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax, "ShowItemsnetto hat nothing zurückgegeben")
+        Assert.NotNull(MainApplication.getInstance.Settings.ItemsSettings.ShowItemsWithTax, "ShowItemswithTax hat nothing zurückgegeben")
 
-        m_Application.Settings.ItemsSettings.ShowWithoutTax = True
-        Assert.IsTrue(m_Application.Settings.ItemsSettings.ShowWithoutTax, "True war erwartet")
+        MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax = True
+        Assert.IsTrue(MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax, "True war erwartet")
 
-        m_Application.Settings.ItemsSettings.ShowWithoutTax = False
-        Assert.IsFalse(m_Application.Settings.ItemsSettings.ShowWithoutTax, "False war erwartet")
+        MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax = False
+        Assert.IsFalse(MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax, "False war erwartet")
 
 
     End Sub
@@ -844,9 +844,9 @@ Public Class KernelTest
     ''' Testst fixkostengruppen
     ''' </summary>
     ''' <remarks></remarks>
-    <Test(description:="Testet Fixkostengruppen")> _
+    <Test(Description:="Testet Fixkostengruppen")>
     Public Sub testFixedCostsGroups()
-        Dim fg As FixedCostGroups = m_Application.FixedCostGroups
+        Dim fg As FixedCostGroups = MainApplication.getInstance.FixedCostGroups
 
         Assert.NotNull(fg, "Fixkostengruppe war nothing")
         Assert.IsTrue(fg.Count >= 0, "Anzahl der Fixkostengruppe konnte nicht ermittelt werden")
@@ -879,16 +879,16 @@ Public Class KernelTest
     ''' Testst die zuletzt benutzten Elemente
     ''' </summary>
     ''' <remarks></remarks>
-    <Test()> _
+    <Test()>
     Public Sub TestRecentlyUsed()
-        Dim ru As RecentlyUsedItems = m_Application.RecentlyUsedItems
+        Dim ru As RecentlyUsedItems = MainApplication.getInstance.RecentlyUsedItems
 
         Assert.NotNull(ru, "Recently Used Groups war nothing")
 
         Dim newItem As RecentlyUsed = ru.GetNewItem
         newItem.CalledAt = Now
 
-        Dim TestItem As Adress = m_Application.Adressen.GetItem(1)
+        Dim TestItem As Adress = MainApplication.getInstance.Adressen.GetItem(1)
 
         newItem.SetRecentItem(TestItem)
 
@@ -898,9 +898,9 @@ Public Class KernelTest
 
     End Sub
 
-    <Test(description:="Tests die Arbeitszeiten-Konten")> _
+    <Test(Description:="Tests die Arbeitszeiten-Konten")>
     Public Sub TestLoadAccounts()
-        Dim ac As LoanAccounts = m_Application.LoanAccounts
+        Dim ac As LoanAccounts = MainApplication.getInstance.LoanAccounts
 
         Assert.NotNull(ac, "LoanAccounts war nothing")
 
@@ -922,14 +922,14 @@ Public Class KernelTest
 
     End Sub
 
-    <Test(description:="Testet die Textbausteine")> _
+    <Test(Description:="Testet die Textbausteine")>
     Public Sub TestTextTemplates()
-        Dim t = m_Application.TextTemplates
+        Dim t = MainApplication.getInstance.TextTemplates
 
         Assert.NotNull(t, "TextTemplates konnten nicht von der Stammklasse ermittelt werden")
         Assert.IsTrue(t.Count > 0, "")
 
-        Dim newText As TextTemplate = m_Application.TextTemplates.GetNewItem
+        Dim newText As TextTemplate = MainApplication.getInstance.TextTemplates.GetNewItem
         newText.Text = "Hallo welt"
 
         Assert.IsTrue(newText.HasChanged, "Das 'HasChanged' - Flag ist nicht gesetzt!") ' Nicht Objektspeziefisch !

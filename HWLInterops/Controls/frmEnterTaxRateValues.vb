@@ -30,16 +30,16 @@ Public Class frmEnterTaxRateValues
     End Sub
 
     Private Sub frmEnterTaxRateValues_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        m_application.Settings.SaveFormsPos(Me)
+        MainApplication.getInstance.Settings.SaveFormsPos(Me)
     End Sub
 
 
     Private Sub frmEnterTaxRateValues_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Settings.RestoreFormsPos(Me)
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         repTaxValue.Items.Clear()
-        repTaxValue.Items.AddRange(m_application.TaxRates)
+        repTaxValue.Items.AddRange(MainApplication.getInstance.TaxRates)
 
         FillGrid()
     End Sub

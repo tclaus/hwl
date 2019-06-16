@@ -13,23 +13,23 @@ Public Class testSecurity
 
     <Test(description:="Benutzer. Rechteprüfung")> _
     Public Sub TestUsers()
-        Assert.NotNull(m_Application.Users, "Benutzerliste war null")
+        Assert.NotNull(MainApplication.getInstance.Users, "Benutzerliste war null")
 
 
-        Assert.NotNull(m_Application.CurrentUser.ToString, "aktueller benutzer sollte auf jden Fall einen wert ausgeben (Rechnername)")
+        Assert.NotNull(MainApplication.getInstance.CurrentUser.ToString, "aktueller benutzer sollte auf jden Fall einen wert ausgeben (Rechnername)")
 
-        Debug.Print("CurrentUser(text) = " & m_Application.CurrentUser.ToString)
+        Debug.Print("CurrentUser(text) = " & MainApplication.getInstance.CurrentUser.ToString)
 
-        Assert.IsNotNullOrEmpty(security.Users.MachineUserName, "einen Maschinen benutzername sollte vergeben worden sein")
-        Debug.Print("MaschineUsername = " & security.Users.MachineUserName)
+        Assert.IsNotNullOrEmpty(Security.Users.MachineUserName, "einen Maschinen benutzername sollte vergeben worden sein")
+        Debug.Print("MaschineUsername = " & Security.Users.MachineUserName)
 
         'TODO: Rechte prüfungen durchführen
 
         ' Aktueller Benutzer hat alle Rechte
-        For Each secItem As security.PermissionModules In [Enum].GetValues(GetType(security.PermissionModules))
-            Assert.IsTrue(m_Application.CurrentUser.AllowDelete(secItem), " Löschen Recht sollte gewährt sein für (" & secItem & ")")
-            Assert.IsTrue(m_Application.CurrentUser.AllowRead(secItem), " Lesen Recht sollte gewährt sein für (" & secItem & ")")
-            Assert.IsTrue(m_Application.CurrentUser.AllowWrite(secItem), " Schreib Recht sollte gewährt sein für (" & secItem & ")")
+        For Each secItem As Security.PermissionModules In [Enum].GetValues(GetType(Security.PermissionModules))
+            Assert.IsTrue(MainApplication.getInstance.CurrentUser.AllowDelete(secItem), " Löschen Recht sollte gewährt sein für (" & secItem & ")")
+            Assert.IsTrue(MainApplication.getInstance.CurrentUser.AllowRead(secItem), " Lesen Recht sollte gewährt sein für (" & secItem & ")")
+            Assert.IsTrue(MainApplication.getInstance.CurrentUser.AllowWrite(secItem), " Schreib Recht sollte gewährt sein für (" & secItem & ")")
         Next
 
 
@@ -41,10 +41,10 @@ Public Class testSecurity
     ''' Erstellt und testst Benutzergruppen
     ''' </summary>
     ''' <remarks></remarks>
-    <Test(Description:="Benutzergruppen")> _
+    <Test(Description:="Benutzergruppen")>
     Public Sub TestGroups()
 
-        Dim UserGroups As Kernel.security.UserGroups = New security.UserGroups(m_Application)
+        Dim UserGroups As Kernel.Security.UserGroups = New Security.UserGroups(MainApplication.getInstance)
 
 
         Assert.NotNull(UserGroups, "Benutzergruppe war null")

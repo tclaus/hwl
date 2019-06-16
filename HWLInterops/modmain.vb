@@ -3,97 +3,7 @@ Imports DevExpress.XtraTreeList.Nodes
 Imports ClausSoftware.Tools
 
 
-''' <summary>
-''' Stellt eine Auflistung der Hauptmodule dar
-''' </summary>
-''' <remarks></remarks>
-Public Enum HWLModules
-    ''' <summary>
-    ''' Stellt den Eingangsbildschirm dar
-    ''' </summary>
-    ''' <remarks></remarks>
-    [Homescreen]
-
-    Adressbook
-
-    ''' <summary>
-    ''' Stellt statistische Daten zur Verfügung
-    ''' </summary>
-    ''' <remarks></remarks>
-    Statistics
-    ''' <summary>
-    ''' Rechnngsvorlagen
-    ''' </summary>
-    ''' <remarks></remarks>
-    Templates
-    ''' <summary>
-    ''' Artikelliste / Materialstamm
-    ''' </summary>
-    ''' <remarks></remarks>
-    Articles
-    ''' <summary>
-    ''' Angebote/Rechnungen
-    ''' </summary>
-    ''' <remarks></remarks>
-    Business
-    ''' <summary>
-    ''' Stellt ein Formular mit regelmässig wiederkehrenden Kosten bereit
-    ''' </summary>
-    ''' <remarks></remarks>
-    FixedCosts
-
-    ''' <summary>
-    ''' Stellt das Forderungen/Verbindlichkeiten-Formular bereit
-    ''' </summary>
-    ''' <remarks></remarks>
-    Transactions
-
-    ''' <summary>
-    ''' Stellt das Formular des Kassenbuches bereit
-    ''' </summary>
-    ''' <remarks></remarks>
-    CashJournal
-
-    ''' <summary>
-    ''' Stellt das Briefe-Formular bereit
-    ''' </summary>
-    ''' <remarks></remarks>
-    Letters
-    Scheduler
-    Tasks
-    ''' <summary>
-    ''' Enthält das Modul "Seite einrichten", legt ein Seitenlayout an, das Journaldokumente überlagert
-    ''' </summary>
-    ''' <remarks></remarks>
-    PageSettings
-    ''' <summary>
-    ''' Kennzeichnet die Anforderung, die Applikation zu beenden
-    ''' </summary>
-    ''' <remarks></remarks>
-    ExitApp
-    ''' <summary>
-    ''' Öffnet ein Fenster mit einer Globalen Suche
-    ''' </summary>
-    ''' <remarks></remarks>
-    GlobalSearch
-
-    ''' <summary>
-    ''' Zeigt eine einfache Aufstellung der Top 10 Produkte / Kunden
-    ''' </summary>
-    ''' <remarks></remarks>
-    StatisticTop10
-
-End Enum
-
 Public Module modmain
-    ''' <summary>
-    ''' Stellt die einzige Klasse bereit, die einen ZUgang zu allen wesentlichen Tabellen ermöglichgt. 
-    ''' Ist die Stammklasse der Applikation
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public m_application As ClausSoftware.mainApplication
-
-
 
     ''' <summary>
     ''' Ruft den Text in der aktuellen Sprache ab 
@@ -102,8 +12,9 @@ Public Module modmain
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function GetText(ByVal key As String) As String
-        If m_application IsNot Nothing Then ' es kann sein, das dies bereits im designer aufgerufen wird. 
-            Return m_application.Languages.GetText(key)
+
+        If MainApplication.getInstance IsNot Nothing Then ' es kann sein, das dies bereits im designer aufgerufen wird. 
+            Return MainApplication.getInstance.Languages.GetText(key)
         Else
             Return key
         End If
@@ -115,8 +26,8 @@ Public Module modmain
     ''' <param name="defaulttext">Kannd er text mit dem Schlüssel nicht gefunden werden, wird der Standardtext genutzt und gleichzeitig der textauflistung hinzugefügt</param>
     ''' <param name="key">Der Schlüssel zum Text.</param>
     Public Function GetText(ByVal key As String, ByVal defaulttext As String) As String
-        If m_application IsNot Nothing Then
-            Return m_application.Languages.GetText(key, defaulttext)
+        If MainApplication.getInstance IsNot Nothing Then
+            Return MainApplication.getInstance.Languages.GetText(key, defaulttext)
         Else
             Return defaulttext
         End If
@@ -131,8 +42,8 @@ Public Module modmain
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function GetText(ByVal key As String, ByVal defaulttext As String, ByVal ParamArray params() As String) As String
-        If m_application IsNot Nothing Then
-            Return m_application.Languages.GetText(key, defaulttext, params)
+        If MainApplication.getInstance IsNot Nothing Then
+            Return MainApplication.getInstance.Languages.GetText(key, defaulttext, params)
         Else
             Return defaulttext
         End If
@@ -144,28 +55,28 @@ Public Module modmain
     ''' <remarks></remarks>
     Public Sub InitializeApplication()
         Try
-            If m_application IsNot Nothing Then
-                If Not m_application.Session Is Nothing Then
-                    If Not m_application.Session.IsConnected Then
-                        m_application.Connections.ReadConnections()
-                        m_application.Initialize(m_application.Connections.WorkConnection)
+            If MainApplication.getInstance IsNot Nothing Then
+                If Not MainApplication.getInstance.Session Is Nothing Then
+                    If Not MainApplication.getInstance.Session.IsConnected Then
+                        MainApplication.getInstance.Connections.ReadConnections()
+                        MainApplication.getInstance.Initialize(MainApplication.getInstance.Connections.WorkConnection)
                         Exit Sub
                     End If
 
                 End If
             Else
                 Debug.Print("Erstelle neue Instanz des Hauptprogramms")
-                m_application = New ClausSoftware.mainApplication
+
             End If
 
 
-            If m_application.Session Is Nothing OrElse Not m_application.Session.IsConnected Then
+            If MainApplication.getInstance.Session Is Nothing OrElse Not MainApplication.getInstance.Session.IsConnected Then
 
                 SetStyles()
 
-                m_application.Connections.ReadConnections()
+                MainApplication.getInstance.Connections.ReadConnections()
                 If ClausSoftware.Tools.Connections.IsValid Then
-                    m_application.Initialize(m_application.Connections.WorkConnection)
+                    MainApplication.getInstance.Initialize(MainApplication.getInstance.Connections.WorkConnection)
 
 
                 End If
@@ -199,8 +110,8 @@ Public Module modmain
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub CloseConnection()
-        If m_application IsNot Nothing Then
-            m_application.CloseConnection()
+        If MainApplication.getInstance IsNot Nothing Then
+            MainApplication.getInstance.CloseConnection()
 
         End If
 
@@ -219,9 +130,9 @@ Public Module modmain
 
             trv.SaveLayoutToStream(stream)
 
-            m_application.Settings.SetSetting("TreeLayout", context, stream)
+            MainApplication.getInstance.Settings.SetSetting("TreeLayout", context, stream)
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "ERROR", "Error in Saving TreeStyles")
+            MainApplication.getInstance.Log.WriteLog(ex, "ERROR", "Error in Saving TreeStyles")
         End Try
 
     End Sub
@@ -238,9 +149,9 @@ Public Module modmain
             GetOpenNodesList(trv.Nodes, openNodes)
 
 
-            m_application.Settings.SetSetting("OpenTreeNodes", context, openNodes.ToString)
+            MainApplication.getInstance.Settings.SetSetting("OpenTreeNodes", context, openNodes.ToString)
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "ERROR", "Error inSaveTreeOpenNodes")
+            MainApplication.getInstance.Log.WriteLog(ex, "ERROR", "Error inSaveTreeOpenNodes")
         End Try
     End Sub
     Private Sub GetOpenNodesList(ByVal nodes As Nodes.TreeListNodes, ByVal sb As System.Text.StringBuilder)
@@ -261,7 +172,7 @@ Public Module modmain
     ''' <param name="context"></param>
     ''' <remarks></remarks>
     Friend Sub ResetGridStyles(ByVal context As String)
-        m_application.Settings.DeleteSetting("GridLayout", context, m_application.CurrentUser.Key)
+        MainApplication.getInstance.Settings.DeleteSetting("GridLayout", context, MainApplication.getInstance.CurrentUser.Key)
 
     End Sub
 
@@ -278,7 +189,7 @@ Public Module modmain
         'Exit Function
 
         Try
-            Dim value As String = m_application.Settings.GetSetting("GridLayout", context, "")
+            Dim value As String = MainApplication.getInstance.Settings.GetSetting("GridLayout", context, "")
             value = value.Trim(New Char() {" "c, "?"c})
 
             If Not String.IsNullOrEmpty(value) Then
@@ -353,9 +264,6 @@ Public Module modmain
                 '    Next
                 'End If
 
-
-
-
                 Return True
             Else
                 If TypeOf view Is DevExpress.XtraGrid.Views.Grid.GridView Then
@@ -406,13 +314,9 @@ Public Module modmain
                     Next
                 End If
 
-
-
-
-
             End If
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "modMain", "Fehler beim Wiederherstellen des Grids")
+            MainApplication.getInstance.Log.WriteLog(ex, "modMain", "Fehler beim Wiederherstellen des Grids")
         End Try
         Return False
 
@@ -457,7 +361,7 @@ Public Module modmain
             layoutOptions.StoreVisualOptions = False
 
             view.SaveLayoutToStream(mystream, layoutOptions)
-            m_application.Settings.SetSetting("GridLayout", context, mystream)
+            MainApplication.getInstance.Settings.SetSetting("GridLayout", context, mystream)
             mystream.Close()
         End Using
     End Sub
@@ -469,7 +373,7 @@ Public Module modmain
         Debug.Print("Lade Einstellungen des Trees" & context)
         Debug.Assert(Not String.IsNullOrEmpty(context), "Context kann nicht null sein")
         Try
-            Dim value As String = m_application.Settings.GetSetting("TreeLayout", context, "")
+            Dim value As String = MainApplication.getInstance.Settings.GetSetting("TreeLayout", context, "")
             value = value.Trim(New Char() {" "c, "?"c})
             If Not String.IsNullOrEmpty(value) Then
                 Dim mystream As New IO.MemoryStream(System.Text.UTF8Encoding.UTF8.GetBytes(value))
@@ -517,7 +421,7 @@ Public Module modmain
                 Next
             End If
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "modMain", "Fehler beim wiederherstellen des Baumdiagramms", "")
+            MainApplication.getInstance.Log.WriteLog(ex, "modMain", "Fehler beim wiederherstellen des Baumdiagramms", "")
         End Try
 
     End Sub
@@ -553,7 +457,7 @@ Public Module modmain
     Public Sub RestoreTreeOpenNodes(ByVal trv As DevExpress.XtraTreeList.TreeList, ByVal context As String)
         Try
             Dim openNodes As String ' enthält eine Liste mit key-werten und den geöfneten Nodes
-            openNodes = m_application.Settings.GetSetting("OpenTreeNodes", context, "")
+            openNodes = MainApplication.getInstance.Settings.GetSetting("OpenTreeNodes", context, "")
 
             For Each key As String In openNodes.Split(New Char() {","c}, StringSplitOptions.RemoveEmptyEntries)
                 Dim node As TreeListNode = trv.FindNodeByKeyID(key)
@@ -563,7 +467,7 @@ Public Module modmain
             Next
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "ERROR", "Error in RestoreTreeOpenNodes")
+            MainApplication.getInstance.Log.WriteLog(ex, "ERROR", "Error in RestoreTreeOpenNodes")
         End Try
 
 
@@ -671,113 +575,4 @@ Public Module modmain
 
 
 End Module
-
-''' <summary>
-''' Enthält eine Auflistung von webadressenm, die direkt aus dem Programm angesprungen werden können
-''' </summary>
-''' <remarks></remarks>
-Public Module webSites
-    ''' <summary>
-    ''' Enthält die Webadresse mit der Programmrückmeldung / Fehlermeldungen
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Const wwwUserFeedbackSite As String = "http://claus-software.de"
-
-    ''' <summary>
-    ''' Enthält die 'Preise' - webseite
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Const wwwCloudDatabasePriceWebsite As String = "http://claus-software.de"
-
-    Public Const wwwProductPricesPage As String = "http://claus-software.de"
-
-End Module
-
-''' <summary>
-''' Stellt eine Starthilfeklasse dar
-''' </summary>
-''' <remarks></remarks>
-Public Class Main
-    Sub New()
-
-    End Sub
-
-    ''' <summary>
-    ''' Testet die Datenbankverbindung und bricht gegebenenfalls die Verbindung ab. 
-    ''' Der Anwender kann bei einem Fehler per Dialog eine andere Verbindung angeben
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function TestConnection() As ClausSoftware.DataBase.DBResult
-        Dim myApp As New ClausSoftware.mainApplication
-        Dim mydefaultConnection As ClausSoftware.Tools.Connection = myApp.Connections.WorkConnection
-        Dim result As New ClausSoftware.DataBase.DBResult()
-        Dim myTestDB As ClausSoftware.DataBase.DbEngine
-
-        If mydefaultConnection IsNot Nothing Then
-            myTestDB = New ClausSoftware.DataBase.DbEngine(mydefaultConnection)
-
-            result = myTestDB.TestConnection()
-
-        Else
-            ' Verbindung konnte gar nicht gefunden werden
-            'TODO: NLS
-            result.ErrorText = "Es wurde keine Verbindung gefunden"
-            result.IsValid = False
-            result.Solution = "Erstellen Sie eine neue Verbindung zu einer Datenbank"
-        End If
-
-        If Not result.IsValid Then
-
-            Dim frmConnectionError As New frmConnectionValid()
-            frmConnectionError.DBResult = result
-            frmConnectionError.ShowDialog()
-
-        End If
-
-        Return result
-
-
-    End Function
-
-    ''' <summary>
-    ''' Erstellt eine neue Instanz der Hauptklassen
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Sub Initialize()
-
-        If m_application Is Nothing Then
-            m_application = New ClausSoftware.mainApplication
-        End If
-
-        AddHandler System.Windows.Forms.Application.ApplicationExit, AddressOf SendApplicationexit
-
-
-    End Sub
-
-    Public Sub EndApplcation()
-        modmain.CloseConnection()
-
-    End Sub
-
-    <ComVisible(False)> _
-    ReadOnly Property MainApplication() As ClausSoftware.mainApplication
-        Get
-            Return m_application
-        End Get
-    End Property
-
-    ''' <summary>
-    ''' Wird aufgerufen, wenn die Aplikation beendet wird.
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Private Sub SendApplicationexit(ByVal sender As Object, ByVal e As EventArgs)
-        m_application.UserStats.SendStatistics(ReportMessageType.ApplicationEnd, "Application", "End of Application")
-    End Sub
-
-End Class
-
-
 

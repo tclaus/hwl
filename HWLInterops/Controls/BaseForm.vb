@@ -22,8 +22,8 @@ Public Class BaseForm
     End Sub
 
     Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If m_application IsNot Nothing Then
-            m_application.Languages.SetTextOnControl(Me)
+        If MainApplication.getInstance IsNot Nothing Then
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         End If
 

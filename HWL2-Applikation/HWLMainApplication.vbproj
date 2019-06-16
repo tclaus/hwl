@@ -25,6 +25,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -40,7 +41,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,7 +76,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <UseVSHostingProcess>true</UseVSHostingProcess>
-    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DefineConstants>
     </DefineConstants>
   </PropertyGroup>
@@ -150,7 +150,7 @@
     <Compile Include="..\CommonAssemblyInfo.vb">
       <Link>CommonAssemblyInfo.vb</Link>
     </Compile>
-    <Compile Include="classes\AutoCursor.vb" />
+    <Compile Include="classes\AutoWaitCursor.vb" />
     <Compile Include="classes\BaseTabPage.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -218,7 +218,6 @@
     </Compile>
     <Compile Include="classes\MainClass.vb" />
     <Compile Include="GlobalSuppressions.vb" />
-    <Compile Include="Modservices.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -271,7 +270,6 @@
       <DependentUpon>frmrtf2.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -283,7 +281,6 @@
     <None Include="ApplicationInfo.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Helpfiles\Help-de.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

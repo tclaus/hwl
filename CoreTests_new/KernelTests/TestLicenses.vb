@@ -15,7 +15,7 @@ Public Class TestLicenses
 
     <TestFixtureSetUp()> _
     Public Sub GetLicenses()
-        m_licenses = m_Application.Licenses
+        m_licenses = MainApplication.getInstance.Licenses
 
     End Sub
 

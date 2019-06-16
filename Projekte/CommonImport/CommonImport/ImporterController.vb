@@ -11,30 +11,30 @@ End Enum
 
 
 Public Class ImporterController
-    
-    Friend m_application As ClausSoftware.mainApplication
 
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)> _
+    Friend application As ClausSoftware.MainApplication
+
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_filename As String
 
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_importType As ImportTargetType
 
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_TargetAttributes As New List(Of ImportPropertyInfo)
 
     ''' <summary>
     ''' Enthält die Datentabelle mit den zu Importierenden Daten
     ''' </summary>
     ''' <remarks></remarks>
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_DataTable As System.Data.DataTable
 
     ''' <summary>
     ''' Enthält die Aufstellung der Spaltenzuweisungem
     ''' </summary>
     ''' <remarks></remarks>
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_mappings As New Mappings
 
     ''' <summary>
@@ -72,7 +72,7 @@ Public Class ImporterController
     ''' <returns></returns>
     ''' <remarks></remarks>
     Friend Function GetText(ByVal key As String, ByVal defaultValue As String) As String
-        Return m_application.Languages.GetText(key, defaultValue)
+        Return application.Languages.GetText(key, defaultValue)
     End Function
 
 
@@ -187,9 +187,9 @@ Public Class ImporterController
     ''' <remarks></remarks>
     Friend Sub StartImport()
 
-    If m_mappings.Count = 0 Then
-        MessageBox.Show("Es wurden keine Zuweisungen vorgenommen.", "Keine Zuweisung gefunden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-        Exit Sub
+        If m_mappings.Count = 0 Then
+            MessageBox.Show("Es wurden keine Zuweisungen vorgenommen.", "Keine Zuweisung gefunden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Exit Sub
         End If
 
         If m_DataTable.Rows.Count = 0 Then
@@ -202,7 +202,7 @@ Public Class ImporterController
         Dim t As New Threading.Thread(tstart)
         t.Name = "Datenimport aus Datei :" & Me.ImportFileName
         t.Start()
-        
+
     End Sub
 
     ''' <summary>
@@ -219,15 +219,15 @@ Public Class ImporterController
         Dim rowNumber As Integer
 
         For Each item As DataRow In m_DataTable.Rows
-            'm_application.SendProgress("", rowNumber, m_DataTable.Rows.Count - 1)
+            'MainApplication.getInstance.SendProgress("", rowNumber, m_DataTable.Rows.Count - 1)
             Dim newItem As ClausSoftware.Data.StaticItem
             'Neues Element abholen
             Select Case Me.ImportType
                 Case ImportTargetType.Adresses
-                    newItem = m_application.Adressen.GetNewItem
+                    newItem = application.Adressen.GetNewItem
 
                 Case ImportTargetType.Articles
-                    newItem = m_application.ArticleList.GetNewItem
+                    newItem = application.ArticleList.GetNewItem
                 Case Else
                     Throw New NotImplementedException("Der Typ existiert nicht")
             End Select
@@ -276,7 +276,7 @@ Public Class ImporterController
                                     Dim image As System.Drawing.Image = System.Drawing.Image.FromFile(path)
                                     TargetValue = image
                                 Catch ex As Exception
-                                    m_application.Log.WriteLog("ERROR Importing Image Data: " & ex.Message)
+                                    application.Log.WriteLog("ERROR Importing Image Data: " & ex.Message)
                                 End Try
 
 
@@ -327,8 +327,8 @@ Public Class ImporterController
 
         Dim filename As String = System.IO.Path.GetFileName(Me.ImportFileName)
 
-        m_application.Settings.SetSetting("ImportMapping_" & filename, "Mappings", o)
-        m_application.Settings.Save()
+        application.Settings.SetSetting("ImportMapping_" & filename, "Mappings", o)
+        application.Settings.Save()
 
     End Sub
 
@@ -338,7 +338,7 @@ Public Class ImporterController
     ''' <remarks></remarks>
     Friend Sub LoadMapping()
         Dim filename As String = System.IO.Path.GetFileName(Me.ImportFileName)
-        Dim data As String = m_application.Settings.GetSetting("ImportMapping_" & filename, "Mappings", "")
+        Dim data As String = application.Settings.GetSetting("ImportMapping_" & filename, "Mappings", "")
 
         If Not String.IsNullOrEmpty(data) Then
             Using o As New System.IO.MemoryStream(System.Text.UTF8Encoding.UTF8.GetBytes(data))
@@ -379,7 +379,7 @@ Public Class ImporterController
             End Using
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Fehler", "Importer Addin")
+            application.Log.WriteLog(ex, "Fehler", "Importer Addin")
             'TODO: NLS
             MessageBox.Show("Fehler im Import: " & ex.Message, "Fehler aufgetreten.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
@@ -458,8 +458,8 @@ Public Class ImporterController
         Return dt
     End Function
 
-    Public Sub New(ByVal mainApp As ClausSoftware.mainApplication)
-        m_application = mainApp
+    Public Sub New(ByVal mainApp As ClausSoftware.MainApplication)
+        application = mainApp
 
         ShowMainImport() ' eingngsfenster öffnen
     End Sub

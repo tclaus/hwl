@@ -15,13 +15,13 @@ Public Class frmPayableDetails
 
     Private m_FormCaption As String = "Zahlungsdetails" 'TODO: NLS
 
-    Private m_mainUI As mainUI
+    Private m_mainUI As MainUI
 
-    Public Property MainUI() As mainUI
+    Public Property MainUI() As MainUI
         Get
             Return m_mainUI
         End Get
-        Set(ByVal value As mainUI)
+        Set(ByVal value As MainUI)
             m_mainUI = value
         End Set
     End Property
@@ -242,11 +242,11 @@ Public Class frmPayableDetails
     End Sub
 
     Private Sub frmPayableDetails_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        m_application.Settings.SaveFormsPos(Me)
+        MainApplication.getInstance.Settings.SaveFormsPos(Me)
     End Sub
 
     Private Sub frmPayableDetails_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
         picState.Image = My.Resources.checkbox_32x32
 
@@ -285,7 +285,7 @@ Public Class frmPayableDetails
 
         If newPaymentAmmount + Me.ActiveDownPayments.TotalPaidAmmount > Me.ActiveTransaction.TotalAmmount Then
             'TODo: NLS
-            Dim result As DialogResult = MessageBox.Show("Damit währe der gezahlte Betrag grösser als die offene Forderung" & vbCrLf & _
+            Dim result As DialogResult = MessageBox.Show("Damit währe der gezahlte Betrag grösser als die offene Forderung" & vbCrLf &
                             "Möchten sie die Zahlung dennoch hinzufügen?", "Zahlbetrag grösser als Forderung", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
             If result <> Windows.Forms.DialogResult.Yes Then Exit Sub
@@ -299,12 +299,12 @@ Public Class frmPayableDetails
 
     End Sub
 
-    Public Sub New(ByVal mainUI As mainUI)
+    Public Sub New(ByVal mainUI As MainUI)
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         m_mainUI = mainUI
     End Sub
@@ -315,7 +315,7 @@ Public Class frmPayableDetails
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
     End Sub
 
     Private Sub frmPayableDetails_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown

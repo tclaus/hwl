@@ -248,7 +248,7 @@ Public Class PrintingManagerOldSystem
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub ReadPageSettings()
-        With m_application.Settings
+        With MainApplication.getInstance.Settings
 
             ' Alle Grössen und Maase sind in zehntel millimeter !
             ' Daten wurden in HWL (alt) in Twips gespeichert; 1mm = 567 Twips; Seitenbreite = 21/29
@@ -417,7 +417,7 @@ Public Class PrintingManagerOldSystem
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function GetImage(ByVal id As String) As Image
-        Dim imagelist As Kernel.ImageData() = m_application.Images.GetReferencedImage(id)
+        Dim imagelist As Kernel.ImageData() = MainApplication.getInstance.Images.GetReferencedImage(id)
         If imagelist.Length = 0 Then
             Return Nothing
         Else

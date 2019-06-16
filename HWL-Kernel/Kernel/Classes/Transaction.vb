@@ -93,7 +93,7 @@ Namespace Kernel
         Private ReadOnly Property CanceldStateHelper As CanceledDocuments
             Get
                 If m_canceldDocumentsHelper Is Nothing Then
-                    m_canceldDocumentsHelper = New CanceledDocuments(m_mainApplication)
+                    m_canceldDocumentsHelper = New CanceledDocuments()
                     m_canceldDocumentsHelper.RefreshState()
                 End If
                 Return m_canceldDocumentsHelper
@@ -936,11 +936,11 @@ Namespace Kernel
     Public Class TransactionTaxPairs
         Inherits TaxValuePairs
 
-        Public Sub New(ByVal baseApp As mainApplication)
+        Public Sub New(ByVal baseApp As MainApplication)
             MyBase.New(baseApp)
         End Sub
 
-        Public Sub New(ByVal baseapplication As mainApplication, ByVal criteriastr As String)
+        Public Sub New(ByVal baseapplication As MainApplication, ByVal criteriastr As String)
             MyBase.New(baseapplication, criteriastr)
         End Sub
 

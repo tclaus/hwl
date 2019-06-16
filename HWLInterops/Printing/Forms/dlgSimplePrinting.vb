@@ -47,7 +47,7 @@ Namespace Printing
             Set(ByVal value As DataSourceList)
                 m_dataSourceType = value
 
-                Dim reports As New Kernel.Printing.Reports(m_application)
+                Dim reports As New Kernel.Printing.Reports(MainApplication.getInstance)
                 reports.SetDataType(value)
 
                 cobPrintLayouts.Properties.Items.Clear()
@@ -83,7 +83,7 @@ Namespace Printing
 
         End Sub
 
-        
+
 
 
         ''' <summary>
@@ -144,8 +144,8 @@ Namespace Printing
         End Sub
 
         Private Sub dlgSimplePrinting_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-            m_application.Languages.SetTextOnControl(Me)
-            
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
+
         End Sub
 
         Private Sub chkPrintLayout_CheckStateChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkPrintLayout.CheckStateChanged

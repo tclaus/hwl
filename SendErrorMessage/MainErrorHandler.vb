@@ -8,18 +8,6 @@ Public Class MainErrorHandler
 
     Private m_currentException As Exception
 
-    Private m_application As mainApplication
-    
-    Property Application As mainApplication
-        Get
-            Return m_application
-        End Get
-        Set(ByVal value As mainApplication)
-            m_application = value
-        End Set
-    End Property
-
-
     Public Property Currentexception() As Exception
         Get
             Return m_currentException
@@ -33,8 +21,8 @@ Public Class MainErrorHandler
     ''' Initialisert das Application-Exception Handling
     ''' </summary>
     ''' <remarks></remarks>
-    Sub New(ByVal mainApp As mainApplication)
-        m_application = mainApp
+    Sub New()
+
 
         AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf AppCrashHandler
         ' AddHandler System.Windows.Forms.Application.ThreadException, AddressOf Me.UnhandledException
@@ -51,13 +39,13 @@ Public Class MainErrorHandler
     Sub UnhandledException(ByVal sender As Object, ByVal e As System.Threading.ThreadExceptionEventArgs)
         'Dann ist kein Rekursiver aufruf möglich 
 
-        'm_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationCrash, "Application", "Crash with: " & e.Exception.ToString)
+        'MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationCrash, "Application", "Crash with: " & e.Exception.ToString)
 
         'RemoveHandler System.Windows.Forms.Application.ThreadException, AddressOf UnhandledException
         Currentexception = e.Exception
 
-        Dim errorForm As New frmErrorMessage(m_application)
-        
+        Dim errorForm As New frmErrorMessage()
+
         errorForm.ErrorHandler = Me
 
         errorForm.ShowDialog()
@@ -74,12 +62,12 @@ Public Class MainErrorHandler
     Sub AppCrashHandler(ByVal sender As Object, ByVal e As UnhandledExceptionEventArgs)
         'Dann ist kein Rekursiver aufruf möglich 
 
-        'm_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationCrash, "Application", "Crash with: " & e.Exception.ToString)
+        'MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationCrash, "Application", "Crash with: " & e.Exception.ToString)
         Try
             RemoveHandler AppDomain.CurrentDomain.UnhandledException, AddressOf AppCrashHandler
             Currentexception = CType(e.ExceptionObject, Exception)
 
-            Dim errorForm As New frmErrorMessage(m_application)
+            Dim errorForm As New frmErrorMessage()
 
             errorForm.ErrorHandler = Me
 

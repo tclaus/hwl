@@ -41,10 +41,10 @@ Public Class iucHomeScreen
             ' entweder beie Panels oder nur ein Panel anzeigen lassen
             If value Then
                 SplitContainerControl1.PanelVisibility = DevExpress.XtraEditors.SplitPanelVisibility.Both
-                m_application.Settings.SetSetting("TodayBar", "GUI", "True", m_application.CurrentUser.Key)
+                MainApplication.getInstance.Settings.SetSetting("TodayBar", "GUI", "True", MainApplication.getInstance.CurrentUser.Key)
             Else
                 SplitContainerControl1.PanelVisibility = DevExpress.XtraEditors.SplitPanelVisibility.Panel1
-                m_application.Settings.SetSetting("TodayBar", "GUI", "False", m_application.CurrentUser.Key)
+                MainApplication.getInstance.Settings.SetSetting("TodayBar", "GUI", "False", MainApplication.getInstance.CurrentUser.Key)
             End If
 
 
@@ -149,7 +149,7 @@ Public Class iucHomeScreen
 
         TodayBar1.Width = SplitContainerControl1.Panel2.Width
 
-        result = m_application.Settings.GetSetting("TodayBar", "GUI", "True", m_application.CurrentUser.Key)
+        result = MainApplication.getInstance.Settings.GetSetting("TodayBar", "GUI", "True", MainApplication.getInstance.CurrentUser.Key)
         If result.Equals("true", StringComparison.InvariantCultureIgnoreCase) Then
             ShowTodayBar = True
         Else
@@ -158,7 +158,7 @@ Public Class iucHomeScreen
 
 
         ' Appname Hardcoded einsetzen (dann kann man nicht ind en textdateien den Dateinamen verändern)
-        lblMainScreenwelcomeText.Text = m_application.Languages.GetText("{AppName}")
+        lblMainScreenwelcomeText.Text = MainApplication.getInstance.Languages.GetText("{AppName}")
 
     End Sub
 End Class

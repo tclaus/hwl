@@ -108,7 +108,7 @@ Namespace Printing
             Me.PageDesigner.OpenReport(m_report)
 
             'Dim setValue As String
-            'setValue = m_application.Settings.GetSetting("SimpleReportLayout", "SimpleReport")
+            'setValue = MainApplication.getInstance.Settings.GetSetting("SimpleReportLayout", "SimpleReport")
 
             'Dim bytes As Byte() = System.Text.ASCIIEncoding.ASCII.GetBytes(setValue)
 
@@ -167,7 +167,7 @@ Namespace Printing
             End Get
         End Property
 
-        Public Sub New(ByVal myUI As mainUI)
+        Public Sub New(ByVal myUI As MainUI)
             MyBase.New(myUI)
             InitializeComponent()
 
@@ -467,10 +467,10 @@ Namespace Printing
                 End If
 
             Catch ex As InsufficientMemoryException
-                m_application.Log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf - wahrscheinlich ist die Bild-Datei defekt.")
+                MainApplication.getInstance.Log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf - wahrscheinlich ist die Bild-Datei defekt.")
 
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf")
+                MainApplication.getInstance.Log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf")
             End Try
 
 

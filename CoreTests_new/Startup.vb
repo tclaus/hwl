@@ -15,7 +15,7 @@ Public Class StartUp
     <NUnit.Framework.TearDown()> _
     Public Sub CloseApp()
         Debug.Print("Close Test Suite")
-        m_Application.CloseConnection()
+        MainApplication.getInstance.CloseConnection()
         Debug.Print("All Tests ended")
     End Sub
 
@@ -23,13 +23,11 @@ Public Class StartUp
     ''' TestStart, stellt verknüpfung zu einer Test-Datenbank her
     ''' </summary>
     ''' <remarks></remarks>
-    <SetUp()> _
+    <SetUp()>
     Public Sub Start()
         ' Starte Framework
 
         Debug.Print("Startup Test Suite")
-
-        m_Application = New ClausSoftware.mainApplication
 
         Dim connection As New Tools.Connection
 
@@ -44,16 +42,16 @@ Public Class StartUp
         Dim result As Boolean
 
 
-        m_Application.Connections.DefaultConnection = connection
+        MainApplication.getInstance.Connections.DefaultConnection = connection
 
-        result = m_Application.Initialize(connection)
+        result = MainApplication.getInstance.Initialize(connection)
 
         Debug.Assert(result, "Keine Verbindung mit Datenbank möglich. Test abgebrochen.")
-        ClausSoftware.HWLInterops.m_application = m_Application
 
-        m_Gui = New ClausSoftware.HWLInterops.mainUI(New System.Windows.Forms.Form)
 
-        m_Application.Settings.SettingSendStatistics = False  ' Statistiken unterdrücken
+        m_Gui = New ClausSoftware.HWLInterops.MainUI(New System.Windows.Forms.Form)
+
+        MainApplication.getInstance.Settings.SettingSendStatistics = False  ' Statistiken unterdrücken
         Debug.Print("Exiting Setup Tests")
     End Sub
 

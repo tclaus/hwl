@@ -115,7 +115,7 @@ Public Class iucTransactions
         commonGrid.Context = DataSourceList.Transactions.ToString
         commonGrid.SetDataSource(DataSourceList.Transactions)
 
-        IucDateChooser1.SetYears(m_application.Transactions.GetItemYears)
+        IucDateChooser1.SetYears(MainApplication.getInstance.Transactions.GetItemYears)
 
         SetValueFields("")
 
@@ -146,7 +146,7 @@ Public Class iucTransactions
 
         End If
         ' Neues element erstellen und der Auflistung hinzufügen
-        ActiveItem = m_application.Transactions.GetNewItem
+        ActiveItem = MainApplication.getInstance.Transactions.GetNewItem
 
 
     End Sub
@@ -181,8 +181,8 @@ Public Class iucTransactions
 
                 If payments.Count > 1 Then
                     'TODO: NLS
-                    result = MessageBox.Show("Sie haben die 'gezahlt'-Markierung entfernt. Laut Einzahlungsliste wurde der Rechnungsbetrag aber in mehreren Teilzahlungen beglichen." & vbCrLf & _
-                                             "Entfernen oder ändern Sie die Einzahlungen.  " & vbCrLf & _
+                    result = MessageBox.Show("Sie haben die 'gezahlt'-Markierung entfernt. Laut Einzahlungsliste wurde der Rechnungsbetrag aber in mehreren Teilzahlungen beglichen." & vbCrLf &
+                                             "Entfernen oder ändern Sie die Einzahlungen.  " & vbCrLf &
                                              "Sobald es eine Differenz gibt, wird der gezahlt-Marker automatisch angepasst", "Einzahlungen liegen vor", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Return False
                 End If
@@ -238,7 +238,7 @@ Public Class iucTransactions
                 m_activeItem.SetIsPayed()
                 'Grosse FRage: was passiert, wenn der Harken entfernt wird? 
             End If
-          
+
             If radMoneyFlow.SelectedIndex = 0 Then
                 m_activeItem.MoneyFlow = MoneyFlow.IsReceiveable
             Else
@@ -246,10 +246,10 @@ Public Class iucTransactions
             End If
 
             m_activeItem.Save()
-            m_application.SendMessage(GetText("msgsaved", "Gespeichert."))
+            MainApplication.getInstance.SendMessage(GetText("msgsaved", "Gespeichert."))
 
-            If Not m_application.Transactions.ContainsKey(m_activeItem.Key) Then
-                m_application.Transactions.Add(m_activeItem)
+            If Not MainApplication.getInstance.Transactions.ContainsKey(m_activeItem.Key) Then
+                MainApplication.getInstance.Transactions.Add(m_activeItem)
             End If
 
             '  commonGrid.RefreshData()
@@ -282,13 +282,13 @@ Public Class iucTransactions
     ''' <remarks></remarks>
     Private Sub FilldefaultControls()
         cobAddressList.Properties.Items.Clear()
-        cobAddressList.Properties.Items.AddRange(m_application.Adressen)
+        cobAddressList.Properties.Items.AddRange(MainApplication.getInstance.Adressen)
 
         'cobAccount.Properties.Items.Clear()
-        'cobAccount.Properties.Items.AddRange(m_application.CashAccounts)
+        'cobAccount.Properties.Items.AddRange(MainApplication.getInstance.CashAccounts)
 
         cobTaxRates.Properties.Items.Clear()
-        cobTaxRates.Properties.Items.AddRange(m_application.TaxRates)
+        cobTaxRates.Properties.Items.AddRange(MainApplication.getInstance.TaxRates)
 
         m_hasChanged = False
 
@@ -443,7 +443,7 @@ Public Class iucTransactions
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 
@@ -462,9 +462,9 @@ Public Class iucTransactions
     ''' <remarks></remarks>
     Private Sub SetValueFields(ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
 
-        m_application.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
+        MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
 
-        Dim transactions As Kernel.Transactions = New Transactions(m_application, criteria)
+        Dim transactions As Kernel.Transactions = New Transactions(MainApplication.getInstance, criteria)
 
 
         Dim sums As TransactionSum = transactions.SumAmmount()
@@ -582,7 +582,7 @@ Public Class iucTransactions
                 txtCashAccount.EditValue = selectedCashAccount
                 cobTaxRates.SelectedItem = selectedCashAccount.TaxRate
 
-                m_application.Settings.LastSelectedCashAccount = selectedCashAccount
+                MainApplication.getInstance.Settings.LastSelectedCashAccount = selectedCashAccount
             End If
 
 
@@ -613,13 +613,13 @@ Class transactionsGrid
     ''' <remarks></remarks>
     Private m_showSeparator As ToolStripSeparator
 
-    Private m_mainUI As mainUI
+    Private m_mainUI As MainUI
 
-    Public Property MainUI As mainUI
+    Public Property MainUI As MainUI
         Get
             Return m_mainUI
         End Get
-        Set(ByVal value As mainUI)
+        Set(ByVal value As MainUI)
             m_mainUI = value
         End Set
     End Property
@@ -769,7 +769,7 @@ Class transactionsGrid
 
         If focussedTRansaction.IsIntern Then
 
-            Dim jDoc As Kernel.JournalDocument = m_application.JournalDocuments.GetItem(focussedTRansaction.InternalDocumentID)
+            Dim jDoc As Kernel.JournalDocument = MainApplication.getInstance.JournalDocuments.GetItem(focussedTRansaction.InternalDocumentID)
 
             MainUI.OpenElementWindow(jDoc)
         End If

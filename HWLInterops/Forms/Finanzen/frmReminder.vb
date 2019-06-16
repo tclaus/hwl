@@ -14,13 +14,13 @@ Public Class frmReminder
 
     Private m_hasChanges As Boolean
 
-    Private m_mainUI As mainUI
+    Private m_mainUI As MainUI
 
-    Public Property MainUI() As mainUI
+    Public Property MainUI() As MainUI
         Get
             Return m_mainUI
         End Get
-        Set(ByVal value As mainUI)
+        Set(ByVal value As MainUI)
             m_mainUI = value
         End Set
     End Property
@@ -287,7 +287,7 @@ Public Class frmReminder
     End Sub
 
     Private Sub frmReminder_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 

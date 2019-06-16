@@ -385,7 +385,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                     m_businesReportControls.Add(ctrl.Name, ctrl)
                 Catch ex As Exception
                     ' Kann zb sein, das im Layout der Control - Name bereits vergeben ist
-                    m_application.Log.WriteLog(ex, "MergeReports", "Zusammenfügen des Briefe-Layouts zum Druck-Layout")
+                    MainApplication.getInstance.Log.WriteLog(ex, "MergeReports", "Zusammenfügen des Briefe-Layouts zum Druck-Layout")
                 End Try
 
             Next
@@ -444,26 +444,26 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
                     End If
 
-                    End If
+                End If
 
                 ' Nur sichtbare Elemente des Briefkopfes auch übernehmen
-                    'If ctrl.Visible Then
+                'If ctrl.Visible Then
                 ctrl.Tag = ClausSoftware.Kernel.Printing.Report.BusinessMarker
 
 
-                    If ctrl.Name.Equals("lblAddressField", StringComparison.InvariantCultureIgnoreCase) Then ' Dieses Contrl wird beim Einrichten definiert, aber im Ziellayout durch ein eigenes (Datengebundenes ersetzt) 
-                        ' Hier ist die Position des bestehenden Layouts zu ermitteln und NICHT ein eiteres Control hinzuzufügen
+                If ctrl.Name.Equals("lblAddressField", StringComparison.InvariantCultureIgnoreCase) Then ' Dieses Contrl wird beim Einrichten definiert, aber im Ziellayout durch ein eigenes (Datengebundenes ersetzt) 
+                    ' Hier ist die Position des bestehenden Layouts zu ermitteln und NICHT ein eiteres Control hinzuzufügen
 
-                        Dim targetControl As XRControl = mergedReport.Bands(BandKind.PageHeader).FindControl("lblAddressField", True)
-                        If targetControl IsNot Nothing Then
-                            targetControl.LeftF = ctrl.LeftF
-                            targetControl.TopF = ctrl.TopF
-                            targetControl.WidthF = ctrl.WidthF
-                            targetControl.HeightF = ctrl.HeightF
-                            targetControl.Tag = Nothing
-                        Else
-                            m_application.Log.WriteLog("Konnte kein Adressfenster im Ziel-Layout finden")
-                        End If
+                    Dim targetControl As XRControl = mergedReport.Bands(BandKind.PageHeader).FindControl("lblAddressField", True)
+                    If targetControl IsNot Nothing Then
+                        targetControl.LeftF = ctrl.LeftF
+                        targetControl.TopF = ctrl.TopF
+                        targetControl.WidthF = ctrl.WidthF
+                        targetControl.HeightF = ctrl.HeightF
+                        targetControl.Tag = Nothing
+                    Else
+                        MainApplication.getInstance.Log.WriteLog("Konnte kein Adressfenster im Ziel-Layout finden")
+                    End If
 
                 Else ' Normales Control aus dem Briefe-Layout. Zum Ziellayout hinzufügen
                     ' Keine doppelten Namen zulassen 
@@ -669,7 +669,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
             Get
                 Return m_isLoaded
             End Get
-          
+
         End Property
 
 
@@ -701,7 +701,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                     m_businessReport.Name = "Briefpapier" ' TODO: NLS
 
                     If m_reportsObject Is Nothing Then
-                        m_reportsObject = New Kernel.Printing.Reports(m_application)
+                        m_reportsObject = New Kernel.Printing.Reports(MainApplication.getInstance)
                     End If
 
                     Dim BusinesReports As Kernel.Printing.Reports ' ein oder mehrerer Geschäftspapier-Layouts abholen
@@ -740,7 +740,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                     End If
 
                 Catch ex As Exception
-                    m_application.Log.WriteLog(ex, "PrintingManager", "Error in InitBusinessLayout")
+                    MainApplication.getInstance.Log.WriteLog(ex, "PrintingManager", "Error in InitBusinessLayout")
 
                 Finally
                     m_isLoaded = True
@@ -758,7 +758,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         Public Shared Sub CheckAndRepairDefaultLaoyuts()
             ' Kein Modul ohne StandradLayout
             ' Alle Layouts prüfen
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
             For Each dataSourceItem As DataSourceList In [Enum].GetValues(GetType(DataSourceList))
                 If dataSourceItem = DataSourceList.None Then Continue For
@@ -835,7 +835,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
 
                 If m_reportsObject Is Nothing Then
-                    m_reportsObject = New Kernel.Printing.Reports(m_application)
+                    m_reportsObject = New Kernel.Printing.Reports(MainApplication.getInstance)
                 End If
 
                 'Die LIste anhand des Report-Typs einschränken
@@ -887,35 +887,35 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                 Else
                     'TODO: Vielleicht nur die ersten 10 Datensätze ? 
 
-                    m_application.SendMessage(GetText("msgWaitFetchingData", "Hole Daten..."))
+                    MainApplication.getInstance.SendMessage(GetText("msgWaitFetchingData", "Hole Daten..."))
 
 
                     Select Case m_reportDatasourceKind
                         Case DataSourceList.Addressbook
-                            Dim a As New Adressen(m_application)
+                            Dim a As New Adressen(MainApplication.getInstance)
                             a.TopReturnedObjects = 10
                             m_mainReport.DataSource = a
 
                         Case DataSourceList.Articles
-                            Dim a As New Articles(m_application)
+                            Dim a As New Articles(MainApplication.getInstance)
                             a.TopReturnedObjects = 10
                             m_mainReport.DataSource = a
 
                         Case DataSourceList.CashJournalMonthy, DataSourceList.CashJournalYearly
-                            Dim journalData As Kernel.CashJournalTimeFrame = m_application.CashJournalTimeFrame.GetCashJournalTimeFrame(New Date(Now.Year - 2, 1, 1), New Date(Now.Year, 12, 31))
+                            Dim journalData As Kernel.CashJournalTimeFrame = MainApplication.getInstance.CashJournalTimeFrame.GetCashJournalTimeFrame(New Date(Now.Year - 2, 1, 1), New Date(Now.Year, 12, 31))
                             Dim dataList As New List(Of CashJournalTimeFrame)
 
                             dataList.Add(journalData)
                             m_mainReport.DataSource = dataList
 
                         Case DataSourceList.Journal
-                            Dim a As New JournalDocuments(m_application)
+                            Dim a As New JournalDocuments(MainApplication.getInstance)
                             a.TopReturnedObjects = 10
                             m_mainReport.DataSource = a
 
                         Case DataSourceList.Journaldocument
 
-                            Dim p As JournalDocument = m_application.JournalDocuments(m_application.JournalDocuments.Count - 1)
+                            Dim p As JournalDocument = MainApplication.getInstance.JournalDocuments(MainApplication.getInstance.JournalDocuments.Count - 1)
 
                             Dim dataList As New List(Of JournalDocument)
                             dataList.Add(p)
@@ -923,22 +923,22 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                             m_mainReport.DataSource = dataList
 
                         Case DataSourceList.Reminders
-                            Dim a As New Reminders(m_application)
+                            Dim a As New Reminders(MainApplication.getInstance)
                             a.TopReturnedObjects = 10
                             m_mainReport.DataSource = a
 
                         Case DataSourceList.Transactions
-                            Dim a As New Transactions(m_application)
+                            Dim a As New Transactions(MainApplication.getInstance)
                             a.TopReturnedObjects = 10
                             m_mainReport.DataSource = a
 
                         Case DataSourceList.Letters
-                            Dim a As New Letters(m_application)
+                            Dim a As New Letters(MainApplication.getInstance)
                             a.TopReturnedObjects = 10
                             m_mainReport.DataSource = a
 
                         Case DataSourceList.FixedCosts
-                            Dim a As New FixedCosts(m_application)
+                            Dim a As New FixedCosts(MainApplication.getInstance)
                             a.TopReturnedObjects = 10
                             m_mainReport.DataSource = a
 
@@ -968,7 +968,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                 End If
 
                 m_mainReport.CreateDocument()
-                m_mainReport.Name = m_application.Languages.GetTextBydataKind(m_reportDatasourceKind)
+                m_mainReport.Name = MainApplication.getInstance.Languages.GetTextBydataKind(m_reportDatasourceKind)
 
 
             Catch ex As Exception
@@ -1069,9 +1069,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
                     m_businesReportControls.Add(ctrl.Name, ctrl)
                 Catch ex As Exception
-                   
+
                 End Try
-             
+
             Next
 
             ' Kleine Toleranz hinzufügen
@@ -1083,7 +1083,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
                     ctrl.TopF -= offset
                 Catch ex As Exception
-                 
+
                 End Try
 
             Next
@@ -1107,7 +1107,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
             ' Prefix: "Print_" & Labelname
 
             For Each bandItem As Band In report.Bands
-                
+
 
                 For Each ctrlItem As XRControl In bandItem.Controls
                     TranslateCtrl(ctrlItem)
@@ -1180,7 +1180,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
                     '  MainReport.CreateDocument()
                 Catch ex As Exception
-                    m_application.Log.WriteLog(ex, "PrintingManager", "ERROR while creating Printlayout: '" & item.Description & "'")
+                    MainApplication.getInstance.Log.WriteLog(ex, "PrintingManager", "ERROR while creating Printlayout: '" & item.Description & "'")
                 End Try
 
             Next
@@ -1193,14 +1193,14 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
             '' Im Falle von Kassenbuch: Adressline auffüllen
             'Dim addressline As DevExpress.XtraReports.UI.XRControl = MainReport.FindControl("lblAddressLine", True)
             'If addressline IsNot Nothing Then
-            '    addressline.Text = m_application.Settings.page
+            '    addressline.Text = MainApplication.getInstance.Settings.page
             'End If
 
 
 
             ' PDF - Optionen einstellen, falls gewünscht
             With MainReport.PrintingSystem.ExportOptions.Pdf
-                .DocumentOptions.Application = m_application.Languages.GetText("{AppName}")
+                .DocumentOptions.Application = MainApplication.getInstance.Languages.GetText("{AppName}")
                 .DocumentOptions.Subject = GetDocumentSubject()
                 .DocumentOptions.Title = MainReport.PrintingSystem.Document.Name
             End With
@@ -1259,13 +1259,13 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         Private Property GetLastPrintDocumentsFolder() As String
             Get
                 If String.IsNullOrEmpty(m_lastPrintDocumentsFolder) Then
-                    m_lastPrintDocumentsFolder = m_application.Settings.GetSetting("LastPrintDocumentsFolder", "Printing", "%Homedrive%%Homepath%", m_application.CurrentUser.Key)
+                    m_lastPrintDocumentsFolder = MainApplication.getInstance.Settings.GetSetting("LastPrintDocumentsFolder", "Printing", "%Homedrive%%Homepath%", MainApplication.getInstance.CurrentUser.Key)
                 End If
                 Return m_lastPrintDocumentsFolder
             End Get
             Set(value As String)
                 m_lastPrintDocumentsFolder = value
-                m_application.Settings.SetSetting("LastPrintDocumentsFolder", "Printing", value, m_application.CurrentUser.Key)
+                MainApplication.getInstance.Settings.SetSetting("LastPrintDocumentsFolder", "Printing", value, MainApplication.getInstance.CurrentUser.Key)
             End Set
         End Property
 
@@ -1277,10 +1277,10 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         Private Function GetDocumentName() As String
 
             Dim defaultName As String
-            Dim prefixName As String = m_application.Languages.GetText("{AppName}") & ": "
+            Dim prefixName As String = MainApplication.getInstance.Languages.GetText("{AppName}") & ": "
 
             ' einen standarnamen für den Ausdruck finden
-            defaultName = prefixName & m_application.Languages.GetTextBydataKind(m_reportDatasourceKind)
+            defaultName = prefixName & MainApplication.getInstance.Languages.GetTextBydataKind(m_reportDatasourceKind)
 
             ' Jorunaldokument
 
@@ -1426,9 +1426,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutAdressbook() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
             Dim dummy As Kernel.Printing.Report = Kernel.Printing.Report.LoadFromStream(My.Resources.Standard__Adressbuch)
 
@@ -1450,9 +1450,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutArticles() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
             Dim dummy As Kernel.Printing.Report = Kernel.Printing.Report.LoadFromStream(My.Resources.Standard_Artikellisten)
 
@@ -1474,9 +1474,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutBillOfMaterial() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
             Dim dummy As Kernel.Printing.Report = Kernel.Printing.Report.LoadFromStream(My.Resources.Standard_Artikellisten)
 
@@ -1493,9 +1493,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
         End Function
 
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutCashJournalMonthly() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
             Dim dummy As Kernel.Printing.Report = Kernel.Printing.Report.LoadFromStream(My.Resources.Standard_CashJournalMonthly)
 
@@ -1512,9 +1512,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
         End Function
 
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutCashJournalYearly() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
             Dim dummy As Kernel.Printing.Report = Kernel.Printing.Report.LoadFromStream(My.Resources.Standard_CashJournalYearly)
 
@@ -1536,9 +1536,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutJournalDocument() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
 
             ' Standard Druck-Layout
@@ -1562,9 +1562,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutArticleSummary() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
 
             ' Standard Druck-Layout
@@ -1588,9 +1588,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutTransactions() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
 
             ' Standard Druck-Layout
@@ -1615,9 +1615,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutLetters() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
 
             ' Standard Druck-Layout
@@ -1641,9 +1641,9 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+        <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
         Friend Shared Function ResetDefaultLayoutReminders() As Kernel.Printing.Report
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
 
 
             ' Standard Druck-Layout

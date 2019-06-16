@@ -14,9 +14,9 @@ Public Class frmTestperiodExpired
 
 
     Private Sub frmTestperiodExpired_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
-        Dim DaysLeft As Integer = m_application.Licenses.GetBalanceLicenceTime
+        Dim DaysLeft As Integer = MainApplication.getInstance.Licenses.GetBalanceLicenceTime
 
 
         lblActivationText.Text = GetText("lblActivationText", lblActivationText.Text, DaysLeft.ToString)
@@ -32,13 +32,13 @@ Public Class frmTestperiodExpired
     Private Sub CheckCloseButtonstate()
         ' Bei mehr als 90 Tagen über die Zeit, auch kein Read-Only - Zugriff mehr!
 
-        Dim DaysLeft As Integer = m_application.Licenses.GetBalanceLicenceTime
-        Dim baseLic As Data.LicenseItem = m_application.Licenses.GetBaseLicense
-        If DaysLeft < -30 And Not m_application.Licenses.BaseCodeCheck(baseLic) Then
+        Dim DaysLeft As Integer = MainApplication.getInstance.Licenses.GetBalanceLicenceTime
+        Dim baseLic As Data.LicenseItem = MainApplication.getInstance.Licenses.GetBaseLicense
+        If DaysLeft < -30 And Not MainApplication.getInstance.Licenses.BaseCodeCheck(baseLic) Then
             btnLater.Text = GetText("btnclose")
         Else
 
-            If m_application.Licenses.BaseCodeCheck(baseLic) Then
+            If MainApplication.getInstance.Licenses.BaseCodeCheck(baseLic) Then
                 btnLater.Text = GetText("btnOK")
             Else
                 btnLater.Text = GetText("btnLater")

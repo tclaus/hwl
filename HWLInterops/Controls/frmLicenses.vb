@@ -12,11 +12,10 @@ Public Class frmLicenses
     
     Private Sub frmLicenses_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         modmain.InitializeApplication()
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
-        m_application = modmain.m_application
 
-        lblProgramID.Text = m_application.ApplicationID.Substring(m_application.ApplicationID.Length - 5)
+        lblProgramID.Text = MainApplication.getInstance.ApplicationID.Substring(MainApplication.getInstance.ApplicationID.Length - 5)
 
         If Not Tools.Services.CheckIfCodeIsValid(lblProgramID.Text) Then
             ' Code ungültig !
@@ -27,11 +26,11 @@ Public Class frmLicenses
 
 
         FillLicensesList()
-        Me.Text = Me.Text & " " & m_application.ApplicationID.Substring(m_application.ApplicationID.Length - 5)
+        Me.Text = Me.Text & " " & MainApplication.getInstance.ApplicationID.Substring(MainApplication.getInstance.ApplicationID.Length - 5)
 
         AddHandler GridView1.FocusedRowChanged, AddressOf FocusedRowChanged
 
-        lblLicenseTextheadline.Text = lblLicenseTextheadline.Text.Replace("{0}", m_application.Licenses.GetBalanceLicenceTime.ToString)
+        lblLicenseTextheadline.Text = lblLicenseTextheadline.Text.Replace("{0}", MainApplication.getInstance.Licenses.GetBalanceLicenceTime.ToString)
 
 
 
@@ -75,7 +74,7 @@ Public Class frmLicenses
             lastselectedID = GridView1.FocusedRowHandle
         End If
 
-        For Each lic As LicenseItem In m_application.Licenses.LizensesData.Values
+        For Each lic As LicenseItem In MainApplication.getInstance.Licenses.LizensesData.Values
             arraylist.Add(lic)
 
         Next
@@ -178,11 +177,11 @@ Public Class frmLicenses
 
             If license IsNot Nothing Then
                 'TODO: NLS
-                If MessageBox.Show("Möchten Sie die gewwählte Lizenz vollständig löschen? " & vbCrLf & _
-                                   "" & _
+                If MessageBox.Show("Möchten Sie die gewwählte Lizenz vollständig löschen? " & vbCrLf &
+                                   "" &
                                    "Wenn ein Modul diese Lizenz anfordert, wird diese erneut angelegt. Eine eventuelle Freischaltung geht aber verlohren und muss neu angefordert werden.", "Lizenz vollständg löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
 
-                    m_application.Licenses.Delete(license)
+                    MainApplication.getInstance.Licenses.Delete(license)
                     FillLicensesList()
 
                 End If
@@ -196,7 +195,7 @@ Public Class frmLicenses
         DeleteLicense()
     End Sub
 
-    
+
     Private Sub GridView1_FocusedRowChanged(ByVal sender As System.Object, ByVal e As DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs) Handles GridView1.FocusedRowChanged
         Dim focusedRow As Object
         focusedRow = GridView1.GetRow(e.FocusedRowHandle)
@@ -219,13 +218,13 @@ Public Class frmLicenses
     ''' <remarks></remarks>
     Private Sub AskGenerateNewCode()
         Dim result As DialogResult
-        result = MessageBox.Show("Der Code ist möglicherweise beschädigt und kann nicht zum erzeugen von Lizenzen verwendet werden!" & vbCrLf & _
+        result = MessageBox.Show("Der Code ist möglicherweise beschädigt und kann nicht zum erzeugen von Lizenzen verwendet werden!" & vbCrLf &
                         "Es kann aber ein neuer Code erzeugt werden. Möchten sie das nun tun?", "Programmcode beschädigt!", MessageBoxButtons.YesNo)
         If result = Windows.Forms.DialogResult.Yes Then
             ' HWL.ini neu schreiben
             ' in Datenbank neu hinterlegen
             ' HWL neu starten
-            m_application.Connections.ClearAndRefreshAPPID()
+            MainApplication.getInstance.Connections.ClearAndRefreshAPPID()
             If Not System.Diagnostics.Debugger.IsAttached Then
                 System.Windows.Forms.Application.Restart()
             Else

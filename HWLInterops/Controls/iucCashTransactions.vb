@@ -94,7 +94,7 @@ Public Class iucCashTransactions
         commonGrid.Context = "CashTransactions"
         commonGrid.SetDataSource(Kernel.DataSourceList.CashJournalMonthy)
 
-        IucDateChooser1.SetYears(m_application.CashJournal.GetItemYears)
+        IucDateChooser1.SetYears(MainApplication.getInstance.CashJournal.GetItemYears)
         SetValueFields(commonGrid.ActiveFilterString)
 
     End Sub
@@ -115,7 +115,7 @@ Public Class iucCashTransactions
         End If
 
         ' Neues Element erstellen und der Auflistung hinzufügen
-        ActiveItem = m_application.CashJournal.GetNewItem
+        ActiveItem = MainApplication.getInstance.CashJournal.GetNewItem
         datDate.Focus()
 
 
@@ -139,7 +139,7 @@ Public Class iucCashTransactions
         txNumber.AutoCompleteSource = Windows.Forms.AutoCompleteSource.CustomSource
 
 
-        For Each item As Kernel.CashJournalItem In m_application.CashJournal
+        For Each item As Kernel.CashJournalItem In MainApplication.getInstance.CashJournal
             If Not acsDescription.Contains(item.TransactionText) Then
                 acsDescription.Add(item.TransactionText)
             End If
@@ -167,7 +167,7 @@ Public Class iucCashTransactions
             End Using
         Catch ex As Exception
             ' wenn hier was passiert => log und Meldung machen !
-            m_application.Log.WriteLog(ex, "Print CashJournal", "Error in Dialog")
+            MainApplication.getInstance.Log.WriteLog(ex, "Print CashJournal", "Error in Dialog")
         End Try
 
     End Sub
@@ -219,13 +219,13 @@ Public Class iucCashTransactions
 
             ActiveItem.TaxValue = CDbl(CType(cobTax.SelectedItem, TaxRate).TaxValue)
 
-            If Not m_application.CashJournal.ContainsKey(ActiveItem.Key) Then
-                m_application.CashJournal.Add(ActiveItem)
+            If Not MainApplication.getInstance.CashJournal.ContainsKey(ActiveItem.Key) Then
+                MainApplication.getInstance.CashJournal.Add(ActiveItem)
             End If
 
             Me.ActiveItem.Save() ' Hier das element speichern
 
-            m_application.SendMessage(GetText("msgsaved", "Gespeichert."))
+            MainApplication.getInstance.SendMessage(GetText("msgsaved", "Gespeichert."))
 
             commonGrid.RefreshData()
             commonGrid.SelectItemByID(ActiveItem.ID)
@@ -252,7 +252,7 @@ Public Class iucCashTransactions
             End If
 
 
-            IucDateChooser1.SetYears(m_application.CashJournal.GetItemYears)
+            IucDateChooser1.SetYears(MainApplication.getInstance.CashJournal.GetItemYears)
 
             FillControls()
 
@@ -335,8 +335,8 @@ Public Class iucCashTransactions
     ''' <remarks></remarks>
     Sub FillDefaultControls()
 
-        btnCashAccount.EditValue = m_application.CashAccounts
-        cobTax.Properties.Items.AddRange(m_application.TaxRates)
+        btnCashAccount.EditValue = MainApplication.getInstance.CashAccounts
+        cobTax.Properties.Items.AddRange(MainApplication.getInstance.TaxRates)
         m_hasChanged = False
 
     End Sub
@@ -426,9 +426,9 @@ Public Class iucCashTransactions
     ''' <remarks></remarks>
     Private Sub SetValueFields(ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
 
-        m_application.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
+        MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
 
-        m_cashList = New CashJournalItems(m_application, criteria)
+        m_cashList = New CashJournalItems(MainApplication.getInstance, criteria)
 
         Dim cs As Kernel.CashJournalsSums = m_cashList.GetCashSums()
         lblSumInbound.Text = cs.Income.ToString("c")
@@ -504,7 +504,7 @@ Public Class iucCashTransactions
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 
@@ -521,7 +521,7 @@ Public Class iucCashTransactions
     Private Sub iucCashTransactions_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         commonGrid.Width = Me.Width ' Bereite erzwingen
 
-        m_cashList = CType(m_application.CashJournal.GetNewCollection, CashJournalItems)
+        m_cashList = CType(MainApplication.getInstance.CashJournal.GetNewCollection, CashJournalItems)
 
         InitializeModule()
 
@@ -567,7 +567,7 @@ Public Class iucCashTransactions
                 btnCashAccount.EditValue = selectedCashAccount
                 cobTax.SelectedItem = selectedCashAccount.TaxRate
 
-                m_application.Settings.LastSelectedCashAccount = selectedCashAccount
+                MainApplication.getInstance.Settings.LastSelectedCashAccount = selectedCashAccount
             End If
 
         End If
@@ -620,7 +620,7 @@ Public Class iucCashTransactions
             End If
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "CashTransaction", "Fehler beim Keydown-Ereignis!")
+            MainApplication.getInstance.Log.WriteLog(ex, "CashTransaction", "Fehler beim Keydown-Ereignis!")
         End Try
 
     End Sub

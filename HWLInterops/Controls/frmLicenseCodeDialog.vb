@@ -23,7 +23,7 @@ Public Class frmLicenseCodeDialog
         Set(ByVal value As LicenseItem)
             m_license = value
             lblLicenseCodeHeadline.Text = GetText(lblLicenseCodeHeadline.Name, "Geben Sie den Schlüssel zur Freischaltung der Lizenz {0} ein.", value.Name)
-            txtcode.Text = m_application.Licenses.GetLicenseKey(value)
+            txtcode.Text = MainApplication.getInstance.Licenses.GetLicenseKey(value)
         End Set
     End Property
 
@@ -33,7 +33,7 @@ Public Class frmLicenseCodeDialog
     ''' <remarks></remarks>
     Function Testlicense(ByVal code As String) As Boolean
         Try
-            Return m_application.Licenses.BaseCodeCheck(License.GUID, code)
+            Return MainApplication.getInstance.Licenses.BaseCodeCheck(License.GUID, code)
         Catch ex As Exception
             Debug.Print("FEHLER beim Testen einer Lizenz:" & ex.Message)
         End Try
@@ -47,7 +47,7 @@ Public Class frmLicenseCodeDialog
 
     Private Sub RegisterLicenseKey()
         If Testlicense(txtcode.Text) Then
-            m_application.Licenses.SetLicenseKey(License, txtcode.Text.Trim)
+            MainApplication.getInstance.Licenses.SetLicenseKey(License, txtcode.Text.Trim)
         End If
     End Sub
 
@@ -62,7 +62,7 @@ Public Class frmLicenseCodeDialog
     End Sub
 
     Private Sub frmLicenseCodeDialog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         CheckLicenseKey()
 

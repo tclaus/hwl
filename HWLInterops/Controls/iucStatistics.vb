@@ -69,10 +69,10 @@ Public Class iucStatistics
 
         If DbType() = enumServerType.MySQL Then
             sql = "SELECT year(AngelegtAm) FROM JournalListe group by year(AngelegtAm)"
-            dt = m_application.Database.GetData(sql)
+            dt = MainApplication.getInstance.Database.GetData(sql)
         Else
             sql = "SELECT year(AngelegtAm) FROM JournalListe group by year(AngelegtAm)"
-            dt = m_application.Database.GetData(sql)
+            dt = MainApplication.getInstance.Database.GetData(sql)
         End If
 
         ' Initialisieren
@@ -112,15 +112,15 @@ Public Class iucStatistics
 
         If chkAllTimeStatistics.Checked = False Then
 
-            sql = "select SUM(I.Anzahl * P.Anzahl) as Anzahl  ,round( sum(I.Anzahl * P.Anzahl*I.VK*(1+J.Mwstwert/100)),2) as Summe, i.Name from " & ConstTableItems & " I, " & ConstTableJournal & " J, positions p where i.parentItemID = P.ReplikID and  I.status=2 and J.status=I.status and J.lfndnummer = I.lfndnummer and J.datum between " & ConvertDate2SqlString(datStartDate.DateTime) & " and " & ConvertDate2SqlString(datEndDate.DateTime) & "  AND OrgItem <>'T' group by " & GroupBy & " " & _
+            sql = "select SUM(I.Anzahl * P.Anzahl) as Anzahl  ,round( sum(I.Anzahl * P.Anzahl*I.VK*(1+J.Mwstwert/100)),2) as Summe, i.Name from " & ConstTableItems & " I, " & ConstTableJournal & " J, positions p where i.parentItemID = P.ReplikID and  I.status=2 and J.status=I.status and J.lfndnummer = I.lfndnummer and J.datum between " & ConvertDate2SqlString(datStartDate.DateTime) & " and " & ConvertDate2SqlString(datEndDate.DateTime) & "  AND OrgItem <>'T' group by " & GroupBy & " " &
             "UNION SELECT SUM(I.Anzahl * P.Anzahl) as Anzahl  ,round( sum(I.Anzahl * P.Anzahl*I.VK*(1+J.Mwstwert/100)),2) as Summe, '" & freeText & "' as Name from " & ConstTableItems & " I, " & ConstTableJournal & " J ,  positions p where i.parentItemID = P.ReplikID and  I.status=2 and J.status=I.status and J.lfndnummer = I.lfndnummer and J.datum between " & ConvertDate2SqlString(datStartDate.DateTime) & " and " & ConvertDate2SqlString(datEndDate.DateTime) & "  AND I.OrgItem='T' group by " & GroupBy & " order by " & OrderBySumme & " desc "
         Else
-            sql = "select SUM(I.Anzahl * P.Anzahl) as Anzahl ,round( sum(P.Anzahl*I.Anzahl*I.VK*(1+J.Mwstwert/100)),2) as Summe, i.Name from " & ConstTableItems & " I, " & ConstTableJournal & " J, positions p where i.parentItemID = P.ReplikID and  I.status=2 and J.status=I.status and J.lfndnummer = I.lfndnummer AND OrgItem <>'T' group by " & GroupBy & " " & _
+            sql = "select SUM(I.Anzahl * P.Anzahl) as Anzahl ,round( sum(P.Anzahl*I.Anzahl*I.VK*(1+J.Mwstwert/100)),2) as Summe, i.Name from " & ConstTableItems & " I, " & ConstTableJournal & " J, positions p where i.parentItemID = P.ReplikID and  I.status=2 and J.status=I.status and J.lfndnummer = I.lfndnummer AND OrgItem <>'T' group by " & GroupBy & " " &
               "UNION SELECT SUM(I.Anzahl * P.Anzahl) as Anzahl  ,round( sum(I.Anzahl * P.Anzahl*I.VK*(1+J.Mwstwert/100)),2) as Summe, '" & freeText & "' as Name from " & ConstTableItems & " I, " & ConstTableJournal & " J , positions p where i.parentItemID = P.ReplikID and  I.status=2 and J.status=I.status and J.lfndnummer = I.lfndnummer and  I.OrgItem='T' group by " & GroupBy & " order by " & OrderBySumme & " desc "
 
         End If
 
-        Dim dt As DataTable = m_application.Database.GetData(sql)
+        Dim dt As DataTable = MainApplication.getInstance.Database.GetData(sql)
         'TODO: Spalten übersetzen 
         'Testen: Spaltenübersetzung
         For Each col As System.Data.DataColumn In dt.Columns
@@ -160,7 +160,7 @@ Public Class iucStatistics
             sqlSumme = "select count(*) as anzahl, round(sum(betrag),2) as summe from " & ConstTableJournal & " J where J.status=2 "
         End If
 
-        Dim dt As DataTable = m_application.Database.GetData(sql)
+        Dim dt As DataTable = MainApplication.getInstance.Database.GetData(sql)
 
         grdMain.DataSource = dt
 
@@ -188,7 +188,7 @@ Public Class iucStatistics
     ''' <param name="kind"></param>
     ''' <remarks></remarks>
     Private Sub CreateStats(ByVal kind As enumStats)
-        If m_application IsNot Nothing Then
+        If MainApplication.getInstance IsNot Nothing Then
             If isLoading Then Exit Sub
             m_selectedDataSource = kind
 
@@ -228,7 +228,7 @@ Public Class iucStatistics
         datEndDate.DateTime = Date.Today
         datStartDate.DateTime = Date.Today.AddYears(-1)
 
-        If m_application IsNot Nothing Then
+        If MainApplication.getInstance IsNot Nothing Then
 
             GetInvoiceYears()
 

@@ -4,14 +4,14 @@ Public Class frmTaxSummary
         Dim years As New List(Of Integer)
 
 
-        For Each item As String In m_application.Transactions.GetItemYears
+        For Each item As String In MainApplication.getInstance.Transactions.GetItemYears
             If Not years.Contains(CInt(item)) Then
                 years.Add(CInt(item))
 
             End If
         Next
 
-        For Each item As String In m_application.CashJournal.GetItemYears
+        For Each item As String In MainApplication.getInstance.CashJournal.GetItemYears
             If Not years.Contains(CInt(item)) Then
                 years.Add(CInt(item))
 

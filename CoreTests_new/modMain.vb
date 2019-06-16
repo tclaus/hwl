@@ -1,11 +1,6 @@
 ﻿Module modMain
 
-    ''' <summary>
-    ''' Ruft das allgemeine Startobjekt ab, erreichbar von allen Testklassen
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public m_Application As ClausSoftware.mainApplication
-    Public m_Gui As ClausSoftware.HWLInterops.mainUI
+    Public m_Gui As ClausSoftware.HWLInterops.MainUI
 
     ''' <summary>
     ''' Für Manuellen Start, falls dieses Projekt als exe übersetzt wird

@@ -128,9 +128,9 @@ Namespace Printing
         ''' <remarks></remarks>
         Function GetFilenameForLayout(ByVal defaultName As String) As String
             ' Dateiname ist fest, wenn benutzer vie ein anderes Layout gewähltz hat
-            Dim value As String = m_application.Settings.GetSetting("DefaultLayout", Me.ReportDatasourceType.ToString, "")
+            Dim value As String = MainApplication.getInstance.Settings.GetSetting("DefaultLayout", Me.ReportDatasourceType.ToString, "")
             If value = "" Then
-                m_application.Settings.SetSetting("DefaultLayout", Me.ReportDatasourceType.ToString, defaultName)
+                MainApplication.getInstance.Settings.SetSetting("DefaultLayout", Me.ReportDatasourceType.ToString, defaultName)
                 Return defaultName
             Else
                 Return value
@@ -161,14 +161,14 @@ Namespace Printing
             Try
 
                 ' CheckForLicenses()
-                'm_application.Settings.Reload()
+                'MainApplication.getInstance.Settings.Reload()
                 m_printingManager.InitBusinessLayout()
                 m_printingManager.InitMainPageLayout()
 
 
                 newReport = m_printingManager.MainReport
 
-                'm_application.Licenses.RegisterGlobalLicense(Me.LicenseFormularDesigner)
+                'MainApplication.getInstance.Licenses.RegisterGlobalLicense(Me.LicenseFormularDesigner)
                 AddHandler newReport.PrintProgress, AddressOf PrintProgress
             Catch ex As Exception
                 Debug.Print(ex.Message)
@@ -211,7 +211,7 @@ Namespace Printing
         ''' <param name="e"></param>
         ''' <remarks></remarks>
         Private Sub PrintProgress(ByVal sender As Object, ByVal e As DevExpress.XtraPrinting.PrintProgressEventArgs)
-            m_application.SendMessage(GetText("PrintPage", "Drucke Seite: {0}", CStr(e.PageIndex)))
+            MainApplication.getInstance.SendMessage(GetText("PrintPage", "Drucke Seite: {0}", CStr(e.PageIndex)))
         End Sub
 
         ''' <summary>
@@ -265,7 +265,7 @@ Namespace Printing
             Dim visibleValue As DevExpress.XtraReports.UserDesigner.CommandVisibility = XtraReports.UserDesigner.CommandVisibility.All
 
             ' Prüfe auf LIzenz und stelle "Save"-Button bereit oder verbege diesen
-            If Not m_application.Licenses.IsActivDesigner Then
+            If Not MainApplication.getInstance.Licenses.IsActivDesigner Then
                 Debug.Print("Keine Lizenz für den Formulardesigner gefunden")
                 visibleValue = XtraReports.UserDesigner.CommandVisibility.None
 

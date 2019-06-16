@@ -38,7 +38,7 @@ Public Class frmEditHistory
         lblCreatedAtText.Text = m_historyItem.ItemDate.ToString("d")
         lblCreatedByText.Text = m_historyItem.CreatedBy.ToString
         chkSystemCreated.Checked = m_historyItem.IsSystemMessage
-        Me.Text = m_application.Languages.GetText("HistoryDialogHeader", "Verlauf ({0}})", m_historyItem.Adress.ToString)
+        Me.Text = MainApplication.getInstance.Languages.GetText("HistoryDialogHeader", "Verlauf ({0}})", m_historyItem.Adress.ToString)
 
 
     End Sub
@@ -72,7 +72,7 @@ Public Class frmEditHistory
                 Dim frm As New frmSimpleEdit(Kernel.DataSourceList.HistoryCategories)
                 frm.ShowDialog()
                 cobCategory.Properties.Items.Clear()
-                cobCategory.Properties.Items.AddRange(m_application.HistoryCategories)
+                cobCategory.Properties.Items.AddRange(MainApplication.getInstance.HistoryCategories)
 
                 cobCategory.SelectedItem = m_historyItem.Category
 
@@ -93,12 +93,12 @@ Public Class frmEditHistory
     End Sub
 
     Private Sub frmEditHistory_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
-        m_application.HistoryCategories.GetTransactionCategory() ' Zumindest eine Kategorie erzwingen
+        MainApplication.getInstance.HistoryCategories.GetTransactionCategory() ' Zumindest eine Kategorie erzwingen
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
         cobCategory.Properties.Items.Clear()
-        cobCategory.Properties.Items.AddRange(m_application.HistoryCategories)
+        cobCategory.Properties.Items.AddRange(MainApplication.getInstance.HistoryCategories)
         cobCategory.SelectedItem = m_historyItem.Category
 
         FillItem()

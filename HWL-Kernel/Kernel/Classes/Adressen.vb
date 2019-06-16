@@ -105,7 +105,7 @@ Namespace Kernel
         ''' </summary>
         ''' <param name="BasisApplikation"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
             MyBase.New(BasisApplikation)
             Initialize()
         End Sub
@@ -116,7 +116,7 @@ Namespace Kernel
         ''' <param name="BasisApplikation"></param>
         ''' <param name="criteria"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal BasisApplikation As mainApplication, ByVal criteria As CriteriaOperator)
+        Public Sub New(ByVal BasisApplikation As MainApplication, ByVal criteria As CriteriaOperator)
             MyBase.New(BasisApplikation, criteria)
             Initialize()
         End Sub

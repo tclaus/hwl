@@ -17,7 +17,7 @@ Public Class AlertHelper
     Implements IDisposable
 
     Friend m_alertControl1 As AlertControl
-    Private m_ui As mainUI
+    Private m_ui As MainUI
 
     ''' <summary>
     ''' Verteilt das gemeinsame Alert-event auf verschiedene Ziele
@@ -85,9 +85,9 @@ Public Class AlertHelper
     Public Sub ShowAlert(ByVal element As AlertElement)
         With element
             If Not String.IsNullOrEmpty(.Caption) Then
-                .Caption = mainApplication.ApplicationName & ": " & .Caption
+                .Caption = MainApplication.ApplicationName & ": " & .Caption
             Else
-                .Caption = mainApplication.ApplicationName
+                .Caption = MainApplication.ApplicationName
             End If
 
             Dim info As AlertInfo = New AlertInfo(.Caption, .Text)
@@ -125,7 +125,7 @@ Public Class AlertHelper
     ''' </summary>
     ''' <param name="ui"></param>
     ''' <remarks></remarks>
-    Public Sub New(ByVal ui As mainUI)
+    Public Sub New(ByVal ui As MainUI)
         m_ui = ui
 
         m_alertControl1 = New AlertControl(ui.Mainform.Container)

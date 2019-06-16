@@ -46,21 +46,21 @@ Public Class DatanormParser
     Private m_articlewriter As DataWriter = New DataWriter
 
     Private m_preisänderungssatz As New Preisänderungssatz
-    Private m_leitungssatz As New leitungssatz
-    Private m_leitungssatzc1 As New leitungssatzc1
-    Private m_leitungssatzc2 As New leitungssatzc2
-    Private m_leistungssatzsach As New leistungssatzsach
-    Private m_leistungssatzfliesen As New leistungssatzfliesen
-    Private m_leistungssatzartikel As New leistungssatzartikel
-    Private m_leistungssatzarbeitszeiten As New leistungssatzarbeitszeiten
-    Private m_leistungssatzgefahrenGGVS As New leistungssatzgefahrenGGVS
-    Private m_leistungssatzgefahrenVBS As New leistungssatzgefahrenVBF
-    Private m_leistungssatzzoll As New leistungssatzzoll
+    Private m_leitungssatz As New Leitungssatz
+    Private m_leitungssatzc1 As New LeitungssatzC1
+    Private m_leitungssatzc2 As New Leitungssatzc2
+    Private m_leistungssatzsach As New LeistungssatzSach
+    Private m_leistungssatzfliesen As New LeistungssatzFliesen
+    Private m_leistungssatzartikel As New LeistungssatzArtikel
+    Private m_leistungssatzarbeitszeiten As New LeistungssatzArbeitszeiten
+    Private m_leistungssatzgefahrenGGVS As New LeistungssatzGefahrenGGVS
+    Private m_leistungssatzgefahrenVBS As New LeistungssatzGefahrenVBF
+    Private m_leistungssatzzoll As New LeistungssatzZoll
     Private m_rohstoffzuschlagsatz As New Rohstoffzuschlagsatz
     Private m_zu_abschlagssatz As New zu_abschlagssatz
     Private m_rohstoffsatz As New Rohstoffsatz
-    Private m_artikelset As New artikelset
-    Private m_artikelstücklisten As New artikelstücklisten
+    Private m_artikelset As New Artikelset
+    Private m_artikelstücklisten As New Artikelstücklisten
     Private m_grafikbindungssatz As New Grafikbindungssatz
     Private m_dimensionssatz As New Dimensionssatz
     Private m_artikelsatzB As New ArtikelsatzB
@@ -220,7 +220,7 @@ Public Class DatanormParser
                         'Debug.Print("Line: " & parser.LineNumber)
 
                     Catch ex As Exception
-                        InitializeImport.Application.Log.WriteLog(ex, "DatanormImport", "Fehler beim Lesen der Zeile  (" & parser.ErrorLineNumber & ") : " & parser.ErrorLine)
+                        MainApplication.getInstance.Log.WriteLog(ex, "DatanormImport", "Fehler beim Lesen der Zeile  (" & parser.ErrorLineNumber & ") : " & parser.ErrorLine)
 
                     End Try
 

@@ -55,7 +55,7 @@ Public Class iucDateChooser
 
         xml.Serialize(ts, timespan)
 
-        m_application.Settings.SetSetting("SimpleDateTimeInterval", context, sb.ToString())
+        MainApplication.getInstance.Settings.SetSetting("SimpleDateTimeInterval", context, sb.ToString())
 
 
     End Sub
@@ -67,7 +67,7 @@ Public Class iucDateChooser
     ''' <remarks></remarks>
     Public Sub RestoreSettings(ByVal context As String)
         Dim datetimeValue As String
-        datetimeValue = m_application.Settings.GetSetting("SimpleDateTimeInterval", context, "")
+        datetimeValue = MainApplication.getInstance.Settings.GetSetting("SimpleDateTimeInterval", context, "")
         If datetimeValue.Length > 0 Then
             Try
                 Dim xml As New XmlSerializer(GetType(SimpleTimeSpan))

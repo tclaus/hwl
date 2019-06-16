@@ -64,14 +64,14 @@ Public Class MRUElementManager
         If m_isloading Then Exit Sub
 
 
-        Dim recentItem As Kernel.RecentlyUsed = m_application.RecentlyUsedItems.GetItemByTargetID(newItem.Element.Key)
+        Dim recentItem As Kernel.RecentlyUsed = MainApplication.getInstance.RecentlyUsedItems.GetItemByTargetID(newItem.Element.Key)
 
         ' Nur dann ein neues Element anlegen
         If recentItem Is Nothing Then
-            recentItem = m_application.RecentlyUsedItems.GetNewItem
+            recentItem = MainApplication.getInstance.RecentlyUsedItems.GetNewItem
             recentItem.SetRecentItem(newItem.Element)
 
-            m_application.RecentlyUsedItems.Add(recentItem)
+            MainApplication.getInstance.RecentlyUsedItems.Add(recentItem)
         End If
 
         ' Neue Zeit festlegen
@@ -151,7 +151,7 @@ Public Class MRUElementManager
     ''' </summary>
     ''' <remarks>Löscht auch die persistente Liste inder Datenbank</remarks>
     Public Sub ClearList()
-        m_application.RecentlyUsedItems.Delete()
+        MainApplication.getInstance.RecentlyUsedItems.Delete()
         RecentlyModifiedElements.Clear()
         StartElementChangedTimer()
     End Sub
@@ -282,7 +282,7 @@ Public Class MRUElementManager
             m_itemCounter(itemType) += 1
         End If
     End Sub
-    
+
 
 
     ''' <summary>
@@ -299,7 +299,7 @@ Public Class MRUElementManager
             m_itemCounter.Add(item, 0)
         Next
 
-        For Each item As RecentlyUsed In m_application.RecentlyUsedItems
+        For Each item As RecentlyUsed In MainApplication.getInstance.RecentlyUsedItems
             RecentlyModifiedElements.Add(Me.CreateItem(item.GetRecentlyUsedItem, item.CalledAt))
         Next
         m_isloading = False

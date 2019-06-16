@@ -38,9 +38,9 @@ Public Class iucOptionTaxes
             
             FillGrid()
 
-            chkShowItemsWithTaxInDocument.Checked = m_application.Settings.ItemsSettings.ShowItemsWithTax
-            chkShowWithoutTax.Checked = m_application.Settings.ItemsSettings.ShowWithoutTax
-            chkUseRoundedTaxValues.Checked = m_application.Settings.ItemsSettings.ShowRoundedTaxValues
+            chkShowItemsWithTaxInDocument.Checked = MainApplication.getInstance.Settings.ItemsSettings.ShowItemsWithTax
+            chkShowWithoutTax.Checked = MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax
+            chkUseRoundedTaxValues.Checked = MainApplication.getInstance.Settings.ItemsSettings.ShowRoundedTaxValues
 
         Catch ex As Exception
 
@@ -76,17 +76,17 @@ Public Class iucOptionTaxes
             item.Description = GetTaxName(CType(item.Value, enumTaxKind))
         Next
 
-        grdTaxes.DataSource = m_application.TaxRates
+        grdTaxes.DataSource = MainApplication.getInstance.TaxRates
 
 
     End Sub
 
     Private Sub btnNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNew.Click
-        Dim newTax As TaxRate = New TaxRate(m_application.Session)
+        Dim newTax As TaxRate = New TaxRate(MainApplication.getInstance.Session)
         newTax.Name = "Neuer Steuersatz"
         newTax.TaxStatus = enumTaxKind.OtherTax
 
-        m_application.TaxRates.Add(newTax)
+        MainApplication.getInstance.TaxRates.Add(newTax)
         newTax.Save()
 
         FillGrid()
@@ -129,13 +129,13 @@ Public Class iucOptionTaxes
             ' dann darf es nur einem von diesem Type geben 
             ' ein anderer eintrag wird dann zu "other"
 
-            For Each item As TaxRate In m_application.TaxRates
+            For Each item As TaxRate In MainApplication.getInstance.TaxRates
                 If item.TaxStatus = CType(selItem.Value, enumTaxKind) And item.ID <> selectedTax.ID Then
                     item.TaxStatus = enumTaxKind.OtherTax
                 End If
             Next
 
-            grdTaxes.DataSource = m_application.TaxRates
+            grdTaxes.DataSource = MainApplication.getInstance.TaxRates
 
         End If
 
@@ -145,7 +145,7 @@ Public Class iucOptionTaxes
 
     Private Sub chkShowTaxInDocument_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowItemsWithTaxInDocument.CheckedChanged
 
-        m_application.Settings.ItemsSettings.ShowItemsWithTax = chkShowItemsWithTaxInDocument.Checked
+        MainApplication.getInstance.Settings.ItemsSettings.ShowItemsWithTax = chkShowItemsWithTaxInDocument.Checked
 
         chkShowWithoutTax.Enabled = chkShowItemsWithTaxInDocument.Checked
 
@@ -155,13 +155,13 @@ Public Class iucOptionTaxes
     Private Sub chkShowWithoutTax_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowWithoutTax.CheckedChanged
 
 
-        m_application.Settings.ItemsSettings.ShowWithoutTax = chkShowWithoutTax.Checked
+        MainApplication.getInstance.Settings.ItemsSettings.ShowWithoutTax = chkShowWithoutTax.Checked
     End Sub
 
 
 
     Private Sub iucTaxes_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         Initialize()
     End Sub
@@ -197,12 +197,12 @@ Public Class iucOptionTaxes
 
 
     Public Sub Reload() Implements IOptionMenue.Reload
-        m_application.TaxRates.Reload()
+        MainApplication.getInstance.TaxRates.Reload()
         FillGrid()
     End Sub
 
     Public Sub Save() Implements IOptionMenue.Save
-        m_application.TaxRates.Save()
+        MainApplication.getInstance.TaxRates.Save()
     End Sub
 
     Public Overrides Function ToString() As String
@@ -228,7 +228,7 @@ Public Class iucOptionTaxes
 
     Private Sub chkUseRoundedTaxValues_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkUseRoundedTaxValues.CheckedChanged
 
-        m_application.Settings.ItemsSettings.ShowRoundedTaxValues = chkUseRoundedTaxValues.Checked
+        MainApplication.getInstance.Settings.ItemsSettings.ShowRoundedTaxValues = chkUseRoundedTaxValues.Checked
 
     End Sub
 
@@ -237,7 +237,7 @@ Public Class iucOptionTaxes
             Dim frm As New frmSetDocumentsTax
             frm.ShowDialog()
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Alle Steuersätze angleichen", "Fehler beim angleichen der Steuersätze:  ")
+            MainApplication.getInstance.Log.WriteLog(ex, "Alle Steuersätze angleichen", "Fehler beim angleichen der Steuersätze:  ")
         End Try
 
     End Sub

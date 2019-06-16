@@ -1,11 +1,11 @@
-﻿''' <summary>
+﻿Imports ClausSoftware
+''' <summary>
 ''' Stellt die Verknüpfung zum Datenimport bereit
 ''' </summary>
 ''' <remarks></remarks>
 Public Class InitializeImport
     Implements ClausSoftware.AddIns.IImportAddIn
-
-    Private m_application As ClausSoftware.mainApplication
+    Private application As MainApplication
 
     Public ReadOnly Property UniqeID As String Implements ClausSoftware.AddIns.IImportAddIn.UniqeID
         Get
@@ -28,11 +28,11 @@ Public Class InitializeImport
 
     Public Sub Show() Implements ClausSoftware.AddIns.IImportAddIn.Show
 
-        Dim importController As New ImporterController(m_application)
+        Dim importController As New ImporterController(application)
     End Sub
 
-    Public Sub StartUp(ByVal rootApplication As ClausSoftware.mainApplication) Implements ClausSoftware.AddIns.IImportAddIn.StartUp
-        m_application = rootApplication
+    Public Sub StartUp(ByVal rootApplication As ClausSoftware.MainApplication) Implements ClausSoftware.AddIns.IImportAddIn.StartUp
+        application = rootApplication
     End Sub
 
     Public ReadOnly Property ShouldStartupOnStart As Boolean Implements ClausSoftware.AddIns.IImportAddIn.ShouldStartupOnStart

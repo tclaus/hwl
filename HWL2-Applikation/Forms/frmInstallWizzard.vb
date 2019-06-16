@@ -111,8 +111,8 @@ Public Class frmInstallWizzard
 
                 ' Steuerdaten werden im Aufrufer erstellt
 
-                m_application.Log.WriteLog(Tools.LogSeverity.Information, "Erstinstallation-Wizzard beendet")
-                m_application.UserStats.SendStatistics("Wizzard", "Finished")
+                MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Information, "Erstinstallation-Wizzard beendet")
+                MainApplication.getInstance.UserStats.SendStatistics("Wizzard", "Finished")
 
                 Exit Sub
             End If
@@ -186,15 +186,15 @@ Public Class frmInstallWizzard
             End If
 
             UseWaitCursor = True
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.Info, "Cloud DB Request", "User requested a Cloud Database")
+            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.Info, "Cloud DB Request", "User requested a Cloud Database")
 
             Dim iDB As New de.hwl_developer.HWLClouldService()
-            Dim result As Boolean = iDB.RequestToken(txtServiceName.Text, "Company", txtemailAdress.Text, mainApplication.ApplicationName, txtPassword1.Text)
+            Dim result As Boolean = iDB.RequestToken(txtServiceName.Text, "Company", txtemailAdress.Text, MainApplication.ApplicationName, txtPassword1.Text)
             UseWaitCursor = False
 
             If result Then
                 'TODO: NLS
-                MessageBox.Show("Wir haben Ihnen nun eine e-Mail mit einem Zugangsschlüssel zugesendet. Dieses ist ab jetzt 14 Tage gültig und kann verwendet werden, um die Datenbank anzulegen" & vbCrLf & _
+                MessageBox.Show("Wir haben Ihnen nun eine e-Mail mit einem Zugangsschlüssel zugesendet. Dieses ist ab jetzt 14 Tage gültig und kann verwendet werden, um die Datenbank anzulegen" & vbCrLf &
                                 "Tragen sie den Zugangsschlüssel in das Textfeld ein oder erstellen sie im Menü ""Extras"" eine neue Datenbankverbindung", "Zugangsschlüssel zugestellt", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return True
             Else
@@ -203,7 +203,7 @@ Public Class frmInstallWizzard
             End If
         Catch ex As Exception
             UseWaitCursor = False
-            m_application.Log.WriteLog(ex, "DatabaseConnect in InstallWizzard", "Error while connecting to a Database")
+            MainApplication.getInstance.Log.WriteLog(ex, "DatabaseConnect in InstallWizzard", "Error while connecting to a Database")
             'TODO: NLS
             MessageBox.Show("Ein Fehler ist beim Verbinden mit dem Datenbankserver aufgetreten: " & vbCrLf & ex.Message, "Fehler beim Verbinden", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
@@ -240,7 +240,7 @@ Public Class frmInstallWizzard
 
         IucOptionConnections1.Reload()
 
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
         picWizzardFinish.Image = My.Resources.signal_flag_checkered_LowContrast_128x128
         picHelpDatabase.Image = My.Resources.Symbol_Help_16x16
 
@@ -249,7 +249,7 @@ Public Class frmInstallWizzard
             FillLocalTaxRates()
         End If
 
-        Me.Text = mainApplication.ApplicationName
+        Me.Text = MainApplication.ApplicationName
 
     End Sub
 
@@ -300,7 +300,7 @@ Public Class frmInstallWizzard
         ' Altes HWL wird verwendet
         ' (Neue Db angelegt, falls kein altes HWL da ist)
         ' Standard Steuerdaten
-        'm_application.Connections.FillConnectionsList()
+        'MainApplication.getInstance.Connections.FillConnectionsList()
         Me.DataBaseType = DataBaseTypeenum.internalNew
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()

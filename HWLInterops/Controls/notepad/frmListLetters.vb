@@ -21,12 +21,12 @@ Public Class frmListLetters
     Friend Sub Initialize()
         Try
 
-            m_application.Letters.Reload()
-            grdLettersList.DataSource = m_application.Letters
+            MainApplication.getInstance.Letters.Reload()
+            grdLettersList.DataSource = MainApplication.getInstance.Letters
             LoadGridStyle()
 
         Catch ex As Exception
-            m_application.UserStats.SendStatistics("ListLetters", "FAILED:" & ex.Message)
+            MainApplication.getInstance.UserStats.SendStatistics("ListLetters", "FAILED:" & ex.Message)
         End Try
     End Sub
 
@@ -129,8 +129,8 @@ Public Class frmListLetters
             End If
 
             'TODO: NLS
-            If MessageBox.Show("Möchten Sie den Brief Nr.:" & m_selectedLetter.DocumentID & vbCrLf & _
-                               " '" & textPreview & "' " & vbCrLf & vbCrLf & _
+            If MessageBox.Show("Möchten Sie den Brief Nr.:" & m_selectedLetter.DocumentID & vbCrLf &
+                               " '" & textPreview & "' " & vbCrLf & vbCrLf &
                                "wirklich löschen?", "Brief löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Hand) = Windows.Forms.DialogResult.Yes Then
                 m_selectedLetter.Delete()
             End If
@@ -160,7 +160,7 @@ Public Class frmListLetters
             Dim newletter As Letter = CType(m_selectedLetter.Clone, Letter)
 
             newletter.Save()
-            m_application.Letters.Add(newletter)
+            MainApplication.getInstance.Letters.Add(newletter)
 
             Dim newItem As Letter
             For n As Integer = 0 To GridView1.RowCount - 1
@@ -215,6 +215,6 @@ Public Class frmListLetters
     End Sub
 
     Private Sub frmListLetters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
     End Sub
 End Class

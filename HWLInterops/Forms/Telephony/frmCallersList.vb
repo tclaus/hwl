@@ -20,14 +20,14 @@ Public Class frmCallersList
     ''' Stellt die Hauptklasse für UI-Operationen bereit
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_mainui As mainUI
+    Private m_mainui As MainUI
 
     ''' <summary>
     ''' Erstellt eine neue Instanz dieser Klasse
     ''' </summary>
     ''' <param name="ui"></param>
     ''' <remarks></remarks>
-    Public Sub New(ByVal ui As mainUI)
+    Public Sub New(ByVal ui As MainUI)
         Me.InitializeComponent()
 
         m_mainui = ui
@@ -64,7 +64,7 @@ Public Class frmCallersList
     End Sub
 
     Private Sub frmCallersList_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         RestoreGridStyles(grvCallersList, "phoneCallerList")
     End Sub
@@ -74,7 +74,7 @@ Public Class frmCallersList
         If e.CloseReason = CloseReason.UserClosing Then ' schliesst der Benutzer das Fenster, dann dieses nur verstecken
 
             SaveGridStyles(grvCallersList, "phoneCallerList")
-            m_application.SendMessage("")
+            MainApplication.getInstance.SendMessage("")
 
             e.Cancel = True
             Me.Hide()
@@ -145,14 +145,14 @@ Public Class frmCallersList
     End Sub
 
     Private Sub frmCallersList_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
-     
+
     End Sub
 
     Private Sub frmCallersList_VisibleChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.VisibleChanged
         If Me.Visible Then
             ' Nach der Anzeige die höchste Nummer merken 
             If Me.Calls IsNot Nothing Then
-                m_application.Settings.MonitorPhoneLinesLastNumber = Calls.GetMaxID
+                MainApplication.getInstance.Settings.MonitorPhoneLinesLastNumber = Calls.GetMaxID
             End If
 
         End If
@@ -300,7 +300,7 @@ Public Class frmCallersList
     Private Sub CreateNewTaskFromSelectedNumber()
         Dim caller As PhoneCall = TryCast(grvCallersList.GetFocusedRow, PhoneCall)
         If caller IsNot Nothing Then
-            Dim newTask As Kernel.Task = m_application.Tasks.GetNewItem
+            Dim newTask As Kernel.Task = MainApplication.getInstance.Tasks.GetNewItem
 
             Dim address As Adress = caller.CallerAddress
             Dim AddressText As String = String.Empty
@@ -311,11 +311,11 @@ Public Class frmCallersList
 
             newTask.CreateDate = Today
             newTask.Subject = GetText("Call") & " " & caller.CallingID
-            newTask.Message = GetText("CallFrom", "Anruf von:") & vbCrLf & _
-            AddressText & vbCrLf & _
+            newTask.Message = GetText("CallFrom", "Anruf von:") & vbCrLf &
+            AddressText & vbCrLf &
                                       caller.CallingID
 
-            m_application.Tasks.Add(newTask)
+            MainApplication.getInstance.Tasks.Add(newTask)
 
             m_mainui.OpenTasksList(newTask)
         End If

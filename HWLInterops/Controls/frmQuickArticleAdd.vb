@@ -67,7 +67,7 @@ Friend Class frmQuickArticleAdd
         Dim Coll As ComboBoxItemCollection = cobUnit.Properties.Items
         Coll.BeginUpdate()
         Try
-            For Each unit As ClausSoftware.Kernel.Unit In m_application.Units
+            For Each unit As ClausSoftware.Kernel.Unit In MainApplication.getInstance.Units
                 Coll.Add(unit)
             Next
         Finally

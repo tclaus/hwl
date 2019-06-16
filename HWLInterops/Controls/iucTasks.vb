@@ -31,7 +31,7 @@ Public Class iucTasks
         TasksGrid.Context = "Tasks"
         TasksGrid.ShowFilterRow = True
 
-        m_application.Languages.SetTextOnControl(cmsDefault)
+        MainApplication.getInstance.Languages.SetTextOnControl(cmsDefault)
 
     End Sub
 
@@ -47,7 +47,7 @@ Public Class iucTasks
 
             If editTask.ShowDialog() = DialogResult.OK Then
                 If currentItem.IsNew Then
-                    m_application.Tasks.Add(currentItem)
+                    MainApplication.getInstance.Tasks.Add(currentItem)
                 End If
                 currentItem.Save()
 
@@ -83,8 +83,8 @@ Public Class iucTasks
         e.Cancel = True
 
         Dim NewItem As Task
-        NewItem = m_application.Tasks.GetNewItem()
-        m_application.Tasks.Add(NewItem)
+        NewItem = MainApplication.getInstance.Tasks.GetNewItem()
+        MainApplication.getInstance.Tasks.Add(NewItem)
         LoadCurrentItem(NewItem)
     End Sub
 
@@ -128,7 +128,7 @@ Public Class iucTasks
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 

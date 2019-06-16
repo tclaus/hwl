@@ -68,7 +68,7 @@ Public ReadOnly Property CostToMonthEnd() As Decimal
             End Get
         End Property
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
             Initialize()

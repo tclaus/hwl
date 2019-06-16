@@ -8,32 +8,19 @@
 Public Class frmEventLog
 
 
-    Private m_application As ClausSoftware.mainApplication
-
-    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)>
     Private m_History As ClausSoftware.Kernel.AddressHistoryItems
 
     Public ReadOnly Property History() As ClausSoftware.Kernel.AddressHistoryItems
         Get
 
             If m_History Is Nothing Then
-                m_History = New ClausSoftware.Kernel.AddressHistoryItems(MainApplication)
+                m_History = New ClausSoftware.Kernel.AddressHistoryItems(MainApplication.getInstance)
             End If
 
             Return m_History
         End Get
     End Property
-
-
-    Public Property MainApplication() As ClausSoftware.mainApplication
-        Get
-            Return m_application
-        End Get
-        Set(ByVal value As ClausSoftware.mainApplication)
-            m_application = value
-        End Set
-    End Property
-
 
     Private Sub btnClose_Click(sender As System.Object, e As System.EventArgs) Handles btnClose.Click
         Me.Hide()

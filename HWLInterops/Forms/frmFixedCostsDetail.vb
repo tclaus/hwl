@@ -70,7 +70,7 @@ Public Class frmFixedCostDetail
 
 
     Private Sub frmFixedCostDetail_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub
 
@@ -88,8 +88,8 @@ Public Class frmFixedCostDetail
 
         'Hat der Anwender eine Gruppe eingegeben, die noch nicht existiert ? 
 
-        If Not m_application.FixedCostGroups.ContainsGroupName(cboCategory.Text) Then
-            Me.FixedCostItem.Group = m_application.FixedCostGroups.GetGroupByName(cboCategory.Text)
+        If Not MainApplication.getInstance.FixedCostGroups.ContainsGroupName(cboCategory.Text) Then
+            Me.FixedCostItem.Group = MainApplication.getInstance.FixedCostGroups.GetGroupByName(cboCategory.Text)
         Else
             ' Gruppe existiert
             Me.FixedCostItem.Group = CType(cboCategory.SelectedItem, Kernel.FixedCostGroup)
@@ -143,9 +143,9 @@ Public Class frmFixedCostDetail
         frm.ShowDialog()
 
         cboCategory.Properties.Items.Clear()
-        cboCategory.Properties.Items.AddRange(m_application.FixedCostGroups)
+        cboCategory.Properties.Items.AddRange(MainApplication.getInstance.FixedCostGroups)
 
-        m_application.FixedCostGroups.Save()
+        MainApplication.getInstance.FixedCostGroups.Save()
 
     End Sub
 
@@ -156,7 +156,7 @@ Public Class frmFixedCostDetail
 
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
         cboCategory.Properties.Items.Clear()
-        cboCategory.Properties.Items.AddRange(m_application.FixedCostGroups)
+        cboCategory.Properties.Items.AddRange(MainApplication.getInstance.FixedCostGroups)
 
     End Sub
 

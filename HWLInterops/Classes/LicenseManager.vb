@@ -1,4 +1,5 @@
 ﻿Imports ClausSoftware.Data
+Imports ClausSoftware.GUI
 
 ''' <summary>
 ''' Stellt eine COM - Verfügbare Klasse bereit, die einfache Lizenzaufgaben übernimmt
@@ -27,7 +28,7 @@ Public Class LicenseManager
         MyBase.New()
         modmain.InitializeApplication()
 
-        m_licenses = m_application.Licenses
+        m_licenses = MainApplication.getInstance.Licenses
 
     End Sub
 
@@ -89,7 +90,7 @@ Public Class LicenseManager
     Public Function IsActive(ByVal key As String) As Boolean
         Dim licenseItem As New LicenseItem("", key, False)
 
-        Return m_application.Licenses.IsActive(licenseItem)
+        Return MainApplication.getInstance.Licenses.IsActive(licenseItem)
     End Function
 
     ''' <summary>
@@ -100,12 +101,12 @@ Public Class LicenseManager
     ''' <returns></returns>
     ''' <remarks></remarks>
     Friend Function ActivateLicense(ByVal license As LicenseItem, ByVal code As String) As Boolean
-        Return m_application.Licenses.SetLicenseKey(license, code)
+        Return MainApplication.getInstance.Licenses.SetLicenseKey(license, code)
     End Function
 
 
     Public Function TestDaysLeft() As Integer
-        Return m_application.Licenses.GetBalanceLicenceTime
+        Return MainApplication.getInstance.Licenses.GetBalanceLicenceTime
     End Function
 
 End Class

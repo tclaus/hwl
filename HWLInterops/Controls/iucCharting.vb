@@ -23,7 +23,7 @@ Public Class iucCharting
 
 
 
-        crtMain.DataSource = m_application.JournalDocuments
+        crtMain.DataSource = MainApplication.getInstance.JournalDocuments
         crtMain.SeriesDataMember = "DocumentTypeText"
         crtMain.SeriesTemplate.ArgumentDataMember = "Datum"
         crtMain.SeriesTemplate.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.DateTime
@@ -67,15 +67,15 @@ Public Class iucCharting
         Dim PreTopCount As String = ""
         Dim PostTopCount As String = ""
 
-        If m_application.Connections.WorkConnection.Servertype = ClausSoftware.Tools.enumServerType.Access Then
+        If MainApplication.getInstance.Connections.WorkConnection.Servertype = ClausSoftware.Tools.enumServerType.Access Then
             PreTopCount = "Top 20"
         End If
 
-        If m_application.Connections.WorkConnection.Servertype = ClausSoftware.Tools.enumServerType.MySQL Then
+        If MainApplication.getInstance.Connections.WorkConnection.Servertype = ClausSoftware.Tools.enumServerType.MySQL Then
             PostTopCount = "Limit 20"
         End If
         sql = "SELECT " & PreTopCount & " sum(Anzahl) as SumCount,Name,OrgItem, sum(VK) as SumVK  FROM Items I, JournalListe J where I.LfndNummer  = J.lfndNummer  and J.Status=2  group by Name,OrgItem having SumCount>0 order by 1 desc " & PostTopCount
-        Dim dt As System.Data.DataTable = m_application.Database.GetData(sql)
+        Dim dt As System.Data.DataTable = MainApplication.getInstance.Database.GetData(sql)
 
 
         If dt IsNot Nothing Then
@@ -113,7 +113,7 @@ Public Class iucCharting
 
         Dim seriaList As New SortedDictionary(Of String, Decimal)
         serie.Points.BeginUpdate()
-        For Each document As JournalDocument In m_application.JournalDocuments
+        For Each document As JournalDocument In MainApplication.getInstance.JournalDocuments
             If document.DocumentDate < startDate Then Continue For
             If document.DocumentDate > endDate Then Continue For
 
@@ -250,7 +250,7 @@ Public Class iucCharting
 
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 

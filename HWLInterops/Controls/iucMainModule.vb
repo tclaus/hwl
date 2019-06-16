@@ -1,7 +1,7 @@
 Imports DevExpress.XtraEditors
 
 ''' <summary>
-''' Stellt ein Benutzercontrol bereit, das als Container für die workpages dient
+''' Stellt ein Benutzercontrol bereit, das als Container für die Workpages dient
 ''' </summary>
 ''' <remarks></remarks>
 Public Class iucMainModule
@@ -164,7 +164,7 @@ Public Class iucMainModule
 
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Error", "in MainModule.Initialize")
+            MainApplication.getInstance.Log.WriteLog(ex, "Error", "in MainModule.Initialize")
             Debug.Print("Beim Erstellen von (" & hwlmodule.ToString & ") kam es zu einem schweren Fehler: " & ex.Message)
             Throw ' nach oben werfen! 
         End Try
@@ -175,7 +175,7 @@ Public Class iucMainModule
                 Panel1.Controls.Add(CType(m_module, Control))
                 m_module.InitializeModule()
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "UI", "Error while initializing WorkerModule")
+                MainApplication.getInstance.Log.WriteLog(ex, "UI", "Error while initializing WorkerModule")
             End Try
         Else
             Debug.Print("Das zu startene Modul (" & hwlmodule.ToString & ") konnte nicht initialisiert werden und lieferte ein leeres Frame")
@@ -378,7 +378,7 @@ Public Class iucMainModule
 
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
         InstanceCounter += 1

@@ -83,7 +83,7 @@ Public Class iucLetters
     End Property
 
     Private Sub CreateNewDocument() Implements IModule.CreateNewItem
-        Me.ActiveItem = m_application.Letters.GetNewItem
+        Me.ActiveItem = MainApplication.getInstance.Letters.GetNewItem
 
     End Sub
 
@@ -155,7 +155,7 @@ Public Class iucLetters
 
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Letters", "Print Letters")
+            MainApplication.getInstance.Log.WriteLog(ex, "Letters", "Print Letters")
         Finally
             Me.UseWaitCursor = False
         End Try
@@ -215,7 +215,7 @@ Public Class iucLetters
             End If
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "UI", "Error while getting Address from Letters")
+            MainApplication.getInstance.Log.WriteLog(ex, "UI", "Error while getting Address from Letters")
 
         End Try
     End Sub
@@ -250,7 +250,7 @@ Public Class iucLetters
     Private Sub SaveCurrentItem() Implements IModule.SaveCurrentItem
 
         If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
-        If Not m_application.Licenses.IsActiveLetters Then
+        If Not MainApplication.getInstance.Licenses.IsActiveLetters Then
 
             MessageBox.Show(GetText("msgMissingLettersLicense", "Sie haben keine Lizenz für 'Briefe'. Speichern nicht möglich!"), GetText("msgMissingLicense", "Keine Lizenz vorhanden"), MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
@@ -266,7 +266,7 @@ Public Class iucLetters
             m_activeItem.CreatedAt = CDate(datDate.EditValue)
             m_activeItem.Save()
 
-            m_application.SendMessage(GetText("msgsaved", "Gespeichert."))
+            MainApplication.getInstance.SendMessage(GetText("msgsaved", "Gespeichert."))
 
         End If
     End Sub
@@ -293,7 +293,7 @@ Public Class iucLetters
 
         CreateNewDocument()
 
-        Debug.Print("Briefe - Lizenz:" & m_application.Licenses.IsActiveLetters.ToString)  ' Dummy - damit wird im Lizenzmanagement ein Eintrag angelegt
+        Debug.Print("Briefe - Lizenz:" & MainApplication.getInstance.Licenses.IsActiveLetters.ToString)  ' Dummy - damit wird im Lizenzmanagement ein Eintrag angelegt
 
         Dim defaultprinter As New System.Drawing.Rectangle(0, 0, 100, 100)
 
@@ -361,7 +361,7 @@ Public Class iucLetters
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 

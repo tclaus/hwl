@@ -1,9 +1,25 @@
 ﻿Public NotInheritable Class SplashScreen
 
-
-    '  of the Project Designer ("Properties" under the "Project" menu).
-    Private m_application As ClausSoftware.mainApplication
     Private m_aboutMode As Boolean
+
+    Public Sub New()
+
+        ' Dieser Aufruf ist für den Designer erforderlich.
+        InitializeComponent()
+
+        ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
+        mpcSplash.Visible = True
+        btnClose.Visible = False
+
+        AddHandler MainApplication.getInstance.Message, AddressOf SetMessage
+        AddHandler MainApplication.getInstance.Progress, AddressOf Progress
+        AddHandler MainApplication.getInstance.StartMarquee, AddressOf ShowMarquee
+        AddHandler MainApplication.getInstance.EndMarquee, AddressOf HideMarquee
+
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
+        lblApplicationTitle.Text = ClausSoftware.MainApplication.ApplicationName
+        Me.Text = ""
+    End Sub
 
     ''' <summary>
     ''' Wenn true, dann kann ein Mausklick das Fenster schliessen
@@ -27,37 +43,16 @@
     End Property
 
 
-    Property MainApplication() As ClausSoftware.mainApplication
-        Get
-            Return m_application
-        End Get
-        Set(ByVal value As ClausSoftware.mainApplication)
-            m_application = value
-
-            mpcSplash.Visible = True
-            btnClose.Visible = False
-
-            AddHandler m_application.Message, AddressOf SetMessage
-            AddHandler m_application.Progress, AddressOf Progress
-            AddHandler m_application.StartMarquee, AddressOf ShowMarquee
-            AddHandler m_application.EndMarquee, AddressOf HideMarquee
-
-            m_application.Languages.SetTextOnControl(Me)
-            lblApplicationTitle.Text = ClausSoftware.mainApplication.ApplicationName
-            Me.Text = ""            
-        End Set
-    End Property
-
     ''' <summary>
     ''' Schliesst das Fenster und gibt die Handler wieder frei
     ''' </summary>
     ''' <remarks></remarks>
     Public Overloads Sub Close()
-        If m_application IsNot Nothing Then
-            RemoveHandler m_application.Message, AddressOf SetMessage
-            RemoveHandler m_application.Progress, AddressOf Progress
-            RemoveHandler m_application.StartMarquee, AddressOf ShowMarquee
-            RemoveHandler m_application.EndMarquee, AddressOf HideMarquee
+        If MainApplication.getInstance IsNot Nothing Then
+            RemoveHandler MainApplication.getInstance.Message, AddressOf SetMessage
+            RemoveHandler MainApplication.getInstance.Progress, AddressOf Progress
+            RemoveHandler MainApplication.getInstance.StartMarquee, AddressOf ShowMarquee
+            RemoveHandler MainApplication.getInstance.EndMarquee, AddressOf HideMarquee
         End If
         MyBase.Close()
     End Sub
@@ -128,8 +123,8 @@
         End If
 
         ' Zur Not aus der eignen datenstruktur den Titel abholen 
-        If m_application IsNot Nothing Then
-            lblApplicationTitle.Text = ClausSoftware.mainApplication.ApplicationName
+        If MainApplication.getInstance IsNot Nothing Then
+            lblApplicationTitle.Text = ClausSoftware.MainApplication.ApplicationName
         End If
 
         lblApplicationTitle.Refresh()
@@ -150,7 +145,7 @@
 
         'Copyright info
         lblStatusMessage.Text = String.Empty
-        Me.Text = ClausSoftware.mainApplication.ApplicationName
+        Me.Text = ClausSoftware.MainApplication.ApplicationName
 
     End Sub
 

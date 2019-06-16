@@ -23,7 +23,6 @@ Namespace Tools
     Public Class LogHandling
         Private m_AppName As String
 
-        Private m_application As mainApplication
 
         ''' <summary>
         ''' Pfad zur Protokolldatei
@@ -34,24 +33,16 @@ Namespace Tools
         Private m_oldLogfile As String
 
 
-        Public Sub New(app As mainApplication)
+        Public Sub New()
 
-            m_application = app
-            m_AppName = mainApplication.ApplicationName
-
-            m_logPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), mainApplication.ApplicationName & "\Log")   ' All Users   => Sprachen unter "Alle Benutzer" anlegen und nutzen
-
+            m_AppName = MainApplication.ApplicationName
+            m_logPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), MainApplication.ApplicationName & "\Log")   ' All Users   => Sprachen unter "Alle Benutzer" anlegen und nutzen
             m_baseLogfile = Path.Combine(m_logPath, m_AppName & ".log")
-
             m_oldLogfile = Path.Combine(m_logPath, m_AppName & "_old.log") ' Altes logfile erstellen
-
-
-
 
             If Not System.IO.Directory.Exists(m_logPath) Then  'Pfad anlegen, falls nicht existiert
                 System.IO.Directory.CreateDirectory(m_logPath)
             End If
-
 
             'Sehr grosse Logfiles wegräumen
             If File.Exists(m_baseLogfile) Then

@@ -6,12 +6,13 @@ Imports Microsoft.Win32
 ''' </summary>
 ''' <remarks></remarks>
 Public Class MainClass
+
     Private Shared m_main As MainClass
     ' ''' <summary>
     ' ''' Stellt die Hauptklasse dar
     ' ''' </summary>
     ' ''' <remarks></remarks>
-    'Public Shared m_application As ClausSoftware.mainApplication
+    'Public Shared MainApplication.getInstance As ClausSoftware.mainApplication
     Private m_engine As HWLInterops.Main
 
     Friend m_errorReporting As ClausSoftware.ErrorReporting.MainErrorHandler
@@ -31,7 +32,7 @@ Public Class MainClass
     ''' <remarks></remarks>
     Friend Shared Sub SendApplicationStartuptime()
 
-        m_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStartUpTime, "Application", m_AppStartWatch.Elapsed.ToString)
+        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStartUpTime, "Application", m_AppStartWatch.Elapsed.ToString)
 
     End Sub
 
@@ -39,7 +40,7 @@ Public Class MainClass
     ''' Startet die Zeitmessung zum Start der Applikation
     ''' </summary>
     ''' <remarks></remarks>
-    Friend Shared Sub StartAppstartupTimer()       
+    Friend Shared Sub StartAppstartupTimer()
         m_AppStartWatch.Start()
     End Sub
 
@@ -48,7 +49,7 @@ Public Class MainClass
     ''' </summary>
     ''' <param name="key">Schlüssel des Textes</param>
     Public Shared Function GetText(ByVal key As String) As String
-        Return m_application.Languages.GetText(key)
+        Return MainApplication.getInstance.Languages.GetText(key)
     End Function
 
     ''' <summary>
@@ -59,7 +60,7 @@ Public Class MainClass
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Shared Function GetText(ByVal key As String, ByVal defaultText As String) As String
-        Return m_application.Languages.GetText(key, defaultText)
+        Return MainApplication.getInstance.Languages.GetText(key, defaultText)
     End Function
 
     ''' <summary>
@@ -105,7 +106,7 @@ Public Class MainClass
 
 
 
-    
+
     ''' <summary>
     ''' Zeigt den SplashScreen an 
     ''' </summary>
@@ -170,19 +171,15 @@ Public Class MainClass
         DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "LILIAN" ' <<< NEW LINE
         DevExpress.LookAndFeel.UserLookAndFeel.Default.SetWindowsXPStyle()
 
-
         System.Windows.Forms.Application.EnableVisualStyles()
 
 
         m_engine = New HWLInterops.Main
         m_engine.Initialize()
-        m_errorReporting.Application = m_application ' Applikationsobjekt dem Error message zuweisen
 
 
-        m_splashScreen.MainApplication = m_application
-
-        m_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStart, "Application", "New Application Startup")
-        m_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStart, "OS Version", My.Computer.Info.OSFullName & "(" & My.Computer.Info.OSVersion & ")")
+        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStart, "Application", "New Application Startup")
+        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStart, "OS Version", My.Computer.Info.OSFullName & "(" & My.Computer.Info.OSVersion & ")")
 
         InitLanguage()
         Dim DatabaseCreated As Boolean = False ' wird durch wizzard auf "True" gesetzt, wenn die Datenbank neu ist 
@@ -190,15 +187,15 @@ Public Class MainClass
 
         Dim sendStatisticalData As Boolean = True
 
-        IsFirstStart = m_application.Connections.FirstStart
+        IsFirstStart = MainApplication.getInstance.Connections.FirstStart
 
         If IsFirstStart Then
             ' Kann entweder ein 1.7 Update sein, 
             '  oder Daten nicht vorhanden
-            m_application.Connections.FillConnectionsList()
+            MainApplication.getInstance.Connections.FillConnectionsList()
 
-            If Not m_application.Connections.DefaultConnection Is Nothing Then
-                Dim msgText As String = "Eine {AppName}-1.7 Datenbank wird  in das neuere {AppName}-2 Format übertragen. Danach ist es nicht mehr möglich, die bisherige Version zu starten. " & vbCrLf & _
+            If Not MainApplication.getInstance.Connections.DefaultConnection Is Nothing Then
+                Dim msgText As String = "Eine {AppName}-1.7 Datenbank wird  in das neuere {AppName}-2 Format übertragen. Danach ist es nicht mehr möglich, die bisherige Version zu starten. " & vbCrLf &
                                    "Möchten sie nun  automatisch die Konvertierung durchführen lassen und {Appname} V2.0 nutzen?"
 
                 msgText = GetText("msgDataMigrationOldVersionwarning", msgText)
@@ -208,18 +205,18 @@ Public Class MainClass
 
                 If MessageBox.Show(msgText, msgMigrationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
 
-                    m_application.Connections.DefaultConnection = Nothing
+                    MainApplication.getInstance.Connections.DefaultConnection = Nothing
                 End If
             End If
 
 
 
             ' Wurde eine 1.x Verbindung gefunden; diese zum Standard machen !
-            If m_application.Connections.DefaultConnection Is Nothing Then
+            If MainApplication.getInstance.Connections.DefaultConnection Is Nothing Then
                 HideSplashScreen() ' Splash verstecken; der wizzard soll in den Vordergrund
 
-                m_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ModulStart, "Setupwizzard", "Starting Setup Wizzard (first Install)")
-                m_application.SendMessage(m_application.Languages.GetText("Erster Start von {appname}"))
+                MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ModulStart, "Setupwizzard", "Starting Setup Wizzard (first Install)")
+                MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("Erster Start von {appname}"))
                 Dim frm As New frmInstallWizzard
                 Dim result As DialogResult = frm.ShowDialog()
 
@@ -251,7 +248,7 @@ Public Class MainClass
             Else
 
                 ' Beim ersten Start wurde eine HWL 1.7 Verbindung erkannt - diese auch speichern !
-                m_application.Connections.SaveConnections()
+                MainApplication.getInstance.Connections.SaveConnections()
             End If
         Else
 
@@ -272,7 +269,7 @@ Public Class MainClass
         RetValue = m_engine.MainApplication.Initialize(m_engine.MainApplication.Connections.WorkConnection) ' Führt eine Initailisierung durch
 
         If Not RetValue Then
-            MessageBox.Show(m_engine.MainApplication.LastSchemaUpdateError, mainApplication.ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(m_engine.MainApplication.LastSchemaUpdateError, MainApplication.ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End If
 
@@ -281,15 +278,15 @@ Public Class MainClass
 
         CheckMaxSupportedOsVersion()
 
-        m_application.Settings.SettingSendStatistics = sendStatisticalData
+        MainApplication.getInstance.Settings.SettingSendStatistics = sendStatisticalData
 
         ' sofern der Wizzard durchlaufen wurde, den Steuerssatz auch anlegen 
         If DatabaseCreated AndAlso TaxesToCreate IsNot Nothing Then
             SetTaxRates(TaxesToCreate)
         Else
             ' Steuersätze kontrollieren, und gegebenfalls Reaparieren lassen 
-            m_application.TaxRates.Criteria = Nothing
-            m_application.TaxRates.Reload()
+            MainApplication.getInstance.TaxRates.Criteria = Nothing
+            MainApplication.getInstance.TaxRates.Reload()
 
             If ClausSoftware.Kernel.TaxRates.IsInvalid Then
                 CheckTaxRates()
@@ -319,15 +316,15 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub CheckTaxRates()
-        m_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.Warning, "Taxes", "Invalid Tax assignment. starting UserDialog to set Taxrates")
+        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.Warning, "Taxes", "Invalid Tax assignment. starting UserDialog to set Taxrates")
 
         FillTaxRates()
         ' Immer noch ungültig ? 
 
 
         'TODO: NLS
-        MessageBox.Show("Der bisherige Steuersatz muss von Ihnen angepasst werden. " & vbCrLf & _
-                        "Bitte weisen Sie den Steuersätzten die Eigenschaft 'Normal','Ermässigt' usw zu." & vbCrLf & _
+        MessageBox.Show("Der bisherige Steuersatz muss von Ihnen angepasst werden. " & vbCrLf &
+                        "Bitte weisen Sie den Steuersätzten die Eigenschaft 'Normal','Ermässigt' usw zu." & vbCrLf &
                         "Das ist leider nötig, da dies nicht automatich erkannt werden konnte.", "Steuersatzarten neu zuweisen", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
@@ -338,8 +335,8 @@ Public Class MainClass
             Dim frm As New frmRepairTaxes
             If frm.ShowDialog() = vbOK Then
 
-                m_application.TaxRates.Save()
-                m_application.TaxRates.Initialize()
+                MainApplication.getInstance.TaxRates.Save()
+                MainApplication.getInstance.TaxRates.Initialize()
             Else
                 'Abbrechen? 
                 'TODO: Dann kann im Materialstamm keine Stamdardsteuer abgerufen werden!
@@ -370,45 +367,45 @@ Public Class MainClass
         If m_currentTaxeValues IsNot Nothing Then
             ' -1 heisst nicht vergeben
 
-            Dim itemTax As Kernel.TaxRate = m_application.TaxRates.GetNewItem
+            Dim itemTax As Kernel.TaxRate = MainApplication.getInstance.TaxRates.GetNewItem
 
-            
+
             itemTax.Name = GetText("NoTax", "Ohne")
             itemTax.TaxStatus = Kernel.enumTaxKind.NullTax
             itemTax.TaxValue = 0
-            m_application.TaxRates.Add(itemTax)
+            MainApplication.getInstance.TaxRates.Add(itemTax)
 
-            itemTax = m_application.TaxRates.GetNewItem
+            itemTax = MainApplication.getInstance.TaxRates.GetNewItem
             itemTax.Name = GetText("ReducedTax", "Ermässigt")
             itemTax.TaxStatus = Kernel.enumTaxKind.ReducedTax
             itemTax.TaxValue = m_currentTaxeValues.ReducedTaxRate
-            m_application.TaxRates.Add(itemTax)
+            MainApplication.getInstance.TaxRates.Add(itemTax)
 
-            itemTax = m_application.TaxRates.GetNewItem
+            itemTax = MainApplication.getInstance.TaxRates.GetNewItem
             itemTax.Name = GetText("NormalTax", "Normal")
             itemTax.TaxStatus = Kernel.enumTaxKind.NormalTax
             itemTax.TaxValue = m_currentTaxeValues.NormalTaxRate
-            m_application.TaxRates.Add(itemTax)
+            MainApplication.getInstance.TaxRates.Add(itemTax)
 
 
             If m_currentTaxeValues.ExtraTaxrate <> -1 Then
-                itemTax = m_application.TaxRates.GetNewItem
+                itemTax = MainApplication.getInstance.TaxRates.GetNewItem
                 itemTax.Name = GetText("ExtraTax", "Extra")
                 itemTax.TaxStatus = Kernel.enumTaxKind.ExtraTax
                 itemTax.TaxValue = m_currentTaxeValues.ExtraTaxrate
-                m_application.TaxRates.Add(itemTax)
+                MainApplication.getInstance.TaxRates.Add(itemTax)
             End If
 
 
             If m_currentTaxeValues.ReducedTaxRate2 <> -1 Then
-                itemTax = m_application.TaxRates.GetNewItem
+                itemTax = MainApplication.getInstance.TaxRates.GetNewItem
                 itemTax.Name = GetText("ExtraTax2", "Ermässigt-2")
                 itemTax.TaxStatus = Kernel.enumTaxKind.ReducedTax2
                 itemTax.TaxValue = m_currentTaxeValues.ReducedTaxRate2
-                m_application.TaxRates.Add(itemTax)
+                MainApplication.getInstance.TaxRates.Add(itemTax)
             End If
 
-            m_application.TaxRates.Save()
+            MainApplication.getInstance.TaxRates.Save()
 
         End If
     End Sub
@@ -425,7 +422,7 @@ Public Class MainClass
         Do
             Dim errormessage As String
             Try
-                lang = m_application.Languages.GetActiveLanguage
+                lang = MainApplication.getInstance.Languages.GetActiveLanguage
             Catch ex As Exception
                 lang = ""
                 ' Kann nur passieren, wenn per Kommandozeile eine ungültige Sprche angegeben wurde
@@ -437,13 +434,13 @@ Public Class MainClass
                 Dim InvalidLanguage, headInvalidLanguage As String
 
                 If System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName = "de" Then
-                    InvalidLanguage = "Sie haben per Kommandozeile eine unbekannte Sprache angegeben. Bitte berichtigen sie die Kommandozeile." & vbCrLf & _
-                        "Benutzen Sie diese Form: ""/lang:de"" or ""/lang:de-de""" & vbCrLf & vbCrLf & _
+                    InvalidLanguage = "Sie haben per Kommandozeile eine unbekannte Sprache angegeben. Bitte berichtigen sie die Kommandozeile." & vbCrLf &
+                        "Benutzen Sie diese Form: ""/lang:de"" or ""/lang:de-de""" & vbCrLf & vbCrLf &
                     "Möchten Sie mit Deutsch fortfahren oder abbrechen?"
                     headInvalidLanguage = "Unbekannte Sprache angegeben"
                 Else
-                    InvalidLanguage = "You have set an unknown language. Please correct this. " & vbCrLf & _
-                        "Use this form: ""/lang:de"" or ""/lang:de-de""" & vbCrLf & vbCrLf & _
+                    InvalidLanguage = "You have set an unknown language. Please correct this. " & vbCrLf &
+                        "Use this form: ""/lang:de"" or ""/lang:de-de""" & vbCrLf & vbCrLf &
                         "Would you like to continue with english language setting or cancel?"
                     headInvalidLanguage = "Invalid Language"
                 End If
@@ -460,10 +457,10 @@ Public Class MainClass
 
         Loop Until lang.Length > 0
 
-        m_application.Languages.Initialize()
+        MainApplication.getInstance.Languages.Initialize()
 
 
-        m_application.Languages.GetActiveLanguage()
+        MainApplication.getInstance.Languages.GetActiveLanguage()
 
     End Sub
 
@@ -473,7 +470,7 @@ Public Class MainClass
     ''' <remarks></remarks>
     Private Sub CreateDefaultDatabase()
 
-        m_application.Log.WriteLog(Tools.LogSeverity.Information, "CreateDefaultDatabase: Erstellte standard Datenbank")
+        MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Information, "CreateDefaultDatabase: Erstellte standard Datenbank")
 
         Dim defaultConnection As ClausSoftware.Tools.Connection = Tools.Connections.GetSimpelDefaultDatabase()
         System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(defaultConnection.Path))
@@ -499,12 +496,12 @@ Public Class MainClass
     End Sub
 
     Private Sub CheckUserLogin()
-        'If m_application.Users.Count > 0 Then
+        'If MainApplication.getInstance.Users.Count > 0 Then
 
-        '    If m_application.Licenses.IsActiveUserSecurity Then ' Nur wenn die Benutzereinrichtung lizensiert wurde, dann auch den Login-screen anzeigen lassen
+        '    If MainApplication.getInstance.Licenses.IsActiveUserSecurity Then ' Nur wenn die Benutzereinrichtung lizensiert wurde, dann auch den Login-screen anzeigen lassen
 
         '        Dim frm As New ClausSoftware.HWLInterops.frmLoginDlg
-        '        frm.Application = m_application
+        '        frm.Application = MainApplication.getInstance
         '        frm.ShowDialog()
         '    End If
 
@@ -517,11 +514,11 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub SetTaxRates(ByVal currentTaxeValues As ClausSoftware.Kernel.CountryInitialTaxRate)
-        If m_application.TaxRates.Count = 0 Then
+        If MainApplication.getInstance.TaxRates.Count = 0 Then
             Dim tax As Kernel.TaxRate
 
             ' Normal und Ermässigt gibt es immer
-            tax = m_application.TaxRates.GetNewItem
+            tax = MainApplication.getInstance.TaxRates.GetNewItem
             tax.TaxStatus = Kernel.enumTaxKind.NormalTax
             tax.TaxValue = currentTaxeValues.NormalTaxRate
             tax.Name = GetText(Kernel.enumTaxKind.NormalTax.ToString, "Normal")
@@ -529,7 +526,7 @@ Public Class MainClass
 
             If currentTaxeValues.ReducedTaxRate >= 0 Then
                 ' Ermässigt
-                tax = m_application.TaxRates.GetNewItem
+                tax = MainApplication.getInstance.TaxRates.GetNewItem
                 tax.TaxStatus = Kernel.enumTaxKind.ReducedTax
                 tax.TaxValue = currentTaxeValues.ReducedTaxRate
                 tax.Name = GetText(Kernel.enumTaxKind.ReducedTax.ToString, "Ermässigt")
@@ -539,7 +536,7 @@ Public Class MainClass
 
             If currentTaxeValues.ReducedTaxRate2 >= 0 Then
                 ' Zwischensatz  1
-                tax = m_application.TaxRates.GetNewItem
+                tax = MainApplication.getInstance.TaxRates.GetNewItem
                 tax.TaxStatus = Kernel.enumTaxKind.ReducedTax2
                 tax.TaxValue = currentTaxeValues.ReducedTaxRate2
                 tax.Name = GetText(Kernel.enumTaxKind.ReducedTax2.ToString, "Zwischensatz")
@@ -549,7 +546,7 @@ Public Class MainClass
             If currentTaxeValues.ExtraTaxrate >= 0 Then
 
                 ' Extra
-                tax = m_application.TaxRates.GetNewItem
+                tax = MainApplication.getInstance.TaxRates.GetNewItem
                 tax.TaxStatus = Kernel.enumTaxKind.ExtraTax
                 tax.TaxValue = currentTaxeValues.ExtraTaxrate
                 tax.Name = GetText(Kernel.enumTaxKind.ExtraTax.ToString, "Extra")
@@ -558,14 +555,14 @@ Public Class MainClass
             End If
 
             ' Nullstaeuersatz
-            tax = m_application.TaxRates.GetNewItem
+            tax = MainApplication.getInstance.TaxRates.GetNewItem
             tax.TaxStatus = Kernel.enumTaxKind.NullTax
             tax.TaxValue = 0
             tax.Name = GetText(Kernel.enumTaxKind.NullTax.ToString, "Ohne Steuern")
 
             tax.Save()
 
-            m_application.TaxRates.Reload()
+            MainApplication.getInstance.TaxRates.Reload()
         End If
     End Sub
 
@@ -579,7 +576,7 @@ Public Class MainClass
 
         Dim res As ClausSoftware.DataBase.DBResult = Me.TestDatabaseConnection()
         If Not res.IsValid Then
-            m_application.Log.WriteLog(Tools.LogSeverity.Critical, "CheckuserConnection detects an invalid Database connection. ErrorText: " & res.ErrorText)
+            MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Critical, "CheckuserConnection detects an invalid Database connection. ErrorText: " & res.ErrorText)
         End If
 
         ' Solange keine Standard-Verbindung existiert und diese nicht geöffnet werden kann, dann Abbruch !
@@ -603,15 +600,15 @@ Public Class MainClass
     ''' <remarks></remarks>
     Public Function TestDatabaseConnection() As ClausSoftware.DataBase.DBResult
         '  Dim myApp As New ClausSoftware.mainApplication
-        m_application.Log.WriteLog(Tools.LogSeverity.Verbose, "Startet Testen der Datenbankverbindung")
+        MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Verbose, "Startet Testen der Datenbankverbindung")
         'myApp.Connections.ReadConnections()
-        m_application.Connections.ReadConnections()
-        Dim mydefaultConnection As ClausSoftware.Tools.Connection = m_application.Connections.WorkConnection
+        MainApplication.getInstance.Connections.ReadConnections()
+        Dim mydefaultConnection As ClausSoftware.Tools.Connection = MainApplication.getInstance.Connections.WorkConnection
 
         Dim result As New ClausSoftware.DataBase.DBResult()
 
         If mydefaultConnection Is Nothing Then
-            m_application.Log.WriteLog(Tools.LogSeverity.Verbose, "Keine Standardverbindung gefunden, erstellte neue Standardverbindung")
+            MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Verbose, "Keine Standardverbindung gefunden, erstellte neue Standardverbindung")
             CreateDefaultDatabase()
         End If
 
@@ -627,13 +624,13 @@ Public Class MainClass
             Dim myTestDB As ClausSoftware.DataBase.DbEngine
 
             myTestDB = New ClausSoftware.DataBase.DbEngine(mydefaultConnection)
-            m_application.SendMessage("Stelle Verbindung mit " & mydefaultConnection.GetConnectionShortDescription & " her...") ' TODO: NLS
+            MainApplication.getInstance.SendMessage("Stelle Verbindung mit " & mydefaultConnection.GetConnectionShortDescription & " her...") ' TODO: NLS
             result = myTestDB.TestConnection()
             myTestDB.Dispose()
 
         Else
 
-            m_application.Log.WriteLog(Tools.LogSeverity.ErrorMessage, "Keine Standardverbindung angelegt. 'CreateDefaultDatabase' hat keine Verbindung erstellt!")
+            MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.ErrorMessage, "Keine Standardverbindung angelegt. 'CreateDefaultDatabase' hat keine Verbindung erstellt!")
 
 
             ' Verbindung konnte gar nicht gefunden werden
@@ -653,7 +650,7 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub StartErrorReporting()
-        m_errorReporting = New ErrorReporting.MainErrorHandler(m_application)
+        m_errorReporting = New ErrorReporting.MainErrorHandler()
         AddHandler System.Windows.Forms.Application.ThreadException, AddressOf localThreadExeption
     End Sub
 
@@ -677,9 +674,9 @@ Public Class MainClass
     ''' <remarks></remarks>
     Friend Sub ApplicationEnd()
         Try
-            m_application.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationEnd, "Application runtime", m_AppStartWatch.Elapsed.ToString)
-            m_application.Languages.SaveLanguageFile()
-            m_application.CloseConnection()
+            MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationEnd, "Application runtime", m_AppStartWatch.Elapsed.ToString)
+            MainApplication.getInstance.Languages.SaveLanguageFile()
+            MainApplication.getInstance.CloseConnection()
 
             AskFinalyBackup()
 
@@ -697,13 +694,13 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub AskFinalyBackup()
-        If m_application.Database.DatabaseType = Tools.enumServerType.Access Then
+        If MainApplication.getInstance.Database.DatabaseType = Tools.enumServerType.Access Then
             'TODO: NLS
 
-            m_application.SendMessage(GetText("msgCreatingDatabaseBackup", "Eine Sicherungskopie der Datenbank wird angelegt..."))
+            MainApplication.getInstance.SendMessage(GetText("msgCreatingDatabaseBackup", "Eine Sicherungskopie der Datenbank wird angelegt..."))
 
             'If MessageBox.Show("Möchten Sie eine Sicherungskopie anlegen?", "Datensicherung", MessageBoxButtons.YesNo) = DialogResult.Yes Then
-            m_application.Database.StartBackup()
+            MainApplication.getInstance.Database.StartBackup()
             'End If
         End If
 
@@ -714,8 +711,8 @@ Public Class MainClass
     End Sub
 
     Private Shared Sub localThreadExeption(ByVal sender As Object, ByVal e As Threading.ThreadExceptionEventArgs)
-        If m_application IsNot Nothing Then
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "MainApplication-Crash", e.Exception.Message)
+        If MainApplication.getInstance IsNot Nothing Then
+            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "MainApplication-Crash", e.Exception.Message)
 
             ' 1. Zeile Mesage, die weiteren Zeilen der Stack -Trace ? 
             Dim st As String = String.Empty
@@ -724,15 +721,15 @@ Public Class MainClass
             Next
 
             ' Mit Stack senden
-            m_application.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "MainApplication-Crash", st)
+            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "MainApplication-Crash", st)
 
             'Das zuletzt gesendte Merken und dann ignorieren
             Static LastMessage As String = String.Empty
 
             ' Fehlermeldung direkt senden 
             Try
-                If m_application.UserStats.SendingAllowed Then
-                    Dim er As New ClausSoftware.ErrorReporting.MainErrorHandler(m_application)
+                If MainApplication.getInstance.UserStats.SendingAllowed Then
+                    Dim er As New ClausSoftware.ErrorReporting.MainErrorHandler()
                     System.Net.ServicePointManager.Expect100Continue = False
                     Dim SystemInformation As String = er.GetSessionDetails()
 
@@ -743,7 +740,6 @@ Public Class MainClass
                     errorMessage &= ClausSoftware.Tools.LogHandling.GetInnerExceptionMessages(e.Exception)
 
 
-                    er.Application = m_application
                     er.Currentexception = e.Exception
 
                     ' Niemals die selbe Meldung mehrfach nacheinander senden
@@ -782,15 +778,15 @@ Public Class MainClass
         Return
 
         ' 30 Tage stille, dann 30 Tage Meldung 
-        Dim daysLeft As Integer = m_application.Licenses.GetBalanceLicenceTime()
+        Dim daysLeft As Integer = MainApplication.getInstance.Licenses.GetBalanceLicenceTime()
 
         ' 60 Tage ab Installationszeitraum wird gezählt; 
         ' negative Zahlen kennzeichnen mehr als 60 Tage nach Installation
 
 
-        Dim baseLic As Data.LicenseItem = m_application.Licenses.GetBaseLicense
+        Dim baseLic As Data.LicenseItem = MainApplication.getInstance.Licenses.GetBaseLicense
         ' Nur wenn 30 Tage seit Installation vergangen sidn UND keine Lizenz existiert, dann meldung machen...
-        If daysLeft < 30 And Not m_application.Licenses.BaseCodeCheck(baseLic) Then  ' 30 Tage Frist abgelaufen; meldung machen 
+        If daysLeft < 30 And Not MainApplication.getInstance.Licenses.BaseCodeCheck(baseLic) Then  ' 30 Tage Frist abgelaufen; meldung machen 
 
             ' Meldung aufrufen
             Using frm As New frmTestperiodExpired
@@ -799,12 +795,12 @@ Public Class MainClass
 
             ' 90 (60 Tage Zeitraum + 30 weitere Tage) Tage über die Zeit, keine weitere Programmausführung mehr!
 
-            If daysLeft < -30 And Not m_application.Licenses.BaseCodeCheck(baseLic) Then
+            If daysLeft < -30 And Not MainApplication.getInstance.Licenses.BaseCodeCheck(baseLic) Then
                 Me.ApplicationEnd()
                 End
             End If
 
-            If Not m_application.Licenses.IsBaseActive Then ' Testzeitraum überschritten, dann ist die Lizenz auf jeden Fall "ungültig"
+            If Not MainApplication.getInstance.Licenses.IsBaseActive Then ' Testzeitraum überschritten, dann ist die Lizenz auf jeden Fall "ungültig"
                 '  Auf das Ende hinweisen
 
                 'TODO: NLS
@@ -824,7 +820,7 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub SetDefaultValues()
-        m_application.Settings.Articlesettings.DefaultTaxRate = m_application.TaxRates.GetNormalTax
+        MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate = MainApplication.getInstance.TaxRates.GetNormalTax
 
     End Sub
 
@@ -856,11 +852,11 @@ Public Class MainClass
 
 
         If KB2010exists Then
-            m_application.UserStats.SendStatistics("Competitors", "KB-2010")
+            MainApplication.getInstance.UserStats.SendStatistics("Competitors", "KB-2010")
         End If
 
         If KB2011exists Then
-            m_application.UserStats.SendStatistics("Competitors", "KB-2011")
+            MainApplication.getInstance.UserStats.SendStatistics("Competitors", "KB-2011")
         End If
     End Sub
 

@@ -1,4 +1,6 @@
-﻿Public Class frmImportOptions 
+﻿Imports ClausSoftware
+
+Public Class frmImportOptions
 
     Private m_mappings As Mappings
 
@@ -74,13 +76,13 @@
     End Sub
 
     Private Sub frmImportOptions_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        Me.ImportController.m_application.Settings.SaveFormsPos(Me, "ImporterAddin")
+        MainApplication.getInstance.Settings.SaveFormsPos(Me, "ImporterAddin")
     End Sub
 
     Private Sub frmImportOptions_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         FillGrid()
 
-        Me.ImportController.m_application.Settings.RestoreFormsPos(Me, "ImporterAddin")
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me, "ImporterAddin")
 
     End Sub
 

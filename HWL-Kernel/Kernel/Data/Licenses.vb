@@ -9,7 +9,6 @@ Namespace Data
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Licenses
-        Dim m_application As mainApplication
 
         ''' <summary>
         ''' Testzeitraum (60 Tage) 
@@ -40,7 +39,7 @@ Namespace Data
         Private licenseGUIDLetter As String = "{7DB2AA74-DCBE-46e4-81A2-0B5603B5A8F8}"
         Private m_licenseItemLetter As New ClausSoftware.Data.LicenseItem("Briefe", licenseGUIDLetter)
 
-        
+
         Private licenseGUIDWorkItems As String = "{B127ECE9-1452-48da-B160-9348DF568B50}"
         Private m_licenseItemWorkItems As New LicenseItem("Tätigkeiten", licenseGUIDWorkItems)
 
@@ -84,8 +83,8 @@ Namespace Data
         ''' <remarks></remarks>
         Public Sub Delete(ByVal license As LicenseItem)
 
-            m_application.Settings.DeleteSetting(license.GUID, LicenseKeyName, "SYSTEM")
-            m_application.Settings.DeleteSetting(license.Name, LicenseName, "SYSTEM")
+            MainApplication.getInstance.Settings.DeleteSetting(license.GUID, LicenseKeyName, "SYSTEM")
+            MainApplication.getInstance.Settings.DeleteSetting(license.Name, LicenseName, "SYSTEM")
 
 
         End Sub
@@ -185,14 +184,14 @@ Namespace Data
             Get
 
                 Dim criteria As DevExpress.Data.Filtering.CriteriaOperator = New DevExpress.Data.Filtering.BinaryOperator("Area", LicenseName, DevExpress.Data.Filtering.BinaryOperatorType.Equal)
-                Dim licensesettings As New ClausSoftware.Kernel.Settings(m_application, criteria)
+                Dim licensesettings As New ClausSoftware.Kernel.Settings(MainApplication.getInstance, criteria)
 
                 Dim licensesList As New SortedList(Of String, LicenseItem)
 
                 ' Baue eine Liste mit Lizenzen auf
                 For Each licenseSetting As Setting In licensesettings
-                    Dim LiceseItem As New LicenseItem(licenseSetting.Name, _
-                                                      licenseSetting.Value, _
+                    Dim LiceseItem As New LicenseItem(licenseSetting.Name,
+                                                      licenseSetting.Value,
                                                       IsActive(GetLicenseItemFromSetting(licenseSetting)))
 
 
@@ -221,7 +220,7 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function IsBaseActive() As Boolean
-            If mainApplication.ApplicationName.Contains("HWL") Then
+            If MainApplication.ApplicationName.Contains("HWL") Then
                 Return IsActive(m_licenseItemHWL)
             Else
                 Return IsActive(m_licenseItemPB)
@@ -234,7 +233,7 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function GetBaseLicense() As LicenseItem
-            If mainApplication.ApplicationName.Contains("HWL") Then
+            If MainApplication.ApplicationName.Contains("HWL") Then
                 Return m_licenseItemHWL
             Else
                 Return m_licenseItemPB
@@ -250,12 +249,12 @@ Namespace Data
         ''' <remarks></remarks>
         Public Function IsActive(ByVal license As LicenseItem) As Boolean
             '  geht in Settings und holt da einen Wert raus
-            Dim value As String = m_application.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
+            Dim value As String = MainApplication.getInstance.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
 
             If String.IsNullOrEmpty(value) Or value.Length = 0 Then ' dann mal wenigstends prüfen, ob nicht vielleicht eine Zeitliche Lizenz besteht
                 ' existierte nicht
                 ' => Anlegen!
-                value = m_application.Settings.GetSetting(license.Name, LicenseName, license.GUID, "SYSTEM")
+                value = MainApplication.getInstance.Settings.GetSetting(license.Name, LicenseName, license.GUID, "SYSTEM")
                 If value.Length = 0 Then
                     RegisterLicense(license)
 
@@ -280,7 +279,7 @@ Namespace Data
         ''' <remarks>Vergleicht den Lizenzschlüssel mit der aktuellen ProgrammID und dem Lizenzschlüssel</remarks>
         Private Function TestLicense(ByVal license As LicenseItem) As Boolean
 
-            Dim licenseKey As String = m_application.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
+            Dim licenseKey As String = MainApplication.getInstance.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
             Return TestLicense(license, licenseKey)
 
         End Function
@@ -295,7 +294,7 @@ Namespace Data
         ''' <remarks></remarks>
         Private Function TestLicense(ByVal licenseGUID As String, ByVal testcode As String) As Boolean
 
-            Dim hwlID As String = m_application.ApplicationID
+            Dim hwlID As String = MainApplication.getInstance.ApplicationID
 
             Dim retVal As Boolean
             Try
@@ -331,7 +330,7 @@ Namespace Data
                 Trace.TraceError(ex.Message)
 
             End Try
-            Return retval
+            Return retVal
 
         End Function
 
@@ -355,7 +354,7 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function GetBalanceLicenceTime() As Integer
-            If mainApplication.ApplicationName.Contains("HWL") Then
+            If MainApplication.ApplicationName.Contains("HWL") Then
                 Return GetBalanceLicenceTime(m_licenseItemHWL.GUID)
             Else
                 Return GetBalanceLicenceTime(m_licenseItemPB.GUID)
@@ -378,14 +377,14 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function GetInstallDate(ByVal licenseCode As String) As Date
-            Dim DateValue As String = m_application.Settings.GetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
+            Dim DateValue As String = MainApplication.getInstance.Settings.GetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
             Dim resDate As Date
             If Date.TryParse(DateValue, resDate) Then
                 Return resDate
             Else
                 ' Nicht aufzulösen.  Möglicherweise durch falsche Ländereinstellungen defekt. Neu setzen und sichern
 
-                m_application.Settings.SetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
+                MainApplication.getInstance.Settings.SetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
                 Return Today
             End If
 
@@ -406,7 +405,7 @@ Namespace Data
         ''' <param name="licenseCode"></param>
         ''' <remarks></remarks>
         Public Sub SetInstallDate(ByVal licenseCode As String)
-            m_application.Settings.SetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
+            MainApplication.getInstance.Settings.SetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
         End Sub
 
         ''' <summary>
@@ -432,7 +431,7 @@ Namespace Data
 
             If TestLicense(license, code) Then
                 ' dann den Schlüssel auch abspeichern
-                m_application.Settings.SetSetting(license.GUID, LicenseKeyName, code, "SYSTEM")
+                MainApplication.getInstance.Settings.SetSetting(license.GUID, LicenseKeyName, code, "SYSTEM")
                 Return True
             Else
                 Return False
@@ -447,7 +446,7 @@ Namespace Data
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function GetLicenseKey(ByVal license As LicenseItem) As String
-            Return m_application.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
+            Return MainApplication.getInstance.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
         End Function
 
 
@@ -458,7 +457,7 @@ Namespace Data
         ''' </summary>
         ''' <param name="license"></param>
         ''' <remarks></remarks>
-        <Conditional("DEBUG")> _
+        <Conditional("DEBUG")>
         Public Sub RegisterGlobalLicense(ByVal license As LicenseItem)
             Exit Sub
 
@@ -492,8 +491,8 @@ Namespace Data
         ''' <remarks></remarks>
         Private Sub RegisterLicense(ByVal license As LicenseItem)
             ' in Settings diese Lizenz reinschreiben, falls noch nicht existiert
-            m_application.Settings.SetSetting(license.Name, LicenseName, license.GUID, "SYSTEM")
-            ' m_application.Settings.SetSetting(license.GUID, LicenseKeyName, "", "SYSTEM") ' den Lizenzschlüssel erstmal freilassen
+            MainApplication.getInstance.Settings.SetSetting(license.Name, LicenseName, license.GUID, "SYSTEM")
+            ' MainApplication.getInstance.Settings.SetSetting(license.GUID, LicenseKeyName, "", "SYSTEM") ' den Lizenzschlüssel erstmal freilassen
 
         End Sub
 
@@ -510,7 +509,7 @@ Namespace Data
             'RegisterGlobalLicense(m_licenseItemWorkItems)
 
 
-            If mainApplication.ApplicationName.StartsWith("HWL") Then
+            If MainApplication.ApplicationName.StartsWith("HWL") Then
                 RegisterLicense(m_licenseItemHWL)
             Else
                 RegisterLicense(m_licenseItemPB)
@@ -525,17 +524,11 @@ Namespace Data
 
         End Sub
 
-        Sub New(ByVal application As mainApplication)
-            m_application = application
-
-
-        End Sub
-
         ''' <summary>
         ''' Testet nur den Code auf korrektheit, berücksichtigt nicht die Zeit
         ''' </summary>
         Public Function BaseCodeCheck(ByVal license As LicenseItem) As Boolean
-            Dim licenseKey As String = m_application.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
+            Dim licenseKey As String = MainApplication.getInstance.Settings.GetSetting(license.GUID, LicenseKeyName, "", "SYSTEM")
             Return BaseCodeCheck(license.GUID, licenseKey)
         End Function
 
@@ -550,7 +543,7 @@ Namespace Data
             ' Ist mit dem HWL-Code verwurschtelt
             ' aber wie?
             ' Name der Lizenz + HWL-Code = Lizenz
-            Dim hwlID As String = m_application.ApplicationID
+            Dim hwlID As String = MainApplication.getInstance.ApplicationID
             Dim licenceNumber As Integer
             Dim HWLCode As String
             Dim hnumber As Integer

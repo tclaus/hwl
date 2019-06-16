@@ -13,9 +13,9 @@ Public Class frmModuleContainer
     End Sub
 
     Private Sub frmModuleContainer_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        m_application.Settings.SaveFormsPos(Me, m_module.ToString)
+        MainApplication.getInstance.Settings.SaveFormsPos(Me, m_module.ToString)
 
-        m_application.SendMessage("") ' alte Statusnachrichten löschen
+        MainApplication.getInstance.SendMessage("") ' alte Statusnachrichten löschen
     End Sub
 
     Private Sub frmModuleContainer_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -37,9 +37,9 @@ Public Class frmModuleContainer
         IucMainModule1.Initialize(m_module)
         AddHandler IucMainModule1.Close, AddressOf IucMainModule1_Close
 
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
         Me.Text = IucMainModule1.Displaytext
-        m_application.Settings.RestoreFormsPos(Me, m_module.ToString)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me, m_module.ToString)
 
 
 

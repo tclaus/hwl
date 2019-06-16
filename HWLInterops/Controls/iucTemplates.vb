@@ -21,7 +21,7 @@ Public Class iucTemplates
 
     Sub FillTemplates()
 
-        trvTemplates.DataSource = New Templates(m_application)
+        trvTemplates.DataSource = New Templates(MainApplication.getInstance)
         trvTemplates.ParentFieldName = "ParentID"
         trvTemplates.KeyFieldName = "Key"
 
@@ -109,7 +109,7 @@ Public Class iucTemplates
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Public Sub New(ByVal myUI As mainUI)
+    Public Sub New(ByVal myUI As MainUI)
         MyBase.New(myUI)
         InitializeComponent()
 

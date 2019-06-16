@@ -23,7 +23,7 @@ Namespace Data
         ''' </summary>
         ''' <remarks></remarks>
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
-        Friend Shared m_mainApplication As mainApplication
+        Friend Shared m_mainApplication As MainApplication
 
         'Private Function Getsize(tablename As String, columnName As String) As Integer
 
@@ -69,7 +69,7 @@ Namespace Data
         <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Advanced)> _
         <ComponentModel.Browsable(False)> _
         <NonPersistent()> _
-        Public ReadOnly Property MainApplication() As mainApplication
+        Public ReadOnly Property MainApplication() As MainApplication
             <DebuggerStepThrough()> _
             Get
                 Return m_mainApplication

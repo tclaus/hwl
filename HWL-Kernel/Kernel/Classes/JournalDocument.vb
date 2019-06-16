@@ -6,8 +6,6 @@ Imports DevExpress.Data.Filtering
 
 Namespace Kernel
 
-
-
     ''' <summary>
     ''' Stellt ein Journaldokument dar. Enthält ein Angebot, Rechnung, Bestellung, Gutschrift oder Mahnung
     ''' </summary>
@@ -565,7 +563,7 @@ Namespace Kernel
         Private ReadOnly Property CanceldStateHelper As CanceledDocuments
             Get
                 If m_canceldDocumentsHelper Is Nothing Then
-                    m_canceldDocumentsHelper = New CanceledDocuments(m_mainApplication)
+                    m_canceldDocumentsHelper = New CanceledDocuments()
                     m_canceldDocumentsHelper.RefreshState()
                 End If
                 Return m_canceldDocumentsHelper
@@ -2459,8 +2457,8 @@ Namespace Kernel
         ''' </summary>
         ''' <remarks></remarks>
         Private m_discountedPriceContainer As List(Of JournalTaxValuePair)
-        Private m_app As mainApplication
-        Public Sub New(app As mainApplication)
+        Private m_app As MainApplication
+        Public Sub New(app As MainApplication)
             m_app = app
         End Sub
         ''' <summary>

@@ -206,13 +206,13 @@ Public Class frmJournal
     Private Sub SaveSettings()
         Try
             ' Formular-Position sichern 
-            m_application.Settings.SaveFormsPos(Me)
+            MainApplication.getInstance.Settings.SaveFormsPos(Me)
 
             ' Auswahl der Art des Dokumentes sichern (explorer-Liste)
-            m_application.Settings.SetSetting("LastSelectedDocType", "Journal", CStr(nbgGroupCommonDocs.SelectedLinkIndex), m_application.CurrentUser.Key)
+            MainApplication.getInstance.Settings.SetSetting("LastSelectedDocType", "Journal", CStr(nbgGroupCommonDocs.SelectedLinkIndex), MainApplication.getInstance.CurrentUser.Key)
 
             ' Einschränkung des Datums (Radio-Buttons) sichern
-            m_application.Settings.SetSetting("JournalDateFilter", "Journal", m_lastDateView.ToString, m_application.CurrentUser.Key)
+            MainApplication.getInstance.Settings.SetSetting("JournalDateFilter", "Journal", m_lastDateView.ToString, MainApplication.getInstance.CurrentUser.Key)
 
             ' Einstellung des Grids sichern
             modmain.SaveGridStyles(grdJournalList, "Journal")
@@ -221,9 +221,9 @@ Public Class frmJournal
             Dim j As JournalDocument = CType(grvDocuments.GetFocusedRow, JournalDocument)
 
             If j IsNot Nothing Then
-                m_application.Settings.SetSetting("LastSelectedDocNumber", "Journal", CStr(j.ID), m_application.CurrentUser.Key)
+                MainApplication.getInstance.Settings.SetSetting("LastSelectedDocNumber", "Journal", CStr(j.ID), MainApplication.getInstance.CurrentUser.Key)
             Else
-                m_application.Settings.SetSetting("LastSelectedDocNumber", "Journal", "0", m_application.CurrentUser.Key)
+                MainApplication.getInstance.Settings.SetSetting("LastSelectedDocNumber", "Journal", "0", MainApplication.getInstance.CurrentUser.Key)
             End If
         Catch ex As Exception
 
@@ -236,15 +236,15 @@ Public Class frmJournal
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub RestoreSettings()
-        m_application.Log.WriteLog("Rette Einstellungen...")
+        MainApplication.getInstance.Log.WriteLog("Rette Einstellungen...")
 
         '1. Formulardaten wieder herstellen (Grösse und Position) 
-        m_application.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
-        m_application.Log.WriteLog("Selektiere Gruppenauswahl...")
+        MainApplication.getInstance.Log.WriteLog("Selektiere Gruppenauswahl...")
 
         '2. explorer-Links wieder herstellen
-        nbgGroupCommonDocs.SelectedLinkIndex = CInt(m_application.Settings.GetSetting("LastSelectedDocType", "Journal", "-1", m_application.CurrentUser.Key))
+        nbgGroupCommonDocs.SelectedLinkIndex = CInt(MainApplication.getInstance.Settings.GetSetting("LastSelectedDocType", "Journal", "-1", MainApplication.getInstance.CurrentUser.Key))
         ' Den Filter auch setzen 
         If nbgGroupCommonDocs.SelectedLinkIndex <> -1 Then
             SetDocTypeFilter(CInt(nbgGroupCommonDocs.SelectedLink.Item.Tag))
@@ -252,7 +252,7 @@ Public Class frmJournal
 
 
         ' Benutzer-Definierter Datumsbereich setzen (Radio-Buttons) 
-        Dim lastDateFilter As String = m_application.Settings.GetSetting("JournalDateFilter", "Journal", CStr(CurrentDateView.All), m_application.CurrentUser.Key)
+        Dim lastDateFilter As String = MainApplication.getInstance.Settings.GetSetting("JournalDateFilter", "Journal", CStr(CurrentDateView.All), MainApplication.getInstance.CurrentUser.Key)
 
 
         Dim datesetting As CurrentDateView = CType([Enum].Parse(GetType(CurrentDateView), lastDateFilter, True), CurrentDateView)
@@ -262,9 +262,9 @@ Public Class frmJournal
         modmain.RestoreGridStyles(grdJournalList, "Journal")
 
 
-        Dim selecedID As Integer = CInt(m_application.Settings.GetSetting("LastSelectedDocNumber", "Journal", "0", m_application.CurrentUser.Key))
+        Dim selecedID As Integer = CInt(MainApplication.getInstance.Settings.GetSetting("LastSelectedDocNumber", "Journal", "0", MainApplication.getInstance.CurrentUser.Key))
 
-        m_application.Log.WriteLog("Suche zuletzt selektierten Eintrag aus  " & grdJournalList.DefaultView.RowCount & " Rows")
+        MainApplication.getInstance.Log.WriteLog("Suche zuletzt selektierten Eintrag aus  " & grdJournalList.DefaultView.RowCount & " Rows")
 
         'If grdJournalList.DefaultView.RowCount < 100 Then
 
@@ -283,13 +283,13 @@ Public Class frmJournal
             End If
         Next
         'Else
-        'm_application.Log.WriteLog("Zu viele Zeilen, Überspringe die Suche nach der Zeile, die zu selektieren ist")
+        'MainApplication.getInstance.Log.WriteLog("Zu viele Zeilen, Überspringe die Suche nach der Zeile, die zu selektieren ist")
         'grvDocuments.SelectRow(grvDocuments.RowCount - 1)  ' die letze Zeile selekiere
         'End If
 
 
-        spcGridContainer.SplitterPosition = CInt(m_application.Settings.GetSetting("JournalGridSplitterPosition", "UI", spcGridContainer.SplitterPosition.ToString))
-        spcGridContainer.Collapsed = CBool(m_application.Settings.GetSetting("JournalGridSplitterCollapsed", "UI", Boolean.FalseString))
+        spcGridContainer.SplitterPosition = CInt(MainApplication.getInstance.Settings.GetSetting("JournalGridSplitterPosition", "UI", spcGridContainer.SplitterPosition.ToString))
+        spcGridContainer.Collapsed = CBool(MainApplication.getInstance.Settings.GetSetting("JournalGridSplitterCollapsed", "UI", Boolean.FalseString))
 
 
     End Sub
@@ -316,10 +316,10 @@ Public Class frmJournal
 
         isloading = True
         lblCurrentFile.Text = ""
-        m_application.Log.WriteLog("Erstelle neue Journal-Auflistung...")
-        JournalList = DirectCast(m_application.JournalDocuments.GetNewCollection, JournalDocuments)
+        MainApplication.getInstance.Log.WriteLog("Erstelle neue Journal-Auflistung...")
+        JournalList = DirectCast(MainApplication.getInstance.JournalDocuments.GetNewCollection, JournalDocuments)
 
-        m_application.Log.WriteLog("Weise Auflistung der Tabelle zu...")
+        MainApplication.getInstance.Log.WriteLog("Weise Auflistung der Tabelle zu...")
 
         grdJournalList.DataSource = JournalList
         FormatMasterTable()
@@ -342,18 +342,18 @@ Public Class frmJournal
 
         RestoreSettings()
 
-        m_application.Log.WriteLog("Setze Überschriftenzeile")
+        MainApplication.getInstance.Log.WriteLog("Setze Überschriftenzeile")
         RefreshHeadline()
 
         ' Menüelement "Umbenennen"
         btnRenameNavBarItem.Text = GetText("Rename", "Umbenennen")
 
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
         If ShowAllByAdressID <> -1 Then
             SetFilterAdressID(ShowAllByAdressID)
         End If
-        IsLoading = False
+        isloading = False
     End Sub
 
     ''' <summary>
@@ -690,7 +690,7 @@ Public Class frmJournal
         Dim sql As String = "Select MAX(ID) from JournalListe where Status=" & documentType
 
         Try
-            Dim result As Object = m_application.Database.ExcecuteScalar(sql)
+            Dim result As Object = MainApplication.getInstance.Database.ExcecuteScalar(sql)
 
             If result IsNot Nothing AndAlso Not TypeOf result Is DBNull Then
                 m_maxInsuranceID = CInt(result)
@@ -906,7 +906,7 @@ Public Class frmJournal
 
     Private Sub SetDocTypeFilter(ByVal filterID As Integer)
 
-        m_application.Log.WriteLog("Setzte TypeDoc Filter" & filterID)
+        MainApplication.getInstance.Log.WriteLog("Setzte TypeDoc Filter" & filterID)
 
         If JournalList IsNot Nothing Then
             If filterID > -1 Then
@@ -923,14 +923,14 @@ Public Class frmJournal
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub Reload()
-        m_application.AttachmentRelations.Reload()
+        MainApplication.getInstance.AttachmentRelations.Reload()
         grvDocuments.RefreshData()
         ' Ich könnte ja einen artikl in der Ansicht haben... der würde ebenfalls überschrieben werden !
 
 
     End Sub
 
-    
+
     Private Sub RefreshHeadline()
         RefreshHeadlineInternal()
     End Sub
@@ -1005,8 +1005,8 @@ Public Class frmJournal
 
         Dim attachmentsToDelete As New List(Of Attachment)
 
-        For Each rowID As Integer In View.GetSelectedRows
-            Dim attachmentItem As Attachment = CType(View.GetRow(rowID), Attachment)
+        For Each rowID As Integer In view.GetSelectedRows
+            Dim attachmentItem As Attachment = CType(view.GetRow(rowID), Attachment)
             attachmentsToDelete.Add(attachmentItem)
         Next
 
@@ -1015,7 +1015,7 @@ Public Class frmJournal
 
         For Each item As Attachment In attachmentsToDelete
 
-            m_application.AttachmentRelations.Remove(parentArticle.Key, item)
+            MainApplication.getInstance.AttachmentRelations.Remove(parentArticle.Key, item)
         Next
 
         view.DeleteSelectedRows()
@@ -1042,7 +1042,7 @@ Public Class frmJournal
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub SetFilterAdressID(ByVal addressID As Integer)
-        m_application.Log.WriteLog("Setze Adressen-Filter auf die Adresse mit der ID:" & addressID)
+        MainApplication.getInstance.Log.WriteLog("Setze Adressen-Filter auf die Adresse mit der ID:" & addressID)
         grvDocuments.ClearColumnsFilter()
 
         ' Item kann wohl nur per Index festgelegt werden
@@ -1246,8 +1246,8 @@ Public Class frmJournal
         Dim FilterString, FilterDisplayText As String
         Dim DateFilter As ColumnFilterInfo
 
-        BinaryFilter = New GroupOperator(GroupOperatorType.And, _
-            New BinaryOperator("DocumentDate", FromDate, BinaryOperatorType.GreaterOrEqual), _
+        BinaryFilter = New GroupOperator(GroupOperatorType.And,
+            New BinaryOperator("DocumentDate", FromDate, BinaryOperatorType.GreaterOrEqual),
             New BinaryOperator("DocumentDate", ToDate, BinaryOperatorType.LessOrEqual))
         FilterString = BinaryFilter.ToString()
         FilterDisplayText = String.Format("Datum zwischen {0:d} und {1:d}", FromDate, ToDate)
@@ -1316,7 +1316,7 @@ Public Class frmJournal
         Dim view As GridView = CType(sender, GridView)
         If e.Button = MouseButtons.Left And Not downHitInfo Is Nothing Then
             Dim dragSize As Size = SystemInformation.DragSize
-            Dim dragRect As Rectangle = New Rectangle(New Point(CInt(downHitInfo.HitPoint.X - dragSize.Width / 2), _
+            Dim dragRect As Rectangle = New Rectangle(New Point(CInt(downHitInfo.HitPoint.X - dragSize.Width / 2),
                  CInt(downHitInfo.HitPoint.Y - dragSize.Height / 2)), dragSize)
 
             If Not dragRect.Contains(New Point(e.X, e.Y)) Then
@@ -1351,11 +1351,11 @@ Public Class frmJournal
             Dim selectedItem As Kernel.JournalDocument = CType(grvDocuments.GetFocusedRow, JournalDocument)
             If selectedItem IsNot Nothing Then
 
-                If m_application.CurrentUser.AllowDelete(Kernel.security.PermissionModules.JournalDocuments) Then
+                If MainApplication.getInstance.CurrentUser.AllowDelete(Kernel.Security.PermissionModules.JournalDocuments) Then
                     If AskCancelDocument("") = Windows.Forms.DialogResult.Yes Then
 
-                        If m_application.PeriodicCheckConnection(True) Then
-                            'If m_application.JournalDocuments.GetMaxID(selectedItem.DocumentType) = selectedItem.DocumentID Then
+                        If MainApplication.getInstance.PeriodicCheckConnection(True) Then
+                            'If MainApplication.getInstance.JournalDocuments.GetMaxID(selectedItem.DocumentType) = selectedItem.DocumentID Then
                             '    ' Den letzten Eintrag kann man löschen; 
                             '    ' bestehende nicht. 
                             '    selectedItem.Delete()
@@ -1399,7 +1399,7 @@ Public Class frmJournal
 
             Dim printLayouts As New List(Of Kernel.Printing.Report)
 
-            Dim reports As New Kernel.Printing.Reports(m_application)
+            Dim reports As New Kernel.Printing.Reports(MainApplication.getInstance)
             reports.SetDataType(Kernel.DataSourceList.Journaldocument)
 
             For Each item As Kernel.Printing.Report In reports
@@ -1488,7 +1488,7 @@ Public Class frmJournal
             End If
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Journal", "Fehler beim SearchtextChanged")
+            MainApplication.getInstance.Log.WriteLog(ex, "Journal", "Fehler beim SearchtextChanged")
         End Try
 
 
@@ -1504,14 +1504,14 @@ Public Class frmJournal
         InitializeComponent()
 
     End Sub
-    Private m_mainui As mainUI
+    Private m_mainui As MainUI
 
     ''' <summary>
     ''' Erstellt ein neues Journal mit der MainUI
     ''' </summary>
     ''' <param name="mainUI"></param>
     ''' <remarks></remarks>
-    Public Sub New(ByVal mainUI As mainUI)
+    Public Sub New(ByVal mainUI As MainUI)
 
         'This call is required by the Windows Form Designer.
         InitializeComponent()
@@ -1603,13 +1603,13 @@ Public Class frmJournal
 
     Private Sub spcGridContainer_SplitGroupPanelCollapsed(ByVal sender As Object, ByVal e As DevExpress.XtraEditors.SplitGroupPanelCollapsedEventArgs) Handles spcGridContainer.SplitGroupPanelCollapsed
         If Not isloading Then
-            m_application.Settings.SetSetting("JournalGridSplitterCollapsed", "UI", e.Collapsed.ToString)
+            MainApplication.getInstance.Settings.SetSetting("JournalGridSplitterCollapsed", "UI", e.Collapsed.ToString)
         End If
     End Sub
 
     Private Sub spcGridContainer_SplitterMoved(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles spcGridContainer.SplitterMoved
         If Not isloading Then
-            m_application.Settings.SetSetting("JournalGridSplitterPosition", "UI", spcGridContainer.SplitterPosition.ToString)
+            MainApplication.getInstance.Settings.SetSetting("JournalGridSplitterPosition", "UI", spcGridContainer.SplitterPosition.ToString)
         End If
     End Sub
 
@@ -1738,7 +1738,7 @@ Public Class frmJournal
             Exit Sub
 
         Catch ex As DocumentHasAlreadyASummaryInvoice
-            MessageBox.Show(GetText("", "Das Dokument " & vbCrLf & "{0}" & vbCrLf & " wurde bereits als Sammelrechnung aufgenommen", ex.Document.DocumentTypeText), _
+            MessageBox.Show(GetText("", "Das Dokument " & vbCrLf & "{0}" & vbCrLf & " wurde bereits als Sammelrechnung aufgenommen", ex.Document.DocumentTypeText),
                             GetText("DocumentAlreadyHasCollectiveInvoice", "es existiert bereits eine Sammelrechnung"), MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
 
@@ -1748,7 +1748,7 @@ Public Class frmJournal
             Exit Sub
 
         Catch ex As Exception
-            m_application.Log.WriteLog(ex, "Journaldocument", "Fehler beim Erstellen der Sammelrechnung")
+            MainApplication.getInstance.Log.WriteLog(ex, "Journaldocument", "Fehler beim Erstellen der Sammelrechnung")
             Exit Sub
         End Try
 

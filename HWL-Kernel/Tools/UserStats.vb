@@ -60,7 +60,7 @@ Namespace Tools
     End Enum
 
     ''' <summary>
-    ''' Stellt Staitsische Informationen zur Verfügung und kann Statistiosche Daten senden 
+    ''' Stellt statistische Informationen zur Verfügung und kann statistische Daten senden 
     ''' Ermöglict es, Benutzer-Statistiken und Fehlerprotokolle zu senden.
     ''' </summary>
     ''' <remarks></remarks>
@@ -68,7 +68,6 @@ Namespace Tools
         ' Verbindung prüfen; 
         ' Daten senden per html (geht auch ohen odbc) 
 
-        Private m_application As mainApplication
         ''' <summary>
         ''' enthält eine Nummer der aktuellen Instanz. 
         ''' Damit lassen sich mehrere gleichzeitige Programmläufe auseinanderhalten
@@ -105,7 +104,7 @@ Namespace Tools
             Get
 
                 If m_info Is Nothing Then
-                    m_info = New StatisticInfo(m_application)
+                    m_info = New StatisticInfo()
                 End If
 
                 Return m_info
@@ -122,9 +121,9 @@ Namespace Tools
         Public ReadOnly Property SendingAllowed As Boolean
             Get
 
-                If m_application IsNot Nothing AndAlso m_application.Session IsNot Nothing Then
+                If MainApplication.getInstance IsNot Nothing AndAlso MainApplication.getInstance.Session IsNot Nothing Then
                     Try
-                        Return m_application.Settings.SettingSendStatistics
+                        Return MainApplication.getInstance.Settings.SettingSendStatistics
                     Catch
                     End Try
                 End If
@@ -144,9 +143,9 @@ Namespace Tools
         Public Function SendStatistics(ByVal messageType As ReportMessageType, ByVal modulname As String, ByVal messageText As String) As Boolean
             SyncLock Me
                 Static successfulSent As Boolean = True
-                
+
                 ' Kann sein, das das Applikationsobjekt noch nicht existiert
-               
+
 
                 If SendingAllowed Then
 
@@ -154,19 +153,19 @@ Namespace Tools
 
                         Dim AppID As String = String.Empty
                         Try
-                            If m_application.Session IsNot Nothing Then
-                                AppID = m_application.ApplicationID()
+                            If MainApplication.getInstance.Session IsNot Nothing Then
+                                AppID = MainApplication.getInstance.ApplicationID()
                             Else
-                                AppID = m_application.GetLastKnownApplicationID
+                                AppID = MainApplication.getInstance.GetLastKnownApplicationID
                             End If
                         Catch
                             ' ein Fehler hier ignorieren (kann durch fehlende ID beim ersten Start passieren
                         End Try
 
-                        m_application.Log.WriteLog(modulname, messageText)
+                        MainApplication.getInstance.Log.WriteLog(modulname, messageText)
                         successfulSent = SendData(randomNumber, AppID, modulname, messageType, messageText)
                         If Not successfulSent Then
-                            m_application.Log.WriteLog("Konnte Statistik nicht senden, sende keine weiteren Statistiken in dieser Instanz,")
+                            MainApplication.getInstance.Log.WriteLog("Konnte Statistik nicht senden, sende keine weiteren Statistiken in dieser Instanz,")
                         End If
                     Else
 
@@ -196,10 +195,10 @@ Namespace Tools
                     m_statsServer = New OnlineReporting.StatisticsReporting()
                     AddHandler m_statsServer.SendApplicationMetricDataCompleted, AddressOf m_statsServer_SendApplicationMetricDataCompleted
                 End If
-                m_statsServer.SendApplicationMetricDataAsync(Date.Now, Modulename, randomnummer, AppID, My.Application.Info.Version.ToString, mainApplication.ApplicationName, messageType.ToString, messageText, New Object)
+                m_statsServer.SendApplicationMetricDataAsync(Date.Now, Modulename, randomnummer, AppID, My.Application.Info.Version.ToString, MainApplication.ApplicationName, messageType.ToString, messageText, New Object)
 
             Catch ex As Exception
-                m_application.Log.WriteLog(ex, "OnlineReporting", "Fehler beim senden der Daten") 'TODo: NLS
+                MainApplication.getInstance.Log.WriteLog(ex, "OnlineReporting", "Fehler beim senden der Daten") 'TODo: NLS
                 Return False
             Finally
                 sw.Stop()
@@ -239,11 +238,9 @@ Namespace Tools
         ''' <summary>
         ''' Erstellt eine neue Instanz der Klasse
         ''' </summary>
-        ''' <param name="application"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal application As mainApplication)
+        Public Sub New()
             System.Net.ServicePointManager.Expect100Continue = False
-            m_application = application
 
             Randomize(Now.Millisecond)
             randomNumber = CInt(60000 * Rnd(Now.Millisecond))

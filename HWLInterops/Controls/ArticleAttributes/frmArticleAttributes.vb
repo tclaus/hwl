@@ -27,8 +27,8 @@ Public Class frmArticleAttributes
 
     
     Private Sub frmArticleAttributes_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        If m_application IsNot Nothing Then
-            m_application.Settings.SaveFormsPos(Me)
+        If MainApplication.getInstance IsNot Nothing Then
+            MainApplication.getInstance.Settings.SaveFormsPos(Me)
         End If
     End Sub
 
@@ -40,9 +40,9 @@ Public Class frmArticleAttributes
 
         'Die comboboxen aufbauen 
         repCboItemType.Items.AddRange([Enum].GetValues(GetType(ClausSoftware.enumAttributeType)))
-        m_application.Languages.SetTextOnControl(Me)
+        MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
-        m_application.Settings.RestoreFormsPos(Me)
+        MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
     End Sub
 
@@ -57,7 +57,7 @@ Public Class frmArticleAttributes
     ''' <remarks></remarks>
     Private Function AddNewClass(ByVal parentclass As ClassDefinition) As ClassDefinition
 
-        Dim newClass As ClassDefinition = m_application.ClassDefinitions.GetNewItem
+        Dim newClass As ClassDefinition = MainApplication.getInstance.ClassDefinitions.GetNewItem
 
 
         If parentclass IsNot Nothing Then
@@ -69,7 +69,7 @@ Public Class frmArticleAttributes
 
         newClass.Save()
 
-        m_application.ClassDefinitions.Add(newClass)
+        MainApplication.getInstance.ClassDefinitions.Add(newClass)
 
         Return newClass
     End Function
@@ -91,7 +91,7 @@ Public Class frmArticleAttributes
     ''' </summary>
     ''' <remarks></remarks>
     Sub AddAttributeOnCurrentClass()
-        Dim newAttribute As AttributeValueDefinition = New AttributeValueDefinition(m_application.Session)
+        Dim newAttribute As AttributeValueDefinition = New AttributeValueDefinition(MainApplication.getInstance.Session)
         newAttribute.AttributeName = GetText("msgNewArticleAttributeValueName", "neuer Wert")
 
 

@@ -61,8 +61,8 @@ Public Class iucPowerBueroMenueBar
     Private Sub iucPowerBueroMenueBar_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Me.DesignMode Then Exit Sub
-        If m_application IsNot Nothing Then
-            m_application.Languages.SetTextOnControl(Me)
+        If MainApplication.getInstance IsNot Nothing Then
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
         End If
 
         Dim addToolTipText As String = GetText("msgClickCTRLToOpenNewwindow", "CTRL- Klick um ein neues Fenster zu öffnen")

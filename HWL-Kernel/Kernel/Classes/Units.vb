@@ -125,7 +125,7 @@ Namespace Kernel
             Return Nothing
         End Function
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
             MyBase.New(BasisApplikation)
 
             FillUnitList()

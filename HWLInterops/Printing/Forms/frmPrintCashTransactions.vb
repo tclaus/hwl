@@ -9,7 +9,7 @@ Namespace Printing
     Public Class frmPrintCashTransactions
         Private m_currentGrid As DevExpress.XtraGrid.GridControl
         Private m_dataSourceType As DataSourceList
-        Private m_cashItems As Kernel.CashJournalItems = CType(m_application.CashJournal.GetNewCollection, CashJournalItems)
+        Private m_cashItems As Kernel.CashJournalItems = CType(MainApplication.getInstance.CashJournal.GetNewCollection, CashJournalItems)
 
         Private m_monthyCashSheet As String = GetText("btnMonthyCashsheet", "Kassenblatt")
 
@@ -49,7 +49,7 @@ Namespace Printing
 
         Private Sub frmPrintCashAccounts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
             ' Jahreszahlen vom Kassenbuch ermitteln
-            cobYears.Properties.Items.AddRange(m_application.CashJournal.GetItemYears)
+            cobYears.Properties.Items.AddRange(MainApplication.getInstance.CashJournal.GetItemYears)
 
             If cobYears.Properties.Items.Count > 0 Then ' Wenn ein Jahr da ist,  dann dieses auch markieren
                 cobYears.SelectedItem = cobYears.Properties.Items(0)
@@ -57,13 +57,13 @@ Namespace Printing
 
             CheckSelectedYearItem()
 
-            m_application.Languages.SetTextOnControl(Me)
+            MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
             btnPrintCashMonthly.Tag = Now.Month  ' aktuellen Monat sichern
 
             btnPrintCashMonthly.Text = Now.ToString("MMMM")
 
-            Dim reps As New Kernel.Printing.Reports(m_application)
+            Dim reps As New Kernel.Printing.Reports(MainApplication.getInstance)
             ' Monatliche Reports
             reps.SetDataType(DataSourceList.CashJournalMonthy)
             lstMonthlyReport.Add(reps.GetDefaultReportLayout)
@@ -82,13 +82,13 @@ Namespace Printing
         ''' <param name="month"></param>
         ''' <remarks></remarks>
         Private Sub PrintMonthyRecord(ByVal year As Integer, ByVal month As Integer)
-            m_application.SendMessage(GetText("msgOpeningPagePreview", "Öffne Seiten-Vorschau..."))
+            MainApplication.getInstance.SendMessage(GetText("msgOpeningPagePreview", "Öffne Seiten-Vorschau..."))
 
             Dim StartDate As Date = New Date(year, month, 1)
 
             Dim EndDate As Date = StartDate.AddMonths(1).AddDays(-1) ' Letzer Tag im Monat ermitteln
 
-            Dim journalData As Kernel.CashJournalTimeFrame = m_application.CashJournalTimeFrame.GetCashJournalTimeFrame(StartDate, EndDate)
+            Dim journalData As Kernel.CashJournalTimeFrame = MainApplication.getInstance.CashJournalTimeFrame.GetCashJournalTimeFrame(StartDate, EndDate)
             Dim dataList As New List(Of CashJournalTimeFrame)
 
             dataList.Add(journalData)
@@ -104,7 +104,7 @@ Namespace Printing
         ''' <param name="quartalNumber"></param>
         ''' <remarks></remarks>
         Private Sub PrintQuartalRecord(ByVal year As Integer, ByVal quartalNumber As Integer)
-            m_application.SendMessage(GetText("msgOpeningPagePreview", "Öffne Seiten-Vorschau..."))
+            MainApplication.getInstance.SendMessage(GetText("msgOpeningPagePreview", "Öffne Seiten-Vorschau..."))
 
             ' Das Quartal dieses Jahres ermitteln
             Dim StartDate As Date = Date.Today
@@ -114,7 +114,7 @@ Namespace Printing
             EndDate = StartDate.AddMonths(3).AddDays(-1)
 
 
-            Dim journalData As Kernel.CashJournalTimeFrame = m_application.CashJournalTimeFrame.GetCashJournalTimeFrame(StartDate, EndDate)
+            Dim journalData As Kernel.CashJournalTimeFrame = MainApplication.getInstance.CashJournalTimeFrame.GetCashJournalTimeFrame(StartDate, EndDate)
             Dim dataList As New List(Of CashJournalTimeFrame)
 
             dataList.Add(journalData)
@@ -130,12 +130,12 @@ Namespace Printing
         ''' <param name="year"></param>
         ''' <remarks></remarks>
         Private Sub PrintYearRecord(ByVal year As Integer)
-            m_application.SendMessage(GetText("msgOpeningPagePreview", "Öffne Seiten-Vorschau..."))
+            MainApplication.getInstance.SendMessage(GetText("msgOpeningPagePreview", "Öffne Seiten-Vorschau..."))
 
 
 
             ' Das angegebebne Jahr übergeben
-            Dim journalData As Kernel.CashJournalTimeFrame = m_application.CashJournalTimeFrame.GetCashJournalTimeFrame(New Date(year, 1, 1), New Date(year, 12, 31))
+            Dim journalData As Kernel.CashJournalTimeFrame = MainApplication.getInstance.CashJournalTimeFrame.GetCashJournalTimeFrame(New Date(year, 1, 1), New Date(year, 12, 31))
             Dim dataList As New List(Of CashJournalTimeFrame)
 
             dataList.Add(journalData)

@@ -14,7 +14,7 @@ Public Class TestArticle
 
     <Test()> _
     Public Sub ArtikelTestSomeProperties()
-        Dim a As Article = m_Application.ArticleList.GetNewItem
+        Dim a As Article = MainApplication.getInstance.ArticleList.GetNewItem
 
         a.Abmessung = "12meter"
         a.AddIngoing(100) ' Angfangsbestand (100 Hinzufügen
@@ -43,38 +43,38 @@ Public Class TestArticle
 
     End Sub
 
-    <Test(description:="Setzt allgemeine Einstellungen für Artikellisten ")> _
+    <Test(Description:="Setzt allgemeine Einstellungen für Artikellisten ")>
     Public Sub ShowSettings()
-        Assert.NotNull(m_Application.Settings.Articlesettings.DefaultTaxRate, "setting: Standard Setuersatz sollte nicht null sein")
-        Assert.NotNull(m_Application.Settings.Articlesettings.ShowInactiveItems, "Setting: Inaktive Elemente sollte einen wert zurückgeben")
+        Assert.NotNull(MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate, "setting: Standard Setuersatz sollte nicht null sein")
+        Assert.NotNull(MainApplication.getInstance.Settings.Articlesettings.ShowInactiveItems, "Setting: Inaktive Elemente sollte einen wert zurückgeben")
 
-        m_Application.Settings.Articlesettings.ShowInactiveItems = True
-        Assert.IsTrue(m_Application.Settings.Articlesettings.ShowInactiveItems, "ShowInactiveItems: sollte True sein ")
-
-
-        m_Application.Settings.Articlesettings.DefaultTaxRate = m_Application.TaxRates.GetNormalTax
+        MainApplication.getInstance.Settings.Articlesettings.ShowInactiveItems = True
+        Assert.IsTrue(MainApplication.getInstance.Settings.Articlesettings.ShowInactiveItems, "ShowInactiveItems: sollte True sein ")
 
 
-        Assert.AreEqual(m_Application.TaxRates.GetNormalTax, m_Application.Settings.Articlesettings.DefaultTaxRate, "Steuzersatz konnte nicht gesetzt werden")
+        MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate = MainApplication.getInstance.TaxRates.GetNormalTax
 
-        m_Application.Settings.Articlesettings.DefaultTaxRate = m_Application.TaxRates.GetReducedTax
-        Assert.AreEqual(m_Application.TaxRates.GetReducedTax, m_Application.Settings.Articlesettings.DefaultTaxRate, "Steuzersatz konnte nicht gesetzt werden")
 
-        m_Application.Settings.Articlesettings.DefaultTaxRate = m_Application.TaxRates.GetNormalTax
-        Assert.AreEqual(m_Application.TaxRates.GetNormalTax, m_Application.Settings.Articlesettings.DefaultTaxRate, "Steuzersatz konnte nicht gesetzt werden")
+        Assert.AreEqual(MainApplication.getInstance.TaxRates.GetNormalTax, MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate, "Steuzersatz konnte nicht gesetzt werden")
+
+        MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate = MainApplication.getInstance.TaxRates.GetReducedTax
+        Assert.AreEqual(MainApplication.getInstance.TaxRates.GetReducedTax, MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate, "Steuzersatz konnte nicht gesetzt werden")
+
+        MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate = MainApplication.getInstance.TaxRates.GetNormalTax
+        Assert.AreEqual(MainApplication.getInstance.TaxRates.GetNormalTax, MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate, "Steuzersatz konnte nicht gesetzt werden")
 
 
 
     End Sub
 
-    <Test(description:="Einfacher Attribute-Test")> _
+    <Test(Description:="Einfacher Attribute-Test")>
     Public Sub TestAttributes()
-        Dim a As Article = m_Application.ArticleList.GetNewItem
+        Dim a As Article = MainApplication.getInstance.ArticleList.GetNewItem
 
         Assert.NotNull(a.ItemsAttributes, "Artikelattribute waren nothing")
         Assert.IsTrue(a.ItemsAttributes.Count >= 0, "Anzahl Artikelattribte konnte nicht geholt werden")
 
-        Dim newattributeDef As Attributes.AttributeValueDefinition = New Attributes.AttributeValueDefinition(m_Application.Session)
+        Dim newattributeDef As Attributes.AttributeValueDefinition = New Attributes.AttributeValueDefinition(MainApplication.getInstance.Session)
         newattributeDef.AttributeName = "TestName"
         newattributeDef.AttributeType = enumAttributeType.Alphanummeric
 
@@ -85,9 +85,9 @@ Public Class TestArticle
         newattributeDef.Save()
         newattributeDef.Delete()
     End Sub
-    <Test(description:="Stückliste (BOM)")> _
+    <Test(Description:="Stückliste (BOM)")>
     Public Sub testBOM()
-        Dim a As Article = m_Application.ArticleList.GetNewItem
+        Dim a As Article = MainApplication.getInstance.ArticleList.GetNewItem
 
         Assert.NotNull(a.SubArticles, "Sub Artikelliste darf kein Nothing zurückgeben")
         Assert.NotNull(a.GetParentArticles, "Parent Artikelliste darf kein Nothing zurückgeben")
@@ -107,16 +107,16 @@ Public Class TestArticle
 
     End Sub
 
-    <Test(description:="Testet Artikelersetzungen")> _
+    <Test(Description:="Testet Artikelersetzungen")>
     Public Sub TestReplacements()
-        Dim a As Article = m_Application.ArticleList.GetNewItem
+        Dim a As Article = MainApplication.getInstance.ArticleList.GetNewItem
 
 
         Assert.NotNull(a.GetPredecessorItems, "Auflistung der Nachfolgeartikel darf nicht leer sein")
         Assert.NotNull(a.GetSucccessorItem, "Auflistung der Vorgängerartikel darf nicht leer sein")
 
 
-        Dim b As Article = m_Application.ArticleList.GetNewItem
+        Dim b As Article = MainApplication.getInstance.ArticleList.GetNewItem
         a.GetSucccessorItem.Add(b)
         a.Save()
         b.Save()
@@ -135,11 +135,11 @@ Public Class TestArticle
     End Sub
 
 
-    <Test(Description:="Erstellt eine kleine Vorschau eines Bildes")> _
+    <Test(Description:="Erstellt eine kleine Vorschau eines Bildes")>
     Public Sub TestThumbnails()
         Using bigImage As New System.Drawing.Bitmap(500, 500) ' Leeres Bild erzeugen 
 
-            Dim newArticle As Article = m_Application.ArticleList.GetNewItem
+            Dim newArticle As Article = MainApplication.getInstance.ArticleList.GetNewItem
             newArticle.DefaultImage = bigImage
 
             Assert.NotNull(newArticle.ArticleThumbnail, "es konnte kein Thumbnail -Bild für den Artikel angelegt werden")
@@ -148,19 +148,19 @@ Public Class TestArticle
 
     End Sub
 
-    <Test(Description:="")> _
+    <Test(Description:="")>
     Public Sub TestArticleClone()
-        Dim imageArticle As Article = m_Application.ArticleList(0)
+        Dim imageArticle As Article = MainApplication.getInstance.ArticleList(0)
 
         ' Falls am Artikel noch kein Bild hängt, eins anheften
-        If m_Application.Images.Count = 0 Then
-            m_Application.Images.Add(New ImageData(m_Application.Session))
-            m_Application.Images(0).Image = New System.Drawing.Bitmap(500, 500)
-            m_Application.Images.Save()
+        If MainApplication.getInstance.Images.Count = 0 Then
+            MainApplication.getInstance.Images.Add(New ImageData(MainApplication.getInstance.Session))
+            MainApplication.getInstance.Images(0).Image = New System.Drawing.Bitmap(500, 500)
+            MainApplication.getInstance.Images.Save()
         End If
 
         If imageArticle.ImageList.Count = 0 Then
-            imageArticle.ImageList.Add(m_Application.Images(0))
+            imageArticle.ImageList.Add(MainApplication.getInstance.Images(0))
             imageArticle.Save()
         End If
 
@@ -174,10 +174,10 @@ Public Class TestArticle
 
     End Sub
 
-    <Test(description:="Ein Artikel, der in einerm Journaldokument verwendet wird, darf nicht gelöscht werden. (Anwender kann den 'inaktiv' setzen")> _
+    <Test(Description:="Ein Artikel, der in einerm Journaldokument verwendet wird, darf nicht gelöscht werden. (Anwender kann den 'inaktiv' setzen")>
     Public Sub TestExternalReferences()
         '34240M
-        Dim refArticle As Article = m_Application.ArticleList.GetItem(34240)
+        Dim refArticle As Article = MainApplication.getInstance.ArticleList.GetItem(34240)
         If refArticle IsNot Nothing Then
             Assert.IsTrue(refArticle.IsInJournal, "Artikel ist Bestandteil eines Journaldokumentes. die Prüfung war aber negativ.")
         Else

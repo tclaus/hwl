@@ -311,6 +311,10 @@ Public Class CashJournalItems
             Return m_cashSums
         End Function
 
+        Public Sub New()
+            MyBase.New(MainApplication.getInstance)
+            Initialize()
+        End Sub
 
         ''' <summary>
         ''' Ruft das Kassenbuch mit dem gewählten Criterienausdruck ab
@@ -318,7 +322,7 @@ Public Class CashJournalItems
         ''' <param name="baseapplication">Das Stammobjekt</param>
         ''' <param name="criteria">Ein zusammengesetzter Criterienausdruck</param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal baseapplication As mainApplication, ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
+        Public Sub New(ByVal baseapplication As MainApplication, ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
 
             MyBase.New(baseapplication, criteria)
             Initialize()
@@ -331,14 +335,14 @@ Public Class CashJournalItems
         ''' <param name="baseapplication"></param>
         ''' <param name="criteriastr"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByVal baseapplication As mainApplication, ByVal criteriastr As String)
+        Public Sub New(ByVal baseapplication As MainApplication, ByVal criteriastr As String)
 
             MyBase.New(baseapplication, CriteriaOperator.Parse(criteriastr))
             Initialize()
 
         End Sub
 
-        Public Sub New(ByVal BasisApplikation As mainApplication)
+        Public Sub New(ByVal BasisApplikation As MainApplication)
 
             MyBase.New(BasisApplikation)
 

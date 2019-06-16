@@ -109,7 +109,7 @@ Public Class SimpleGridPrinting
             m_printingLink.Component = m_grd
 
             m_printingLink.ReportTitle = m_reportname
-            Dim prefixName As String = m_application.Languages.GetText("{AppName}") & ": "
+            Dim prefixName As String = MainApplication.getInstance.Languages.GetText("{AppName}") & ": "
             m_printingSystem.Document.Name = prefixName & m_reportname
             'm_printingLink.CreateDocument()
 
