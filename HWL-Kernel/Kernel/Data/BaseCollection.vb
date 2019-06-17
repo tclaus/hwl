@@ -260,7 +260,7 @@ Namespace Data
                 End If
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "GetMaxID", "Error while getting MAX(ID) from " & table)
+                MainApplication.getInstance.log.WriteLog(ex, "GetMaxID", "Error while getting MAX(ID) from " & table)
             End Try
 
             Return Result
@@ -498,7 +498,7 @@ Namespace Data
                 MyBase.Load()
             Catch ex As Exception
                 firstFailed = True
-                MainApplication.getInstance.Log.WriteLog(ex, "LOAD", "First Fail")
+                MainApplication.getInstance.log.WriteLog(ex, "LOAD", "First Fail")
 
             End Try
 
@@ -560,7 +560,7 @@ Namespace Data
                 MyBase.Reload()
             Catch ex As Exception
                 firstFailed = True
-                MainApplication.getInstance.Log.WriteLog(ex, "RELOAD", "First Fail")
+                MainApplication.getInstance.log.WriteLog(ex, "RELOAD", "First Fail")
             End Try
             If firstFailed Then
                 MyBase.Reload()

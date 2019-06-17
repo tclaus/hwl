@@ -77,7 +77,7 @@ Public Class MainApplication
     Private m_Briefe As Letters
     Private m_connections As Connections
     Private m_cashAccounts As CashAccounts
-    Private m_UserStats As UserStats
+
     ''' <summary>
     ''' Enthält die Auflistung aller Lohnkonten
     ''' </summary>
@@ -480,7 +480,7 @@ Public Class MainApplication
         Dim appType As String = GetCommandLineParameter("apptype")
         If Not String.IsNullOrEmpty(appType) Then Return appType
 
-        If instanceName Is Nothing Then
+        If String.IsNullOrEmpty(instanceName) Then
             ' Aus der Applikations-Datei den Programmtype lesen
             Dim fileContents As String
             Dim filename As String = "ApplicationInfo.ini"
@@ -519,9 +519,8 @@ Public Class MainApplication
                     If regKey IsNot Nothing Then
 
                         'Alle möglichen unter-Schlüssel durchsuchen
-                        'TODO: Später HWL2 einen eigenen subkey geben
-                        Dim subKeys As String() = regKey.GetSubKeyNames
 
+                        Dim subKeys As String() = regKey.GetSubKeyNames
 
                         For Each subKey As String In subKeys
                             If subKey.Contains("HWL") Then
@@ -563,7 +562,7 @@ Public Class MainApplication
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public ReadOnly Property Log() As LogHandling
+    Public ReadOnly Property log() As LogHandling
         Get
             If m_logHandler Is Nothing Then
                 m_logHandler = New LogHandling()
@@ -588,7 +587,7 @@ Public Class MainApplication
     ''' <param name="message">Die Nachricht, die öffentlich gemacht werden soll</param>
     Public Sub SendMessage(ByVal message As String, ByVal dontLog As Boolean)
         If Not dontLog And message.Trim.Length > 0 Then
-            If Not String.IsNullOrEmpty(message) Then Me.Log.WriteLog("User Message: " & message)
+            If Not String.IsNullOrEmpty(message) Then Me.log.WriteLog("User Message: " & message)
         End If
 
         RaiseEvent message(message)
@@ -1018,7 +1017,7 @@ Public Class MainApplication
                 End If
                 Return m_DBVersions.DBVersion
             Catch ex As Exception
-                Me.Log.WriteLog(ex, "Kernel", "Get DBVersion")
+                Me.log.WriteLog(ex, "Kernel", "Get DBVersion")
 
             End Try
             Return String.Empty
@@ -1102,23 +1101,6 @@ Public Class MainApplication
 
     End Property
 
-
-    ''' <summary>
-    ''' Stellt Staitsische Informationen zur Verfügung und kann Statistiosche Daten senden 
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public ReadOnly Property UserStats() As UserStats
-        <DebuggerStepThrough()>
-        Get
-            If m_UserStats Is Nothing Then
-                m_UserStats = New UserStats()
-            End If
-            Return m_UserStats
-        End Get
-    End Property
-
     '''' <summary>
     '''' Holt die aktuelle Datenbankverbindung ab. Im Testbetrieb ist das eine MySQL-Datenbank auf einem Server
     '''' </summary>
@@ -1158,7 +1140,7 @@ Public Class MainApplication
         Try
             If myConnection IsNot Nothing Then
                 If m_mainSession IsNot Nothing AndAlso m_mainSession.IsConnected And Not myConnection.Equals(oldconnnection) Then
-                    Log.WriteLog("Verbindung zum XPO-Objekt war noch geöffnet und eine andere Verbindung wird angefordert.")
+                    log.WriteLog("Verbindung zum XPO-Objekt war noch geöffnet und eine andere Verbindung wird angefordert.")
 
 
                     m_mainSession.Connection.Close()
@@ -1242,7 +1224,7 @@ Public Class MainApplication
     ''' <remarks></remarks>
     Private Sub RemoveOldDataLocks()
         Try
-            Me.Log.WriteLog(LogSeverity.Verbose, "RemoveOldDataLocks: Datensatzsperren aufheben")
+            Me.log.WriteLog(LogSeverity.Verbose, "RemoveOldDataLocks: Datensatzsperren aufheben")
             'Alle Datensatz-Sperren entfernen
             Using locks As New Security.SecurityLocks(Me)
                 locks.ClearAllLocks()
@@ -1250,7 +1232,7 @@ Public Class MainApplication
 
 
         Catch ex As Exception
-            Me.Log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
+            Me.log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
         End Try
 
 
@@ -1263,14 +1245,14 @@ Public Class MainApplication
     Private Sub SetActiveUserInstance()
         Try
             ' Eigene Logininfos setzen
-            Me.Log.WriteLog(LogSeverity.Verbose, "Setzte aktive Benutzerinstanz")
+            Me.log.WriteLog(LogSeverity.Verbose, "Setzte aktive Benutzerinstanz")
             Using InstanceMonitor As New ActiveInstances(Me)
                 InstanceMonitor.WriteLoginTag()
-                Me.Log.WriteLog("Aktuell aktive Benutzerinstanzen:" & InstanceMonitor.Count)
+                Me.log.WriteLog("Aktuell aktive Benutzerinstanzen:" & InstanceMonitor.Count)
             End Using
 
         Catch ex As Exception
-            Me.Log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
+            Me.log.WriteLog(ex, "ActiveInstances", "Set Userinstance failed")
 
         End Try
 
@@ -1356,8 +1338,8 @@ Public Class MainApplication
         End If
 
         UniqueID = intCounter
-        Log.WriteLog("Neuer Start von HWL...")
-        Log.WriteLog(LogSeverity.Verbose, "Neue Instanz der Basis-Objekte: " & UniqueID)
+        log.WriteLog("Neuer Start von HWL...")
+        log.WriteLog(LogSeverity.Verbose, "Neue Instanz der Basis-Objekte: " & UniqueID)
 
 
         intCounter += 1
@@ -1394,7 +1376,7 @@ Public Class MainApplication
 
             Catch ex As Exception
                 Debug.Print("Keepalive sent a Problem: " & ex.Message)
-                Me.Log.WriteLog(LogSeverity.ErrorMessage, "Database connection lost!")
+                Me.log.WriteLog(LogSeverity.ErrorMessage, "Database connection lost!")
 
             Finally
                 DatabaseTimer.Start() ' immer wieder prüfen...

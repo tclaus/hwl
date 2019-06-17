@@ -462,7 +462,7 @@ Public Class iucTransactions
     ''' <remarks></remarks>
     Private Sub SetValueFields(ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
 
-        MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
+        MainApplication.getInstance.log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
 
         Dim transactions As Kernel.Transactions = New Transactions(MainApplication.getInstance, criteria)
 

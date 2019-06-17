@@ -584,7 +584,7 @@ Public Class MainUI
             Dim newWorkingControl As iucMainModule = Nothing
             Dim sw As New Stopwatch
             sw.Start()
-            MainApplication.getInstance.Log.WriteLog("Adding new Module: " & modulTyp.ToString)
+            MainApplication.getInstance.log.WriteLog("Adding new Module: " & modulTyp.ToString)
 
             If modulTyp <> HWLModules.ExitApp Then
 
@@ -627,7 +627,6 @@ Public Class MainUI
                     newWorkingControl.CollapseLowerPanel()
                 End If
 
-                MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.StartupTime, modulTyp.ToString, sw.Elapsed.ToString)
                 RaiseEvent ModuleCollectionChanged(Me, moduleChangedArg) ' sendet eine Nachricht, um das ändern die Komponentenliste zu veröffentlichen
                 Return newWorkingControl
 
@@ -647,7 +646,7 @@ Public Class MainUI
             '    End SyncLock
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "AddNewModule", "Error while starting new Module of type:" & modulTyp.ToString)
+            MainApplication.getInstance.log.WriteLog(ex, "AddNewModule", "Error while starting new Module of type:" & modulTyp.ToString)
 
             If modulTyp = HWLModules.ExitApp Then ' "Notabschaltung"
                 System.Windows.Forms.Application.Exit()
@@ -831,15 +830,13 @@ Public Class MainUI
     Sub StartClassificationWindow(ByVal attributeClass As Kernel.Attributes.ClassDefinition)
         Try
 
-            MainApplication.getInstance.UserStats.SendStatistics("Classification", "Open Classification Window")
-
             Dim frm As New frmArticleAttributes
             frm.ActiveAttributeClass = attributeClass
             If frm.ShowDialog = DialogResult.OK Then
                 frm.ActiveAttributeClass.Save()
             End If
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "StartClassificationWindow", "Error in Window Classification")
+            MainApplication.getInstance.log.WriteLog(ex, "StartClassificationWindow", "Error in Window Classification")
         End Try
 
     End Sub
@@ -869,7 +866,7 @@ Public Class MainUI
                 frm.ShowDialog()
             End Using
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "UI", "Error: Optional-Dialog")
+            MainApplication.getInstance.log.WriteLog(ex, "UI", "Error: Optional-Dialog")
         End Try
 
     End Sub
@@ -923,7 +920,7 @@ Public Class MainUI
 
         Select Case UpdateIntervalName
             Case "Never"
-                MainApplication.getInstance.Log.WriteLog("Update check Interval was set to 'Never'. No search for Updates")
+                MainApplication.getInstance.log.WriteLog("Update check Interval was set to 'Never'. No search for Updates")
                 Exit Sub
             Case "Weekly"
                 NextCheckDate = LastCheck.AddDays(7)
@@ -941,7 +938,7 @@ Public Class MainUI
             My.Settings.LastUpdateCheck = Today
             My.Settings.Save()
             ' Prüfung überfällig; starte Update-Zyklus
-            MainApplication.getInstance.Log.WriteLog("Found that a update-check should be performed by Usersettings (" & UpdateIntervalName & ")")
+            MainApplication.getInstance.log.WriteLog("Found that a update-check should be performed by Usersettings (" & UpdateIntervalName & ")")
             m_updateManager.StartTimer()
         Else
             ' Zeitschwelle nicht überschritten
@@ -970,7 +967,7 @@ Public Class MainUI
             End If
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "ERROR", "Update-Error")
+            MainApplication.getInstance.log.WriteLog(ex, "ERROR", "Update-Error")
         End Try
     End Sub
 
@@ -1064,7 +1061,7 @@ Public Class MainUI
                 Me.ActiveWorkPane.ReloadData()
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
             End Try
         End If
 
@@ -1086,7 +1083,7 @@ Public Class MainUI
                 Me.ActiveWorkPane.Print()
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
             End Try
         End If
     End Sub
@@ -1107,7 +1104,7 @@ Public Class MainUI
                 Me.ActiveWorkPane.Save()
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Warning, "Reload failed.", "UI", "Reload of '" & Me.ActiveWorkPane.Name & "' failed: " & ex.ToString)
             End Try
         End If
 
@@ -1159,7 +1156,7 @@ Public Class MainUI
             m_reportDesigner.ShowDialog()
         Catch ex As Exception
 
-            MainApplication.getInstance.Log.WriteLog(ex, "PrintingSystem", "Error in Report Designer")
+            MainApplication.getInstance.log.WriteLog(ex, "PrintingSystem", "Error in Report Designer")
 
         End Try
     End Sub
@@ -1316,7 +1313,7 @@ Public Class MainUI
             Process.Start(helpfile)
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Help", "ERROR: Opening help file failed. (" & helpfile & ")")
+            MainApplication.getInstance.log.WriteLog(ex, "Help", "ERROR: Opening help file failed. (" & helpfile & ")")
             MainApplication.getInstance.SendMessage(ex.Message)
         End Try
     End Sub
@@ -1354,7 +1351,7 @@ Public Class MainUI
 
             If System.IO.File.Exists(lastDumpFilePath) Then
             Else
-                MainApplication.getInstance.Log.WriteLog("MySqlDump not found in Path!")
+                MainApplication.getInstance.log.WriteLog("MySqlDump not found in Path!")
 
                 If MessageBox.Show("Zum sichern einer Server-Datenbank ist die Datei 'MySQLDump' notwendig. Geben Sie nun den Pfad der Datei an: ", "Dienstprogramm nicht gefunden", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
 

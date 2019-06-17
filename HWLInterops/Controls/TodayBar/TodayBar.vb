@@ -51,7 +51,7 @@ Public Class TodayBar
             Next
             clbTasks.EndUpdate()
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "InitialFillTasks", "Initialize of 'Today's Tasks failed!")
+            MainApplication.getInstance.log.WriteLog(ex, "InitialFillTasks", "Initialize of 'Today's Tasks failed!")
         End Try
     End Sub
 
@@ -74,7 +74,7 @@ Public Class TodayBar
             lstAppointments.DataSource = m_appointments
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "InitialFillAppointments", "Initialize of 'Today's Appointments failed!")
+            MainApplication.getInstance.log.WriteLog(ex, "InitialFillAppointments", "Initialize of 'Today's Appointments failed!")
         End Try
 
     End Sub

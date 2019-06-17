@@ -220,7 +220,7 @@ Public Class DatanormParser
                         'Debug.Print("Line: " & parser.LineNumber)
 
                     Catch ex As Exception
-                        MainApplication.getInstance.Log.WriteLog(ex, "DatanormImport", "Fehler beim Lesen der Zeile  (" & parser.ErrorLineNumber & ") : " & parser.ErrorLine)
+                        MainApplication.getInstance.log.WriteLog(ex, "DatanormImport", "Fehler beim Lesen der Zeile  (" & parser.ErrorLineNumber & ") : " & parser.ErrorLine)
 
                     End Try
 

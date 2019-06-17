@@ -59,9 +59,8 @@ Namespace Tools
         Public Sub Initialize()
             m_currentFilePath = System.IO.Path.Combine(m_Path, Me.GetActiveLanguage & ".txt")
 
-            MainApplication.getInstance.UserStats.SendStatistics("Language", Me.GetActiveLanguage)
-            MainApplication.getInstance.Log.WriteLog("Aktuelle Systemsprache ist: " & Me.GetActiveLanguage)
-            MainApplication.getInstance.Log.WriteLog("Suche Sprachdateien unter: '" & System.IO.Path.GetFullPath(m_Path) & "'")
+            MainApplication.getInstance.log.WriteLog("Aktuelle Systemsprache ist: " & Me.GetActiveLanguage)
+            MainApplication.getInstance.log.WriteLog("Suche Sprachdateien unter: '" & System.IO.Path.GetFullPath(m_Path) & "'")
 
             LoadLanguage()
             m_isInitialized = True
@@ -183,14 +182,16 @@ Namespace Tools
         ''' <returns></returns>
         ''' <remarks></remarks>
         Private Function GetSubstitutedKeywords(ByVal orgText As String) As String
-            ' {appName}  = > Kurzname der Applikation
-            Dim newText As String
-            'newText = orgText.Replace("{appname}", mainApplication.ApplicationName)
+            If Not String.IsNullOrEmpty(orgText) Then
 
-            newText = repAppName.Replace(orgText, MainApplication.ApplicationName)
-            newText = newText.Replace("/n", vbCrLf)
+                Dim newText As String
+                newText = repAppName.Replace(orgText, MainApplication.ApplicationName)
+                newText = newText.Replace("/n", vbCrLf)
 
-            Return newText
+                Return newText
+            End If
+            Return String.Empty
+
         End Function
 
         ''' <summary>
@@ -333,7 +334,7 @@ Namespace Tools
                     m_defaultLanguage = My.Application.Culture.Name
                 Else
 
-                    MainApplication.getInstance.Log.WriteLog("Programmsprache per Komandoparameter auf " & overrideLanguage & " gesetzt.")
+                    MainApplication.getInstance.log.WriteLog("Programmsprache per Komandoparameter auf " & overrideLanguage & " gesetzt.")
 
                     ' Hier auf Gültigkeit prüfen, nicht ZB "XY" als sprache angeben  => Fallback auf englisch? (Deutsch?) 
                     Dim cultureFound As Boolean
@@ -428,7 +429,7 @@ Namespace Tools
             End If
             Dim value As String
 
-            MainApplication.getInstance.Log.WriteLog(LogSeverity.Verbose, "Lade Sprachdatei: " & m_currentFilePath)
+            MainApplication.getInstance.log.WriteLog(LogSeverity.Verbose, "Lade Sprachdatei: " & m_currentFilePath)
 
             Using parser As New TextFieldParser(m_currentFilePath)
                 parser.SetDelimiters(delimiter)
@@ -439,7 +440,7 @@ Namespace Tools
                     Try
                         fields = parser.ReadFields()
                     Catch ex As Exception ' Kann auftreten, wenn die Textdatei irgendwie beschädigt ist
-                        MainApplication.getInstance.Log.WriteLog(ex, "Languages", "Error while parsing line Nr.: " & parser.ErrorLineNumber)
+                        MainApplication.getInstance.log.WriteLog(ex, "Languages", "Error while parsing line Nr.: " & parser.ErrorLineNumber)
 
                     End Try
 
@@ -481,13 +482,13 @@ Namespace Tools
                     Dim Textdata As String = GetTextFromDictionary()
 
                     If Textdata.Length > 0 Then ' Keine leeren Texte schreiben
-                        MainApplication.getInstance.Log.WriteLog(LogSeverity.Verbose, "Writing new language file in: " & m_currentFilePath)
+                        MainApplication.getInstance.log.WriteLog(LogSeverity.Verbose, "Writing new language file in: " & m_currentFilePath)
 
                         My.Computer.FileSystem.WriteAllText(m_currentFilePath, Textdata, False)
                     End If
 
                 Catch ex As Exception
-                    MainApplication.getInstance.Log.WriteLog(ex, "Languages", "Error while writing Languagefile")
+                    MainApplication.getInstance.log.WriteLog(ex, "Languages", "Error while writing Languagefile")
                 End Try
 
             End If

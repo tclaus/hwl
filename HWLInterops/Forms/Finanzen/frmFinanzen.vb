@@ -5,12 +5,12 @@
 Public Class frmFinanzen
 
     Private Sub btnCashFlow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCashFlow.Click
-        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ModulStart, "CashFlow_StaticSituation", "Auswertungen geöfnet")
+
         Try
             Dim frm As New frmStaticSituation
             frm.ShowDialog()
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "CashFlow_StaticSituation", "Error while opening Static Situation")
+            MainApplication.getInstance.log.WriteLog(ex, "CashFlow_StaticSituation", "Error while opening Static Situation")
         End Try
 
     End Sub

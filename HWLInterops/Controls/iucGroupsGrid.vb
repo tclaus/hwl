@@ -886,7 +886,7 @@ Public Class iucGroupsGrid
             End If
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog("Fehler beim RowDoubleClick: " & ex.Message)
+            MainApplication.getInstance.log.WriteLog("Fehler beim RowDoubleClick: " & ex.Message)
         End Try
 
     End Sub
@@ -1427,7 +1427,7 @@ Public Class iucGroupsGrid
                 Row.Delete()
             Next
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this GroupItem from GridMenü: " & ex.Message)
+            MainApplication.getInstance.log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this GroupItem from GridMenü: " & ex.Message)
             MessageBox.Show(GetText("msgUnresolvedContraintsInDataItemCantDelete", "Kann Datensatz nicht löschen, es liegen eventuell noch Verweise vor."), GetText("msgDeleteRejected", "Löschen nicht möglich."), MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         Finally

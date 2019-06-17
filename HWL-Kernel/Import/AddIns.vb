@@ -61,7 +61,7 @@ Namespace AddIns
 
             Dim addinList As New List(Of AddIns.IImportAddIn)
 
-            MainApplication.getInstance.Log.WriteLog("Searching  in """ & searchPathName & """ for AddIns")
+            MainApplication.getInstance.log.WriteLog("Searching  in """ & searchPathName & """ for AddIns")
 
             If Not System.IO.Directory.Exists(searchPathName) Then  ' Pfad vorhanden ? 
                 Debug.Print("  Pfad nicht gefunden oder leer:" & searchPathName)
@@ -79,7 +79,7 @@ Namespace AddIns
                 Try
                     Dim a As Assembly = Assembly.LoadFrom(filename)
 
-                    MainApplication.getInstance.Log.WriteLog("  Testing """ & a.GetName.ToString & """ if it has Addin Classes...")
+                    MainApplication.getInstance.log.WriteLog("  Testing """ & a.GetName.ToString & """ if it has Addin Classes...")
 
                     Dim itemFound As Boolean = False
                     For Each addinPoint As Type In a.GetTypes
@@ -96,7 +96,7 @@ Namespace AddIns
                         ' entladen nicht unterstützt
                     End If
                 Catch ex As Exception
-                    MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.ErrorMessage, "Error while opening Addin: " & filename & ". ErrorText:' " & ex.Message)
+                    MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.ErrorMessage, "Error while opening Addin: " & filename & ". ErrorText:' " & ex.Message)
                 End Try
             Next
 

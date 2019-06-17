@@ -5,8 +5,5 @@
     <Setting Name="LastUpdateCheck" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="HWLInterops_WebReference_HWLClouldService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://83.169.8.193/data/HWLClouldService.asmx</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

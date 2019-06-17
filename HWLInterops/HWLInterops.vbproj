@@ -269,7 +269,7 @@
     <Compile Include="Classes\mainControlContainer.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Classes\mainUI.vb" />
+    <Compile Include="Classes\MainUI.vb" />
     <Compile Include="Classes\modEnums.vb" />
     <Compile Include="Classes\MRUElements.vb" />
     <Compile Include="Controls\FixCostUserValues.vb" />
@@ -351,7 +351,6 @@
     <Compile Include="Forms\Telephony\frmCallNotification.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Classes\Vistadialogs.vb" />
     <Compile Include="Controls\ArticleAttributes\frmArticleAttributes.Designer.vb">
       <DependentUpon>frmArticleAttributes.vb</DependentUpon>
     </Compile>
@@ -670,11 +669,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PrintRibbonControllerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Web References\CloudDatabase\Reference.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="webSites.vb" />
     <Compile Include="XRDesignRibbonControllerResources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -682,7 +676,7 @@
       <DependentUpon>XRDesignRibbonControllerResources.resx</DependentUpon>
     </Compile>
     <Compile Include="ScannerManager.vb" />
-    <Compile Include="CashAccountManager.vb" />
+    <Compile Include="Classes\CashAccountManager.vb" />
     <Compile Include="Controls\frmAddBarcodeToArticle.Designer.vb">
       <DependentUpon>frmAddBarcodeToArticle.vb</DependentUpon>
     </Compile>
@@ -894,13 +888,13 @@
     </Compile>
     <Compile Include="Interfaces\Interfaces.vb" />
     <Compile Include="Classes\LicenseManager.vb" />
-    <Compile Include="LoadingCircle.Designer.vb">
+    <Compile Include="Classes\LoadingCircle.Designer.vb">
       <DependentUpon>LoadingCircle.vb</DependentUpon>
     </Compile>
-    <Compile Include="LoadingCircle.vb">
+    <Compile Include="Classes\LoadingCircle.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="loadingCircleTSMenuItem.vb">
+    <Compile Include="Classes\loadingCircleTSMenuItem.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="modmain.vb" />
@@ -936,21 +930,12 @@
     <None Include="Resources\Standard_CashJournalYearly.rep" />
     <None Include="Resources\Standard_Invoices.rep" />
     <None Include="Resources\Standard_Materialaufstellung.rep" />
-    <None Include="Web References\CloudDatabase\ConnectionData1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CloudDatabase\HWLClouldService.wsdl" />
-    <None Include="Web References\CloudDatabase\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.vb</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Undo.png" />
     <None Include="Resources\Zoom In.png" />
     <None Include="Resources\Zoom Out.png" />
     <None Include="Resources\Symbol Help16x16.png" />
-    <None Include="Web References\CloudDatabase\HWLClouldService.disco" />
     <None Include="app.config" />
     <None Include="Atapi.dll" />
     <Content Include="HWLInterops.bmp" />
@@ -1505,19 +1490,6 @@
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://83.169.8.193/data/HWLClouldService.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\CloudDatabase\</RelPath>
-      <UpdateFromURL>http://83.169.8.193/data/HWLClouldService.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>HWLInterops_WebReference_HWLClouldService</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

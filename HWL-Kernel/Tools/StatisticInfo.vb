@@ -5,7 +5,6 @@
 ''' <remarks></remarks>
 Public Class StatisticInfo
 
-
     Private m_AdressbookCount As Integer
     Private m_ArticleCount As Integer
     Private m_JournalDocuments As Integer

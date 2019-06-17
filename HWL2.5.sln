@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
@@ -8,11 +8,9 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HWLMainApplication", "HWL2-
 		{CD3B3559-8D1D-4FEA-B5D1-417CC4AC64B8} = {CD3B3559-8D1D-4FEA-B5D1-417CC4AC64B8}
 	EndProjectSection
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CoreTests", "CoreTests_new\CoreTests.vbproj", "{4BA87692-392A-41ED-85FC-C229B1251DD6}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CoreTests", "CoreTests\CoreTests.vbproj", "{4BA87692-392A-41ED-85FC-C229B1251DD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vista Api", "Vista Api\Vista Api.csproj", "{9EC6098C-09C6-4623-819B-08835D183038}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SendErrorMessage", "SendErrorMessage\SendErrorMessage.vbproj", "{256CA5A6-D331-4BED-BF22-FA124F98A9DC}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HWL2Kernel", "HWL-Kernel\HWL2Kernel.vbproj", "{D3FE2F32-80F6-4229-8025-F25DE3103662}"
 EndProject
@@ -25,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CommonAssemblyInfo.vb = CommonAssemblyInfo.vb
 		HWL2-Setup.iss = HWL2-Setup.iss
 		HWL2-Update.iss = HWL2-Update.iss
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CommonImport", "Projekte\CommonImport\CommonImport\CommonImport.vbproj", "{CD3B3559-8D1D-4FEA-B5D1-417CC4AC64B8}"
@@ -109,26 +108,6 @@ Global
 		{9EC6098C-09C6-4623-819B-08835D183038}.Release|x64.Build.0 = Release|x64
 		{9EC6098C-09C6-4623-819B-08835D183038}.Release|x86.ActiveCfg = Release|x86
 		{9EC6098C-09C6-4623-819B-08835D183038}.Release|x86.Build.0 = Release|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Debug|x86.ActiveCfg = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Debug|x86.Build.0 = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Demo|Any CPU.ActiveCfg = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Demo|Mixed Platforms.ActiveCfg = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Demo|Mixed Platforms.Build.0 = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Demo|x64.ActiveCfg = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Demo|x86.ActiveCfg = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Demo|x86.Build.0 = Debug|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Release|Mixed Platforms.Build.0 = Release|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Release|x64.ActiveCfg = Release|Any CPU
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Release|x86.ActiveCfg = Release|x86
-		{256CA5A6-D331-4BED-BF22-FA124F98A9DC}.Release|x86.Build.0 = Release|x86
 		{D3FE2F32-80F6-4229-8025-F25DE3103662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3FE2F32-80F6-4229-8025-F25DE3103662}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3FE2F32-80F6-4229-8025-F25DE3103662}.Debug|Mixed Platforms.ActiveCfg = Debug|x86

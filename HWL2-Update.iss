@@ -34,7 +34,6 @@ Source: HWL2-Applikation\bin\release\HWLInterops.dll; DestDir: {app}; Flags: ign
 Source: HWL2-Applikation\bin\release\HWLKernel.dll; DestDir: {app}; Flags: ignoreversion
 Source: HWL-Kernel\bin\release\MySql.Data.dll; DestDir: {app}; Flags: ignoreversion
 Source: HWL2-Applikation\bin\release\HWL2.exe; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\SendErrorMessage.dll; DestDir: {app}; Flags: ignoreversion
 Source: HWL2-Applikation\bin\release\TemplateDataBase\template.mdb; DestDir: {app}\TemplateDataBase; Flags: overwritereadonly
 Source: HWL2-Applikation\bin\release\Mommosoft.Capi.dll; DestDir: {app}; Flags: ignoreversion
 Source: HWL2-Applikation\bin\release\HWLKernel.xml; DestDir: {app}; Flags: ignoreversion

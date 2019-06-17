@@ -237,7 +237,7 @@ Public Class iucOptionTaxes
             Dim frm As New frmSetDocumentsTax
             frm.ShowDialog()
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Alle Steuersätze angleichen", "Fehler beim angleichen der Steuersätze:  ")
+            MainApplication.getInstance.log.WriteLog(ex, "Alle Steuersätze angleichen", "Fehler beim angleichen der Steuersätze:  ")
         End Try
 
     End Sub

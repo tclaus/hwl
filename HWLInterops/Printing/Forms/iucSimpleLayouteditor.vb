@@ -467,10 +467,10 @@ Namespace Printing
                 End If
 
             Catch ex As InsufficientMemoryException
-                MainApplication.getInstance.Log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf - wahrscheinlich ist die Bild-Datei defekt.")
+                MainApplication.getInstance.log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf - wahrscheinlich ist die Bild-Datei defekt.")
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf")
+                MainApplication.getInstance.log.WriteLog(ex, "SimpleLayouteditor", "Ein Fehler trat mit dem Bild auf")
             End Try
 
 

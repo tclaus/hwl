@@ -49,43 +49,6 @@ Public Class iucOptionConnections
         End Set
     End Property
 
-
-    ''' <summary>
-    ''' Erstellt ein Backup in der Cloud
-    ''' </summary>
-    ''' <remarks></remarks>
-    Friend Sub CreateDataBaseBackup()
-        Exit Sub
-        Dim t As New CloudDatabase.HWLClouldService
-        ' TODO: Hier anhand des Tokens 
-        ' Dim by As Byte() = t.GetDataBaseBackup("simpletest")
-
-        If lstConnections.SelectedItem IsNot Nothing Then
-            ' 208d6a49fb344505b009305e38315996  Joerg_DB_Test auf Cloud-Server
-
-            Try
-                Dim selectedItem As Connection = CType(lstConnections.SelectedItem, Connection)
-                Dim by As Byte() = t.GetDataBaseBackup(selectedItem.Token)
-                Debug.Print(CStr(by.Length))
-
-                ' Probelme: Dauert lange
-                ' Prozess Serverseitig ausgelasetet
-                '  
-                ' WebService Startet lediglich den Dump an, und liefert (später Asynchron) die URL des Zipp-File aus ? 
-
-
-            Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog("Fehler in der Übertragung des Datenbank-Backups: " & ex.Message)
-
-
-            End Try
-
-
-        End If
-
-
-    End Sub
-
     Public Sub Reload() Implements IOptionMenue.Reload
         Initialize()
     End Sub
@@ -97,7 +60,6 @@ Public Class iucOptionConnections
     Private Sub btnReload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReload.Click
         Initialize()
     End Sub
-
 
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         DeleteSelectedItem()
@@ -227,10 +189,6 @@ Public Class iucOptionConnections
 
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        Process.Start(constWebServerInfo)
-    End Sub
-
     Public Overrides Function ToString() As String
         Return Me.DisplayName
     End Function
@@ -279,7 +237,7 @@ Public Class iucOptionConnections
                                            MainApplication.getInstance.Database.LastBackupPath, "Server-Backup angelegt")
                 End If
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "Database Backup", "Fehler beim Anlegen eines Backups von '" & Me.SelectedConnection.GetConnectionShortDescription & "'")
+                MainApplication.getInstance.log.WriteLog(ex, "Database Backup", "Fehler beim Anlegen eines Backups von '" & Me.SelectedConnection.GetConnectionShortDescription & "'")
             End Try
 
         End If

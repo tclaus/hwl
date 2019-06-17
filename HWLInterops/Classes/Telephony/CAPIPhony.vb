@@ -83,7 +83,7 @@ Namespace Telephony
 
                 frm.ShowDialog()
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "CallNotification Window", "frm.ShowDialog")
+                MainApplication.getInstance.log.WriteLog(ex, "CallNotification Window", "frm.ShowDialog")
             End Try
 
 
@@ -211,7 +211,7 @@ Namespace Telephony
 
                 m_MonitorPhoneLines = MainApplication.getInstance.Settings.MonitorPhoneLines
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Es stand keine CAPI-Verbindung zur Verfügung: " & ex.Message)
+                MainApplication.getInstance.log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Es stand keine CAPI-Verbindung zur Verfügung: " & ex.Message)
                 m_isAvailable = False
             End Try
         End Sub

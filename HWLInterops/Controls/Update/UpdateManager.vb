@@ -142,7 +142,7 @@ Namespace Update
         ''' <remarks></remarks>
         Private Sub StartAutomaticUpdateCheck()
             If m_UpdateRecentlyChecked Then
-                MainApplication.getInstance.Log.WriteLog("Auto update rejected, user has already checked for Updates manually")
+                MainApplication.getInstance.log.WriteLog("Auto update rejected, user has already checked for Updates manually")
                 Exit Sub
             End If
             MainApplication.getInstance.SendMessage(GetText("msgLookingForUpdates", "Suche nach Updates..."))
@@ -153,7 +153,7 @@ Namespace Update
             My.Settings.LastUpdateCheck = Today
 
             If m_lastChangelog.Length > 0 AndAlso Me.NewUpdateAvailable Then
-                MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.Info, "UpdateCheck", "A Programm Update is available")
+
 
                 Dim GetUpdateDialog As New Update.frmGetUpdate(Me)
                 GetUpdateDialog.ShowDialog()
@@ -230,7 +230,7 @@ Namespace Update
 
             Catch ex As WebException
                 m_lastChangelog = ""
-                MainApplication.getInstance.Log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
+                MainApplication.getInstance.log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
                 If Not internalCheck Then
                     MessageBox.Show(GetText("msgTextNetworkErrorGettingUpdateFile", "Ein Fehler ist aufgetreten beim holen der Aktualisierung. /n Kontrollieren Sie Ihre Netzwerkverbindung und Proxy Einstellungen.") & vbCrLf &
                                      ex.Message, GetText("msgHeaderNetworkErrorGettingUpdateFile", "Aktualisierungsdaten konnten nicht geholt werden"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -238,7 +238,7 @@ Namespace Update
 
             Catch ex As Exception
                 m_lastChangelog = ""
-                MainApplication.getInstance.Log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
+                MainApplication.getInstance.log.WriteLog(ex, "GettingUpdateData", "Error getting Update File")
                 If Not internalCheck Then
                     MessageBox.Show(GetText("msgTextNetworkCommonErrorGettingUpdateFile", "Ein Problem  ist aufgetreten beim holen der Aktualisierung. /n {0}", ex.Message), GetText("msgHeaderNetworkErrorGettingUpdateFile", "Aktualisierungsdaten konnten nicht geholt werden"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
@@ -272,14 +272,14 @@ Namespace Update
                 'IMPORTANT: Auf künftige Versionsnummern achten 
                 If Me.ApplicationVersion < Me.ChangeLogHeader.FileVersion Then
 
-                    MainApplication.getInstance.Log.WriteLog("Set UpdateAvail  (True) Reason: Appversion is lower than changelog reports. ")
+                    MainApplication.getInstance.log.WriteLog("Set UpdateAvail  (True) Reason: Appversion is lower than changelog reports. ")
                     RetValue = True
                     Return RetValue
                 End If
 
                 ' (Unnötig) das Datum prüfen
                 If Me.ApplicationDate < Me.ChangeLogHeader.FileDate Then
-                    MainApplication.getInstance.Log.WriteLog("Set UpdateAvail  (True) Reason: appdate is too old")
+                    MainApplication.getInstance.log.WriteLog("Set UpdateAvail  (True) Reason: appdate is too old")
 
                     RetValue = True
                     Return RetValue
@@ -471,8 +471,8 @@ Namespace Update
 
                     Try
 
-                        MainApplication.getInstance.Log.WriteLog("Try to start Update from : " & m_file, " -Update")
-                        MainApplication.getInstance.UserStats.SendStatistics("UpdateManager", "Try to install new Update. ")
+                        MainApplication.getInstance.log.WriteLog("Try to start Update from : " & m_file, " -Update")
+
                         Process.Start(m_file)
                         MainApplication.getInstance.CloseConnection()
                         System.Windows.Forms.Application.Exit()

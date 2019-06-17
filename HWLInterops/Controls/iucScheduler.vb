@@ -337,7 +337,7 @@ Public Class iucScheduler
     Private Sub SyncToOL()
         Try
             ' export
-            MainApplication.getInstance.Log.WriteLog("Start Calender Exported to Outlook...")
+            MainApplication.getInstance.log.WriteLog("Start Calender Exported to Outlook...")
 
             Dim expSynchronizer As AppointmentExportSynchronizer = SchedulerStorage1.CreateOutlookExportSynchronizer()
 
@@ -354,7 +354,7 @@ Public Class iucScheduler
                 MainApplication.getInstance.SendMessage("Kalender nach Outlook exportiert") 'TODO:NLS
 
             Finally
-                MainApplication.getInstance.Log.WriteLog("Calender Exported to Outlook")
+                MainApplication.getInstance.log.WriteLog("Calender Exported to Outlook")
 
                 RemoveHandler expSynchronizer.AppointmentSynchronizing, AddressOf ExportAppointments
                 RemoveHandler expSynchronizer.AppointmentSynchronized, AddressOf synchronizer_AppointmentSynchronized
@@ -362,7 +362,7 @@ Public Class iucScheduler
                 m_isInsync = False
             End Try
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Outlook Importer", "Fehler beim Export nach Outlook")
+            MainApplication.getInstance.log.WriteLog(ex, "Outlook Importer", "Fehler beim Export nach Outlook")
         End Try
 
 
@@ -371,7 +371,7 @@ Public Class iucScheduler
 
     Private Sub SyncFromOL()
         Try
-            MainApplication.getInstance.Log.WriteLog("Start Outlook Calender Import...")
+            MainApplication.getInstance.log.WriteLog("Start Outlook Calender Import...")
 
             Dim synchronizer As AppointmentImportSynchronizer = SchedulerStorage1.CreateOutlookImportSynchronizer()
 
@@ -393,11 +393,11 @@ Public Class iucScheduler
 
                 RemoveHandler synchronizer.AppointmentSynchronizing, AddressOf ImportAppointments
                 RemoveHandler synchronizer.AppointmentSynchronized, AddressOf synchronizer_AppointmentSynchronized
-                MainApplication.getInstance.Log.WriteLog("Outlook Calender Imported")
+                MainApplication.getInstance.log.WriteLog("Outlook Calender Imported")
             End Try
         Catch ex As Exception
 
-            MainApplication.getInstance.Log.WriteLog(ex, "Outlook Importer", "Fehler beim Import von Outlook")
+            MainApplication.getInstance.log.WriteLog(ex, "Outlook Importer", "Fehler beim Import von Outlook")
         End Try
 
 

@@ -98,7 +98,7 @@ Public Class frmMain
         Try ' Ein Fehler hier aber dann vollkommen ignorieren.. (Ist eh schlecht, wenn das passiert!
             MainApplication.getInstance.Settings.SaveFormsPos(Me)
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "FormMain_Closing", "Error while closing Form Main")
+            MainApplication.getInstance.log.WriteLog(ex, "FormMain_Closing", "Error while closing Form Main")
         End Try
     End Sub
 
@@ -396,7 +396,7 @@ Public Class frmMain
             Dim licenses As New frmLicenses
             licenses.ShowDialog()
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "License-Dialog", "Error in License-Dialog")
+            MainApplication.getInstance.log.WriteLog(ex, "License-Dialog", "Error in License-Dialog")
         End Try
 
     End Sub
@@ -409,18 +409,18 @@ Public Class frmMain
                 frm.ShowDialog()
             End Using
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "ReportManager", "ERROR while open Report Manager")
+            MainApplication.getInstance.log.WriteLog(ex, "ReportManager", "ERROR while open Report Manager")
         End Try
 
     End Sub
 
     Private Sub btnStats_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuTopLists.ItemClick
         Try
-            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ModulStart, "Statistics", "Open Statistic-Module")
+
             Dim frm As New frmModuleContainer(HWLModules.StatisticTop10)
             frm.ShowDialog()
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei Statistiken")
+            MainApplication.getInstance.log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei Statistiken")
         End Try
 
 
@@ -428,11 +428,11 @@ Public Class frmMain
 
     Private Sub btnFixedCosts_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuFixedCosts.ItemClick
         Try
-            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ModulStart, "FixedCost", "Open Fixcosts-Module")
+
             Dim frm As New frmModuleContainer(HWLModules.FixedCosts)
             frm.ShowDialog()
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei fixkosten")
+            MainApplication.getInstance.log.WriteLog(ex, "Error in Fixed Costs", "Fehler bei fixkosten")
         End Try
     End Sub
 
@@ -440,11 +440,11 @@ Public Class frmMain
 
     Private Sub btnReports_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnReports.ItemClick
         Try
-            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ModulStart, "Cash_Flow", "Öffne Auswertungen-Module")
+
             Dim frm As New frmFinanzen
             frm.ShowDialog()
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Cash_Flow", "Error while opening the Dialog 'Cash Flow'")
+            MainApplication.getInstance.log.WriteLog(ex, "Cash_Flow", "Error while opening the Dialog 'Cash Flow'")
         End Try
 
 
@@ -500,9 +500,6 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
-
-
-        MainClass.SendApplicationStartuptime()
 
         ' Nun überwachungsprozesse starten
         m_mainUI.StartProcesses()
@@ -666,9 +663,7 @@ Public Class frmMain
             End Using
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Critical, "AddIns", ex.Message, ex.ToString)
-            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "AddIns", ex.ToString)
-
+            MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Critical, "AddIns", ex.Message, ex.ToString)
         End Try
 
     End Sub
@@ -982,7 +977,7 @@ Public Class frmMain
             Dim base As String = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
 
             base &= "\" & MainApplication.ApplicationName
-            MainApplication.getInstance.Log.WriteLog("Suche angepasstes Hintergrundbild in: " & base)
+            MainApplication.getInstance.log.WriteLog("Suche angepasstes Hintergrundbild in: " & base)
 
             base &= "\background"  ' Dateinamen bilden
 
@@ -997,7 +992,7 @@ Public Class frmMain
 
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "UI", "Getting external Background  Image for Home workpane failed")
+            MainApplication.getInstance.log.WriteLog(ex, "UI", "Getting external Background  Image for Home workpane failed")
         End Try
 
     End Sub
@@ -1064,7 +1059,7 @@ Public Class frmMain
     End Sub
 
     Private Sub ItemstatusText_ItemDoubleClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles ItemstatusText.ItemDoubleClick
-        Process.Start(MainApplication.getInstance.Log.LogFilePath)
+        Process.Start(MainApplication.getInstance.log.LogFilePath)
     End Sub
 
 
@@ -1086,7 +1081,7 @@ Public Class frmMain
             End If
         Catch ex As Exception
 
-            MainApplication.getInstance.Log.WriteLog(ex, "ShowCallerList", "Fehler beim Anzeigen der Anruferliste.")
+            MainApplication.getInstance.log.WriteLog(ex, "ShowCallerList", "Fehler beim Anzeigen der Anruferliste.")
         End Try
 
     End Sub
@@ -1140,7 +1135,7 @@ Public Class frmMain
 
     Private Sub btnStartTeamViewer_ItemClick(sender As System.Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnStartTeamViewer.ItemClick
         Try
-            MainApplication.getInstance.Log.WriteLog("Starte Teamviewer per Download")
+            MainApplication.getInstance.log.WriteLog("Starte Teamviewer per Download")
             Process.Start("http://www.teamviewer.com/download/TeamViewerQS_de.exe")
         Catch ex As Exception
 

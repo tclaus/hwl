@@ -126,7 +126,7 @@ Namespace Kernel
                 internalJournalDoc.SetCanceled()
                 internalJournalDoc.Save()
             Else
-                MainApplication.Log.WriteLog(Tools.LogSeverity.Warning, "Das Basisdokument der Transaktion mit der ID (" & Me.InternalDocumentID & ") kann nicht gefunden werden. stornieren nicht möglich.")
+                MainApplication.log.WriteLog(Tools.LogSeverity.Warning, "Das Basisdokument der Transaktion mit der ID (" & Me.InternalDocumentID & ") kann nicht gefunden werden. stornieren nicht möglich.")
             End If
         End Sub
 
@@ -141,7 +141,7 @@ Namespace Kernel
                 internalJournalDoc.ClearCanceled()
                 internalJournalDoc.Save()
             Else
-                MainApplication.Log.WriteLog(Tools.LogSeverity.Warning, "Das Basisdokument der Transaktion mit der ID (" & Me.InternalDocumentID & ") kann nicht gefunden werden. Aufheben der Stornieren nicht möglich.")
+                MainApplication.log.WriteLog(Tools.LogSeverity.Warning, "Das Basisdokument der Transaktion mit der ID (" & Me.InternalDocumentID & ") kann nicht gefunden werden. Aufheben der Stornieren nicht möglich.")
             End If
         End Sub
 

@@ -164,7 +164,7 @@ Public Class iucMainModule
 
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Error", "in MainModule.Initialize")
+            MainApplication.getInstance.log.WriteLog(ex, "Error", "in MainModule.Initialize")
             Debug.Print("Beim Erstellen von (" & hwlmodule.ToString & ") kam es zu einem schweren Fehler: " & ex.Message)
             Throw ' nach oben werfen! 
         End Try
@@ -175,7 +175,7 @@ Public Class iucMainModule
                 Panel1.Controls.Add(CType(m_module, Control))
                 m_module.InitializeModule()
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "UI", "Error while initializing WorkerModule")
+                MainApplication.getInstance.log.WriteLog(ex, "UI", "Error while initializing WorkerModule")
             End Try
         Else
             Debug.Print("Das zu startene Modul (" & hwlmodule.ToString & ") konnte nicht initialisiert werden und lieferte ein leeres Frame")

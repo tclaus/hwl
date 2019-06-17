@@ -35,8 +35,6 @@ Public Class iucOptionNumberGenerator
 
         If m_isLoading Then Exit Sub
 
-
-        m_Info = MainApplication.getInstance.UserStats.InfoItem
         Try
             lblInvoicesPreview.Text = MainApplication.getInstance.Tools.GetDisplayID(CInt(txtInvoicesInitialNumber.EditValue) + m_Info.NextInvoiceNumber, txtInvoicesReplacement.Text, Now)
         Catch

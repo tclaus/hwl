@@ -183,7 +183,7 @@ Namespace Offers
 
             Catch ex As Exception
                 ' TODO: eine fehlende Verbindung markieren
-                MainApplication.getInstance.Log.WriteLog(ex, "Journalstart", "Fehler im Journal")
+                MainApplication.getInstance.log.WriteLog(ex, "Journalstart", "Fehler im Journal")
             End Try
         End Sub
 
@@ -634,7 +634,7 @@ Namespace Offers
 
             Catch ex As Exception
 
-                MainApplication.getInstance.Log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog eines Dokuments")
+                MainApplication.getInstance.log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog eines Dokuments")
                 MessageBox.Show("Fehler beim Drucken eines Dokumentes aufgetreten.", "Fehler aufgetreten", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
             End Try
@@ -2880,7 +2880,7 @@ Namespace Offers
                 Next
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "Bills", "Error in 'MakeGroupVisible'")
+                MainApplication.getInstance.log.WriteLog(ex, "Bills", "Error in 'MakeGroupVisible'")
             End Try
 
         End Sub

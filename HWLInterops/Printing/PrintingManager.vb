@@ -385,7 +385,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                     m_businesReportControls.Add(ctrl.Name, ctrl)
                 Catch ex As Exception
                     ' Kann zb sein, das im Layout der Control - Name bereits vergeben ist
-                    MainApplication.getInstance.Log.WriteLog(ex, "MergeReports", "Zusammenfügen des Briefe-Layouts zum Druck-Layout")
+                    MainApplication.getInstance.log.WriteLog(ex, "MergeReports", "Zusammenfügen des Briefe-Layouts zum Druck-Layout")
                 End Try
 
             Next
@@ -462,7 +462,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                         targetControl.HeightF = ctrl.HeightF
                         targetControl.Tag = Nothing
                     Else
-                        MainApplication.getInstance.Log.WriteLog("Konnte kein Adressfenster im Ziel-Layout finden")
+                        MainApplication.getInstance.log.WriteLog("Konnte kein Adressfenster im Ziel-Layout finden")
                     End If
 
                 Else ' Normales Control aus dem Briefe-Layout. Zum Ziellayout hinzufügen
@@ -740,7 +740,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
                     End If
 
                 Catch ex As Exception
-                    MainApplication.getInstance.Log.WriteLog(ex, "PrintingManager", "Error in InitBusinessLayout")
+                    MainApplication.getInstance.log.WriteLog(ex, "PrintingManager", "Error in InitBusinessLayout")
 
                 Finally
                     m_isLoaded = True
@@ -1180,7 +1180,7 @@ Private m_printBusinesHeaderOneveryPage As Boolean = True
 
                     '  MainReport.CreateDocument()
                 Catch ex As Exception
-                    MainApplication.getInstance.Log.WriteLog(ex, "PrintingManager", "ERROR while creating Printlayout: '" & item.Description & "'")
+                    MainApplication.getInstance.log.WriteLog(ex, "PrintingManager", "ERROR while creating Printlayout: '" & item.Description & "'")
                 End Try
 
             Next

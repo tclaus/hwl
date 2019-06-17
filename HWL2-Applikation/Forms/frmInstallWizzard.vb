@@ -90,29 +90,11 @@ Public Class frmInstallWizzard
                 Exit Sub
             End If
 
-            ' Steuern => Finish
-            If e.PrevPage Is wizCreateInternetDatabase Then
-                ' Das Token prüfen
-                If chkHasToken.Checked Then
-                    If DatabaseHelper.CheckConnectionByToken(txtToken.Text) = False Then
-                        e.Cancel = True
-                    End If
-                Else
-                    ' Dann die Daten eintrage und senden; 
-                    ' Anwender muss dann auf das Token warten und neu starten
-                End If
-
-
-            End If
-
             If e.PrevPage Is wizCompleted Then
                 ' Fertig und Anwender hat auf "Finish" geklickt
                 Debug.Print("Finish")
 
-                ' Steuerdaten werden im Aufrufer erstellt
-
-                MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Information, "Erstinstallation-Wizzard beendet")
-                MainApplication.getInstance.UserStats.SendStatistics("Wizzard", "Finished")
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Information, "Erstinstallation-Wizzard beendet")
 
                 Exit Sub
             End If
@@ -164,50 +146,6 @@ Public Class frmInstallWizzard
                 Return nextPage
 
         End Select
-    End Function
-
-
-
-    ''' <summary>
-    ''' Sendet die Zugangsdaten an die Internet-Datenbank
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function SendAccessDataAndgetToken() As Boolean
-        Try
-            Dim headline As String
-            Dim message As String
-
-            If Not txtPassword1.Text.Equals(txtPassword2.Text) Then
-                headline = GetText("headInvalidPasswordsNotEqual", "Ungültiges Service-Passwort")
-                message = GetText("msgInvalidPasswordsNotEqual", "Die Passwörter müssen gleich sein!")
-                MessageBox.Show(message, headline, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                Return False
-            End If
-
-            UseWaitCursor = True
-            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.Info, "Cloud DB Request", "User requested a Cloud Database")
-
-            Dim iDB As New de.hwl_developer.HWLClouldService()
-            Dim result As Boolean = iDB.RequestToken(txtServiceName.Text, "Company", txtemailAdress.Text, MainApplication.ApplicationName, txtPassword1.Text)
-            UseWaitCursor = False
-
-            If result Then
-                'TODO: NLS
-                MessageBox.Show("Wir haben Ihnen nun eine e-Mail mit einem Zugangsschlüssel zugesendet. Dieses ist ab jetzt 14 Tage gültig und kann verwendet werden, um die Datenbank anzulegen" & vbCrLf &
-                                "Tragen sie den Zugangsschlüssel in das Textfeld ein oder erstellen sie im Menü ""Extras"" eine neue Datenbankverbindung", "Zugangsschlüssel zugestellt", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return True
-            Else
-                ' Fehler = > doof!
-                Return False
-            End If
-        Catch ex As Exception
-            UseWaitCursor = False
-            MainApplication.getInstance.Log.WriteLog(ex, "DatabaseConnect in InstallWizzard", "Error while connecting to a Database")
-            'TODO: NLS
-            MessageBox.Show("Ein Fehler ist beim Verbinden mit dem Datenbankserver aufgetreten: " & vbCrLf & ex.Message, "Fehler beim Verbinden", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return False
-        End Try
     End Function
 
     Private Sub TextEdit2_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtToken.EditValueChanged
@@ -268,17 +206,6 @@ Public Class frmInstallWizzard
         txtPassword1.Enabled = chkEnterData.Checked
         txtPassword2.Enabled = chkEnterData.Checked
         txtServiceName.Enabled = chkEnterData.Checked
-
-    End Sub
-
-    Private Sub btnSendAccessData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCreateCloudAccount.Click
-        SendAccessDataAndgetToken()
-    End Sub
-
-    Delegate Sub sendAccountData()
-
-    Private Sub BeginSendData()
-        Me.BeginInvoke(New sendAccountData(AddressOf SendAccessDataAndgetToken))
 
     End Sub
 

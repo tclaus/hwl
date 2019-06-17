@@ -97,7 +97,7 @@ Public Class iucAddressBook
                 container.ActiveAddress = withcontact
                 container.ClearHasChangedState() ' Bei solcherart angelegten Dokumenten kann der Status zurückgesetzt werden
             Else
-                MainApplication.getInstance.Log.WriteLog("Es wurde versucht, von einem neuem Kontakt ein Dokument anzulegen.")
+                MainApplication.getInstance.log.WriteLog("Es wurde versucht, von einem neuem Kontakt ein Dokument anzulegen.")
             End If
 
         Catch ex As Exception
@@ -183,7 +183,7 @@ Public Class iucAddressBook
 
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Print Addressbook", "Error in Printing Dialog")
+            MainApplication.getInstance.log.WriteLog(ex, "Print Addressbook", "Error in Printing Dialog")
         End Try
 
 
@@ -292,7 +292,7 @@ Public Class iucAddressBook
                 txtFirstName.Text = .FirstName
                 txtLastName.Text = .LastName
                 txtCountry.Text = .Country
-                txtEbayID.Text = .ebayID
+                txtEbayID.Text = .EbayID
                 txtEmail.Text = .EMail
                 txtfax.Text = .Fax
                 txtWorkOn.Text = .KindOfBusiness
@@ -368,7 +368,7 @@ Public Class iucAddressBook
                 .TargetPayDays = CInt(txtTargetPaydateDays.EditValue)
                 .EnableTargetPayDate = chkEnableTargetPayDate.Checked
 
-                .ebayID = txtEbayID.Text
+                .EbayID = txtEbayID.Text
                 .EMail = txtEmail.Text
                 .Fax = txtfax.Text
                 .KindOfBusiness = txtWorkOn.Text
@@ -743,7 +743,7 @@ Public Class iucAddressBook
                 End If
             End If
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Open_Journal", "Error while opening the Journal from a given adress")
+            MainApplication.getInstance.log.WriteLog(ex, "Open_Journal", "Error while opening the Journal from a given adress")
         End Try
 
     End Sub

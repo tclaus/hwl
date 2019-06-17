@@ -142,7 +142,7 @@ Namespace Data
                 Loop While dt.Rows.Count > 0
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "Fehler beim reparieren von Anhangs-Verknüpfungen", "LastChanceRepairTables")
+                MainApplication.getInstance.log.WriteLog(ex, "Fehler beim reparieren von Anhangs-Verknüpfungen", "LastChanceRepairTables")
             End Try
 
         End Sub
@@ -189,17 +189,16 @@ Namespace Data
 
                             If CStr(retValue).StartsWith("1.5") Then
 
-                                MainApplication.getInstance.Log.WriteLog("Kann Datenbank nicht aktualisieren. Gelesene Datenbank ist: " & CStr(retValue))
+                                MainApplication.getInstance.log.WriteLog("Kann Datenbank nicht aktualisieren. Gelesene Datenbank ist: " & CStr(retValue))
 
                                 Throw New Exception(MainApplication.getInstance.Languages.GetText("msgInitialHWL1.7 Database needed.", "Eine 1.7er Datenbank wird für das Update benötigt. " & vbCrLf &
                                                     "Installieren Sie erst eine 1.7 Version und starten diese, bevor Sie {appname}-2 starten." & vbCrLf & vbCrLf &
                                                     "Aktuelle Datenbank ist: '" & CStr(retValue) & "'"))
-                            Else
-                                MainApplication.getInstance.UserStats.SendStatistics("DBVersion before Update", CStr(retValue))
+
                             End If
                         Else
                             ' entweder kompltt leere Datenbank oder ein anderes Problem ist aufgereten
-                            MainApplication.getInstance.Log.WriteLog("Tabelle HWLVersion nicht gefunden und kein Eintrag orhanden!")
+                            MainApplication.getInstance.log.WriteLog("Tabelle HWLVersion nicht gefunden und kein Eintrag orhanden!")
                         End If
 
 
@@ -891,11 +890,11 @@ Namespace Data
             ' ReplikID nochmal prüfen (aus Altdaten-Übernahme)
             Try
                 If MainApplication.getInstance.Database.GetColumnCharacterLength(persitentClass.ClassInfo.TableName, "ReplikID") > 32 Then
-                    MainApplication.getInstance.Log.WriteLog(" Verkürze Feld 'ReplikID' in Tabelle: '" & persitentClass.ClassInfo.TableName & "'.")
+                    MainApplication.getInstance.log.WriteLog(" Verkürze Feld 'ReplikID' in Tabelle: '" & persitentClass.ClassInfo.TableName & "'.")
                     SetTextColLength(persitentClass.ClassInfo.TableName, "ReplikID", 32)
                 End If
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog("  Beim verkürzen des Feldes ist ist ein Fehler aufgetreten: " & ex.Message)
+                MainApplication.getInstance.log.WriteLog("  Beim verkürzen des Feldes ist ist ein Fehler aufgetreten: " & ex.Message)
             End Try
 
         End Sub

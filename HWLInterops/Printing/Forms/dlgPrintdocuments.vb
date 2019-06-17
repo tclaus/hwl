@@ -85,7 +85,7 @@ Namespace Printing
                 m_mainUI.OpenReportPreview(Me.DocumentsList, DataSourceList.Journaldocument, GetSelectedReports, PrintOptions)
             Catch ex As Exception
 
-                MainApplication.getInstance.Log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
+                MainApplication.getInstance.log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
                 MessageBox.Show("Fehler beim drucken aufgetreten. Kontrollieren sie Ihre Drucker-Einstellungen.", "Drucker-Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
             End Try
@@ -100,7 +100,7 @@ Namespace Printing
                 m_mainUI.PrintReportsDirect(Me.DocumentsList, DataSourceList.Journaldocument, GetSelectedReports, PrintOptions)
             Catch ex As Exception
 
-                MainApplication.getInstance.Log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
+                MainApplication.getInstance.log.WriteLog(ex, "Drucker-Fehler", "Fehler beim Druck eines Dokumentes")
 
 
                 'TODO : Default Printer angeben
