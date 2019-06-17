@@ -610,7 +610,7 @@ Namespace Tools
         Public Function GetDisplayID(ByVal number As Integer, ByVal formatstring As String, ByVal itemDate As Date) As String
             Dim retValue As String
             If Not regNumberValue.IsMatch(formatstring) Then
-                m_mainApplicaton.Log.WriteLog(ClausSoftware.Tools.LogSeverity.ErrorMessage, "Ein $NR konnte im Formatstring nicht gefunden werden. War (" & formatstring & ")")
+                m_mainApplicaton.log.WriteLog(ClausSoftware.Tools.LogSeverity.ErrorMessage, "Ein $NR konnte im Formatstring nicht gefunden werden. War (" & formatstring & ")")
 
                 Throw New ArgumentException("Ein '$NR' konnte nicht in der Eingabezeichenfolge gefunden werden")
             Else

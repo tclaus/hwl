@@ -132,7 +132,7 @@ Public Module modmain
 
             MainApplication.getInstance.Settings.SetSetting("TreeLayout", context, stream)
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "ERROR", "Error in Saving TreeStyles")
+            MainApplication.getInstance.log.WriteLog(ex, "ERROR", "Error in Saving TreeStyles")
         End Try
 
     End Sub
@@ -151,7 +151,7 @@ Public Module modmain
 
             MainApplication.getInstance.Settings.SetSetting("OpenTreeNodes", context, openNodes.ToString)
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "ERROR", "Error inSaveTreeOpenNodes")
+            MainApplication.getInstance.log.WriteLog(ex, "ERROR", "Error inSaveTreeOpenNodes")
         End Try
     End Sub
     Private Sub GetOpenNodesList(ByVal nodes As Nodes.TreeListNodes, ByVal sb As System.Text.StringBuilder)
@@ -316,7 +316,7 @@ Public Module modmain
 
             End If
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "modMain", "Fehler beim Wiederherstellen des Grids")
+            MainApplication.getInstance.log.WriteLog(ex, "modMain", "Fehler beim Wiederherstellen des Grids")
         End Try
         Return False
 
@@ -421,7 +421,7 @@ Public Module modmain
                 Next
             End If
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "modMain", "Fehler beim wiederherstellen des Baumdiagramms", "")
+            MainApplication.getInstance.log.WriteLog(ex, "modMain", "Fehler beim wiederherstellen des Baumdiagramms", "")
         End Try
 
     End Sub
@@ -467,7 +467,7 @@ Public Module modmain
             Next
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "ERROR", "Error in RestoreTreeOpenNodes")
+            MainApplication.getInstance.log.WriteLog(ex, "ERROR", "Error in RestoreTreeOpenNodes")
         End Try
 
 

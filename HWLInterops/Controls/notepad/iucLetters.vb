@@ -155,7 +155,7 @@ Public Class iucLetters
 
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Letters", "Print Letters")
+            MainApplication.getInstance.log.WriteLog(ex, "Letters", "Print Letters")
         Finally
             Me.UseWaitCursor = False
         End Try
@@ -215,7 +215,7 @@ Public Class iucLetters
             End If
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "UI", "Error while getting Address from Letters")
+            MainApplication.getInstance.log.WriteLog(ex, "UI", "Error while getting Address from Letters")
 
         End Try
     End Sub

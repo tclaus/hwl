@@ -167,7 +167,7 @@ Public Class iucCashTransactions
             End Using
         Catch ex As Exception
             ' wenn hier was passiert => log und Meldung machen !
-            MainApplication.getInstance.Log.WriteLog(ex, "Print CashJournal", "Error in Dialog")
+            MainApplication.getInstance.log.WriteLog(ex, "Print CashJournal", "Error in Dialog")
         End Try
 
     End Sub
@@ -426,7 +426,7 @@ Public Class iucCashTransactions
     ''' <remarks></remarks>
     Private Sub SetValueFields(ByVal criteria As DevExpress.Data.Filtering.CriteriaOperator)
 
-        MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
+        MainApplication.getInstance.log.WriteLog(ClausSoftware.Tools.LogSeverity.Verbose, "Bereite Liste mit Forderungen/Verbindlichkeiten Summen vor")
 
         m_cashList = New CashJournalItems(MainApplication.getInstance, criteria)
 
@@ -620,7 +620,7 @@ Public Class iucCashTransactions
             End If
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "CashTransaction", "Fehler beim Keydown-Ereignis!")
+            MainApplication.getInstance.log.WriteLog(ex, "CashTransaction", "Fehler beim Keydown-Ereignis!")
         End Try
 
     End Sub

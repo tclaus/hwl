@@ -15,8 +15,6 @@ Public Class MainClass
     'Public Shared MainApplication.getInstance As ClausSoftware.mainApplication
     Private m_engine As HWLInterops.Main
 
-    Friend m_errorReporting As ClausSoftware.ErrorReporting.MainErrorHandler
-
     Private Delegate Sub ShowSplashScreenDele()
 
 
@@ -25,16 +23,6 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Shared m_AppStartWatch As New Stopwatch
-
-    ''' <summary>
-    ''' Stoppt den Starttimer nach Aufbau der Hauptapplikation und sendet den Bericht
-    ''' </summary>
-    ''' <remarks></remarks>
-    Friend Shared Sub SendApplicationStartuptime()
-
-        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStartUpTime, "Application", m_AppStartWatch.Elapsed.ToString)
-
-    End Sub
 
     ''' <summary>
     ''' Startet die Zeitmessung zum Start der Applikation
@@ -80,8 +68,6 @@ Public Class MainClass
         StartAppstartupTimer()
 
         m_main = New MainClass
-
-        m_main.StartErrorReporting()
 
         If m_main.Initialize() Then ' ' Starte applikation, wenn "False" zurückgegeben wurde, dann war ein Start nicht möglich
             ' Die Gründe wurden bereits behandelt
@@ -173,13 +159,7 @@ Public Class MainClass
 
         System.Windows.Forms.Application.EnableVisualStyles()
 
-
         m_engine = New HWLInterops.Main
-        m_engine.Initialize()
-
-
-        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStart, "Application", "New Application Startup")
-        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationStart, "OS Version", My.Computer.Info.OSFullName & "(" & My.Computer.Info.OSVersion & ")")
 
         InitLanguage()
         Dim DatabaseCreated As Boolean = False ' wird durch wizzard auf "True" gesetzt, wenn die Datenbank neu ist 
@@ -215,7 +195,6 @@ Public Class MainClass
             If MainApplication.getInstance.Connections.DefaultConnection Is Nothing Then
                 HideSplashScreen() ' Splash verstecken; der wizzard soll in den Vordergrund
 
-                MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ModulStart, "Setupwizzard", "Starting Setup Wizzard (first Install)")
                 MainApplication.getInstance.SendMessage(MainApplication.getInstance.Languages.GetText("Erster Start von {appname}"))
                 Dim frm As New frmInstallWizzard
                 Dim result As DialogResult = frm.ShowDialog()
@@ -273,9 +252,6 @@ Public Class MainClass
             Return False
         End If
 
-
-        CheckCompetetors()
-
         CheckMaxSupportedOsVersion()
 
         MainApplication.getInstance.Settings.SettingSendStatistics = sendStatisticalData
@@ -316,7 +292,6 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub CheckTaxRates()
-        MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.Warning, "Taxes", "Invalid Tax assignment. starting UserDialog to set Taxrates")
 
         FillTaxRates()
         ' Immer noch ungültig ? 
@@ -470,7 +445,7 @@ Public Class MainClass
     ''' <remarks></remarks>
     Private Sub CreateDefaultDatabase()
 
-        MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Information, "CreateDefaultDatabase: Erstellte standard Datenbank")
+        MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Information, "CreateDefaultDatabase: Erstellte standard Datenbank")
 
         Dim defaultConnection As ClausSoftware.Tools.Connection = Tools.Connections.GetSimpelDefaultDatabase()
         System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(defaultConnection.Path))
@@ -572,19 +547,19 @@ Public Class MainClass
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function CheckDBUserConnection() As Boolean
-        Dim Result As DialogResult
 
         Dim res As ClausSoftware.DataBase.DBResult = Me.TestDatabaseConnection()
         If Not res.IsValid Then
-            MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Critical, "CheckuserConnection detects an invalid Database connection. ErrorText: " & res.ErrorText)
+            MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Critical, "CheckuserConnection detects an invalid Database connection. ErrorText: " & res.ErrorText)
         End If
 
         ' Solange keine Standard-Verbindung existiert und diese nicht geöffnet werden kann, dann Abbruch !
         Do While Not res.IsValid
+            Dim result As DialogResult
             Dim frm As New frmConnectionConfiguration
-            Result = frm.ShowDialog()
+            result = frm.ShowDialog()
 
-            If Result = DialogResult.Cancel Then Return False
+            If result = DialogResult.Cancel Then Return False
 
             res = Me.TestDatabaseConnection
         Loop
@@ -600,7 +575,7 @@ Public Class MainClass
     ''' <remarks></remarks>
     Public Function TestDatabaseConnection() As ClausSoftware.DataBase.DBResult
         '  Dim myApp As New ClausSoftware.mainApplication
-        MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Verbose, "Startet Testen der Datenbankverbindung")
+        MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Verbose, "Startet Testen der Datenbankverbindung")
         'myApp.Connections.ReadConnections()
         MainApplication.getInstance.Connections.ReadConnections()
         Dim mydefaultConnection As ClausSoftware.Tools.Connection = MainApplication.getInstance.Connections.WorkConnection
@@ -608,7 +583,7 @@ Public Class MainClass
         Dim result As New ClausSoftware.DataBase.DBResult()
 
         If mydefaultConnection Is Nothing Then
-            MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Verbose, "Keine Standardverbindung gefunden, erstellte neue Standardverbindung")
+            MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Verbose, "Keine Standardverbindung gefunden, erstellte neue Standardverbindung")
             CreateDefaultDatabase()
         End If
 
@@ -630,7 +605,7 @@ Public Class MainClass
 
         Else
 
-            MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.ErrorMessage, "Keine Standardverbindung angelegt. 'CreateDefaultDatabase' hat keine Verbindung erstellt!")
+            MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.ErrorMessage, "Keine Standardverbindung angelegt. 'CreateDefaultDatabase' hat keine Verbindung erstellt!")
 
 
             ' Verbindung konnte gar nicht gefunden werden
@@ -644,15 +619,6 @@ Public Class MainClass
 
 
     End Function
-
-    ''' <summary>
-    ''' Initialisiert das Globale Fehlerhandling für schwerwiegende Fehler
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub StartErrorReporting()
-        m_errorReporting = New ErrorReporting.MainErrorHandler()
-        AddHandler System.Windows.Forms.Application.ThreadException, AddressOf localThreadExeption
-    End Sub
 
     ''' <summary>
     ''' Startet das Hauptfenster und beginnt dessen MessageLoop
@@ -674,7 +640,6 @@ Public Class MainClass
     ''' <remarks></remarks>
     Friend Sub ApplicationEnd()
         Try
-            MainApplication.getInstance.UserStats.SendStatistics(ClausSoftware.Tools.ReportMessageType.ApplicationEnd, "Application runtime", m_AppStartWatch.Elapsed.ToString)
             MainApplication.getInstance.Languages.SaveLanguageFile()
             MainApplication.getInstance.CloseConnection()
 
@@ -710,63 +675,13 @@ Public Class MainClass
 
     End Sub
 
-    Private Shared Sub localThreadExeption(ByVal sender As Object, ByVal e As Threading.ThreadExceptionEventArgs)
-        If MainApplication.getInstance IsNot Nothing Then
-            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "MainApplication-Crash", e.Exception.Message)
-
-            ' 1. Zeile Mesage, die weiteren Zeilen der Stack -Trace ? 
-            Dim st As String = String.Empty
-            For Each line As String In e.Exception.StackTrace
-                st &= line & vbCrLf
-            Next
-
-            ' Mit Stack senden
-            MainApplication.getInstance.UserStats.SendStatistics(Tools.ReportMessageType.ApplicationCrash, "MainApplication-Crash", st)
-
-            'Das zuletzt gesendte Merken und dann ignorieren
-            Static LastMessage As String = String.Empty
-
-            ' Fehlermeldung direkt senden 
-            Try
-                If MainApplication.getInstance.UserStats.SendingAllowed Then
-                    Dim er As New ClausSoftware.ErrorReporting.MainErrorHandler()
-                    System.Net.ServicePointManager.Expect100Continue = False
-                    Dim SystemInformation As String = er.GetSessionDetails()
-
-                    Dim errorMessage As String = SystemInformation
-
-                    errorMessage &= Environment.NewLine & Environment.NewLine
-
-                    errorMessage &= ClausSoftware.Tools.LogHandling.GetInnerExceptionMessages(e.Exception)
-
-
-                    er.Currentexception = e.Exception
-
-                    ' Niemals die selbe Meldung mehrfach nacheinander senden
-                    If Not LastMessage.Equals(errorMessage) Then
-                        LastMessage = errorMessage
-
-                        Dim report As New ClausSoftware.ErrorReporting.ErrorReportingService.ErrorReporting()
-                        report.Timeout = 30 * 1000 ' Nicht zu lange warten (in millisekunden)
-                        ' Hier das Problem senden und ohne warten zurückkehren
-                        report.SendErrorMessageExUserMessageAsync(errorMessage, "DirectSend", "Internal catched Exception", 0, New Object)
-                    End If
-                End If
-
-            Catch
-            End Try
-
-
-        End If
-
-    End Sub
-
     Private Sub CheckBuildInReports()
         ' Beim start alle Reports testen ? 
         Printing.PrintingManager.CheckAndRepairDefaultLaoyuts()
     End Sub
+
     ''' <summary>
-    ''' stellt eine Lizenzprüfung breit
+    ''' Stellt eine Lizenzprüfung breit
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub CheckLicenses()
@@ -822,42 +737,6 @@ Public Class MainClass
     Private Sub SetDefaultValues()
         MainApplication.getInstance.Settings.Articlesettings.DefaultTaxRate = MainApplication.getInstance.TaxRates.GetNormalTax
 
-    End Sub
-
-    ''' <summary>
-    ''' Auf existenz anderer Produkte prüfen
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub CheckCompetetors()
-
-        'HKEY_CURRENT_USER\
-        Dim KB2011exists As Boolean = False
-        Try
-            If My.Computer.Registry.CurrentUser.OpenSubKey("Software\combit\Dialog Position\KINGBILL2011") IsNot Nothing Then
-                KB2011exists = True
-            End If
-        Finally
-            My.Computer.Registry.CurrentUser.Close()
-        End Try
-
-        Dim KB2010exists As Boolean = False
-
-        Try
-            If My.Computer.Registry.CurrentUser.OpenSubKey("Software\combit\Dialog Position\KINGBILL2010") IsNot Nothing Then
-                KB2010exists = True
-            End If
-        Finally
-            My.Computer.Registry.CurrentUser.Close()
-        End Try
-
-
-        If KB2010exists Then
-            MainApplication.getInstance.UserStats.SendStatistics("Competitors", "KB-2010")
-        End If
-
-        If KB2011exists Then
-            MainApplication.getInstance.UserStats.SendStatistics("Competitors", "KB-2011")
-        End If
     End Sub
 
     ''' <summary>

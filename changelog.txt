@@ -1,3 +1,8 @@
+Version 2.6.0
+17.06.2019
+- Code aufgeräumt, interne Optimierungen
+- Keine neuen Funktionen
+
 Version 2.5.40
 17.04.2015
 - Kleinere interne Fehler behoben
@@ -13,7 +18,7 @@ Version 2.5.38
 
 Version 2.5.37
 23.02.2013
-- Spaltengrösse im Addressbuch ("Lieferadresse") vergrössert. Bei langen Adressen konnte es zu Speicherproblemen kommen
+- Spaltengrösse im Adressbuch ("Lieferadresse") vergrössert. Bei langen Adressen konnte es zu Speicherproblemen kommen
 - Kleinere Korrekturen
 - Kostenlose Version
 
@@ -25,7 +30,7 @@ Version 2.0.36
 Version 2.0.35
 08.04.2012
 - Felder (Beschreibung/Ort) in Termine verlängert
-- Kopieren und Einfügen von Artikel und Artikelgruppen in Angebote/Rechnungen - das Einfügeziel wird nun zuverläassiger gefunden
+- Kopieren und Einfügen von Artikel und Artikelgruppen in Angebote/Rechnungen - das Einfügeziel wird nun zuverlässiger gefunden
 - Optimierung der Berechnung der Gesamtpreise, wenn Artikel kopiert und eingefügt wurden
 
 Version 2.0.34
@@ -41,7 +46,7 @@ Version 2.0.32
 - Neue Funktion: Steuern für alle Artikel gleichzeitig setzen
 - In Angebote /Rechnungen können nun die Positionsnummern der Artikel geändert - und somit die Reihenfolge angepasst werden
 - Angebote /Rechnungen können nun formatierte Langtexte haben. (Druck-Layout zu Angebote/Rechnungen zurücksetzen)
-- Termine öffnen nun schneller, Änderungen werden schneller gespeichert. Neu: ein "neu Laden" - Knopf um Änderungen von anderen Arbeitspl‰tzten zu übernehmen
+- Termine öffnen nun schneller, Änderungen werden schneller gespeichert. Neu: ein "neu Laden" - Knopf um Änderungen von anderen Arbeitsplätzen zu übernehmen
 - Diverse Fehlerkorrekturen
 
 Version 2.0.30
@@ -50,10 +55,10 @@ Version 2.0.30
    Der Name des Druck-Jobs wird nun angezeigt
 - Filter im Journal: Anzeige der Schnellauswahl und der Liste besser synchronisiert
 - Kassenbuch: Reagiert wieder auf "Enter" - Taste; Eingabe springt ins nächste Feld, beim letzten Feld wird gespeichert
-- Angebote / Rechnungen: überschrift einer Artikelgruppe kann nun per Kontext-Menü auf einen anderen Standard gesetzt werden
-- Forderungen/Verbindlichkeiten: Korrekte übernahme des rabattierten Endbetrages aus Rechnungen
+- Angebote / Rechnungen: Überschrift einer Artikelgruppe kann nun per Kontext-Menü auf einen anderen Standard gesetzt werden
+- Forderungen/Verbindlichkeiten: Korrekte Übernahme des rabattierten Endbetrages aus Rechnungen
 - Die Zahlenwerte im Nummerngenerator (Rechnungsnummer-Versatz) konnten unerwartet auf '0' gesetzt werden
-- Brief-Layout ("Seite einrichten") kann nun vollständig zurückgesetzt werden. (Neustart erforerlich)
+- Brief-Layout ("Seite einrichten") kann nun vollständig zurückgesetzt werden. (Neustart erforderlich)
 - Diverse Korrekturen
 
 Version 2.0.29
@@ -66,9 +71,9 @@ Version 2.0.28
 - Funktion "Neues Dokument anlegen" bei nicht gespeicherten Adressen wurde blockiert
 - Ausgaben und Behandlung von Fehlern verbessert
 - Beim kopieren / einfügen von Angebote/Rechnungen-Positionen wurden nicht alle Spalten (z.B. Steuersätze) übernommen
--  Maximale Eingabel‰änge der Kopf - und Fusstexte in Angebote/Rechnungen überarbeitet. Nun wird die tatsächliche Datenbanklänge verwendet
+-  Maximale Eingabelänge der Kopf - und Fusstexte in Angebote/Rechnungen überarbeitet. Nun wird die tatsächliche Datenbanklänge verwendet
    Absturz bei zu langen Texten nun vermieden
-- Angebote/Rechnungen: Widerholte Speicherabfrage - obwohl bereits gespeichert war- kommt nun nicht mehr
+- Angebote/Rechnungen: Wiederholte Speicherabfrage - obwohl bereits gespeichert war- kommt nun nicht mehr
 - Journal: Anzeige von Summen der selektierten Dokumente
 - Druck-Problem von Angebote/Rechnungen behoben (insbesondere bei Samsung-Drucker)
 - Diverse Fehlerkorrekturen
@@ -91,19 +96,19 @@ Version 2.0.25
 
 Version 2.0.24
 10.09.2011
-- Ab jetzt tragen Entwicklerversionen stets ungerade Versionsnummern. Freigegebenen, "Stabile" Versionen tragen gerade Versionsnummern
-- Maximale Eingabelängen vom Adressbuch, Artikel, Forderunen und Kassenbuch wird nun geprüft und abgeschnitten
+- Ab jetzt tragen Entwicklerversionen stets ungerade Versionsnummer. Freigegebenen, "Stabile" Versionen tragen gerade Versionsnummern
+- Maximale Eingabelängen vom Adressbuch, Artikel, Forderungen und Kassenbuch wird nun geprüft und abgeschnitten
 - Bei Angebote / Rechnungen ist die Zeile für neue Artikel nun nach oben verschoben worden. Jetzt erscheint auch ein Text zur Eingabeaufforderung
 - Sortierung in Angebote / Rechnungen angepasst
 - Farben des Grids in Angebote / Rechnungen angepasst
 
 Version 2.0.22
 26.07.2011
-- An den meissten Stellen kann nun per Drag&Drop Text eingefügt werden
+- An den meisten Stellen kann nun per Drag&Drop Text eingefügt werden
 - Datanorm kann nun aus SHK-Connect Unternehmensdaten geladen werden
 - Datanorm- Import kann nun auch mehrere Dateien nacheinander einlesen
 - Automatisches konvertieren von Datanorm-Dateien, die nicht im Format 5 vorliegen
-- Weitere übersetzungen (einige Kontextmenüs fehlen noch)
+- Weitere Übersetzungen (einige Kontextmenüs fehlen noch)
 - Kleinere Korrekturen im Startverhalten (konnte Probleme im Serverbetrieb machen)
 - Artikel einfügen in Angebote/Rechnungen: Nun auch korrekt bei höheren Artikelgruppen-Nummern
 
@@ -111,17 +116,17 @@ Version 2.0.21
 21.05.2011
 - Wurde unter Forderungen /Verbindlichkeiten ein Zahlungseingang verzeichnet, so konnte es
   passieren, das das Datum nicht korrekt gespeichert wurde
-- Breite dess Kopftext / Fusstext Eingabefeld  in Angebote/Rechnungen wird nun korrekt ermittelt
+- Breite des Kopftext / Fusstext Eingabefeld  in Angebote/Rechnungen wird nun korrekt ermittelt
 - Aufgaben aus dem 'Heute' Bereich öffnet nun die Aufgabe anstatt die Listenanzeige
-- Eine Grafik im Seitenkopf bleit nun auch bei einer neuen Programmversion erhalten
+- Eine Grafik im Seitenkopf bleibt nun auch bei einer neuen Programmversion erhalten
 - Erstmaliger Aufbau eines Ausdrucks (zb auch Vorschau) bei Angebote/Rechnungen beschleunigt
 - Fehler beim Aktualisieren bestehender Datenbanken behoben. ( Beim Programmstart erfolgte ein Absturz)
-- Pfade zur Datenbank im Options-Dialog werden nun schon in der übersicht angezeigt
+- Pfade zur Datenbank im Options-Dialog werden nun schon in der Übersicht angezeigt
 
 Version 2.0.20
 26.04.2011
 - Anzeige von Rabattwerten im Ausdruck von Rechnungen überarbeitet
-- Anzeige der zuletzt geöffneten Elemente ¸berarbeitet, die zuletzt geöffneten sind nun in der Liste oben
+- Anzeige der zuletzt geöffneten Elemente berarbeitet, die zuletzt geöffneten sind nun in der Liste oben
 - Druck vom Brieflayout von Angebote/Rechnungen nur auf erste Seite oder alle Seiten ist nun möglich
 - Druck als Lieferschein nun möglich
 - Datenbankserver kann nun auch Sicherungskopien anlegen
@@ -144,7 +149,7 @@ Version 2.0.19
 - Adressbuch: Statuswechsel 'aktiv'<->'inaktiv' wird nun auch in der Historie angezeigt
 - Datenbank-Verbindungen: nun sind die Pfade direkt anklickbar - es öffnet sich dann der
   entsprechende Ordner
-- Datenbank-Verbindungen: Dort kann nun direkt eine sicherungskopie der Datenbank
+- Datenbank-Verbindungen: Dort kann nun direkt eine Sicherungskopie der Datenbank
   angelegt werden
 - Extras=>Optionen: Bei den Textbausteinen wird nun auch die Liste der unterstützten
   Platzhalter ausgegeben
@@ -180,8 +185,8 @@ Version 2.0.16
    anstatt ein geöffnetes Fenster zu verwenden
  - Angebote /Rechnungen der EK kann nun in der Artikelliste angezeigt werden
  - Anzahl der Seitenkopien in Angebote / Rechnungen funktioniert nun
- - Übearbeitungen an Kassenbuch und dessen Druck-Layouts
- - Überarbietung am Rechnungen - Druck Layout. (Das Layout muss manuell zurückgesetzt werden)
+ - Überarbeitungen an Kassenbuch und dessen Druck-Layouts
+ - Überarbeitung am Rechnungen - Druck Layout. (Das Layout muss manuell zurückgesetzt werden)
  - Forderungen / Verbindlichkeiten: wurde eine unbezahlte Forderung per Harken auf "Bezahlt" gesetzt,
    so wurde das Bezahltdatum nicht gesetzt
 
@@ -220,10 +225,10 @@ Version 2.0.11
 Version 2.0.10
 16.12.2010
 - Bei langen Dateinamen im Dialog zur Datenbank wurde ein Teil abgeschnitten
-- Datum kann im Rechnungsdruck nun wieder geändert werrden
+- Datum kann im Rechnungsdruck nun wieder geändert werden
 - Im Journal kann nun auch direkt ein Quartal im Filter angegeben werden
 - Angebote/Rechnungen: Anzeige der Steuerdaten nun korrekt
-  vorher musste der Harken nocheinmal gesetzt werden
+  vorher musste der Harken noch einmal gesetzt werden
 - Ein Update aus der 1.7-Version ist nun wieder ohne Benutzereingriff möglich
 - Beim Speichern von neuen Artikel im Materialstamm werden diese nun in der aktuell
   selektierten Artikelgruppe einsortiert
@@ -232,7 +237,7 @@ Version 2.0.9
 28.11.2010
 - Sicherungskopien von lokalen Datenbanken werden nun angelegt
 - Im Journal funktioniert nun der "öffnen" - Knopf
-- Bei einen Update von 1.x wird nun das Installationsdatum zur¸ckgesetzt, so das ab dem ersten Start der Version 2
+- Bei einen Update von 1.x wird nun das Installationsdatum zurückgesetzt, so das ab dem ersten Start der Version 2
   wieder mit 60 Tagen begonnen wird
 
 Version 2.0.8
@@ -242,7 +247,7 @@ Version 2.0.8
 
 Version 2.0.8
 15.11.2010
- - Zahlungsziel in Rechnungen wird nun wieder im Druck angeigt und berechnet
+ - Zahlungsziel in Rechnungen wird nun wieder im Druck angezeigt und berechnet
  - Briefe: Kopieren nun möglich; Druck-Dialog zeigt nun "Vorschau" und "Direkt drucken"
  - Briefe: Korrekturen am der Oberfläche
  - Schnelle Eingabe von Adressen aus Angebote/Rechnungen möglich
@@ -266,7 +271,7 @@ Version 2.0.6
 
 Version 2.0.5
 14.09.2010
-- Rabatte und Zahlungsziel nun neu in Ang/Rechnungen aufgenommen
+- Rabatte und Zahlungsziel nun neu in Angebote/Rechnungen aufgenommen
 - Etliche Automatische Tests erweitert und neue hinzugefügt
 - Stückliste / Beschaffungsliste in Angebote / Rechnungen: Summiert die Anzahl der Artikel und der Zeiten auf
   Auch Ausdruck im Journal
@@ -282,7 +287,7 @@ Version 2.0.5
  - Zurücksetzen von Druck-Layouts
  - Diverse Icons erscheinen nun wieder (zb Im Zahlungs-Dialog, Telefonie)
  - Addins werden aus Unterverzeichnisse nachgeladen
- - Kam ein Anruf herein, währnd ein grösseres Attachment geladen wurde, kam es zu einem Absturz
+ - Kam ein Anruf herein, während ein grösseres Attachment geladen wurde, kam es zu einem Absturz
  - Angebote/Rechnungen: Summenfelder in Druckmaske verbreitert
 
 Version 2.0.4
@@ -292,15 +297,14 @@ Version 2.0.4
 
 Version 2.0.3
 18.8.2010
-- Verbesserungen am Specihermanagement
+- Verbesserungen am Speichermanagement
 - Übersetzung weiter vorangetrieben
-- Läuft nun auch auf 64-Bit betriebssystemen
+- Läuft nun auch auf 64-Bit Betriebssystemen
 
 Version: 2.0.2
 15.7.2010
 - Viele kleine Verbesserungen
 - Optionen-Dialog,  Nummerngenerator, Bearbeiten von Buchungskonten (¸ber Optionen=>Steuern)
-
 
 Version: 2.0.1
 29.6.2010

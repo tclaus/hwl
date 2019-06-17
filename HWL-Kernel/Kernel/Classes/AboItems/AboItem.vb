@@ -20,7 +20,7 @@ Namespace Kernel.AboItems
         Inherits StaticItem
         Implements IDataItem
 
-        Private Shared YearsEnd As New Date(Today.Year, 12, 31) ' Jahesende feststellen
+        Private Shared ReadOnly YearsEnd As New Date(Today.Year, 12, 31) ' Jahesende feststellen
 
         Private m_itemID As String
 

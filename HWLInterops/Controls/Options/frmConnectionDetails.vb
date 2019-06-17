@@ -162,7 +162,7 @@ Public Class frmConnectionDetails
             End If
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "DataPath", "Ein Fehler trat auf beim anlegen des Datenpfades")
+            MainApplication.getInstance.log.WriteLog(ex, "DataPath", "Ein Fehler trat auf beim anlegen des Datenpfades")
         End Try
 
 
@@ -329,7 +329,7 @@ Public Class frmConnectionDetails
 
             End If
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "ConnectionDetails", "Fehler beim auswerten des Backupfades")
+            MainApplication.getInstance.log.WriteLog(ex, "ConnectionDetails", "Fehler beim auswerten des Backupfades")
         End Try
     End Sub
 

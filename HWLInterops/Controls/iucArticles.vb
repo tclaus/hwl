@@ -414,7 +414,7 @@ Public Class iucArticles
 
         Catch ex As Exception
 
-            MainApplication.getInstance.Log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog der Artikelliste")
+            MainApplication.getInstance.log.WriteLog(ex, "Drucker Fehler", "Fehler im Druck-Dialog der Artikelliste")
             MessageBox.Show("Fehler beim Drucken der Artikelliste aufgetreten.", "Fehler aufgetreten", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         End Try
@@ -886,7 +886,7 @@ Public Class iucArticles
                 lblLastSoldDate.Text = LastSoldDate.ToString("d")
             End If
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "FillSoldItemsValue", "Error in geting LastSellingDate")
+            MainApplication.getInstance.log.WriteLog(ex, "FillSoldItemsValue", "Error in geting LastSellingDate")
         End Try
     End Sub
 

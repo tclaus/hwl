@@ -1,11 +1,10 @@
 ﻿Imports ClausSoftware.Data
-Imports ClausSoftware.GUI
 
 ''' <summary>
 ''' Stellt eine COM - Verfügbare Klasse bereit, die einfache Lizenzaufgaben übernimmt
 ''' </summary>
 ''' <remarks></remarks>
-<ComClass(LicenseManager.ClassId, LicenseManager.InterfaceId, LicenseManager.EventsId)> _
+<ComClass(LicenseManager.ClassId, LicenseManager.InterfaceId, LicenseManager.EventsId)>
 Public Class LicenseManager
 
 #Region "COM-GUIDs"

@@ -35,7 +35,7 @@ Namespace Kernel.NamedSettings
                 Else
                     Return m_mainApplication.TaxRates.GetNormalTax
                 End If
-                m_mainApplication.Log.sendLog()
+                m_mainApplication.log.sendLog()
             End Get
             Set(ByVal value As TaxRate)
                 If value IsNot Nothing Then

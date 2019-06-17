@@ -184,7 +184,7 @@ Namespace Kernel
                     If m_referenceInvoicesList Is Nothing Then
                         m_referenceInvoicesList = New ReferenceInvoices
 
-                        MainApplication.Log.WriteLog("Erstelle neue Liste der Sammelrechnungen für Referenzen")
+                        MainApplication.log.WriteLog("Erstelle neue Liste der Sammelrechnungen für Referenzen")
 
                         Dim sql As String
 
@@ -1715,7 +1715,7 @@ Namespace Kernel
                 End If
 
             Catch ex As Exception
-                MainApplication.Log.WriteLog(ex, "SetHistoryItem", "Fehler beim Speichern von Verlaufsinformationen des Journaldokumentes")
+                MainApplication.log.WriteLog(ex, "SetHistoryItem", "Fehler beim Speichern von Verlaufsinformationen des Journaldokumentes")
             End Try
         End Sub
 

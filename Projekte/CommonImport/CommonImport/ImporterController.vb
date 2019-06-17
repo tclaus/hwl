@@ -276,7 +276,7 @@ Public Class ImporterController
                                     Dim image As System.Drawing.Image = System.Drawing.Image.FromFile(path)
                                     TargetValue = image
                                 Catch ex As Exception
-                                    application.Log.WriteLog("ERROR Importing Image Data: " & ex.Message)
+                                    application.log.WriteLog("ERROR Importing Image Data: " & ex.Message)
                                 End Try
 
 
@@ -379,7 +379,7 @@ Public Class ImporterController
             End Using
 
         Catch ex As Exception
-            application.Log.WriteLog(ex, "Fehler", "Importer Addin")
+            application.log.WriteLog(ex, "Fehler", "Importer Addin")
             'TODO: NLS
             MessageBox.Show("Fehler im Import: " & ex.Message, "Fehler aufgetreten.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 

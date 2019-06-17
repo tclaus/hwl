@@ -228,7 +228,7 @@ Namespace Kernel.Printing
 
                 Return newReport
             Else ' Ansonsten ..
-                m_mainApplication.Log.WriteLog(Tools.LogSeverity.Critical, "Filenotfound: Reportdatei konnte nicht gefunden werden. ")
+                m_mainApplication.log.WriteLog(Tools.LogSeverity.Critical, "Filenotfound: Reportdatei konnte nicht gefunden werden. ")
 
                 Throw New System.IO.FileNotFoundException(m_mainApplication.Languages.GetText("msgReportFileNotFoundError", "Die Report-Datei '{0}' konnte nicht gefunden werden.", filename))
                 Return Nothing
@@ -279,7 +279,7 @@ Namespace Kernel.Printing
 
                 Return newreport
             Catch ex As Exception
-                m_mainApplication.Log.WriteLog(ex, "Reports", "Error while reading Datastream")
+                m_mainApplication.log.WriteLog(ex, "Reports", "Error while reading Datastream")
                 Throw
             End Try
 

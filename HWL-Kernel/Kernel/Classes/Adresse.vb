@@ -910,9 +910,9 @@ Namespace Kernel
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <ClausSoftware.Tools.DisplayName("AddressCustomID", "Kennung")> _
-        <Persistent("Schlüssel")> _
-        Public Property ebayID() As String
+        <ClausSoftware.Tools.DisplayName("AddressCustomID", "Kennung")>
+        <Persistent("Schlüssel")>
+        Public Property EbayID() As String
             Get
 
                 Return Me.m_eBayID
@@ -1059,7 +1059,7 @@ Namespace Kernel
             Using Items As New JournalDocuments(MainApplication, criteria)
                 'contraints.AddRange(CType(Items.ToArray, Global.System.Collections.Generic.IEnumerable(Of Global.ClausSoftware.Data.StaticItem)))
                 If Items.Count > 0 Then
-                    MainApplication.Log.WriteLog(modulName, "Contains Journaldata")
+                    MainApplication.log.WriteLog(modulName, "Contains Journaldata")
                     Return True
                 End If
             End Using
@@ -1070,7 +1070,7 @@ Namespace Kernel
             result = CInt(MainApplication.Database.ExcecuteScalar(Sql))
 
             If result > 0 Then
-                MainApplication.Log.WriteLog(modulName, "Contains Transactions")
+                MainApplication.log.WriteLog(modulName, "Contains Transactions")
                 Return True
             End If
 

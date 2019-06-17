@@ -341,7 +341,7 @@ Namespace DataBase
 
                 comm.Connection.Close()
             Catch ex As Exception
-                MainApplication.Log.WriteLog(ex, "Database", "ERROR while getting a Datatable")
+                MainApplication.log.WriteLog(ex, "Database", "ERROR while getting a Datatable")
             End Try
 
             Return dt
@@ -437,7 +437,7 @@ Namespace DataBase
                 End SyncLock
 
             Catch ex As Exception
-                m_mainApplication.Log.WriteLog(ex, "Database", "ERROR excecuting NonQuery")
+                m_mainApplication.log.WriteLog(ex, "Database", "ERROR excecuting NonQuery")
                 Return 0
             End Try
         End Function
@@ -492,21 +492,21 @@ Namespace DataBase
 
                 Dim sql As String
 
-                sql = "         SELECT s.schema_name, " & _
-    " CONCAT(IFNULL(ROUND((SUM(t.data_length)+SUM(t.index_length)) " & _
-    " /1024/1024,2),0.00),""Mb"") total_size," & _
-    "" & _
-    " CONCAT(IFNULL(ROUND(((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free))/1024/1024,2),0.00),""Mb"")" & _
-    "" & _
-    " data_used," & _
-    " CONCAT(IFNULL(ROUND(SUM(data_free)/1024/1024,2),0.00),""Mb"") data_free," & _
-    " IFNULL(ROUND((((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free)) " & _
-    " /((SUM(t.data_length)+SUM(t.index_length)))*100),2),0) pct_used," & _
-    " COUNT(table_name) total_tables" & _
-    " FROM INFORMATION_SCHEMA.SCHEMATA s" & _
-    " LEFT JOIN INFORMATION_SCHEMA.TABLES t ON s.schema_name = t.table_schema" & _
-    " WHERE s.schema_name = """ & myConnection.Database & """" & _
-    " GROUP BY s.schema_name" & _
+                sql = "         SELECT s.schema_name, " &
+    " CONCAT(IFNULL(ROUND((SUM(t.data_length)+SUM(t.index_length)) " &
+    " /1024/1024,2),0.00),""Mb"") total_size," &
+    "" &
+    " CONCAT(IFNULL(ROUND(((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free))/1024/1024,2),0.00),""Mb"")" &
+    "" &
+    " data_used," &
+    " CONCAT(IFNULL(ROUND(SUM(data_free)/1024/1024,2),0.00),""Mb"") data_free," &
+    " IFNULL(ROUND((((SUM(t.data_length)+SUM(t.index_length))-SUM(t.data_free)) " &
+    " /((SUM(t.data_length)+SUM(t.index_length)))*100),2),0) pct_used," &
+    " COUNT(table_name) total_tables" &
+    " FROM INFORMATION_SCHEMA.SCHEMATA s" &
+    " LEFT JOIN INFORMATION_SCHEMA.TABLES t ON s.schema_name = t.table_schema" &
+    " WHERE s.schema_name = """ & myConnection.Database & """" &
+    " GROUP BY s.schema_name" &
     " ORDER BY pct_used DESC"
 
                 Dim totalSize As String = "0 Mb"
@@ -653,7 +653,7 @@ Namespace DataBase
                             System.IO.File.Delete(m_targetDumpFile)
                         End If
 
-                        MainApplication.Log.WriteLog("Start a database dump to  '" & targetFolder & "'...")
+                        MainApplication.log.WriteLog("Start a database dump to  '" & targetFolder & "'...")
                         Try
 
                             Dim sInfo As New ProcessStartInfo(dumpPath, parameters)
@@ -685,7 +685,7 @@ Namespace DataBase
                             RemoveHandler p.OutputDataReceived, AddressOf WriteDataDumper
 
                         Catch ex As Exception
-                            MainApplication.Log.WriteLog(ex, "DatabaseDump", "Error while dumping Database-Server")
+                            MainApplication.log.WriteLog(ex, "DatabaseDump", "Error while dumping Database-Server")
                         End Try
                     Else
                         Throw New System.IO.FileNotFoundException("MySQlDump.exe not found!")
@@ -697,7 +697,7 @@ Namespace DataBase
                 Debug.Print("ERROR while creating Database Backup: " & ex.Message)
                 If MainApplication IsNot Nothing Then
                     MainApplication.SendMessage("Ein Fehler ist beim Anlegen der Sicherungskopie aufgetreten: " & ex.Message)
-                    MainApplication.Log.WriteLog(ex, "Database", "Error while creating backup.", "Ein Fehler ist beim Anlegen der Sicherungskopie aufgetreten")
+                    MainApplication.log.WriteLog(ex, "Database", "Error while creating backup.", "Ein Fehler ist beim Anlegen der Sicherungskopie aufgetreten")
                 End If
 
                 Return False
@@ -766,7 +766,7 @@ Namespace DataBase
 
             Dim data As System.Data.DataTable = Me.GetSchema("Columns")
 
-            m_mainApplication.Log.WriteLog("Hole Datenbankschema und Spaltenlängen von Textspalten...")
+            m_mainApplication.log.WriteLog("Hole Datenbankschema und Spaltenlängen von Textspalten...")
             m_attributeSize.Clear()
 
             For Each row As System.Data.DataRow In data.Rows
@@ -787,7 +787,7 @@ Namespace DataBase
 
             Next
 
-            m_mainApplication.Log.WriteLog("  " & m_attributeSize.Count & " Textspalten gefunden.")
+            m_mainApplication.log.WriteLog("  " & m_attributeSize.Count & " Textspalten gefunden.")
 
         End Sub
 
@@ -802,71 +802,6 @@ Namespace DataBase
 #End Region
 
 
-
-
-    End Class
-
-    ''' <summary>
-    ''' Stellt einen Rückgabewert zur Verfügung der Informationen füber die Verfügbarkeit der Dtaenbank enthält.
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Class DBResult
-
-        Private m_isValid As Boolean
-
-        Private m_ErrorText As String
-
-        Private m_solution As String
-
-        Public Sub New()
-            MyBase.New()
-
-        End Sub
-
-        ''' <summary>
-        ''' Enthält den Text einer möglichen Lösung
-        ''' </summary>
-        ''' <value></value>
-        ''' <returns></returns>
-        ''' <remarks></remarks>
-        Public Property Solution() As String
-            Get
-                Return m_solution
-            End Get
-            Set(ByVal value As String)
-                m_solution = value
-            End Set
-        End Property
-
-        ''' <summary>
-        ''' EDnthält den gesammelten Text der Fehlermeldung
-        ''' </summary>
-        ''' <value></value>
-        ''' <returns></returns>
-        ''' <remarks></remarks>
-        Public Property ErrorText() As String
-            Get
-                Return m_ErrorText
-            End Get
-            Set(ByVal value As String)
-                m_ErrorText = value
-            End Set
-        End Property
-
-        ''' <summary>
-        ''' Zeigt durch ein Wahr/Falsch Flag an, ob der Server eine Datenbankaufforderung akzeptiert
-        ''' </summary>
-        ''' <value></value>
-        ''' <returns></returns>
-        ''' <remarks></remarks>
-        Public Property IsValid() As Boolean
-            Get
-                Return m_isValid
-            End Get
-            Set(ByVal value As Boolean)
-                m_isValid = value
-            End Set
-        End Property
 
 
     End Class

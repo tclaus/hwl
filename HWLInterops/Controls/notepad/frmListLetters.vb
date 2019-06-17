@@ -26,7 +26,7 @@ Public Class frmListLetters
             LoadGridStyle()
 
         Catch ex As Exception
-            MainApplication.getInstance.UserStats.SendStatistics("ListLetters", "FAILED:" & ex.Message)
+            MainApplication.getInstance.log.WriteLog("ListLetters", "FAILED:" & ex.Message)
         End Try
     End Sub
 

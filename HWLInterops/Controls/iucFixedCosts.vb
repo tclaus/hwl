@@ -267,7 +267,7 @@ Public Class iucFixedCosts
                 FillSumFields()
             End If
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Error in fixCost Details", "Fehler beim anzeigen der Fixkostendetails")
+            MainApplication.getInstance.log.WriteLog(ex, "Error in fixCost Details", "Fehler beim anzeigen der Fixkostendetails")
         End Try
 
     End Sub

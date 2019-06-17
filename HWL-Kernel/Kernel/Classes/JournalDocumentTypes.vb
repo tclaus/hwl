@@ -24,8 +24,6 @@ Namespace Kernel
         ''' Ruft einen Typ anhand des DokumentenTyps ab. (Die Datenbank-ID wird hier nicht verwendet!)
         ''' </summary>
         ''' <param name="id">Die Dokumenten - Zugriffsnummer</param>
-        ''' <value></value>
-        ''' <returns></returns>
         ''' <remarks></remarks>
         Function GetByDocumentID(id As Integer) As JournalDocumentType
             If m_dict Is Nothing Then Rebuild()

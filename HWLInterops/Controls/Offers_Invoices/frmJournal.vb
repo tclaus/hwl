@@ -236,12 +236,12 @@ Public Class frmJournal
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub RestoreSettings()
-        MainApplication.getInstance.Log.WriteLog("Rette Einstellungen...")
+        MainApplication.getInstance.log.WriteLog("Rette Einstellungen...")
 
         '1. Formulardaten wieder herstellen (Grösse und Position) 
         MainApplication.getInstance.Settings.RestoreFormsPos(Me)
 
-        MainApplication.getInstance.Log.WriteLog("Selektiere Gruppenauswahl...")
+        MainApplication.getInstance.log.WriteLog("Selektiere Gruppenauswahl...")
 
         '2. explorer-Links wieder herstellen
         nbgGroupCommonDocs.SelectedLinkIndex = CInt(MainApplication.getInstance.Settings.GetSetting("LastSelectedDocType", "Journal", "-1", MainApplication.getInstance.CurrentUser.Key))
@@ -264,7 +264,7 @@ Public Class frmJournal
 
         Dim selecedID As Integer = CInt(MainApplication.getInstance.Settings.GetSetting("LastSelectedDocNumber", "Journal", "0", MainApplication.getInstance.CurrentUser.Key))
 
-        MainApplication.getInstance.Log.WriteLog("Suche zuletzt selektierten Eintrag aus  " & grdJournalList.DefaultView.RowCount & " Rows")
+        MainApplication.getInstance.log.WriteLog("Suche zuletzt selektierten Eintrag aus  " & grdJournalList.DefaultView.RowCount & " Rows")
 
         'If grdJournalList.DefaultView.RowCount < 100 Then
 
@@ -316,10 +316,10 @@ Public Class frmJournal
 
         isloading = True
         lblCurrentFile.Text = ""
-        MainApplication.getInstance.Log.WriteLog("Erstelle neue Journal-Auflistung...")
+        MainApplication.getInstance.log.WriteLog("Erstelle neue Journal-Auflistung...")
         JournalList = DirectCast(MainApplication.getInstance.JournalDocuments.GetNewCollection, JournalDocuments)
 
-        MainApplication.getInstance.Log.WriteLog("Weise Auflistung der Tabelle zu...")
+        MainApplication.getInstance.log.WriteLog("Weise Auflistung der Tabelle zu...")
 
         grdJournalList.DataSource = JournalList
         FormatMasterTable()
@@ -342,7 +342,7 @@ Public Class frmJournal
 
         RestoreSettings()
 
-        MainApplication.getInstance.Log.WriteLog("Setze Überschriftenzeile")
+        MainApplication.getInstance.log.WriteLog("Setze Überschriftenzeile")
         RefreshHeadline()
 
         ' Menüelement "Umbenennen"
@@ -906,7 +906,7 @@ Public Class frmJournal
 
     Private Sub SetDocTypeFilter(ByVal filterID As Integer)
 
-        MainApplication.getInstance.Log.WriteLog("Setzte TypeDoc Filter" & filterID)
+        MainApplication.getInstance.log.WriteLog("Setzte TypeDoc Filter" & filterID)
 
         If JournalList IsNot Nothing Then
             If filterID > -1 Then
@@ -1042,7 +1042,7 @@ Public Class frmJournal
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub SetFilterAdressID(ByVal addressID As Integer)
-        MainApplication.getInstance.Log.WriteLog("Setze Adressen-Filter auf die Adresse mit der ID:" & addressID)
+        MainApplication.getInstance.log.WriteLog("Setze Adressen-Filter auf die Adresse mit der ID:" & addressID)
         grvDocuments.ClearColumnsFilter()
 
         ' Item kann wohl nur per Index festgelegt werden
@@ -1488,7 +1488,7 @@ Public Class frmJournal
             End If
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Journal", "Fehler beim SearchtextChanged")
+            MainApplication.getInstance.log.WriteLog(ex, "Journal", "Fehler beim SearchtextChanged")
         End Try
 
 
@@ -1748,7 +1748,7 @@ Public Class frmJournal
             Exit Sub
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Journaldocument", "Fehler beim Erstellen der Sammelrechnung")
+            MainApplication.getInstance.log.WriteLog(ex, "Journaldocument", "Fehler beim Erstellen der Sammelrechnung")
             Exit Sub
         End Try
 

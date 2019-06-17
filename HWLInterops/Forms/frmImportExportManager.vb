@@ -44,7 +44,7 @@ Public Class frmImportExportManager
             End If
         Catch ex As Exception
             If item IsNot Nothing Then
-                MainApplication.getInstance.Log.WriteLog(Tools.LogSeverity.Critical, "ERROR Starting Addin", "Error while Starting Addin '" & item.DisplayName & "'", ex.Message)
+                MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Critical, "ERROR Starting Addin", "Error while Starting Addin '" & item.DisplayName & "'", ex.Message)
             End If
             MessageBox.Show("Text der Fehlermeldung: " & vbCrLf & ex.Message, "Fehler beim Aufrufen des Addins", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 

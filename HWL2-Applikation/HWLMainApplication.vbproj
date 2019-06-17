@@ -154,47 +154,46 @@
     <Compile Include="classes\BaseTabPage.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="classes\DatabaseHelper.vb" />
-    <Compile Include="Forms\frmInstallWizzard.Designer.vb">
+    <Compile Include="forms\frmInstallWizzard.Designer.vb">
       <DependentUpon>frmInstallWizzard.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmInstallWizzard.vb">
+    <Compile Include="forms\frmInstallWizzard.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmRepairTaxes.Designer.vb">
+    <Compile Include="forms\frmRepairTaxes.Designer.vb">
       <DependentUpon>frmRepairTaxes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmRepairTaxes.vb">
+    <Compile Include="forms\frmRepairTaxes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmStatistics.Designer.vb">
+    <Compile Include="forms\frmStatistics.Designer.vb">
       <DependentUpon>frmStatistics.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmStatistics.vb">
+    <Compile Include="forms\frmStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmUnLock.Designer.vb">
+    <Compile Include="forms\frmUnLock.Designer.vb">
       <DependentUpon>frmUnLock.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmUnLock.vb">
+    <Compile Include="forms\frmUnLock.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LoadingCircle.Designer.vb">
+    <Compile Include="forms\LoadingCircle.Designer.vb">
       <DependentUpon>LoadingCircle.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoadingCircle.vb">
+    <Compile Include="forms\LoadingCircle.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Printing\frmPrintLayoutManager.Designer.vb">
+    <Compile Include="forms\Printing\frmPrintLayoutManager.Designer.vb">
       <DependentUpon>frmPrintLayoutManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Printing\frmPrintLayoutManager.vb">
+    <Compile Include="forms\Printing\frmPrintLayoutManager.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SplashScreen.Designer.vb">
+    <Compile Include="forms\SplashScreen.Designer.vb">
       <DependentUpon>SplashScreen.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SplashScreen.vb">
+    <Compile Include="forms\SplashScreen.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.vb">
@@ -233,28 +232,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Web References\de.hwl-developer\Reference.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\frmInstallWizzard.resx">
+    <EmbeddedResource Include="forms\frmInstallWizzard.resx">
       <DependentUpon>frmInstallWizzard.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmRepairTaxes.resx">
+    <EmbeddedResource Include="forms\frmRepairTaxes.resx">
       <DependentUpon>frmRepairTaxes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmStatistics.resx">
+    <EmbeddedResource Include="forms\frmStatistics.resx">
       <DependentUpon>frmStatistics.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmUnLock.resx">
+    <EmbeddedResource Include="forms\frmUnLock.resx">
       <DependentUpon>frmUnLock.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SplashScreen.resx">
+    <EmbeddedResource Include="forms\SplashScreen.resx">
       <DependentUpon>SplashScreen.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -306,10 +300,6 @@
     <ProjectReference Include="..\HWLInterops\HWLInterops.vbproj">
       <Project>{6C06774B-5D7F-4775-9115-342EBC560385}</Project>
       <Name>HWLInterops</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SendErrorMessage\SendErrorMessage.vbproj">
-      <Project>{256CA5A6-D331-4BED-BF22-FA124F98A9DC}</Project>
-      <Name>SendErrorMessage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -378,27 +368,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Network Harddisk.png" />
-    <None Include="TemplateDataBase\template.mdb">
+    <None Include="templateDataBase\template.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Price_List.png" />
     <None Include="Resources\Profits.png" />
     <None Include="Resources\User Business Male.png" />
-    <None Include="Web References\de.hwl-developer\ConnectionData.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\de.hwl-developer\HWLClouldService.disco" />
     <None Include="Resources\ch.png" />
     <None Include="Resources\at.png" />
     <None Include="Resources\de.png" />
     <None Include="Resources\Connected.png" />
     <None Include="Resources\Forms1.png" />
     <None Include="Resources\Forms.png" />
-    <None Include="Web References\de.hwl-developer\HWLClouldService.wsdl" />
-    <None Include="Web References\de.hwl-developer\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.vb</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -434,19 +415,6 @@
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://83.169.8.193/data/HWLClouldService.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\de.hwl-developer\</RelPath>
-      <UpdateFromURL>http://83.169.8.193/data/HWLClouldService.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>HWL2_de_hwl_developer_HWLClouldService</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

@@ -548,7 +548,7 @@ Public Class uicCommonGrid
             GridPrinting.ShowPreviewDialog()
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ex, "Listendruck", "Fehler beim erstellen der Druck-Vorschau")
+            MainApplication.getInstance.log.WriteLog(ex, "Listendruck", "Fehler beim erstellen der Druck-Vorschau")
         End Try
 
     End Sub
@@ -731,7 +731,7 @@ Public Class uicCommonGrid
             RaiseEvent RowChangedData(Me, EventArgs.Empty)
 
         Catch ex As Exception
-            MainApplication.getInstance.Log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this dataitem from GridMenü: " & ex.Message)
+            MainApplication.getInstance.log.WriteLog(ClausSoftware.Tools.LogSeverity.Warning, "Can't delete this dataitem from GridMenü: " & ex.Message)
             MessageBox.Show(GetText("msgUnresolvedContraintsInDataItemCantDelete", "Kann Datensatz nicht löschen, es liegen eventuell noch Verweise vor."), GetText("msgDeleteRejected", "Löschen nicht möglich."), MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Finally
 
@@ -756,7 +756,7 @@ Public Class uicCommonGrid
                 RaiseEvent AfterDeleteItem(Me, New StaticItemEventArgs(dataItem))
 
             Catch ex As Exception
-                MainApplication.getInstance.Log.WriteLog(ex, "Fehler in der Ereinisbehandlung des Löschens von Elementen", "AfterDeleteItem - Fehler")
+                MainApplication.getInstance.log.WriteLog(ex, "Fehler in der Ereinisbehandlung des Löschens von Elementen", "AfterDeleteItem - Fehler")
             End Try
 
 

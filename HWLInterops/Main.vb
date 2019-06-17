@@ -47,17 +47,8 @@ Public Class Main
 
     End Function
 
-    ''' <summary>
-    ''' Erstellt eine neue Instanz der Hauptklassen
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Sub Initialize()
-        AddHandler System.Windows.Forms.Application.ApplicationExit, AddressOf SendApplicationexit
-    End Sub
-
     Public Sub EndApplcation()
         modmain.CloseConnection()
-
     End Sub
 
     <ComVisible(False)>
@@ -66,16 +57,6 @@ Public Class Main
             Return MainApplication.getInstance
         End Get
     End Property
-
-    ''' <summary>
-    ''' Wird aufgerufen, wenn die Aplikation beendet wird.
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Private Sub SendApplicationexit(ByVal sender As Object, ByVal e As EventArgs)
-        MainApplication.getInstance.UserStats.SendStatistics(ReportMessageType.ApplicationEnd, "Application", "End of Application")
-    End Sub
 
 End Class
 
