@@ -32,7 +32,7 @@ DXperienceUniversal-11.2.14 (im Repo enthalten)
 Inno Script Studio:
 http://www.jrsoftware.org
 
-## build
+## Build
 In Visual Studio das HWL2 - Solution Datei öffnen.
 Dann in der Konfiguration "Release"/"x86" einen build durchführen.
 
