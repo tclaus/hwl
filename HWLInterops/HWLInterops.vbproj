@@ -251,6 +251,7 @@
     <Compile Include="..\CommonAssemblyInfo.vb">
       <Link>CommonAssemblyInfo.vb</Link>
     </Compile>
+    <Compile Include="Controls\Artikel\ArticlePictureBox.vb" />
     <Compile Include="Classes\AlertElement.vb" />
     <Compile Include="Classes\AlertHelper.vb" />
     <Compile Include="Classes\AttachmentImporter.vb" />
@@ -337,12 +338,6 @@
       <DependentUpon>frmModuleContainer.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmModuleContainer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmTestperiodExpired.Designer.vb">
-      <DependentUpon>frmTestperiodExpired.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmTestperiodExpired.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Telephony\frmCallNotification.Designer.vb">
@@ -602,6 +597,7 @@
     <Compile Include="Helper\DragDropHelper.vb" />
     <Compile Include="HWLModulesEnum.vb" />
     <Compile Include="Main.vb" />
+    <Compile Include="modWebSitesConstants.vb" />
     <Compile Include="Printing\Forms\dlgPrintLetters.Designer.vb">
       <DependentUpon>dlgPrintLetters.vb</DependentUpon>
     </Compile>
@@ -669,7 +665,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PrintRibbonControllerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="webSites.vb" />
     <Compile Include="XRDesignRibbonControllerResources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -699,18 +694,6 @@
       <DependentUpon>frmJournal.vb</DependentUpon>
     </Compile>
     <Compile Include="Controls\Offers_Invoices\frmJournal.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\frmLicenseCodeDialog.Designer.vb">
-      <DependentUpon>frmLicenseCodeDialog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\frmLicenseCodeDialog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\frmLicenses.Designer.vb">
-      <DependentUpon>frmLicenses.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\frmLicenses.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\frmListCashAccounts.Designer.vb">
@@ -743,10 +726,10 @@
     <Compile Include="Controls\iucAddressBook.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\iucArticles.Designer.vb">
+    <Compile Include="Controls\Artikel\iucArticles.Designer.vb">
       <DependentUpon>iucArticles.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\iucArticles.vb">
+    <Compile Include="Controls\Artikel\iucArticles.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Offers_Invoices\iucBills.Designer.vb">
@@ -887,7 +870,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interfaces\Interfaces.vb" />
-    <Compile Include="Classes\LicenseManager.vb" />
     <Compile Include="Classes\LoadingCircle.Designer.vb">
       <DependentUpon>LoadingCircle.vb</DependentUpon>
     </Compile>
@@ -913,7 +895,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="PictureBox.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -972,9 +953,6 @@
     <EmbeddedResource Include="Forms\frmModuleContainer.resx">
       <DependentUpon>frmModuleContainer.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmTestperiodExpired.resx">
-      <DependentUpon>frmTestperiodExpired.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Images\tshadowdown.png" />
     <EmbeddedResource Include="Images\tshadowdownleft.png" />
@@ -1189,14 +1167,6 @@
       <DependentUpon>frmJournal.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\frmLicenseCodeDialog.resx">
-      <DependentUpon>frmLicenseCodeDialog.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\frmLicenses.resx">
-      <DependentUpon>frmLicenses.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmListCashAccounts.resx">
       <DependentUpon>frmListCashAccounts.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1221,7 +1191,7 @@
       <DependentUpon>iucAddressBook.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\iucArticles.resx">
+    <EmbeddedResource Include="Controls\Artikel\iucArticles.resx">
       <DependentUpon>iucArticles.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1487,9 +1457,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\Ribbons\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferences Include="Web References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

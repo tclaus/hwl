@@ -112,25 +112,18 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblCreateInternetDatabaseHeadline.Text" xml:space="preserve">
-    <value>Es wird eine Internet-Datenbank für {appname} angelegt. 
-Dazu müssen Sie einen Namen Angeben, sowie eine gültige e-Mail Adresse. 
-An diese Adresse wird ein Schlüssel (Token) gesendet, mit dem dann die Datenbank erstellt werden kann. 
-Sie erhalten erst durch dieses Token die Zugangsdaten zu ihrer Datenbank.
-</value>
-  </data>
   <data name="lblHeadlineFirstInstall.Text" xml:space="preserve">
     <value>Richten Sie {appname} für die erste Verwendung ein. 
 Wählen Sie den Ort, wo Ihre Daten gespeichert werden sollen. 
 Sie können wählen zwischen diesem Computer, einer Internet-Datenbank oder verbinden Sie sich mit einer bereits bestehenden Installation.
 </value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAAAAAAAEAIADG0AAAVgAAAICAAAABACAAKAgBABzRAAAwMAAAAQAgAKglAABE2QEAICAAAAEA

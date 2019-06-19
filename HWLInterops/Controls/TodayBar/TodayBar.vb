@@ -58,12 +58,6 @@ Public Class TodayBar
     Private Sub InitialFillAppointments()
         Try
 
-            If Not MainApplication.getInstance.Licenses.IsActivScheduler Then
-                lstAppointments.Visible = False
-                lblTodayAppointments.Visible = False
-            End If
-
-
             m_appointments = CType(MainApplication.getInstance.Appointments.GetNewCollection, Kernel.Appointments)
             AddHandler MainApplication.getInstance.Appointments.ListChanged, AddressOf MainAppointmentsListChanged
 

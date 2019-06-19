@@ -1001,41 +1001,6 @@ Public Class MainUI
     End Function
 
     ''' <summary>
-    ''' Prüft, ob die Basislizenz gültig ist und gespeichert werden darf. Gibt dann eine Meldung aus, das dies verhindert wurde.
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function CheckIfLicenceValidForSaving() As Boolean
-        Return True
-
-        'important: LIZENZPRÜFUNG: Wieder einschaltn für Prüfung!
-        Return CheckIfLicenceValidForSaving(MainApplication.getInstance.Licenses.GetBaseLicense)
-    End Function
-
-    ''' <summary>
-    ''' Prüft ob die angegebene Lizenz gültig ist und Daten gespeichert werden können. Gibt dann eine Meldung aus, das dies verhindert wurde.
-    ''' </summary>
-    ''' <param name="license"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function CheckIfLicenceValidForSaving(ByVal license As Data.LicenseItem) As Boolean
-
-        If Not MainApplication.getInstance.Licenses.IsBaseActive Then
-            Dim lizenceText As String = MainApplication.getInstance.Languages.GetText("msgLicencePeriodExiredText", "Ihre Basislizenz ist nicht mehr gültig. sie können keine weiteren Daten speichern." & vbCrLf &
-                            "Möchten sie nun unsere Webseite besuchen um eine Lizenz zu erwerben?")
-            Dim licenceCaption As String = MainApplication.getInstance.Languages.GetText("msgLicencePeriodExiredCaption", "Testzeitraum abgelaufen")
-
-            If MessageBox.Show(lizenceText, licenceCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Hand) = DialogResult.Yes Then
-                Process.Start(wwwProductPricesPage)
-            End If
-            Return False
-        Else
-            Return True
-        End If
-    End Function
-
-
-    ''' <summary>
     ''' Setzt den Focus auf das such-Fenster
     ''' </summary>
     ''' <remarks></remarks>
@@ -1132,16 +1097,6 @@ Public Class MainUI
     ''' <remarks></remarks>
     Public Sub OpenReportDesigner(ByVal dataObject As Object, ByVal reportType As DataSourceList, ByVal report As Kernel.Printing.Report)
         Try
-            If MainApplication.getInstance.Licenses.IsActivDesigner Then
-
-            End If
-
-            If Not MainApplication.getInstance.Licenses.IsActivDesigner Then
-                MessageBox.Show("Der Testzeitraum für den Druck-Designer ist abgelaufen." & vbCrLf &
-                                "Um Druck-Formulare bearbeiten zu können müssen sie eine separate Lizenz erwerben", "Testzeitraum beendet", MessageBoxButtons.OK, MessageBoxIcon.Hand)
-                Exit Sub
-            End If
-
 
             If m_reportDesigner Is Nothing Then
                 m_reportDesigner = New Printing.frmPrintingManager(dataObject, reportType)

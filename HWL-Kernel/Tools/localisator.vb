@@ -182,15 +182,16 @@ Namespace Tools
         ''' <returns></returns>
         ''' <remarks></remarks>
         Private Function GetSubstitutedKeywords(ByVal orgText As String) As String
-            If Not String.IsNullOrEmpty(orgText) Then
 
-                Dim newText As String
+            If String.IsNullOrEmpty(orgText) Or String.IsNullOrEmpty(MainApplication.ApplicationName) Then
+                Return ""
+            End If
+
+            Dim newText As String
                 newText = repAppName.Replace(orgText, MainApplication.ApplicationName)
                 newText = newText.Replace("/n", vbCrLf)
 
                 Return newText
-            End If
-            Return String.Empty
 
         End Function
 

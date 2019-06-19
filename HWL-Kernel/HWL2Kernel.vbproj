@@ -346,7 +346,6 @@
     <Compile Include="Kernel\Classes\WorkItems.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Kernel\Data\Licenses.vb" />
     <Compile Include="Kernel\Data\SchemaUpdater.vb" />
     <Compile Include="Kernel\enums.vb" />
     <Compile Include="Kernel\events.vb" />

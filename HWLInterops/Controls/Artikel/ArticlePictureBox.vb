@@ -8,10 +8,7 @@ Public Class ArticlePictureBox
 
     Public Sub New()
         MyBase.New()
-
-
     End Sub
-
 
     Friend Sub ShowImage(ByVal imageData As ImageData)
         Using ImageBox As New frmPicture(imageData)

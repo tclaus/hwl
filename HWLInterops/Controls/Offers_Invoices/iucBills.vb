@@ -656,13 +656,11 @@ Namespace Offers
         ''' </summary>
         Public Sub SaveCurrentItem() Implements IModule.SaveCurrentItem
 
-            If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
             If ActiveItem.IsDeleted Then
                 'TODO: NLS
                 MainApplication.getInstance.SendMessage("Zu speicherndes Dokument war als 'gelöscht'markiert. Speichern nicht möglich")
                 Exit Sub
             End If
-
 
             If ActiveItem IsNot Nothing Then
 
@@ -674,11 +672,9 @@ Namespace Offers
                     ' Nachdem ein neues Dokument erstmalig gesichert wurde, die Combobox ausschalten; Typewahl ist dann nicht mehr möglich!
                     cobDocumentType.Enabled = False
 
-
                     MainApplication.getInstance.SendMessage(GetText("msgsaved", "Gespeichert."))
                     MainUI.MRUManager.AddMRUElement(ActiveItem)
                     Me.IsLoading = False
-
 
                 Else
 

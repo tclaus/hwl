@@ -113,8 +113,8 @@ Public Class frmInstallWizzard
                 Exit Sub
             End If
 
-            ' Wenn Rückwärz, dann auch genau die seite aufrufem die der Anwender vorher gewählt hat
-            If e.PrevPage Is wizCreateInternetDatabase Or e.PrevPage Is wizSelectExistingDatabase Then
+            ' Wenn Rückwärts, dann auch genau die Seite aufrufen die der Anwender vorher gewählt hat
+            If e.PrevPage Is wizSelectExistingDatabase Then
                 e.Page = wizSelectDatabaseTarget
             End If
 
@@ -139,39 +139,11 @@ Public Class frmInstallWizzard
                 DataBaseType = DataBaseTypeenum.internalExisting
                 Return wizSelectExistingDatabase
 
-            Case 3 ' Internet-Db auswählen
-                DataBaseType = DataBaseTypeenum.CloudBased
-                Return wizCreateInternetDatabase
             Case Else
                 Return nextPage
 
         End Select
     End Function
-
-    Private Sub TextEdit2_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtToken.EditValueChanged
-        If txtToken.Text.Length = 32 Then
-            wizCreateInternetDatabase.AllowNext = True
-
-        Else
-            wizCreateInternetDatabase.AllowNext = False
-
-        End If
-    End Sub
-
-
-    ''' <summary>
-    ''' Prüft ob der Senden.. Button aktiv geschaltet werden kann oder nicht
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub CheckSendToButton()
-        Dim valid As Boolean
-        valid = txtPassword1.Text.Equals(txtPassword2.Text)
-
-        valid = valid And txtemailAdress.Text.Length > 5
-        't@t.de
-        btnCreateCloudAccount.Enabled = valid
-    End Sub
-
 
     Private Sub frmInstallWizzard_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Me.DesignMode Then Exit Sub
@@ -180,7 +152,6 @@ Public Class frmInstallWizzard
 
         MainApplication.getInstance.Languages.SetTextOnControl(Me)
         picWizzardFinish.Image = My.Resources.signal_flag_checkered_LowContrast_128x128
-        picHelpDatabase.Image = My.Resources.Symbol_Help_16x16
 
         If Not m_TaxesSelected Then
             ' Sofern noch unbekannt, setzte die Steuer-Seite
@@ -188,33 +159,6 @@ Public Class frmInstallWizzard
         End If
 
         Me.Text = MainApplication.ApplicationName
-
-    End Sub
-
-    Private Sub chkHasToken_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkHasToken.CheckedChanged, chkEnterData.CheckedChanged
-        ' Check des jeweils anderen umkehren
-        If sender Is chkHasToken Then
-            chkEnterData.Checked = Not chkHasToken.Checked
-        Else
-            chkHasToken.Checked = Not chkEnterData.Checked
-        End If
-
-
-        txtToken.Enabled = chkHasToken.Checked
-
-        txtemailAdress.Enabled = chkEnterData.Checked
-        txtPassword1.Enabled = chkEnterData.Checked
-        txtPassword2.Enabled = chkEnterData.Checked
-        txtServiceName.Enabled = chkEnterData.Checked
-
-    End Sub
-
-    Private Sub lblcloudServicePriceInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblcloudServicePriceInformation.Click
-        Process.Start(HWLInterops.wwwCloudDatabasePriceWebsite)
-    End Sub
-
-    Private Sub cloudService_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtServiceName.EditValueChanged, txtPassword2.EditValueChanged, txtPassword1.EditValueChanged, txtemailAdress.EditValueChanged
-        CheckSendToButton()
 
     End Sub
 
@@ -233,16 +177,11 @@ Public Class frmInstallWizzard
         Me.Close()
     End Sub
 
-
-    
-    Private Sub picSendUserData_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles picSendUserData.MouseDown
-        MessageBox.Show(GetText("msgSendStatisticDataInfo", "Sendet anonyme Daten zur nutzungsweise oder Fehlermeldungen an den Hersteller. Damit können wir die Softwarequalität stetig verbessern." & vbCrLf & vbCrLf & _
+    Private Sub picSendUserData_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+        MessageBox.Show(GetText("msgSendStatisticDataInfo", "Sendet anonyme Daten zur nutzungsweise oder Fehlermeldungen an den Hersteller. Damit können wir die Softwarequalität stetig verbessern." & vbCrLf & vbCrLf &
                                 "Sie können diese Einstellung auch später im Menü 'Hilfe' jederzeit ändern."), GetText("msgSendStatisticDataInfoHead", "Sendet anonyme statistische Daten"), MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
-    Private Sub lblHelpChooseDatabase_Click(sender As System.Object, e As System.EventArgs) Handles lblHelpChooseDatabase.Click
-
-    End Sub
 End Class
 
 ''' <summary>

@@ -1,4 +1,6 @@
-﻿Public NotInheritable Class SplashScreen
+﻿Imports System.ComponentModel
+
+Public Class frmSplashScreen
 
     Private m_aboutMode As Boolean
 
@@ -105,13 +107,7 @@
         End If
     End Sub
 
-
-
     Private Sub SplashScreen_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'Set up the dialog text at runtime according to the application's assembly information.  
-
-        'TODO: Customize the application's assembly information in the "Application" pane of the project 
-        '  properties dialog (under the "Project" menu).
 
         'Application title
         If My.Application.Info.Title <> "" Then
@@ -119,7 +115,6 @@
         Else
             'If the application title is missing, use the application name, without the extension
             lblApplicationTitle.Text = System.IO.Path.GetFileNameWithoutExtension(My.Application.Info.AssemblyName)
-
         End If
 
         ' Zur Not aus der eignen datenstruktur den Titel abholen 
@@ -149,10 +144,8 @@
 
     End Sub
 
-
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         Me.Close()
-
     End Sub
 
     Private Sub lblCompanywebAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblCompanywebAddress.Click
@@ -161,4 +154,5 @@
         Catch
         End Try
     End Sub
+
 End Class

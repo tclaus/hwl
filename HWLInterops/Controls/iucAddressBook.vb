@@ -194,9 +194,6 @@ Public Class iucAddressBook
     ''' <remarks></remarks>
     Public Overrides Sub Save() Implements IModule.SaveCurrentItem
 
-        If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
-
-
         If m_activeItem IsNot Nothing Then
 
             If ActiveItem.IsDeleted Then

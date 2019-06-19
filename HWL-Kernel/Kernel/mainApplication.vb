@@ -97,7 +97,6 @@ Public Class MainApplication
     Private m_images As Images
     Private m_baseWorkItems As BaseWorkItems
     Private m_groups As Groups
-    Private m_licenses As Data.Licenses
     Private m_transactions As Transactions
     Private m_databaseConnection As DataBase.DbEngine
 
@@ -773,23 +772,6 @@ Public Class MainApplication
         End Get
     End Property
 
-
-    ''' <summary>
-    ''' Ruft eine Verwaltungsschicht für die Behandlung von Lizenzen ab
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public ReadOnly Property Licenses() As Data.Licenses
-        <DebuggerStepThrough()>
-        Get
-            If m_licenses Is Nothing Then
-                m_licenses = New Data.Licenses()
-                m_licenses.InitilizeLicenses()
-            End If
-            Return m_licenses
-        End Get
-    End Property
 
     ''' <summary>
     ''' Stellt die Auflistung der Fixkosten bereit

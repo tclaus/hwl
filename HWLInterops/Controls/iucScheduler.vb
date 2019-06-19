@@ -68,34 +68,15 @@ Public Class iucScheduler
     End Sub
 
     ''' <summary>
-    ''' Zeigt an, ob eine Lizenz für dieses Modul zur Verfügung steht
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function IsActive() As Boolean
-        Return MainApplication.getInstance.Licenses.IsActivScheduler
-    End Function
-
-    ''' <summary>
     ''' Speichert geänderte Daten ab
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub SaveData(ByVal apList As AppointmentBaseCollection)
         System.Diagnostics.Debug.Print("Speichere Termin...")
 
-
-        If IsActive() Then
-
-            MainApplication.getInstance.Appointments.Save()
-
-            MainApplication.getInstance.AppointmentResources.Save()
-
-            MainApplication.getInstance.SendMessage(GetText("msgSchedulerUpdated", "Termin gesichert"))
-        Else
-            ' Lizenz sowas von abgelaufen !
-            MainApplication.getInstance.SendMessage(GetText("msgschedulerLicenceexpired", "Termin kann nicht gespeichert werden. Keine Terminkalender-Lizenz vorhanden"))
-        End If
-
+        MainApplication.getInstance.Appointments.Save()
+        MainApplication.getInstance.AppointmentResources.Save()
+        MainApplication.getInstance.SendMessage(GetText("msgSchedulerUpdated", "Termin gesichert"))
     End Sub
 
     ''' <summary>

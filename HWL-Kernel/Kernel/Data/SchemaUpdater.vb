@@ -358,19 +358,6 @@ Namespace Data
                     Dim count As Integer = MainApplication.getInstance.JournalDocuments.Count
                     Dim actualNumber As Integer
 
-
-                    ' Installationsdateum zurückseten !
-                    Dim licenseCode As String
-                    If MainApplication.ApplicationName.StartsWith("HWL") Then
-                        licenseCode = Licenses.m_licenseItemHWL.GUID()
-                    Else
-                        licenseCode = Licenses.m_licenseItemPB.GUID()
-                    End If
-                    ' installationsdatum zurückseten , bei neuinstallation
-                    MainApplication.getInstance.Settings.SetSetting("Installdate_" & licenseCode, Tools.RegistrySections.CurrentVersion, Today.ToShortDateString, "")
-
-
-
                     For Each journalDocument As JournalDocument In MainApplication.getInstance.JournalDocuments
                         For Each pos As JournalArticleGroup In journalDocument.ArticleGroups
 

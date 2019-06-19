@@ -7,16 +7,12 @@ Public Class iucStatistics
 
     Private licenseGUID As String = "{BB935192-42EE-4798-B6AA-15206FCC711E}"
 
-    Private m_licenseItem As New ClausSoftware.Data.LicenseItem("Statistics", licenseGUID)
-
-
     'Please enter any new code here, below the Interop code
     Private ConstTableItems As String = ClausSoftware.Kernel.JournalArticleItem.TableName
     Private ConstTableJournal As String = ClausSoftware.Kernel.JournalDocument.Tablename
     Private isLoading As Boolean = True
 
     Public Event Close()
-
 
     Private Enum enumStats
         BestCustomer

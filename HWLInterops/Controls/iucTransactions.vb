@@ -210,8 +210,6 @@ Public Class iucTransactions
     ''' <remarks></remarks>
     Public Sub SaveCurrentItem() Implements IModule.SaveCurrentItem
 
-        If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
-
         If m_activeItem IsNot Nothing Then
             If m_activeItem.IsDeleted Then Exit Sub
 

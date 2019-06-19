@@ -1,6 +1,4 @@
-Imports ClausSoftware.HWLInterops
 Imports ClausSoftware.HWLInterops.Printing
-Imports Microsoft.Win32
 
 
 ''' <summary>
@@ -28,7 +26,7 @@ Public Class frmMain
     ''' <remarks></remarks>
     Private m_showCallersListform As HWLInterops.frmCallersList
 
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)> _
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_isFirstStart As Boolean
 
     ''' <summary>
@@ -390,17 +388,6 @@ Public Class frmMain
     Private Sub mnuShowOptions_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuOptions.ItemClick
         m_mainUI.OpenToolExtrasConnections()
     End Sub
-
-    Private Sub btnLicenses_click(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuLicenses.ItemClick
-        Try
-            Dim licenses As New frmLicenses
-            licenses.ShowDialog()
-        Catch ex As Exception
-            MainApplication.getInstance.log.WriteLog(ex, "License-Dialog", "Error in License-Dialog")
-        End Try
-
-    End Sub
-
 
 
     Private Sub btnPageSetup_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMenuPageSetup.ItemClick
@@ -910,13 +897,13 @@ Public Class frmMain
     End Sub
 
     Private Sub btnAboutBox_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAboutBox.ItemClick
-        Using frm As New SplashScreen
+        Using frm As New frmSplashScreen
             frm.AboutMode = True
             frm.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
             frm.lblStatusMessage.Text = ""
             frm.Text = My.Application.Info.ProductName
-            frm.ShowDialog()
-
+            Dim result As DialogResult = frm.ShowDialog()
+            Debug.Print("result:" & result)
         End Using
 
     End Sub

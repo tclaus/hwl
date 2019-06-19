@@ -258,9 +258,6 @@ Public Class iucFixedCosts
             Dim frm As New frmFixedCostDetail
             frm.FixedCostItem = item
             If frm.ShowDialog() = DialogResult.OK Then
-
-                If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
-
                 item.Save()
                 MainApplication.getInstance.FixedCosts.Reload()
                 UicCommonGrid1.RefreshData()

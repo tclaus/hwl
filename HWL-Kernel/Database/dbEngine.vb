@@ -10,7 +10,6 @@ Namespace DataBase
     Public Class DbEngine
         Implements IDisposable
 
-
         Private m_connectionString As String
         Private m_datbasename As String
         Private m_dbconnection As DbConnection
@@ -33,6 +32,7 @@ Namespace DataBase
                 m_mainApplication = value
             End Set
         End Property
+
         ''' <summary>
         ''' Stellt eine neue Datenbankverbindung bereit, die unabhängig vom Server arbeitet
         ''' </summary>
@@ -41,7 +41,6 @@ Namespace DataBase
         Public Sub New(ByVal myConnection As Connection)
             m_connectionData = myConnection
         End Sub
-
 
         ''' <summary>
         ''' Testet die aktuelle Datenbankverknüpfung. es wird nur auf Vorhandensein der Datenbank geprüft, nicht auf existenz einr HWL-Instanz
@@ -198,16 +197,10 @@ Namespace DataBase
             Return result
         End Function
 
-
-
         Sub Connect(ByVal databasename As String, ByVal connectionstring As String)
-
             m_connectionString = connectionstring
             m_datbasename = databasename.ToLower
-            '    Stop
-
             GetProviderFactory()
-
         End Sub
 
         ''' <summary>
@@ -235,10 +228,7 @@ Namespace DataBase
         ''' <exception cref="ArgumentException"> Falls keine Fabrik erzeugt werden konnte.</exception>
         Private Function GetProviderFactory() As DbProviderFactory
 
-
-
             Dim dt As DataTable = DbProviderFactories.GetFactoryClasses
-
             Dim searchForName As String = ""
 
             Select Case m_connectionData.Servertype
@@ -249,9 +239,6 @@ Namespace DataBase
 
                     Throw New Exception("'" & Me.m_datbasename.ToLower & "' : unknown Database provider - exiting application!")
             End Select
-
-
-
 
             For Each row As DataRow In dt.Rows
 
@@ -264,9 +251,8 @@ Namespace DataBase
 
         End Function
 
-
         ''' <summary>
-        ''' schliesst die Datenbankverbindung wieder
+        ''' Schliesst die Datenbankverbindung wieder
         ''' </summary>
         ''' <remarks></remarks>
         Public Sub CloseConnection()
@@ -274,7 +260,6 @@ Namespace DataBase
                 If (m_dbconnection.State And 1) = 1 Then
                     m_dbconnection.Close()
                     m_dbconnection = Nothing
-
                 End If
 
             End If

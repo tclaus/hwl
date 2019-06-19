@@ -129,7 +129,6 @@
     <Compile Include="KernelTests\TestAttachments.vb" />
     <Compile Include="KernelTests\TestJournal.vb" />
     <Compile Include="KernelTests\TestLanguages.vb" />
-    <Compile Include="KernelTests\TestLicenses.vb" />
     <Compile Include="KernelTests\TestMainUI.vb" />
     <Compile Include="SearchTests.vb" />
     <Compile Include="Startup.vb" />

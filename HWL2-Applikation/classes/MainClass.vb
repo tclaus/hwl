@@ -17,7 +17,6 @@ Public Class MainClass
 
     Private Delegate Sub ShowSplashScreenDele()
 
-
     ''' <summary>
     ''' Zeitmesser der das Startverhalten protokolliert
     ''' </summary>
@@ -86,7 +85,7 @@ Public Class MainClass
     ''' Stellt ein Instanz des Startbildschirms dar
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_splashScreen As New SplashScreen
+    Private m_splashScreen As New frmSplashScreen
 
     Private Delegate Sub HideSplashScreenDele()
 
@@ -99,7 +98,7 @@ Public Class MainClass
     ''' <remarks></remarks>
     Private Sub ShowSplashScreen()
         If m_splashScreen Is Nothing Then
-            m_splashScreen = New SplashScreen
+            m_splashScreen = New frmSplashScreen
         End If
 
         If m_splashScreen.InvokeRequired Then
@@ -119,8 +118,7 @@ Public Class MainClass
             m_splashScreen.Invoke(New HideSplashScreenDele(AddressOf HideSplashScreen))
         Else
             m_splashScreen.Close()
-            m_splashScreen.Dispose()
-            m_splashScreen = Nothing  ' .. und Tschüss!
+            m_splashScreen = Nothing
         End If
     End Sub
 
@@ -189,8 +187,6 @@ Public Class MainClass
                 End If
             End If
 
-
-
             ' Wurde eine 1.x Verbindung gefunden; diese zum Standard machen !
             If MainApplication.getInstance.Connections.DefaultConnection Is Nothing Then
                 HideSplashScreen() ' Splash verstecken; der wizzard soll in den Vordergrund
@@ -219,7 +215,7 @@ Public Class MainClass
                         CreateDefaultDatabase()
 
                     End If
-                    sendStatisticalData = frm.chkSendCustomerData.Checked
+
                 Else
                     ' Einrichtung / Start abrechen
                     Return False
@@ -274,12 +270,9 @@ Public Class MainClass
             SetDefaultValues()
         End If
 
-        'auf Lizenz prüfen; gegebenfalls hier das Programm beenden
-        CheckLicenses()
         CheckBuildInReports()
         ' Benutzerlogin anzeigen lassen, wenn Benutzer angemeldet sind und eine entsprechende Lizenz existiert
         CheckUserLogin()
-
 
         HideSplashScreen()
 
@@ -681,56 +674,6 @@ Public Class MainClass
     End Sub
 
     ''' <summary>
-    ''' Stellt eine Lizenzprüfung breit
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub CheckLicenses()
-        ' TC am 23.01.2013: Keine Einschränkung mehr !
-        ' Habs aufgegeben
-        Debug.Print("LIZENZPRÜFUNG UMGEHEN!")
-
-        'IMPORTANT: LIZENZPRÜFUNG UMGEHEN!  (Rücksprung rausnehmen, um wieder Lizenzen zu prüfen)
-        Return
-
-        ' 30 Tage stille, dann 30 Tage Meldung 
-        Dim daysLeft As Integer = MainApplication.getInstance.Licenses.GetBalanceLicenceTime()
-
-        ' 60 Tage ab Installationszeitraum wird gezählt; 
-        ' negative Zahlen kennzeichnen mehr als 60 Tage nach Installation
-
-
-        Dim baseLic As Data.LicenseItem = MainApplication.getInstance.Licenses.GetBaseLicense
-        ' Nur wenn 30 Tage seit Installation vergangen sidn UND keine Lizenz existiert, dann meldung machen...
-        If daysLeft < 30 And Not MainApplication.getInstance.Licenses.BaseCodeCheck(baseLic) Then  ' 30 Tage Frist abgelaufen; meldung machen 
-
-            ' Meldung aufrufen
-            Using frm As New frmTestperiodExpired
-                frm.ShowDialog()
-            End Using
-
-            ' 90 (60 Tage Zeitraum + 30 weitere Tage) Tage über die Zeit, keine weitere Programmausführung mehr!
-
-            If daysLeft < -30 And Not MainApplication.getInstance.Licenses.BaseCodeCheck(baseLic) Then
-                Me.ApplicationEnd()
-                End
-            End If
-
-            If Not MainApplication.getInstance.Licenses.IsBaseActive Then ' Testzeitraum überschritten, dann ist die Lizenz auf jeden Fall "ungültig"
-                '  Auf das Ende hinweisen
-
-                'TODO: NLS
-                If MessageBox.Show("Nach Ablauf des Testzeitraumes können Sie keine Daten mehr speichern. Bitte erwerben sie die Vollversion.", "Testzeitraum abgelaufen", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) <> DialogResult.OK Then
-                    Me.ApplicationEnd()
-                    End
-                End If
-
-            End If
-        End If
-
-
-    End Sub
-
-    ''' <summary>
     ''' Setzt einige Standardwerte die beim allerersten Start nötig währen
     ''' </summary>
     ''' <remarks></remarks>
@@ -764,21 +707,5 @@ Public Class MainClass
         End If
 
     End Sub
-
-    Public Class CommandLineManager
-        Public Shared Function GetAllAttributes() As String
-            Dim c As New ClausSoftware.Kernel.CommandLineManager
-            c.GetCommandlineArguments()
-
-            Dim commandLines As String = String.Empty
-
-            For Each item As Kernel.CommandLineArgument In c.GetCommandlineArguments
-                commandLines &= item.ToString & Environment.NewLine
-            Next
-
-            Return commandLines
-        End Function
-
-    End Class
 
 End Class

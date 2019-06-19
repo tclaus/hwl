@@ -431,7 +431,6 @@ Public Class iucArticles
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub SaveCurrentItem() Implements IModule.SaveCurrentItem
-        If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
 
         If ActiveItem IsNot Nothing Then
 

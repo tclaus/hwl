@@ -249,13 +249,6 @@ Public Class iucLetters
     ''' <remarks></remarks>
     Private Sub SaveCurrentItem() Implements IModule.SaveCurrentItem
 
-        If Not MainUI.CheckIfLicenceValidForSaving() Then Exit Sub
-        If Not MainApplication.getInstance.Licenses.IsActiveLetters Then
-
-            MessageBox.Show(GetText("msgMissingLettersLicense", "Sie haben keine Lizenz für 'Briefe'. Speichern nicht möglich!"), GetText("msgMissingLicense", "Keine Lizenz vorhanden"), MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
-        End If
-
         If m_activeItem IsNot Nothing Then
             ' If IsActive() Then
 
@@ -289,11 +282,7 @@ Public Class iucLetters
 
     Private Sub iucnotepadmain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-
-
         CreateNewDocument()
-
-        Debug.Print("Briefe - Lizenz:" & MainApplication.getInstance.Licenses.IsActiveLetters.ToString)  ' Dummy - damit wird im Lizenzmanagement ein Eintrag angelegt
 
         Dim defaultprinter As New System.Drawing.Rectangle(0, 0, 100, 100)
 
@@ -305,8 +294,6 @@ Public Class iucLetters
 
         Dim prn As New PrintPageEventArgs(ps.CreateMeasurementGraphics, defaultprinter, pagesettings.Bounds, pagesettings)
         prn.HasMorePages = True
-
-
 
     End Sub
 

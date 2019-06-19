@@ -154,6 +154,7 @@
     <Compile Include="classes\BaseTabPage.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="classes\CommandLineManager.vb" />
     <Compile Include="forms\frmInstallWizzard.Designer.vb">
       <DependentUpon>frmInstallWizzard.vb</DependentUpon>
     </Compile>
@@ -165,6 +166,9 @@
     </Compile>
     <Compile Include="forms\frmRepairTaxes.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmSplashScreen.Designer.vb">
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
     </Compile>
     <Compile Include="forms\frmStatistics.Designer.vb">
       <DependentUpon>frmStatistics.vb</DependentUpon>
@@ -190,10 +194,7 @@
     <Compile Include="forms\Printing\frmPrintLayoutManager.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\SplashScreen.Designer.vb">
-      <DependentUpon>SplashScreen.vb</DependentUpon>
-    </Compile>
-    <Compile Include="forms\SplashScreen.vb">
+    <Compile Include="forms\frmSplashScreen.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.vb">
@@ -241,16 +242,15 @@
     <EmbeddedResource Include="forms\frmRepairTaxes.resx">
       <DependentUpon>frmRepairTaxes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmSplashScreen.resx">
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\frmStatistics.resx">
       <DependentUpon>frmStatistics.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\frmUnLock.resx">
       <DependentUpon>frmUnLock.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forms\SplashScreen.resx">
-      <DependentUpon>SplashScreen.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <SubType>Designer</SubType>
@@ -264,6 +264,7 @@
       <DependentUpon>frmrtf2.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>

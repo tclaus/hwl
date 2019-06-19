@@ -255,30 +255,13 @@ Namespace Printing
             PageDesigner.SetCommandVisibility(DevExpress.XtraReports.UserDesigner.ReportCommand.NewReport, XtraReports.UserDesigner.CommandVisibility.None)
             PageDesigner.ShowComponentTray = False
 
-            'PageDesigner.SetCommandVisibility(ReportCommand.SaveFile, XtraReports.UserDesigner.CommandVisibility.None)
-            'PageDesigner.SetCommandVisibility(ReportCommand.SaveFileAs, XtraReports.UserDesigner.CommandVisibility.None)
-            'PageDesigner.SetCommandVisibility(ReportCommand.OpenFile, XtraReports.UserDesigner.CommandVisibility.None)
-            'PageDesigner.SetCommandVisibility(ReportCommand.NewReport, XtraReports.UserDesigner.CommandVisibility.None)
-            'PageDesigner.SetCommandVisibility(ReportCommand.NewReportWizard, XtraReports.UserDesigner.CommandVisibility.None)
-
-
             Dim visibleValue As DevExpress.XtraReports.UserDesigner.CommandVisibility = XtraReports.UserDesigner.CommandVisibility.All
 
-            ' Prüfe auf LIzenz und stelle "Save"-Button bereit oder verbege diesen
-            If Not MainApplication.getInstance.Licenses.IsActivDesigner Then
-                Debug.Print("Keine Lizenz für den Formulardesigner gefunden")
-                visibleValue = XtraReports.UserDesigner.CommandVisibility.None
 
-
-            Else
-                Debug.Print("Formulardesigner hat Lizenz, wird freigeschaltet")
+            Debug.Print("Formulardesigner hat Lizenz, wird freigeschaltet")
                 visibleValue = XtraReports.UserDesigner.CommandVisibility.All
 
-
-            End If
-
             PageDesigner.SetCommandVisibility(XtraReports.UserDesigner.ReportCommand.ShowDesignerTab, visibleValue)
-
 
         End Sub
 
