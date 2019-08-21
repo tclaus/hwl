@@ -12,11 +12,17 @@ Ein freies Rechnungsprogramm für Windows in .NET / Visual Basic
 - Freies Druck / Briefpapier-Layout
 - Server / Multiuser-fähig
 
+Die aktive Entwicklung wurde zwar eingestellt - für das Schreiben von Rechnungen taugt es aber allemal. Wer sich am Quellcode austoben möchte, kann dies hiermit tun.
+
 ## Lauffähig auf
 Windows Vista
 Windows 7
 Windows 8
 Windows 10
+
+### Ausführbares Installationspaket
+Download für Windows Vista, 7, 8 10
+[hwl2.5-setup.exe](https://www.claus-software.de/Downloads/hwl2.5-setup.exe)
 
 ## Du möchtest HWL selber bauen oder weiter entwickeln?
 Gerne - Erstelle einfach einen Fork auf gitgub, und lege los.
