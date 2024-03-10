@@ -22,7 +22,7 @@ Die aktive Entwicklung wurde zwar eingestellt - für das Schreiben von Rechnunge
 
 ### Ausführbares Installationspaket
 Download für Windows Vista, 7, 8 10
-[hwl2.5-setup.exe](https://github.com/tclaus/hwl/blob/master/Output/hwl2.5-setup.exe)
+[hwl2.5-setup.exe](https://github.com/tclaus/hwl/releases/download/2.5/hwl2.5-setup.exe)
 
 
 ## Vorbedingungen zur Entwicklung
