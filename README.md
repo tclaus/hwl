@@ -22,11 +22,7 @@ Die aktive Entwicklung wurde zwar eingestellt - für das Schreiben von Rechnunge
 
 ### Ausführbares Installationspaket
 Download für Windows Vista, 7, 8 10
-[hwl2.5-setup.exe](https://www.claus-software.de/Downloads/hwl2.5-setup.exe)
-
-## Du möchtest HWL selber bauen oder weiter entwickeln?
-Gerne - Erstelle einfach einen Fork auf gitgub, und lege los.
-Einreichungen sind willkommen.
+[hwl2.5-setup.exe](https://github.com/tclaus/hwl/blob/master/Output/hwl2.5-setup.exe)
 
 
 ## Vorbedingungen zur Entwicklung
@@ -49,5 +45,5 @@ HWL2-Setup.iss oder HWL2-Update.iss Datei mit demInno Setup Script Studio öffne
 Jeder kann die Quellen laden und eigene Anpassungen daran vornehmen und auch im Betrieb einsetzen.
 Einzige Bedingung ist, das die Quelle genannt wird:
 
-Thorsten Claus,Claus-software.de, Dortmund
-thorsten.claus@claus-software.de
+Thorsten Claus, Dortmund
+thorstenclaus@web.de
