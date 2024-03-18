@@ -3,7 +3,6 @@ Option Strict On
 
 Imports NUnit.Framework
 Imports ClausSoftware
-Imports DevExpress.Xpo
 
 
 ''' <summary>

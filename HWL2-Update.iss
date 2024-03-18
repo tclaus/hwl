@@ -1,7 +1,7 @@
 ﻿[Setup]
-VersionInfoVersion=2.6.0
+VersionInfoVersion=2.6.1
 VersionInfoCompany=Claus-Software
-VersionInfoCopyright=2019
+VersionInfoCopyright=2024
 VersionInfoProductName=HWL 2.6
 VersionInfoProductVersion=2.6
 AppName=HWL Businss
@@ -16,12 +16,11 @@ DisableDirPage=true
 ShowLanguageDialog=auto
 AppMutex=HWL2
 DisableProgramGroupPage=true
-AppPublisherURL=https://claus-software.de
 UninstallDisplayIcon={app}\HWL2.exe
 SolidCompression=false
 Compression=lzma/normal
 MergeDuplicateFiles=false
-AppCopyright=Claus-Software 2019
+AppCopyright=Claus-Software 2024
 AppID={{2C7F937E-6B45-41C0-992C-1295FFE55750}
 VersionInfoTextVersion=2.6
 CreateUninstallRegKey=false

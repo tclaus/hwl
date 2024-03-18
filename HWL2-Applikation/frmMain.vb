@@ -11,7 +11,7 @@ Public Class frmMain
     ''' Die Menüleiste, entweder HWL oder PowerBüro
     ''' </summary>
     ''' <remarks></remarks>
-    Private WithEvents m_menuSelector As HWLInterops.IMenuBar
+    Private WithEvents m_menuSelector As IMenuBar
     Private m_hideIfMinimized As Boolean = False
 
     ''' <summary>
@@ -24,9 +24,9 @@ Public Class frmMain
     ''' Stellt das Formular bereit, das eine Anruferliste anzeigt
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_showCallersListform As HWLInterops.frmCallersList
+    Private m_showCallersListform As frmCallersList
 
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
+    <ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Private m_isFirstStart As Boolean
 
     ''' <summary>
@@ -51,7 +51,7 @@ Public Class frmMain
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private ReadOnly Property MainApplication() As ClausSoftware.MainApplication
+    Private ReadOnly Property MainApplication() As MainApplication
         Get
             Return MainApplication.getInstance
         End Get
@@ -75,13 +75,13 @@ Public Class frmMain
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
     End Sub
 
-    Private Sub frmMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub frmMain_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles Me.FormClosed
         NotifyIcon1.Visible = False
         NotifyIcon1 = Nothing
     End Sub
 
 
-    Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles Me.FormClosing
         'TODO: eventuell das schliessen verhindern, wenn noch ungespeicherte Änderungen vorliegen.. 
 
         If e.CloseReason = CloseReason.UserClosing Then
@@ -100,7 +100,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As EventArgs) Handles MyBase.Load
         If DesignMode Then Exit Sub
 
         'Autocursor definieren
@@ -120,7 +120,7 @@ Public Class frmMain
 
 
         'Standard Icon Applikationsweit setzen
-        GetType(System.Windows.Forms.Form).GetField("defaultIcon", Reflection.BindingFlags.NonPublic Or Reflection.BindingFlags.Static).SetValue(Nothing, Me.Icon)
+        GetType(Form).GetField("defaultIcon", Reflection.BindingFlags.NonPublic Or Reflection.BindingFlags.Static).SetValue(Nothing, Me.Icon)
 
 
         Me.Text = MainApplication.ApplicationName  ' Überschrift setzen
@@ -222,7 +222,7 @@ Public Class frmMain
     Private Sub SetIncommingCallIcon()
         Dim CallList As New Kernel.PhoneCalls(MainApplication.getInstance)
 
-        Dim callIcon As System.Drawing.Image
+        Dim callIcon As Image
         Dim maxNumber As Integer = CallList.GetMaxID
 
 
@@ -287,7 +287,7 @@ Public Class frmMain
     End Sub
 
 
-    Private Sub ClickedModule(ByVal sender As Object, ByVal e As HWLInterops.moduleEventargs)
+    Private Sub ClickedModule(ByVal sender As Object, ByVal e As moduleEventargs)
 
         StartModule(e.CallingModule)
     End Sub
@@ -353,11 +353,11 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub tabControl_CloseButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tabControl.CloseButtonClick
+    Private Sub tabControl_CloseButtonClick(ByVal sender As System.Object, ByVal e As EventArgs) Handles tabControl.CloseButtonClick
         m_mainUI.CloseModule(CType(tabControl.SelectedTabPage.Tag, iucMainModule))
 
     End Sub
-    Private Sub tabControl_MouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles tabControl.MouseClick
+    Private Sub tabControl_MouseClick(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles tabControl.MouseClick
         Dim hi As DevExpress.XtraTab.ViewInfo.XtraTabHitInfo
 
         hi = tabControl.CalcHitInfo(e.Location)
@@ -449,7 +449,7 @@ Public Class frmMain
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub m_mainUI_ModuleCollectionChanged(ByVal sender As HWLInterops.MainUI, ByVal e As HWLInterops.ModuleCollectionChangedEventArgs) Handles m_mainUI.ModuleCollectionChanged
+    Private Sub m_mainUI_ModuleCollectionChanged(ByVal sender As MainUI, ByVal e As ModuleCollectionChangedEventArgs) Handles m_mainUI.ModuleCollectionChanged
         ModulManager(sender, e)
 
     End Sub
@@ -464,7 +464,7 @@ Public Class frmMain
     Private m_lastKnownSize As Size
 
 
-    Private Sub frmMain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
+    Private Sub frmMain_Resize(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Resize
         If m_hideIfMinimized Then
             If Me.WindowState = FormWindowState.Minimized Then
 
@@ -477,16 +477,16 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub frmMain_ResizeBegin(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.ResizeBegin
+    Private Sub frmMain_ResizeBegin(ByVal sender As Object, ByVal e As EventArgs) Handles Me.ResizeBegin
         m_lastKnownSize = Me.Size
 
     End Sub
 
-    Private Sub frmMain_ResizeEnd(sender As Object, e As System.EventArgs) Handles Me.ResizeEnd
+    Private Sub frmMain_ResizeEnd(sender As Object, e As EventArgs) Handles Me.ResizeEnd
         MainApplication.getInstance.Settings.SaveFormsPos(Me)
     End Sub
 
-    Private Sub frmMain_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub frmMain_Shown(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Shown
 
         ' Nun überwachungsprozesse starten
         m_mainUI.StartProcesses()
@@ -567,7 +567,7 @@ Public Class frmMain
 
 
 
-    Private Sub btnLastActiveItems_Popup(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMenuLastActiveItems.Popup
+    Private Sub btnLastActiveItems_Popup(ByVal sender As System.Object, ByVal e As EventArgs) Handles btnMenuLastActiveItems.Popup
         Dim sw As New Stopwatch
         sw.Start()
 
@@ -665,13 +665,13 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub basesearchPanel_SearchTextChanged(ByVal sender As System.Object, ByVal e As ClausSoftware.HWLInterops.SearchTextEventArgs) Handles basesearchPanel.SearchTextChanged
+    Private Sub basesearchPanel_SearchTextChanged(ByVal sender As System.Object, ByVal e As SearchTextEventArgs) Handles basesearchPanel.SearchTextChanged
 
         m_mainUI.StartGlobalSearchThread(e.Text)
 
     End Sub
 
-    Private Sub basesearchPanel_SetNextControl(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles basesearchPanel.SetNextControl
+    Private Sub basesearchPanel_SetNextControl(ByVal sender As System.Object, ByVal e As EventArgs) Handles basesearchPanel.SetNextControl
         ' Wurde ausgelöst, wenn der Anwendr auf die "Down" - Taste drückt. 
         Me.tabControl.SelectedTabPage.Controls(0).Focus()
 
@@ -816,7 +816,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub btnView_Popup(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMenuView.Popup
+    Private Sub btnView_Popup(ByVal sender As System.Object, ByVal e As EventArgs) Handles btnMenuView.Popup
         Dim checkValue As Boolean
         ' Vor dem öffnen den aktuellen status anzeigen lassen 
         Dim ms As iucHomeScreen = m_mainUI.MainScreen
@@ -851,7 +851,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub TranslateMenuItems_Popup(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMenuFile.Popup, btnMenuView.Popup, btnMenuReports.Popup, btnMenuHelp.Popup, btnMenuExtras.Popup
+    Private Sub TranslateMenuItems_Popup(ByVal sender As System.Object, ByVal e As EventArgs) Handles btnMenuFile.Popup, btnMenuView.Popup, btnMenuReports.Popup, btnMenuHelp.Popup, btnMenuExtras.Popup
         Dim bsItem As DevExpress.XtraBars.BarSubItem = CType(sender, DevExpress.XtraBars.BarSubItem)
 
 
@@ -908,7 +908,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub NotifyIcon1_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NotifyIcon1.DoubleClick
+    Private Sub NotifyIcon1_DoubleClick(ByVal sender As System.Object, ByVal e As EventArgs) Handles NotifyIcon1.DoubleClick
 
         If (Me.WindowState = FormWindowState.Minimized) Then
             Me.Size = m_lastKnownSize
@@ -960,7 +960,7 @@ Public Class frmMain
 
         ' Nun im Dateisystem suchen. 
         Try
-            Dim image As System.Drawing.Image = Nothing
+            Dim image As Image = Nothing
             Dim base As String = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
 
             base &= "\" & MainApplication.ApplicationName
@@ -1054,7 +1054,7 @@ Public Class frmMain
     Private Sub btnCallerList_ItemClick(ByVal sender As System.Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnCallerList.ItemClick
         Try
             If m_showCallersListform Is Nothing Then
-                m_showCallersListform = New HWLInterops.frmCallersList(m_mainUI)
+                m_showCallersListform = New frmCallersList(m_mainUI)
                 m_showCallersListform.Calls = New Kernel.PhoneCalls(MainApplication.getInstance)
             Else
                 m_showCallersListform.Calls.Reload()
@@ -1099,7 +1099,7 @@ Public Class frmMain
     End Sub
 
 
-    Private Sub splMainSplitter_SplitterPositionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles splMainSplitter.SplitterPositionChanged
+    Private Sub splMainSplitter_SplitterPositionChanged(ByVal sender As System.Object, ByVal e As EventArgs) Handles splMainSplitter.SplitterPositionChanged
         MainApplication.getInstance.Settings.SetSetting(splMainSplitter.Name, "MainForm", splMainSplitter.SplitterPosition.ToString)
 
     End Sub

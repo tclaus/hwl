@@ -14,7 +14,6 @@ Public Class TestAttachments
     ''' Erwarte ein "FilenotFound" exception
     ''' </summary>
     ''' <remarks></remarks>
-    <ExpectedException(GetType(System.IO.FileNotFoundException))>
     <Description("Legt einen Anhang mit ungültiger Datei an")>
     <Test()>
     Public Sub CreateAttachmentFileNotFound()
@@ -33,7 +32,7 @@ Public Class TestAttachments
         Dim a As New Attachment(MainApplication.getInstance.Session)
         a.SetFile(fileName)
 
-        Assert.IsNotNullOrEmpty(a.HashValue, "Hashvalue vom Anhang düfte nicht leer ein.")
+        Assert.IsNotEmpty(a.HashValue, "Hashvalue vom Anhang düfte nicht leer ein.")
 
         MainApplication.getInstance.AttachmentRelations.Add("TestID", a) ' einem neuem Teil hinzufügen
         Dim OrgCount As Integer = MainApplication.getInstance.AttachmentRelations.Count

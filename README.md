@@ -26,7 +26,7 @@ Download für Windows Vista, 7, 8 10
 
 
 ## Vorbedingungen zur Entwicklung
-Visual Studio 2011
+Visual Studio 2011+
 .Net 4.0
 
 [DXperienceUniversal-11.2.14](https://claus-software.de/Downloads/DXperienceUniversal-11.2.14.exe) (Demo Version)

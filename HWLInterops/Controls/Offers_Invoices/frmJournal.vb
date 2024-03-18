@@ -1,18 +1,12 @@
-﻿
-Imports System.Environment
+﻿Imports ClausSoftware.Kernel
+Imports DevExpress
+Imports DevExpress.Data
+Imports DevExpress.Data.Filtering
+Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Columns
+Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
-Imports DevExpress.XtraTabbedMdi
-Imports ClausSoftware
-Imports ClausSoftware.Kernel
-
-Imports DevExpress.Data
-
-Imports DevExpress.Data.Filtering
-Imports DevExpress.XtraGrid.Views.Base
-Imports DevExpress
-Imports DevExpress.XtraGrid
 
 
 
@@ -671,8 +665,7 @@ Public Class frmJournal
     ''' <param name="currentDoc">das zuletzt focussierte Dokument</param>
     ''' <remarks></remarks>
     Private Sub SetChangedMemoText(ByVal currentDoc As Kernel.JournalDocument)
-        If Not m_memoText.Equals(m_selectedDocument.MemoText) Then
-
+        If m_selectedDocument IsNot Nothing & Not m_memoText.Equals(m_selectedDocument.MemoText) Then
             currentDoc.MemoText = m_memoText
             currentDoc.Plainsave()
         End If
@@ -685,7 +678,6 @@ Public Class frmJournal
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function GetLastInsuraceID(ByVal documentType As enumJournalDocumentType) As Integer
-
 
         Dim sql As String = "Select MAX(ID) from JournalListe where Status=" & documentType
 
@@ -705,8 +697,8 @@ Public Class frmJournal
     End Function
 
     Private Sub SetImageEditOnGrid2(ByVal sender As Object, ByVal e As EventArgs)
-        Dim imageedit As DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit = CType(grdJournalList.RepositoryItems("RepositoryItemPictureEdit"), DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit)
-        imageedit.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze
+        Dim imageedit As XtraEditors.Repository.RepositoryItemPictureEdit = CType(grdJournalList.RepositoryItems("RepositoryItemPictureEdit"), DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit)
+        imageedit.SizeMode = XtraEditors.Controls.PictureSizeMode.Squeeze
 
         For Each col As DevExpress.XtraGrid.Columns.GridColumn In grvAttachments.Columns
             If col.ColumnType.Name = GetType(Image).Name Then
@@ -1175,14 +1167,10 @@ Public Class frmJournal
         End If
     End Sub
 
-
-
-
     Private Sub radQuarterView_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         SetFilter(CurrentDateView.ThisQuarter)
 
     End Sub
-
 
     Private Sub SetFilter(ByVal dateview As CurrentDateView)
 
@@ -1664,9 +1652,7 @@ Public Class frmJournal
     End Sub
 
     Private Sub txtJournalMemo_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtJournalMemo.Leave
-
         SetChangedMemoText(m_selectedDocument)
-
     End Sub
 
     Private Sub grvDocuments_MasterRowGetRelationCount(sender As Object, e As DevExpress.XtraGrid.Views.Grid.MasterRowGetRelationCountEventArgs) Handles grvDocuments.MasterRowGetRelationCount

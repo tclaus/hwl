@@ -94,7 +94,6 @@ Public Class iucCharting
             crtMain.Series.Add(series1)
 
             series1.Label.Visible = False
-
             series1.DataSource = dt
             series1.ValueDataMembers.AddRange(New String() {"SumVK"})
             series1.ArgumentDataMember = "Name"

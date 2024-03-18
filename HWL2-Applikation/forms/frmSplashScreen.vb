@@ -1,6 +1,4 @@
-﻿Imports System.ComponentModel
-
-Public Class frmSplashScreen
+﻿Public Class frmSplashScreen
 
     Private m_aboutMode As Boolean
 
@@ -101,13 +99,13 @@ Public Class frmSplashScreen
         Application.DoEvents()
     End Sub
 
-    Private Sub SplashScreen_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
+    Private Sub SplashScreen_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles Me.KeyDown
         If Me.AboutMode Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub SplashScreen_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub SplashScreen_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
         'Application title
         If My.Application.Info.Title <> "" Then
@@ -144,11 +142,11 @@ Public Class frmSplashScreen
 
     End Sub
 
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles btnClose.Click
         Me.Close()
     End Sub
 
-    Private Sub lblCompanywebAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblCompanywebAddress.Click
+    Private Sub lblCompanywebAddress_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles lblCompanywebAddress.Click
         Try ' webseite aufrufen, die hinter diesem Label angezeigt wird.
             Process.Start(lblCompanywebAddress.Text)
         Catch

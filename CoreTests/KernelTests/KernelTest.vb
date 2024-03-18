@@ -5,18 +5,16 @@ Imports NUnit.Framework
 Imports ClausSoftware
 Imports ClausSoftware.Kernel
 Imports ClausSoftware.Data
-Imports DevExpress.Xpo
-
-<TestFixture()> _
+<TestFixture()>
 Public Class KernelTest
-   
+
 
     ''' <summary>
     ''' Öffet die Fixkostentabelle
     ''' </summary>
     ''' <remarks></remarks>
-    <Category("Fixkosten")> _
-    <Test()> _
+    <Category("Fixkosten")>
+    <Test()>
     Public Sub OpenFixedCosts()
         Dim fixedCosts As ClausSoftware.Kernel.FixedCosts = MainApplication.getInstance.FixedCosts
         Assert.IsNotNull(fixedCosts, "Fixkostentabelle konnte nicht geöffnet werden")
@@ -308,7 +306,6 @@ Public Class KernelTest
 
 
     <Test()>
-    <ExpectedException(GetType(ArgumentException))>
     Public Sub SetDBVersion()
         Dim DBValue As String
         DBValue = MainApplication.getInstance.DBVersion
@@ -464,9 +461,9 @@ Public Class KernelTest
         newentry.Text = "Test History entry"
         newentry.Save()
 
-        Assert.IsNotNullOrEmpty(newentry.Category.ToString)
+        Assert.IsNotEmpty(newentry.Category.ToString)
         Assert.NotNull(newentry.Adress, "Addresse des History-elementes konnte nicht ermittelt werden")
-        Assert.IsNotNullOrEmpty(newentry.Adress.ToString, "Address-Text des History-elementes konnte nicht ermittelt werden")
+        Assert.IsNotEmpty(newentry.Adress.ToString, "Address-Text des History-elementes konnte nicht ermittelt werden")
 
         Debug.Print("Kategoriename: " & newentry.Category.ToString)
 

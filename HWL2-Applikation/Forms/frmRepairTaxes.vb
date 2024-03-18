@@ -7,11 +7,11 @@ Public Class frmRepairTaxes
 
 
 
-    Private Sub btnclose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnclose.Click
+    Private Sub btnclose_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles btnclose.Click
         Me.Close()
     End Sub
 
-    Private Sub frmRepairTaxes_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub frmRepairTaxes_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         MainApplication.getInstance.Languages.SetTextOnControl(Me)
 
     End Sub

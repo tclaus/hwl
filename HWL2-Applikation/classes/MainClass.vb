@@ -1,8 +1,6 @@
-﻿Imports ClausSoftware.HWLInterops
-Imports Microsoft.Win32
-
+﻿
 ''' <summary>
-''' Stellt die Startklasse da für die neue HWL / PB Applikation
+''' Stellt die Startklasse da für die neue HWL Applikation
 ''' </summary>
 ''' <remarks></remarks>
 Public Class MainClass
@@ -12,8 +10,7 @@ Public Class MainClass
     ' ''' Stellt die Hauptklasse dar
     ' ''' </summary>
     ' ''' <remarks></remarks>
-    'Public Shared MainApplication.getInstance As ClausSoftware.mainApplication
-    Private m_engine As HWLInterops.Main
+    Private m_engine As Main
 
     Private Delegate Sub ShowSplashScreenDele()
 
@@ -22,6 +19,14 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Shared m_AppStartWatch As New Stopwatch
+
+    ''' <summary>
+    ''' Stellt ein Instanz des Startbildschirms dar
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private m_splashScreen As New frmSplashScreen
+
+    Private Delegate Sub HideSplashScreenDele()
 
     ''' <summary>
     ''' Startet die Zeitmessung zum Start der Applikation
@@ -56,41 +61,32 @@ Public Class MainClass
     ''' <remarks></remarks>
     Shared Sub Main()
 
-        System.Windows.Forms.Application.EnableVisualStyles()
+        Application.EnableVisualStyles()
 
-        ' Falls Hilfe gewünscht, Text ausgeben
-        If Environment.CommandLine.Contains("/?") Or Environment.CommandLine.Contains("help") Or Environment.CommandLine.Contains("/h") Then
-            MessageBox.Show(CommandLineManager.GetAllAttributes(), System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK)
-            End
-        End If
-
+        ShowHelpOnCommandLineDemand()
         StartAppstartupTimer()
-
-        m_main = New MainClass
-
-        If m_main.Initialize() Then ' ' Starte applikation, wenn "False" zurückgegeben wurde, dann war ein Start nicht möglich
-            ' Die Gründe wurden bereits behandelt
-            m_main.m_engine.MainApplication.SendMessage("Starte Hauptbildschirm...") 'TODO: NLS
-
-            m_main.StartWindow() ' Starting Main Window
-
-
-            ' Application ends here
-        End If
+        InitMainClass()
+        StartApplication()
         m_main.ApplicationEnd()
     End Sub
 
+    Private Shared Sub InitMainClass()
+        m_main = New MainClass
+    End Sub
 
-    ''' <summary>
-    ''' Stellt ein Instanz des Startbildschirms dar
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private m_splashScreen As New frmSplashScreen
+    Private Shared Sub StartApplication()
+        If m_main.Initialize() Then
+            m_main.m_engine.MainApplication.SendMessage("Starte Hauptbildschirm...")
+            m_main.StartWindow()
+        End If
+    End Sub
 
-    Private Delegate Sub HideSplashScreenDele()
-
-
-
+    Private Shared Sub ShowHelpOnCommandLineDemand()
+        If Environment.CommandLine.Contains("/?") Or Environment.CommandLine.Contains("help") Or Environment.CommandLine.Contains("/h") Then
+            MessageBox.Show(CommandLineManager.GetAllAttributes(), Application.ProductName, MessageBoxButtons.OK)
+            End
+        End If
+    End Sub
 
     ''' <summary>
     ''' Zeigt den SplashScreen an 
@@ -122,31 +118,21 @@ Public Class MainClass
         End If
     End Sub
 
-
-    Private m_isFirstStart As Boolean
-
     ''' <summary>
-    ''' Zeu´gt an, das dieser HWL - Start zum ersten mal stattfindet
+    ''' Zeigt an, das dieser HWL - Start zum ersten mal stattfindet
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Property IsFirstStart As Boolean
-        Get
-            Return m_isFirstStart
-        End Get
-        Set(value As Boolean)
-            m_isFirstStart = value
-        End Set
-    End Property
+    Private Property IsFirstStart As Boolean
 
     ''' <summary>
     ''' Startet die Applikation, legt Datenbankverbindungen fest
     ''' </summary>
+    ''' <returns>True if successful start, false if startup was not successful</returns>
     ''' <remarks></remarks>
     Friend Function Initialize() As Boolean
         'Aktuell: Datenbankverbindung wird vorausgesetzt
-
 
         ' Styles einschalten
         DevExpress.LookAndFeel.UserLookAndFeel.Default.UseDefaultLookAndFeel = False
@@ -155,13 +141,13 @@ Public Class MainClass
         DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "LILIAN" ' <<< NEW LINE
         DevExpress.LookAndFeel.UserLookAndFeel.Default.SetWindowsXPStyle()
 
-        System.Windows.Forms.Application.EnableVisualStyles()
+        Application.EnableVisualStyles()
 
-        m_engine = New HWLInterops.Main
+        m_engine = New Main
 
         InitLanguage()
         Dim DatabaseCreated As Boolean = False ' wird durch wizzard auf "True" gesetzt, wenn die Datenbank neu ist 
-        Dim TaxesToCreate As ClausSoftware.Kernel.CountryInitialTaxRate = Nothing
+        Dim TaxesToCreate As Kernel.CountryInitialTaxRate = Nothing
 
         Dim sendStatisticalData As Boolean = True
 
@@ -225,13 +211,7 @@ Public Class MainClass
                 ' Beim ersten Start wurde eine HWL 1.7 Verbindung erkannt - diese auch speichern !
                 MainApplication.getInstance.Connections.SaveConnections()
             End If
-        Else
-
         End If
-
-
-
-
         ShowSplashScreen()
 
         m_engine.MainApplication.Connections.ReadConnections()
@@ -260,7 +240,7 @@ Public Class MainClass
             MainApplication.getInstance.TaxRates.Criteria = Nothing
             MainApplication.getInstance.TaxRates.Reload()
 
-            If ClausSoftware.Kernel.TaxRates.IsInvalid Then
+            If Kernel.TaxRates.IsInvalid Then
                 CheckTaxRates()
             End If
 
@@ -271,8 +251,6 @@ Public Class MainClass
         End If
 
         CheckBuildInReports()
-        ' Benutzerlogin anzeigen lassen, wenn Benutzer angemeldet sind und eine entsprechende Lizenz existiert
-        CheckUserLogin()
 
         HideSplashScreen()
 
@@ -295,9 +273,7 @@ Public Class MainClass
                         "Bitte weisen Sie den Steuersätzten die Eigenschaft 'Normal','Ermässigt' usw zu." & vbCrLf &
                         "Das ist leider nötig, da dies nicht automatich erkannt werden konnte.", "Steuersatzarten neu zuweisen", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-
-        Do While ClausSoftware.Kernel.TaxRates.IsInvalid
-
+        Do While Kernel.TaxRates.IsInvalid
 
             ' Dialog anzeigen lassen 
             Dim frm As New frmRepairTaxes
@@ -312,12 +288,11 @@ Public Class MainClass
 
             End If
 
-            If ClausSoftware.Kernel.TaxRates.IsInvalid Then
+            If Kernel.TaxRates.IsInvalid Then
                 'TODO: NLS
                 MessageBox.Show("Wenn Sie fortfahren, kann es zu Problemen bei der uweisung von Steuern kommen.", "{appname}", MessageBoxButtons.OK, MessageBoxIcon.Hand)
                 Exit Do
             End If
-
         Loop
     End Sub
 
@@ -326,8 +301,8 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub FillTaxRates()
-        Dim m_currentTaxeValues As ClausSoftware.Kernel.CountryInitialTaxRate
-        Dim taxes As New ClausSoftware.Kernel.CountryInitialTaxRates()
+        Dim m_currentTaxeValues As Kernel.CountryInitialTaxRate
+        Dim taxes As New Kernel.CountryInitialTaxRates()
         m_currentTaxeValues = taxes.GetLocalTaxRate
 
         Debug.Print("Repariere Steuersätze für: " & My.Application.Culture.NativeName)
@@ -336,7 +311,6 @@ Public Class MainClass
             ' -1 heisst nicht vergeben
 
             Dim itemTax As Kernel.TaxRate = MainApplication.getInstance.TaxRates.GetNewItem
-
 
             itemTax.Name = GetText("NoTax", "Ohne")
             itemTax.TaxStatus = Kernel.enumTaxKind.NullTax
@@ -379,7 +353,6 @@ Public Class MainClass
     End Sub
 
 
-
     ''' <summary>
     ''' Richtet die Sprache ein
     ''' </summary>
@@ -401,7 +374,7 @@ Public Class MainClass
 
                 Dim InvalidLanguage, headInvalidLanguage As String
 
-                If System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName = "de" Then
+                If Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName = "de" Then
                     InvalidLanguage = "Sie haben per Kommandozeile eine unbekannte Sprache angegeben. Bitte berichtigen sie die Kommandozeile." & vbCrLf &
                         "Benutzen Sie diese Form: ""/lang:de"" or ""/lang:de-de""" & vbCrLf & vbCrLf &
                     "Möchten Sie mit Deutsch fortfahren oder abbrechen?"
@@ -440,15 +413,15 @@ Public Class MainClass
 
         MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Information, "CreateDefaultDatabase: Erstellte standard Datenbank")
 
-        Dim defaultConnection As ClausSoftware.Tools.Connection = Tools.Connections.GetSimpelDefaultDatabase()
-        System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(defaultConnection.Path))
-        System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(defaultConnection.BackupPath))
+        Dim defaultConnection As Tools.Connection = Tools.Connections.GetSimpelDefaultDatabase()
+        IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(defaultConnection.Path))
+        IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(defaultConnection.BackupPath))
 
-        Dim templatePath As String = System.IO.Path.Combine(My.Application.Info.DirectoryPath, "TemplateDataBase\Template.mdb")
-        If Not System.IO.File.Exists(defaultConnection.Path & "\daten.mdb") Then
+        Dim templatePath As String = IO.Path.Combine(My.Application.Info.DirectoryPath, "TemplateDataBase\Template.mdb")
+        If Not IO.File.Exists(defaultConnection.Path & "\daten.mdb") Then
             ' Falls das Zielverzeichnis noh nicht existiert, dann anlegen
-            If Not System.IO.Directory.Exists(defaultConnection.Path) Then System.IO.Directory.CreateDirectory(defaultConnection.Path)
-            System.IO.File.Copy(templatePath, defaultConnection.Path & "\daten.mdb", False)
+            If Not IO.Directory.Exists(defaultConnection.Path) Then IO.Directory.CreateDirectory(defaultConnection.Path)
+            IO.File.Copy(templatePath, defaultConnection.Path & "\daten.mdb", False)
         Else
             Debug.Print("Datendatei existiert schon am Zielort: " & defaultConnection.Path)
         End If
@@ -463,25 +436,11 @@ Public Class MainClass
         End If
     End Sub
 
-    Private Sub CheckUserLogin()
-        'If MainApplication.getInstance.Users.Count > 0 Then
-
-        '    If MainApplication.getInstance.Licenses.IsActiveUserSecurity Then ' Nur wenn die Benutzereinrichtung lizensiert wurde, dann auch den Login-screen anzeigen lassen
-
-        '        Dim frm As New ClausSoftware.HWLInterops.frmLoginDlg
-        '        frm.Application = MainApplication.getInstance
-        '        frm.ShowDialog()
-        '    End If
-
-        'End If
-
-    End Sub
-
     ''' <summary>
     ''' Schreibt die gewählten Steuersätze in die lokale Datenbank
     ''' </summary>
     ''' <remarks></remarks>
-    Private Sub SetTaxRates(ByVal currentTaxeValues As ClausSoftware.Kernel.CountryInitialTaxRate)
+    Private Sub SetTaxRates(ByVal currentTaxeValues As Kernel.CountryInitialTaxRate)
         If MainApplication.getInstance.TaxRates.Count = 0 Then
             Dim tax As Kernel.TaxRate
 
@@ -541,7 +500,7 @@ Public Class MainClass
     ''' <remarks></remarks>
     Private Function CheckDBUserConnection() As Boolean
 
-        Dim res As ClausSoftware.DataBase.DBResult = Me.TestDatabaseConnection()
+        Dim res As DataBase.DBResult = Me.TestDatabaseConnection()
         If Not res.IsValid Then
             MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Critical, "CheckuserConnection detects an invalid Database connection. ErrorText: " & res.ErrorText)
         End If
@@ -566,14 +525,14 @@ Public Class MainClass
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function TestDatabaseConnection() As ClausSoftware.DataBase.DBResult
+    Public Function TestDatabaseConnection() As DataBase.DBResult
         '  Dim myApp As New ClausSoftware.mainApplication
         MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Verbose, "Startet Testen der Datenbankverbindung")
         'myApp.Connections.ReadConnections()
         MainApplication.getInstance.Connections.ReadConnections()
-        Dim mydefaultConnection As ClausSoftware.Tools.Connection = MainApplication.getInstance.Connections.WorkConnection
+        Dim mydefaultConnection As Tools.Connection = MainApplication.getInstance.Connections.WorkConnection
 
-        Dim result As New ClausSoftware.DataBase.DBResult()
+        Dim result As New DataBase.DBResult()
 
         If mydefaultConnection Is Nothing Then
             MainApplication.getInstance.log.WriteLog(Tools.LogSeverity.Verbose, "Keine Standardverbindung gefunden, erstellte neue Standardverbindung")
@@ -583,15 +542,15 @@ Public Class MainClass
         If mydefaultConnection IsNot Nothing Then
             'Falls lokale Installation, UND die Datenbankdatei konnt enicht gefunden werden, lege diese an (kopiere aus Template)
             If mydefaultConnection.Servertype = Tools.enumServerType.Access Then
-                If Not System.IO.File.Exists(mydefaultConnection.Path & "\daten.mdb") Then
+                If Not IO.File.Exists(mydefaultConnection.Path & "\daten.mdb") Then
                     CreateDefaultDatabase()
                 End If
             End If
 
 
-            Dim myTestDB As ClausSoftware.DataBase.DbEngine
+            Dim myTestDB As DataBase.DbEngine
 
-            myTestDB = New ClausSoftware.DataBase.DbEngine(mydefaultConnection)
+            myTestDB = New DataBase.DbEngine(mydefaultConnection)
             MainApplication.getInstance.SendMessage("Stelle Verbindung mit " & mydefaultConnection.GetConnectionShortDescription & " her...") ' TODO: NLS
             result = myTestDB.TestConnection()
             myTestDB.Dispose()
@@ -609,8 +568,6 @@ Public Class MainClass
         End If
 
         Return result
-
-
     End Function
 
     ''' <summary>
@@ -618,11 +575,11 @@ Public Class MainClass
     ''' </summary>
     ''' <remarks></remarks>
     Friend Sub StartWindow()
+        Dim MainWindow As New frmMain With {
+            .IsFirstStart = Me.IsFirstStart
+        }
 
-        Dim MainWindow As New frmMain
-        MainWindow.IsFirstStart = Me.IsFirstStart
-
-        System.Windows.Forms.Application.Run(MainWindow)
+        Application.Run(MainWindow)
 
     End Sub
 
@@ -639,7 +596,6 @@ Public Class MainClass
             AskFinalyBackup()
 
             m_engine.EndApplcation()
-
 
         Catch
 
@@ -695,14 +651,14 @@ Public Class MainClass
         Dim osVersion As New Version(My.Computer.Info.OSVersion)
         If osVersion.Major > 6 Then
             Throw New ApplicationException("Invalid OS System")
-            System.Windows.Forms.Application.Exit()
+            Application.Exit()
             End
         End If
 
 
         If osVersion.Minor > 3 Then
             Throw New ApplicationException("Invalid OS System")
-            System.Windows.Forms.Application.Exit()
+            Application.Exit()
             End
         End If
 

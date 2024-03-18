@@ -1,7 +1,7 @@
 ﻿
 Public Class CommandLineManager
         Public Shared Function GetAllAttributes() As String
-            Dim c As New ClausSoftware.Kernel.CommandLineManager
+            Dim c As New Kernel.CommandLineManager
             c.GetCommandlineArguments()
 
             Dim commandLines As String = String.Empty

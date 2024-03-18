@@ -4,7 +4,6 @@ Option Strict On
 Imports NUnit.Framework
 Imports ClausSoftware
 Imports ClausSoftware.Kernel
-Imports DevExpress.Xpo
 
 <Category("Rechteverwaltung")> _
 <TestFixture()> _
@@ -20,7 +19,7 @@ Public Class testSecurity
 
         Debug.Print("CurrentUser(text) = " & MainApplication.getInstance.CurrentUser.ToString)
 
-        Assert.IsNotNullOrEmpty(Security.Users.MachineUserName, "einen Maschinen benutzername sollte vergeben worden sein")
+        Assert.IsNotEmpty(Security.Users.MachineUserName, "einen Maschinen benutzername sollte vergeben worden sein")
         Debug.Print("MaschineUsername = " & Security.Users.MachineUserName)
 
         'TODO: Rechte prüfungen durchführen

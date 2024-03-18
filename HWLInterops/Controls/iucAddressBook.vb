@@ -732,9 +732,8 @@ Public Class iucAddressBook
 
                         journal.ShowAllByAdressID = m_activeItem.Kundennummer
 
-                        If journal.ShowDialog = DialogResult.OK Then ' Falls ein Doppelklick gemaht wurde, dann das Teil auch öffnen
+                        If journal.ShowDialog = DialogResult.OK Then ' Falls ein Doppelklick gemacht wurde, dann das Teil auch öffnen
                             MainUI.OpenElementWindow(journal.SelectedDocument)
-
                         End If
                     End Using
                 End If

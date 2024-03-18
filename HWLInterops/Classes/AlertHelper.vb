@@ -29,9 +29,7 @@ Public Class AlertHelper
         If TypeOf e.Info.Tag Is AlertElement Then
 
             Dim AlertElement As AlertElement = CType(e.Info.Tag, HWLInterops.AlertElement)
-            If AlertElement.OnClick IsNot Nothing Then
-                AlertElement.OnClick.Invoke(AlertElement)
-            End If
+            AlertElement.OnClick?.Invoke(AlertElement)
 
         End If
     End Sub

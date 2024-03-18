@@ -5,8 +5,6 @@ Imports NUnit.Framework
 Imports ClausSoftware
 Imports ClausSoftware.Kernel
 
-Imports DevExpress.Xpo
-
 
 <TestFixture(Description:="Journal")> _
 Public Class TestJournal
@@ -188,7 +186,7 @@ Public Class TestJournal
         Assert.NotNull(MainApplication.getInstance.JournalDocuments.DocumentTypeNames, "Journaltypen müssen gefüllt werden!")
 
         For Each item As JournalDocumentType In MainApplication.getInstance.JournalDocuments.DocumentTypeNames
-            Assert.IsNotNullOrEmpty(item.Name, "Typename darf niemals leer sein !")
+            Assert.IsNotEmpty(item.Name, "Typename darf niemals leer sein !")
         Next
 
         'der "Alle" - Typ

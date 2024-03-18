@@ -1,7 +1,4 @@
-﻿Imports System
-Imports System.Text
-Imports System.Collections.Generic
-Imports NUnit.Framework
+﻿Imports NUnit.Framework
 
 
 ''' <summary>
@@ -10,7 +7,6 @@ Imports NUnit.Framework
 ''' <remarks></remarks>
 <TestFixture()> _
 Public Class CoreTests
-
 
     <Test()> _
     Public Sub Test1()

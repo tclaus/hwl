@@ -238,7 +238,7 @@ Friend Class AutoWaitCursor
         ''' <param name="lpdwResult"></param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")> <DllImport("user32.dll", CharSet:=Runtime.InteropServices.CharSet.Auto, SetLastError:=True)> _
+        <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")> <DllImport("user32.dll", CharSet:=Runtime.InteropServices.CharSet.Auto, SetLastError:=True)> _
       Private Shared Function SendMessageTimeout(ByVal hWnd As IntPtr, ByVal Msg As Integer, ByVal wParam As Integer, ByVal lParam As String, ByVal fuFlags As Integer, ByVal uTimeout As Integer, ByRef lpdwResult As Integer) As <MarshalAs(UnmanagedType.Bool)> Boolean
         End Function
 
@@ -250,7 +250,7 @@ Friend Class AutoWaitCursor
         ''' <param name="attach"></param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")> <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1414:MarkBooleanPInvokeArgumentsWithMarshalAs")> <DllImport("USER32.DLL")> _
+        <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")> <CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1414:MarkBooleanPInvokeArgumentsWithMarshalAs")> <DllImport("USER32.DLL")> _
       Private Shared Function AttachThreadInput(ByVal attachTo As System.UInt32, ByVal attachFrom As System.UInt32, ByVal attach As Boolean) As System.UInt32
         End Function
 
@@ -259,7 +259,7 @@ Friend Class AutoWaitCursor
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")> <DllImport("KERNEL32.DLL")> _
+        <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")> <DllImport("KERNEL32.DLL")> _
         Private Shared Function GetCurrentThreadId() As System.UInt32
         End Function
 
@@ -288,7 +288,7 @@ Friend Class AutoWaitCursor
         ''' <summary>
         ''' On Disposal terminates the Thread, calls Finish (on thread) if Start has been called
         ''' </summary>
-        Public Sub Dispose() Implements System.IDisposable.Dispose
+        Public Sub Dispose() Implements IDisposable.Dispose
             If (m_isDisposed) Then
                 Return
             End If
@@ -480,7 +480,7 @@ Friend Class AutoWaitCursor
         ''' If the application doesn't respond with the timespan, will return false,
         ''' else returns true.
         ''' </summary>
-        <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")> Private Function IsApplicationBusy(ByVal delay As TimeSpan, ByVal windowHandle As IntPtr) As Boolean
+        <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")> Private Function IsApplicationBusy(ByVal delay As TimeSpan, ByVal windowHandle As IntPtr) As Boolean
             Const INFINITE As Integer = Int32.MaxValue
             Const WM_NULL As Integer = 0
 

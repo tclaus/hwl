@@ -1,3 +1,7 @@
+Version 2.7
+16.03.2024
+- Code modernisiert, keine neuen Funktionen
+
 Version 2.6.0
 17.06.2019
 - Code aufgeräumt, interne Optimierungen

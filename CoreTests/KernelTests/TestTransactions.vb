@@ -5,8 +5,6 @@ Imports NUnit.Framework
 Imports ClausSoftware
 Imports ClausSoftware.Kernel
 
-Imports DevExpress.Xpo
-
 
 <TestFixture(Description:="Transaktionen (Geschäftsvorfälle)")> _
 Public Class TestTransactions

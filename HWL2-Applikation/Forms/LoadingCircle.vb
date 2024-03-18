@@ -24,13 +24,8 @@
 ' OF SUCH DAMAGE.
 '
 
-Imports System
-Imports System.Collections.Generic
 Imports System.ComponentModel
-Imports System.Drawing
 Imports System.Drawing.Drawing2D
-Imports System.Text
-Imports System.Windows.Forms
 
 Namespace MRG.Controls.UI
     <DebuggerStepThrough()> _
@@ -104,7 +99,7 @@ Namespace MRG.Controls.UI
         ''' Gets or sets the outer circle radius.
         ''' </summary>
         ''' <value>The outer circle radius.</value>
-        <System.ComponentModel.Description("Gets or sets the radius of outer circle."), System.ComponentModel.Category("LoadingCircle")> _
+        <Description("Gets or sets the radius of outer circle."), Category("LoadingCircle")> _
         Public Property OuterCircleRadius() As Integer
             Get
                 If m_OuterCircleRadius = 0 Then
@@ -123,7 +118,7 @@ Namespace MRG.Controls.UI
         ''' Gets or sets the inner circle radius.
         ''' </summary>
         ''' <value>The inner circle radius.</value>
-        <System.ComponentModel.Description("Gets or sets the radius of inner circle."), System.ComponentModel.Category("LoadingCircle")> _
+        <Description("Gets or sets the radius of inner circle."), Category("LoadingCircle")> _
         Public Property InnerCircleRadius() As Integer
             Get
                 If m_InnerCircleRadius = 0 Then
@@ -142,7 +137,7 @@ Namespace MRG.Controls.UI
         ''' Gets or sets the number of spoke.
         ''' </summary>
         ''' <value>The number of spoke.</value>
-        <System.ComponentModel.Description("Gets or sets the number of spoke."), System.ComponentModel.Category("LoadingCircle")> _
+        <Description("Gets or sets the number of spoke."), Category("LoadingCircle")> _
         Public Property NumberSpoke() As Integer
             Get
                 If m_NumberOfSpoke = 0 Then
@@ -166,7 +161,7 @@ Namespace MRG.Controls.UI
         ''' Gets or sets a value indicating whether this <see cref="T:LoadingCircle"/> is active.
         ''' </summary>
         ''' <value><c>true</c> if active; otherwise, <c>false</c>.</value>
-        <System.ComponentModel.Description("Gets or sets the number of spoke."), System.ComponentModel.Category("LoadingCircle")> _
+        <Description("Gets or sets the number of spoke."), Category("LoadingCircle")> _
         Public Property Active() As Boolean
             Get
                 Return m_IsTimerActive
@@ -181,7 +176,7 @@ Namespace MRG.Controls.UI
         ''' Gets or sets the spoke thickness.
         ''' </summary>
         ''' <value>The spoke thickness.</value>
-        <System.ComponentModel.Description("Gets or sets the thickness of a spoke."), System.ComponentModel.Category("LoadingCircle")> _
+        <Description("Gets or sets the thickness of a spoke."), Category("LoadingCircle")> _
         Public Property SpokeThickness() As Integer
             Get
                 If m_SpokeThickness <= 0 Then
@@ -200,7 +195,7 @@ Namespace MRG.Controls.UI
         ''' Gets or sets the rotation speed.
         ''' </summary>
         ''' <value>The rotation speed.</value>
-        <System.ComponentModel.Description("Gets or sets the rotation speed. Higher the slower."), System.ComponentModel.Category("LoadingCircle")> _
+        <Description("Gets or sets the rotation speed. Higher the slower."), Category("LoadingCircle")> _
         Public Property RotationSpeed() As Integer
             Get
                 Return m_Timer.Interval
@@ -476,10 +471,10 @@ Namespace MRG.Controls.UI
         ''' <param name="innerCircleRadius">The inner circle radius.</param>
         ''' <param name="outerCircleRadius">The outer circle radius.</param>
         Public Sub SetCircleAppearance(ByVal numberSpoke As Integer, ByVal spokeThickness As Integer, ByVal innerCircleRadius As Integer, ByVal outerCircleRadius As Integer)
-            numberSpoke = numberSpoke
-            spokeThickness = spokeThickness
-            innerCircleRadius = innerCircleRadius
-            outerCircleRadius = outerCircleRadius
+            Me.NumberSpoke = numberSpoke
+            Me.SpokeThickness = spokeThickness
+            Me.InnerCircleRadius = innerCircleRadius
+            Me.OuterCircleRadius = outerCircleRadius
 
             Invalidate()
         End Sub

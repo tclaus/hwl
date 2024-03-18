@@ -13,7 +13,7 @@ Public Class frmInstallWizzard
     ''' Enthält den aktuell eingestellten Steuersatz für dieses Land
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_currentTaxeValues As ClausSoftware.Kernel.CountryInitialTaxRate
+    Private m_currentTaxeValues As Kernel.CountryInitialTaxRate
 
 
 
@@ -23,7 +23,7 @@ Public Class frmInstallWizzard
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Friend ReadOnly Property CurrentTaxValues() As ClausSoftware.Kernel.CountryInitialTaxRate
+    Friend ReadOnly Property CurrentTaxValues() As Kernel.CountryInitialTaxRate
         Get
             Return m_currentTaxeValues
         End Get
@@ -55,7 +55,7 @@ Public Class frmInstallWizzard
         ' 1. Anhand der eingebauten Tabelle suchen; 
         ' 2. Falls nicht vorhanden, erfragen
         lstTaxData.Items.Clear()
-        Dim taxes As New ClausSoftware.Kernel.CountryInitialTaxRates()
+        Dim taxes As New Kernel.CountryInitialTaxRates()
         m_currentTaxeValues = taxes.GetLocalTaxRate
 
         lblCountryCodeTaxRates.Text = My.Application.Culture.NativeName
@@ -145,7 +145,7 @@ Public Class frmInstallWizzard
         End Select
     End Function
 
-    Private Sub frmInstallWizzard_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub frmInstallWizzard_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         If Me.DesignMode Then Exit Sub
 
         IucOptionConnections1.Reload()
@@ -162,11 +162,11 @@ Public Class frmInstallWizzard
 
     End Sub
 
-    Private Sub btnCustomInstallation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomInstallation.Click
+    Private Sub btnCustomInstallation_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles btnCustomInstallation.Click
         Me.WizardControl1.SetNextPage()
     End Sub
 
-    Private Sub btnDefaultSimpleInstallation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDefaultSimpleInstallation.Click
+    Private Sub btnDefaultSimpleInstallation_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles btnDefaultSimpleInstallation.Click
         ' Standard-Verbindung: 
         ' Altes HWL wird verwendet
         ' (Neue Db angelegt, falls kein altes HWL da ist)
@@ -177,7 +177,7 @@ Public Class frmInstallWizzard
         Me.Close()
     End Sub
 
-    Private Sub picSendUserData_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+    Private Sub picSendUserData_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs)
         MessageBox.Show(GetText("msgSendStatisticDataInfo", "Sendet anonyme Daten zur nutzungsweise oder Fehlermeldungen an den Hersteller. Damit können wir die Softwarequalität stetig verbessern." & vbCrLf & vbCrLf &
                                 "Sie können diese Einstellung auch später im Menü 'Hilfe' jederzeit ändern."), GetText("msgSendStatisticDataInfoHead", "Sendet anonyme statistische Daten"), MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub

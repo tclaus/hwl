@@ -229,7 +229,7 @@ Namespace DataBase
         Private Function GetProviderFactory() As DbProviderFactory
 
             Dim dt As DataTable = DbProviderFactories.GetFactoryClasses
-            Dim searchForName As String = ""
+            Dim searchForName As String
 
             Select Case m_connectionData.Servertype
 
@@ -761,7 +761,7 @@ Namespace DataBase
                 Dim size As Object = row("CHARACTER_MAXIMUM_LENGTH")
 
                 ' Dann muss eine Zahl drauf stehen. (geht nicht anders) 
-                If Not TypeOf size Is DBNull Then
+                If TypeOf size IsNot DBNull Then
                     If CLng(size) = 0 Then
                         size = 65536L  ' Dann war es wohl ein längeres MEMO - Feld
                         'TODO: Für andere sehr langen Felder prüfen!

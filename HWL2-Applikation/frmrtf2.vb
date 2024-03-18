@@ -3,7 +3,7 @@
 
 
 
-    Private Sub frmrtf2_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub frmrtf2_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Initialize()
     End Sub
 

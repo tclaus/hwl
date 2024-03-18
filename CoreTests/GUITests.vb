@@ -1,14 +1,11 @@
 ﻿Imports NUnit.Framework
-Imports ClausSoftware
-Imports ClausSoftware.Kernel
-Imports ClausSoftware.HWLInterops
 
 
 <Category("Gui-Tests")> _
 <TestFixture()> _
 Public Class GUITests
 
-    
+
 
     <Description("Startet alle Module einmal")> _
     <Test()> _

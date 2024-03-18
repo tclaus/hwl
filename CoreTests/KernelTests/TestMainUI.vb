@@ -3,12 +3,9 @@ Option Strict On
 
 Imports NUnit.Framework
 Imports ClausSoftware
-Imports ClausSoftware.Kernel
 Imports ClausSoftware.Data
 
 Imports ClausSoftware.HWLInterops
-
-Imports DevExpress.Xpo
 
 ''' <summary>
 ''' Testet aspekte der Haupt UI

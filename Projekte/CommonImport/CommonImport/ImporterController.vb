@@ -246,7 +246,7 @@ Public Class ImporterController
                         TargetValue = item(targetI.SourceID)
                         Dim orgType As System.Type = newItem.GetType.GetProperty(targetI.Target.PropertyName).PropertyType
 
-                        If Not TargetValue.GetType Is orgType Then
+                        If TargetValue.GetType IsNot orgType Then
 
                             If orgType.Equals(GetType(Int16)) Then
                                 TargetValue = CInt(TargetValue)

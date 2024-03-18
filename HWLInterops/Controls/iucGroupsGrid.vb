@@ -1,32 +1,24 @@
 Imports ClausSoftware.Kernel
 Imports ClausSoftware.Tools.RegistrySections
-Imports System.Environment
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.Xpo
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
-Imports DevExpress.XtraPrintingLinks
-Imports DevExpress.XtraPrinting
 Imports DevExpress.XtraGrid.Columns
 Imports DevExpress.XtraTreeList.Nodes
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraTreeList
-Imports DevExpress.XtraGrid
-Imports System.Collections.Generic
 
 Public Class iucGroupsGrid
-
 
     ''' <summary>
     ''' Enthält die aktuell selektierte Zeile
     ''' </summary>
     ''' <remarks></remarks>
     Private m_selectedAttachment As Attachment
-
     Private m_attachmentImporter As New AttachmentImporter
 
-
     ''' <summary>
-    ''' enthält den aktuellen Artikel, er im Grid selektiert ist
+    ''' Enthält den aktuellen Artikel, er im Grid selektiert ist
     ''' </summary>
     ''' <remarks></remarks>
     Private m_focusedItem As Article
