@@ -1123,17 +1123,10 @@ Public Class MainApplication
             If myConnection IsNot Nothing Then
                 If m_mainSession IsNot Nothing AndAlso m_mainSession.IsConnected And Not myConnection.Equals(oldconnnection) Then
                     log.WriteLog("Verbindung zum XPO-Objekt war noch geöffnet und eine andere Verbindung wird angefordert.")
-
-
                     m_mainSession.Connection.Close()
-
-                Else
-
-
                 End If
 
                 Dim connState As Boolean
-
 
                 If m_mainSession Is Nothing Then
                     connState = False

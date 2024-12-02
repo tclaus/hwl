@@ -13,6 +13,7 @@ Namespace DataBase
         Private m_connectionString As String
         Private m_datbasename As String
         Private m_dbconnection As DbConnection
+
         Private ReadOnly m_timeout As Integer = 3600 ' 60 Minuten Timeout (default ist 30) 
         Private m_connectionData As Tools.Connection
 
@@ -63,6 +64,7 @@ Namespace DataBase
 
 
             Catch ex As MySql.Data.MySqlClient.MySqlException
+
                 result.IsValid = False
                 result.ErrorText = ex.Message & Environment.NewLine
 
@@ -278,12 +280,7 @@ Namespace DataBase
                 End If
 
                 If m_connectionData.Servertype = Tools.enumServerType.MySQL Then
-
-
                     m_dbconnection = New MySql.Data.MySqlClient.MySqlConnection(constr)
-
-
-
                 Else
                     Dim factory As DbProviderFactory
                     factory = GetProviderFactory()
