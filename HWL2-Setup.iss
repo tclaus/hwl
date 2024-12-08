@@ -66,6 +66,8 @@ Source: HWLInterops\bin\Release\DevExpress.PivotGrid.v11.2.Core.dll; DestDir: {a
 Source: HWL2-Applikation\bin\release\HWLInterops.dll; DestDir: {app}; Flags: ignoreversion
 Source: HWL2-Applikation\bin\release\HWLKernel.dll; DestDir: {app}; Flags: ignoreversion
 Source: HWL-Kernel\bin\release\MySql.Data.dll; DestDir: {app}; Flags: ignoreversion
+Source: HWL-Kernel\bin\Release\System.Threading.Tasks.Extensions.dll; DestDir: {app}; Flags: ignoreversion
+Source: HWL-Kernel\bin\Release\System.Runtime.CompilerServices.Unsafe.dll; DestDir: {app}; Flags: ignoreversion
 Source: HWL2-Applikation\bin\release\HWL2.exe; DestDir: {app}; Flags: ignoreversion
 Source: DevExpress.language.DLL\de\DevExpress.Data.v11.2.resources.dll; DestDir: {app}\de\
 Source: DevExpress.language.DLL\de\DevExpress.Utils.v11.2.resources.dll; DestDir: {app}\de\
