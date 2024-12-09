@@ -1,3 +1,7 @@
+Version 2.6.1
+02.12.2024
+- Mysql Datenbanktreiber aktualisiert - läuft nun auch mit neuster MariaDB Version (11.x)
+
 Version 2.6.0
 17.06.2019
 - Code aufgeräumt, interne Optimierungen

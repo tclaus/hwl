@@ -18,10 +18,10 @@ Die aktive Entwicklung wurde zwar eingestellt - für das Schreiben von Rechnunge
 - Windows Vista
 - Windows 7
 - Windows 8
-- Windows 10
+- Windows 10,11
 
 ### Ausführbares Installationspaket
-Download für Windows Vista, 7, 8 10
+Download für Windows Vista, 7, 8 10, 11
 [hwl2.5-setup.exe](https://github.com/tclaus/hwl/releases/download/2.5/hwl2.5-setup.exe)
 
 

@@ -3,7 +3,6 @@
           xmlns="http://schemas.microsoft.com/developer/msbuild/2003"    InitialTargets="CopyTrunc">     
    <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
 
- 
 
      <Target Name="Build"  >       
        <Message  Importance="high" Text="Building Soulution..."/>
@@ -39,19 +38,8 @@
      <Exec Command="$(ToolPath) $(Param1)"/>
    </Target>
    
-   <!--
-   <Target Name="CreateSetup-PB" DependsOnTargets="Test">
-     <PropertyGroup>
-       <ToolPath>&quot;$(ProgramFiles)\Inno Setup 5\iscc.exe&quot;</ToolPath>
-       <Param1>PB2-Setup.iss</Param1>
-     </PropertyGroup>
-     <Message Importance="high" Text="Creating Power-Büro Setup..."/>
-     <Exec Command="$(ToolPath) $(Param1)"/>
-   </Target>
-   -->
    
-   
-<!-- Nach Test die Ausgabe kopieren  Power-Büro ist nun raus-->
+<!-- Nach Test die Ausgabe kopieren -->
    <Target Name="CopyTrunc" DependsOnTargets="CreateSetup-HWL;CreateUpdate-HWL"> 
 
      <ItemGroup> <!-- ItemGroups definieren Dateien -->
@@ -85,21 +73,6 @@
      <!--Das setup nun mit Versionsnummer umbenennen -->    
      <Move SourceFiles="$(DestHWLFolder)\$(Major).$(Minor).$(Build)\HWL2.5-Setup.exe"
                      DestinationFiles="$(DestHWLFolder)\$(Major).$(Minor).$(Build)\HWL2-Setup-$(Major).$(Minor).$(Build).$(Revision).exe" />
-
-     
-     <!-- Power Büro kopieren
-     <Message Importance="high" Text="Copying setup to $(DestPBFolder)..."/>
-
-     // Kopiert das HWL-Setup aus dem Ausgabeordner in ein öffentliches Verzechnis 
-     <Copy SourceFiles="@(MyPBSourceFiles)" DestinationFolder="$(DestPBFolder)\$(Major).$(Minor).$(Build)" />
-     <Copy SourceFiles="@(MyPBSourceFiles)" DestinationFolder="$(DestPBFolder)\Latest" />
-     <Copy SourceFiles="changelog.txt" DestinationFolder="$(DestPBFolder)\Latest" />
-
-     // Das setup nun mit Versionsnummer umbenennen 
-     <Move SourceFiles="$(DestPBFolder)\$(Major).$(Minor).$(Build)\PB2-Setup.exe"
-                     DestinationFiles="$(DestPBFolder)\$(Major).$(Minor).$(Build)\PB2-Setup-$(Major).$(Minor).$(Build).$(Revision).exe" />
-                     
-    -->  
      
    </Target>
 
