@@ -6,7 +6,7 @@ VersionInfoProductName=HWL 2.6
 VersionInfoProductVersion=2.6
 AppName=HWL Business
 PrivilegesRequired=admin
-DefaultDirName={pf}\HWL2.5
+DefaultDirName={commonpf}\HWL2.5
 DefaultGroupName=HWL-2
 OutputBaseFilename=hwl2.5-setup
 MinVersion=0,6.1.7600
@@ -16,7 +16,7 @@ DisableDirPage=true
 ShowLanguageDialog=auto
 AppMutex=HWL2
 DisableProgramGroupPage=true
-AppPublisherURL=https://claus-software.de
+AppPublisherURL=https://github.com/tclaus/hwl
 UninstallDisplayIcon={app}\HWL2.exe
 SolidCompression=false
 Compression=lzma/normal
@@ -24,86 +24,79 @@ MergeDuplicateFiles=false
 AppCopyright=Claus-Software 2024
 AppID={{2C7F937E-6B45-41C0-992C-1295FFE55750}
 VersionInfoTextVersion=2.6
-AppSupportURL=https://www.claus-software.de/hwl-archiv/
 AppPublisher=Claus-Software
-AppUpdatesURL=https://www.claus-software.de/hwl-archiv/
 
 [Files]
-Source: HWL2-Applikation\bin\release\Vista Api.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\HWL\ApplicationInfo.ini; DestDir: {app}; Flags: ignoreversion
-Source: HWL-Kernel\bin\release\DevExpress.Data.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\DevExpress.Utils.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL-Kernel\bin\release\DevExpress.Xpo.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\DevExpress.XtraBars.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\DevExpress.XtraEditors.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\DevExpress.XtraGrid.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraNavBar.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\DevExpress.XtraWizard.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.Core.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.Reporting.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.XtraScheduler.v11.2.OutlookExchange.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.XtraScheduler.v11.2.iCalendarExchange.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.CodeParser.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraCharts.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraLayout.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraTreeList.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.Charts.v11.2.Core.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraRichEdit.v11.2.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraRichEdit.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.RichEdit.v11.2.Core.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraReports.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.Reports.v11.2.Designer.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraReports.v11.2.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraPrinting.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.Printing.v11.2.Core.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\release\DevExpress.XtraVerticalGrid.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.SpellChecker.v11.2.Core.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.XtraSpellChecker.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.XtraPivotGrid.v11.2.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWLInterops\bin\Release\DevExpress.PivotGrid.v11.2.Core.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\HWLInterops.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\HWLKernel.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL-Kernel\bin\release\MySql.Data.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL-Kernel\bin\Release\System.Threading.Tasks.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL-Kernel\bin\Release\System.Runtime.CompilerServices.Unsafe.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\HWL2.exe; DestDir: {app}; Flags: ignoreversion
-Source: DevExpress.language.DLL\de\DevExpress.Data.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.Utils.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.Xpo.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraBars.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraCharts.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraEditors.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraGrid.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraLayout.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraNavBar.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraPrinting.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraReports.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraRichEdit.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraScheduler.v11.2.Core.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraScheduler.v11.2.Extensions.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraScheduler.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraTreeList.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraVerticalGrid.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.XtraWizard.v11.2.resources.dll; DestDir: {app}\de\
-Source: DevExpress.language.DLL\de\DevExpress.RichEdit.v11.2.Core.resources.dll; DestDir: {app}\de\
-Source: HWL2-Applikation\bin\release\TemplateDataBase\template.mdb; DestDir: {app}\TemplateDataBase; Flags: overwritereadonly
-Source: HWL2-Applikation\bin\release\Mommosoft.Capi.dll; DestDir: {app}; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\HWLKernel.xml; DestDir: {app}; Flags: ignoreversion
-Source: Projekte\CommonImport\CommonImport\bin\release\CommonImport.dll; DestDir: {app}\connectors\CommonImport; Flags: ignoreversion
-Source: HWL2-Applikation\bin\release\en-gb.txt; DestDir: {commonappdata}\HWL2\Languages; Flags: promptifolder
-Source: HWL2-Applikation\bin\release\de-de.txt; DestDir: {commonappdata}\HWL2\Languages; Flags: promptifolder
-Source: HWL2-Applikation\bin\Release\ru-ru.txt; DestDir: {commonappdata}\HWL2\Languages; Flags: promptifolder
-Source: HWL2-Applikation\bin\Release\pl-pl.txt; DestDir: {commonappdata}\HWL2\Languages; Flags: promptifolder
-Source: HWL2-Applikation\bin\Release\fr-fr.txt; DestDir: {commonappdata}\HWL2\Languages; Flags: promptifolder
-Source: HWL2-Applikation\bin\Release\it.txt; DestDir: {commonappdata}\HWL2\Languages; Flags: promptifolder
-Source: HWL2-Applikation\bin\release\Helpfiles\Help-de.chm; DestDir: {app}\helpfiles
-Source: Projekte\Datanorm\bin\release\Datanorm.dll; DestDir: {app}\connectors\datanorm; Flags: ignoreversion
-Source: Projekte\Datanorm\bin\Release\converter\DATANK05.exe; DestDir: {app}\connectors\datanorm; Flags: ignoreversion
-Source: Projekte\Datanorm\bin\Release\converter\DATANDAT.DAT; DestDir: {app}\connectors\datanorm; Flags: ignoreversion
-Source: Projekte\Datanorm\bin\release\Datanorm.dll; DestDir: {app}\connectors\SHK-Connect; Flags: ignoreversion
-
+Source: "HWL2-Applikation\bin\release\Vista Api.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\HWL\ApplicationInfo.ini"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\release\DevExpress.Data.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\DevExpress.Utils.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\release\DevExpress.Xpo.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\DevExpress.XtraBars.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\DevExpress.XtraEditors.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\DevExpress.XtraGrid.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraNavBar.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\DevExpress.XtraWizard.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraScheduler.v11.2.Reporting.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.XtraScheduler.v11.2.OutlookExchange.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.XtraScheduler.v11.2.iCalendarExchange.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.CodeParser.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraCharts.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraLayout.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraTreeList.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.Charts.v11.2.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraRichEdit.v11.2.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraRichEdit.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.RichEdit.v11.2.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraReports.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.Reports.v11.2.Designer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraReports.v11.2.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraPrinting.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.Printing.v11.2.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\release\DevExpress.XtraVerticalGrid.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.SpellChecker.v11.2.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.XtraSpellChecker.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.XtraPivotGrid.v11.2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWLInterops\bin\Release\DevExpress.PivotGrid.v11.2.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\HWLInterops.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\HWLKernel.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\release\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\HWL2.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "DevExpress.language.DLL\de\DevExpress.Data.v11.2.resources.dll"; \
+    DestDir: "{app}\TemplateDataBase"; \
+    Flags: overwritereadonly
+Source: "HWL2-Applikation\bin\release\Mommosoft.Capi.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\HWLKernel.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Projekte\CommonImport\CommonImport\bin\release\CommonImport.dll"; DestDir: "{app}\connectors\CommonImport"; Flags: ignoreversion
+Source: "HWL2-Applikation\bin\release\en-gb.txt"; DestDir: "{commonappdata}\HWL2\Languages"; Flags: promptifolder
+Source: "HWL2-Applikation\bin\release\de-de.txt"; DestDir: "{commonappdata}\HWL2\Languages"; Flags: promptifolder
+Source: "HWL2-Applikation\bin\Release\ru-ru.txt"; DestDir: "{commonappdata}\HWL2\Languages"; Flags: promptifolder
+Source: "HWL2-Applikation\bin\Release\pl-pl.txt"; DestDir: "{commonappdata}\HWL2\Languages"; Flags: promptifolder
+Source: "HWL2-Applikation\bin\Release\fr-fr.txt"; DestDir: "{commonappdata}\HWL2\Languages"; Flags: promptifolder
+Source: "HWL2-Applikation\bin\Release\it.txt"; DestDir: "{commonappdata}\HWL2\Languages"; Flags: promptifolder
+Source: "HWL2-Applikation\bin\release\Helpfiles\Help-de.chm"; DestDir: "{app}\helpfiles"
+Source: "Projekte\Datanorm\bin\release\Datanorm.dll"; DestDir: "{app}\connectors\datanorm"; Flags: ignoreversion
+Source: "Projekte\Datanorm\bin\Release\converter\DATANK05.exe"; DestDir: "{app}\connectors\datanorm"; Flags: ignoreversion
+Source: "Projekte\Datanorm\bin\Release\converter\DATANDAT.DAT"; DestDir: "{app}\connectors\datanorm"; Flags: ignoreversion
+Source: "Projekte\Datanorm\bin\release\Datanorm.dll"; DestDir: "{app}\connectors\SHK-Connect"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\BouncyCastle.Cryptography.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\Google.Protobuf.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\K4os.Compression.LZ4.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\K4os.Compression.LZ4.Streams.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\K4os.Hash.xxHash.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.Buffers.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.Configuration.ConfigurationManager.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.Diagnostics.DiagnosticSource.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.IO.Pipelines.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.Memory.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.Numerics.Vectors.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.Runtime.CompilerServices.Unsafe.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "HWL-Kernel\bin\Release\ZstdSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Dirs]
 Name: {app}\de
